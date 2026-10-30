@@ -1,0 +1,1216 @@
+{
+  "format": "canary.notebook/1",
+  "slug": "emax",
+  "headHash": "36e48891bb457da8cbafd04306b8516f626b6c9a71e580034920782a2250b745",
+  "verdict": "pump-and-dump",
+  "collapsed": true,
+  "promoters": 3,
+  "frozenAt": "2026-10-30T02:22:07.530Z",
+  "engineCommit": "f86ef00",
+  "note": "The agents' notebook exactly as recorded on-chain by the Chainlink workflow. Verify it at /verify.",
+  "trail": [
+    {
+      "seq": 0,
+      "at": "2026-10-30T00:00:02.000Z",
+      "agent": "collector",
+      "kind": "collector.loaded",
+      "summary": "Loaded the EthereumMax (EMAX) case: 11 promoter posts, 129 daily prices, 7 legal actions.",
+      "evidenceIds": [
+        "pierce-2021-05-26",
+        "pierce-2021-05-28",
+        "pierce-2021-05-29",
+        "pierce-2021-05-30-train",
+        "pierce-2021-05-30-coach",
+        "pierce-2021-06-05",
+        "kardashian-2021-05-30",
+        "kardashian-2021-06-13",
+        "mayweather-2021-05-26",
+        "mayweather-2021-06-conference",
+        "mayweather-2021-06-06",
+        "price:2021-05-25",
+        "price:2021-05-26",
+        "price:2021-05-27",
+        "price:2021-05-28",
+        "price:2021-05-29",
+        "price:2021-05-30",
+        "price:2021-05-31",
+        "price:2021-06-01",
+        "price:2021-06-02",
+        "price:2021-06-03",
+        "price:2021-06-04",
+        "price:2021-06-05",
+        "price:2021-06-06",
+        "price:2021-06-07",
+        "price:2021-06-08",
+        "price:2021-06-09",
+        "price:2021-06-10",
+        "price:2021-06-11",
+        "price:2021-06-12",
+        "price:2021-06-13",
+        "price:2021-06-14",
+        "price:2021-06-15",
+        "price:2021-06-16",
+        "price:2021-06-17",
+        "price:2021-06-18",
+        "price:2021-06-19",
+        "price:2021-06-20",
+        "price:2021-06-21",
+        "price:2021-06-22",
+        "price:2021-06-23",
+        "price:2021-06-24",
+        "price:2021-06-25",
+        "price:2021-06-26",
+        "price:2021-06-27",
+        "price:2021-06-28",
+        "price:2021-06-29",
+        "price:2021-06-30",
+        "price:2021-07-01",
+        "price:2021-07-02",
+        "price:2021-07-03",
+        "price:2021-07-04",
+        "price:2021-07-05",
+        "price:2021-07-06",
+        "price:2021-07-07",
+        "price:2021-07-08",
+        "price:2021-07-09",
+        "price:2021-07-10",
+        "price:2021-07-11",
+        "price:2021-07-12",
+        "price:2021-07-13",
+        "price:2021-07-14",
+        "price:2021-07-15",
+        "price:2021-07-16",
+        "price:2021-07-17",
+        "price:2021-07-18",
+        "price:2021-07-19",
+        "price:2021-07-20",
+        "price:2021-07-21",
+        "price:2021-07-22",
+        "price:2021-07-23",
+        "price:2021-07-24",
+        "price:2021-07-25",
+        "price:2021-07-26",
+        "price:2021-07-27",
+        "price:2021-07-28",
+        "price:2021-07-29",
+        "price:2021-07-30",
+        "price:2021-07-31",
+        "price:2021-08-01",
+        "price:2021-08-02",
+        "price:2021-08-03",
+        "price:2021-08-04",
+        "price:2021-08-05",
+        "price:2021-08-06",
+        "price:2021-08-07",
+        "price:2021-08-08",
+        "price:2021-08-09",
+        "price:2021-08-10",
+        "price:2021-08-11",
+        "price:2021-08-12",
+        "price:2021-08-13",
+        "price:2021-08-14",
+        "price:2021-08-15",
+        "price:2021-08-16",
+        "price:2021-08-17",
+        "price:2021-08-18",
+        "price:2021-08-19",
+        "price:2021-08-20",
+        "price:2021-08-21",
+        "price:2021-08-22",
+        "price:2021-08-23",
+        "price:2021-08-24",
+        "price:2021-08-25",
+        "price:2021-08-26",
+        "price:2021-08-27",
+        "price:2021-08-28",
+        "price:2021-08-29",
+        "price:2021-08-30",
+        "price:2021-08-31",
+        "price:2021-09-01",
+        "price:2021-09-02",
+        "price:2021-09-03",
+        "price:2021-09-04",
+        "price:2021-09-05",
+        "price:2021-09-06",
+        "price:2021-09-07",
+        "price:2021-09-08",
+        "price:2021-09-09",
+        "price:2021-09-10",
+        "price:2021-09-11",
+        "price:2021-09-12",
+        "price:2021-09-13",
+        "price:2021-09-14",
+        "price:2021-09-15",
+        "price:2021-09-16",
+        "price:2021-09-17",
+        "price:2021-09-18",
+        "price:2021-09-19",
+        "price:2021-09-20",
+        "price:2021-09-21",
+        "price:2021-09-22",
+        "price:2021-09-23",
+        "price:2021-09-24",
+        "price:2021-09-25",
+        "price:2021-09-26",
+        "price:2021-09-27",
+        "price:2021-09-28",
+        "price:2021-09-29",
+        "price:2021-09-30",
+        "peak",
+        "collapse",
+        "buyers",
+        "sec-kardashian",
+        "sec-pierce",
+        "class-action-filed",
+        "class-action-dismissed-2022",
+        "class-action-proceeds-2023",
+        "class-action-certified-2025",
+        "sec-mayweather-2018"
+      ],
+      "data": {
+        "slug": "emax",
+        "caseHash": "1c575abb10b64635d9aab599eebbb65809de38f61191ca7fcf80eda6b4ce24cd",
+        "counts": {
+          "posts": 11,
+          "prices": 129,
+          "legal": 7,
+          "sources": 19
+        },
+        "gaps": [
+          {
+            "source": "case.holders",
+            "what": "top-10 holder concentration",
+            "reason": "not in the case file",
+            "at": "2026-10-30T00:00:00.000Z"
+          },
+          {
+            "source": "case.marketCap",
+            "what": "claimed market cap",
+            "reason": "no documented claim; liquidity-vs-market-cap rule left unchecked",
+            "at": "2026-10-30T00:00:01.000Z"
+          }
+        ],
+        "llm": "off (rules only)"
+      },
+      "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "hash": "a593c6fd866dae614b9673bf70146960717a3190ce6367c83d0926cdf11f7b75"
+    },
+    {
+      "seq": 1,
+      "at": "2026-10-30T00:00:03.000Z",
+      "agent": "convergence",
+      "kind": "convergence.detected",
+      "summary": "3 different promoters posted about EMAX within 14 days (Floyd Mayweather Jr., Kim Kardashian, Paul Pierce).",
+      "evidenceIds": [
+        "mayweather-2021-05-26",
+        "pierce-2021-05-26",
+        "pierce-2021-05-28",
+        "pierce-2021-05-29",
+        "kardashian-2021-05-30",
+        "pierce-2021-05-30-coach",
+        "pierce-2021-05-30-train",
+        "mayweather-2021-06-conference",
+        "pierce-2021-06-05",
+        "mayweather-2021-06-06"
+      ],
+      "data": {
+        "params": {
+          "minPromoters": 3,
+          "windowHours": 336,
+          "copyThreshold": 0.6
+        },
+        "events": [
+          {
+            "token": "EMAX",
+            "windowStart": "2021-05-26T00:00:00.000Z",
+            "windowEnd": "2021-06-30T23:59:59.999Z",
+            "windowHours": 336,
+            "postIds": [
+              "mayweather-2021-05-26",
+              "pierce-2021-05-26",
+              "pierce-2021-05-28",
+              "pierce-2021-05-29",
+              "kardashian-2021-05-30",
+              "pierce-2021-05-30-coach",
+              "pierce-2021-05-30-train",
+              "mayweather-2021-06-conference",
+              "pierce-2021-06-05",
+              "mayweather-2021-06-06"
+            ],
+            "promoters": [
+              "Floyd Mayweather Jr.",
+              "Kim Kardashian",
+              "Paul Pierce"
+            ],
+            "independentGroups": [
+              [
+                "Floyd Mayweather Jr."
+              ],
+              [
+                "Kim Kardashian"
+              ],
+              [
+                "Paul Pierce"
+              ]
+            ],
+            "independentVoices": 3,
+            "echoLinks": [],
+            "coordinated": false,
+            "disclosure": {
+              "disclosed": [],
+              "undisclosed": [
+                "pierce-2021-05-26",
+                "pierce-2021-05-28",
+                "pierce-2021-05-29",
+                "kardashian-2021-05-30",
+                "pierce-2021-05-30-coach",
+                "pierce-2021-05-30-train",
+                "pierce-2021-06-05"
+              ],
+              "unknown": [
+                "mayweather-2021-05-26",
+                "mayweather-2021-06-conference",
+                "mayweather-2021-06-06"
+              ],
+              "paidButUndisclosed": [
+                "pierce-2021-05-26"
+              ]
+            },
+            "precisionNote": "Posts mayweather-2021-06-conference are only dated to the month, so they are counted if they could have fallen inside the window.",
+            "reasoning": [
+              "3 different promoters posted about EMAX within 14 days (Floyd Mayweather Jr., Kim Kardashian, Paul Pierce).",
+              "No shared payer or copied text was found, so each promoter counts as an independent voice.",
+              "At least 3 independent voices converged on the same token.",
+              "1 post was documented as paid but did not disclose it. US law (Securities Act §17(b)) requires a promoter of a security to disclose the payment, who paid, and how much."
+            ]
+          },
+          {
+            "token": "EMAX",
+            "windowStart": "2021-05-30T00:00:00.000Z",
+            "windowEnd": "2021-06-30T23:59:59.999Z",
+            "windowHours": 336,
+            "postIds": [
+              "kardashian-2021-05-30",
+              "pierce-2021-05-30-coach",
+              "pierce-2021-05-30-train",
+              "mayweather-2021-06-conference",
+              "pierce-2021-06-05",
+              "mayweather-2021-06-06",
+              "kardashian-2021-06-13"
+            ],
+            "promoters": [
+              "Floyd Mayweather Jr.",
+              "Kim Kardashian",
+              "Paul Pierce"
+            ],
+            "independentGroups": [
+              [
+                "Floyd Mayweather Jr."
+              ],
+              [
+                "Kim Kardashian"
+              ],
+              [
+                "Paul Pierce"
+              ]
+            ],
+            "independentVoices": 3,
+            "echoLinks": [],
+            "coordinated": false,
+            "disclosure": {
+              "disclosed": [],
+              "undisclosed": [
+                "kardashian-2021-05-30",
+                "pierce-2021-05-30-coach",
+                "pierce-2021-05-30-train",
+                "pierce-2021-06-05",
+                "kardashian-2021-06-13"
+              ],
+              "unknown": [
+                "mayweather-2021-06-conference",
+                "mayweather-2021-06-06"
+              ],
+              "paidButUndisclosed": [
+                "kardashian-2021-06-13"
+              ]
+            },
+            "precisionNote": "Posts mayweather-2021-06-conference are only dated to the month, so they are counted if they could have fallen inside the window.",
+            "reasoning": [
+              "3 different promoters posted about EMAX within 14 days (Floyd Mayweather Jr., Kim Kardashian, Paul Pierce).",
+              "No shared payer or copied text was found, so each promoter counts as an independent voice.",
+              "At least 3 independent voices converged on the same token.",
+              "1 post was documented as paid but did not disclose it. US law (Securities Act §17(b)) requires a promoter of a security to disclose the payment, who paid, and how much."
+            ]
+          }
+        ],
+        "bestCluster": {
+          "token": "EMAX",
+          "windowStart": "2021-05-26T00:00:00.000Z",
+          "windowEnd": "2021-06-30T23:59:59.999Z",
+          "windowHours": 336,
+          "postIds": [
+            "mayweather-2021-05-26",
+            "pierce-2021-05-26",
+            "pierce-2021-05-28",
+            "pierce-2021-05-29",
+            "kardashian-2021-05-30",
+            "pierce-2021-05-30-coach",
+            "pierce-2021-05-30-train",
+            "mayweather-2021-06-conference",
+            "pierce-2021-06-05",
+            "mayweather-2021-06-06"
+          ],
+          "promoters": [
+            "Floyd Mayweather Jr.",
+            "Kim Kardashian",
+            "Paul Pierce"
+          ],
+          "independentGroups": [
+            [
+              "Floyd Mayweather Jr."
+            ],
+            [
+              "Kim Kardashian"
+            ],
+            [
+              "Paul Pierce"
+            ]
+          ],
+          "independentVoices": 3,
+          "echoLinks": [],
+          "coordinated": false,
+          "disclosure": {
+            "disclosed": [],
+            "undisclosed": [
+              "pierce-2021-05-26",
+              "pierce-2021-05-28",
+              "pierce-2021-05-29",
+              "kardashian-2021-05-30",
+              "pierce-2021-05-30-coach",
+              "pierce-2021-05-30-train",
+              "pierce-2021-06-05"
+            ],
+            "unknown": [
+              "mayweather-2021-05-26",
+              "mayweather-2021-06-conference",
+              "mayweather-2021-06-06"
+            ],
+            "paidButUndisclosed": [
+              "pierce-2021-05-26"
+            ]
+          },
+          "precisionNote": "Posts mayweather-2021-06-conference are only dated to the month, so they are counted if they could have fallen inside the window.",
+          "reasoning": [
+            "3 different promoters posted about EMAX within 14 days (Floyd Mayweather Jr., Kim Kardashian, Paul Pierce).",
+            "No shared payer or copied text was found, so each promoter counts as an independent voice.",
+            "At least 3 independent voices converged on the same token.",
+            "1 post was documented as paid but did not disclose it. US law (Securities Act §17(b)) requires a promoter of a security to disclose the payment, who paid, and how much."
+          ]
+        },
+        "detected": true,
+        "skipped": []
+      },
+      "prevHash": "a593c6fd866dae614b9673bf70146960717a3190ce6367c83d0926cdf11f7b75",
+      "hash": "7e76fafe8a91e38b737720ed8abfaa5da5b633d7699064c49c68be898a9d080c"
+    },
+    {
+      "seq": 2,
+      "at": "2026-10-30T00:00:04.000Z",
+      "agent": "news",
+      "kind": "news.checked",
+      "summary": "Checked 11 promoter claims against the price: 11 contradicted by what happened next.",
+      "evidenceIds": [
+        "pierce-2021-05-26",
+        "price:2021-05-26",
+        "price:2021-05-29",
+        "price:2021-05-30",
+        "price:2021-06-25",
+        "pierce-2021-05-28",
+        "price:2021-05-28",
+        "price:2021-05-31",
+        "price:2021-06-27",
+        "pierce-2021-05-29",
+        "price:2021-06-01",
+        "price:2021-06-28",
+        "pierce-2021-05-30-train",
+        "price:2021-06-02",
+        "price:2021-06-29",
+        "pierce-2021-05-30-coach",
+        "pierce-2021-06-05",
+        "price:2021-06-05",
+        "price:2021-06-08",
+        "price:2021-06-06",
+        "price:2021-07-05",
+        "kardashian-2021-05-30",
+        "kardashian-2021-06-13",
+        "price:2021-06-13",
+        "price:2021-06-16",
+        "price:2021-07-13",
+        "mayweather-2021-05-26",
+        "mayweather-2021-06-conference",
+        "price:2021-06-04",
+        "price:2021-07-01",
+        "mayweather-2021-06-06",
+        "price:2021-06-09",
+        "price:2021-07-06"
+      ],
+      "data": [
+        {
+          "claimId": "pierce-2021-05-26",
+          "direction": "up",
+          "cause": "Paul Pierce said on 2021-05-26: \".@espn I don't need you. I got @ethereum_max I made more money with this crypto in the past month then I did with y'all in a year. TRUTH shall set u Free 🤪🤪 m\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 1.438e-7,
+            "shortPriceUsd": 4.81e-7,
+            "longPriceUsd": 5.71e-8,
+            "shortChangePct": 234.5,
+            "longChangePct": -60.3,
+            "maxRunUpPct": 253.8,
+            "maxDrawdownPct": 88.8,
+            "liquidityChangePct": 0.3
+          },
+          "shortVerdict": "supported",
+          "verdict": "contradicted",
+          "explanation": "Paul Pierce said on 2021-05-26: \".@espn I don't need you. I got @ethereum_max I made more money with this crypto in the past month then I did with y'all in a year. TRUTH shall set u Free 🤪🤪 m\" (read as: price will go up). In the next 3 days the price moved +234.5% ($0.000000144 → $0.000000481). Over 30 days it moved -60.3% (to $0.0000000571); at its best it was +253.8%, then fell 88.8% from that high. Money available to sell into (liquidity) changed +0.3%. It looked right for a few days, then the opposite happened: someone who bought on the day of the claim would be down 60.3% a month later. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "pierce-2021-05-26",
+            "price:2021-05-26",
+            "price:2021-05-29",
+            "price:2021-05-30",
+            "price:2021-06-25"
+          ]
+        },
+        {
+          "claimId": "pierce-2021-05-28",
+          "direction": "up",
+          "cause": "Paul Pierce said on 2021-05-28: \"Paul Pierce promoted the token (no exact quote documented)\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 4.919e-7,
+            "shortPriceUsd": 5.053e-7,
+            "longPriceUsd": 4.389e-8,
+            "shortChangePct": 2.7,
+            "longChangePct": -91.1,
+            "maxRunUpPct": 3.4,
+            "maxDrawdownPct": 91.4,
+            "liquidityChangePct": -56.4
+          },
+          "shortVerdict": "supported",
+          "verdict": "contradicted",
+          "explanation": "Paul Pierce said on 2021-05-28: \"Paul Pierce promoted the token (no exact quote documented)\" (read as: price will go up). In the next 3 days the price moved +2.7% ($0.000000492 → $0.000000505). Over 30 days it moved -91.1% (to $0.0000000439); at its best it was +3.4%, then fell 91.4% from that high. Money available to sell into (liquidity) changed -56.4%. It looked right for a few days, then the opposite happened: someone who bought on the day of the claim would be down 91.1% a month later. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "pierce-2021-05-28",
+            "price:2021-05-28",
+            "price:2021-05-31",
+            "price:2021-05-30",
+            "price:2021-06-27"
+          ]
+        },
+        {
+          "claimId": "pierce-2021-05-29",
+          "direction": "up",
+          "cause": "Paul Pierce said on 2021-05-29: \"The Goal is 1$ @ethereum_max only then will be out\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 4.81e-7,
+            "shortPriceUsd": 3.851e-7,
+            "longPriceUsd": 4.111e-8,
+            "shortChangePct": -19.9,
+            "longChangePct": -91.5,
+            "maxRunUpPct": 5.8,
+            "maxDrawdownPct": 91.9,
+            "liquidityChangePct": -57.3
+          },
+          "shortVerdict": "contradicted",
+          "verdict": "contradicted",
+          "explanation": "Paul Pierce said on 2021-05-29: \"The Goal is 1$ @ethereum_max only then will be out\" (read as: price will go up). In the next 3 days the price moved -19.9% ($0.000000481 → $0.000000385). Over 30 days it moved -91.5% (to $0.0000000411); at its best it was +5.8%, then fell 91.9% from that high. Money available to sell into (liquidity) changed -57.3%. The market went the other way. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "pierce-2021-05-29",
+            "price:2021-05-29",
+            "price:2021-06-01",
+            "price:2021-05-30",
+            "price:2021-06-28"
+          ]
+        },
+        {
+          "claimId": "pierce-2021-05-30-train",
+          "direction": "up",
+          "cause": "Paul Pierce said on 2021-05-30: \"People asking if they should jump on the @ethereum_max train I'm n for the long haul if u missed out on the 1st wave now is the time to jump on board . . . .\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 5.088e-7,
+            "shortPriceUsd": 4.409e-7,
+            "longPriceUsd": 5.031e-8,
+            "shortChangePct": -13.3,
+            "longChangePct": -90.1,
+            "maxRunUpPct": 0,
+            "maxDrawdownPct": 91.9,
+            "liquidityChangePct": -60.9
+          },
+          "shortVerdict": "contradicted",
+          "verdict": "contradicted",
+          "explanation": "Paul Pierce said on 2021-05-30: \"People asking if they should jump on the @ethereum_max train I'm n for the long haul if u missed out on the 1st wave now is the time to jump on board . . . .\" (read as: price will go up). In the next 3 days the price moved -13.3% ($0.000000509 → $0.000000441). Over 30 days it moved -90.1% (to $0.0000000503); at its best it was 0%, then fell 91.9% from that high. Money available to sell into (liquidity) changed -60.9%. The market went the other way. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "pierce-2021-05-30-train",
+            "price:2021-05-30",
+            "price:2021-06-02",
+            "price:2021-06-28",
+            "price:2021-06-29"
+          ]
+        },
+        {
+          "claimId": "pierce-2021-05-30-coach",
+          "direction": "up",
+          "cause": "Paul Pierce said on 2021-05-30: \"Put me in coach coming in Hot like @jaytatum0 @espn @ethereum_max 🚀🚀🚀🚀🚀🚀🚀🚀\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 5.088e-7,
+            "shortPriceUsd": 4.409e-7,
+            "longPriceUsd": 5.031e-8,
+            "shortChangePct": -13.3,
+            "longChangePct": -90.1,
+            "maxRunUpPct": 0,
+            "maxDrawdownPct": 91.9,
+            "liquidityChangePct": -60.9
+          },
+          "shortVerdict": "contradicted",
+          "verdict": "contradicted",
+          "explanation": "Paul Pierce said on 2021-05-30: \"Put me in coach coming in Hot like @jaytatum0 @espn @ethereum_max 🚀🚀🚀🚀🚀🚀🚀🚀\" (read as: price will go up). In the next 3 days the price moved -13.3% ($0.000000509 → $0.000000441). Over 30 days it moved -90.1% (to $0.0000000503); at its best it was 0%, then fell 91.9% from that high. Money available to sell into (liquidity) changed -60.9%. The market went the other way. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "pierce-2021-05-30-coach",
+            "price:2021-05-30",
+            "price:2021-06-02",
+            "price:2021-06-28",
+            "price:2021-06-29"
+          ]
+        },
+        {
+          "claimId": "pierce-2021-06-05",
+          "direction": "up",
+          "cause": "Paul Pierce said on 2021-06-05: \"Gonna double down know @ethereum_max\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 2.337e-7,
+            "shortPriceUsd": 1.671e-7,
+            "longPriceUsd": 3.923e-8,
+            "shortChangePct": -28.5,
+            "longChangePct": -83.2,
+            "maxRunUpPct": 4.7,
+            "maxDrawdownPct": 84,
+            "liquidityChangePct": -57
+          },
+          "shortVerdict": "contradicted",
+          "verdict": "contradicted",
+          "explanation": "Paul Pierce said on 2021-06-05: \"Gonna double down know @ethereum_max\" (read as: price will go up). In the next 3 days the price moved -28.5% ($0.000000234 → $0.000000167). Over 30 days it moved -83.2% (to $0.0000000392); at its best it was +4.7%, then fell 84% from that high. Money available to sell into (liquidity) changed -57%. The market went the other way. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "pierce-2021-06-05",
+            "price:2021-06-05",
+            "price:2021-06-08",
+            "price:2021-06-06",
+            "price:2021-07-05"
+          ]
+        },
+        {
+          "claimId": "kardashian-2021-05-30",
+          "direction": "up",
+          "cause": "Kim Kardashian said on 2021-05-30: \"GROOT HOSPITALITY · LIV · STORY · NOW ACCEPTING CRYPTOCURRENCY FOR ALL TABLE RESERVATIONS & BOOKINGS · EXCLUSIVELY ACCEPTING · EthereumMax.org\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 5.088e-7,
+            "shortPriceUsd": 4.409e-7,
+            "longPriceUsd": 5.031e-8,
+            "shortChangePct": -13.3,
+            "longChangePct": -90.1,
+            "maxRunUpPct": 0,
+            "maxDrawdownPct": 91.9,
+            "liquidityChangePct": -60.9
+          },
+          "shortVerdict": "contradicted",
+          "verdict": "contradicted",
+          "explanation": "Kim Kardashian said on 2021-05-30: \"GROOT HOSPITALITY · LIV · STORY · NOW ACCEPTING CRYPTOCURRENCY FOR ALL TABLE RESERVATIONS & BOOKINGS · EXCLUSIVELY ACCEPTING · EthereumMax.org\" (read as: price will go up). In the next 3 days the price moved -13.3% ($0.000000509 → $0.000000441). Over 30 days it moved -90.1% (to $0.0000000503); at its best it was 0%, then fell 91.9% from that high. Money available to sell into (liquidity) changed -60.9%. The market went the other way. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "kardashian-2021-05-30",
+            "price:2021-05-30",
+            "price:2021-06-02",
+            "price:2021-06-28",
+            "price:2021-06-29"
+          ]
+        },
+        {
+          "claimId": "kardashian-2021-06-13",
+          "direction": "up",
+          "cause": "Kim Kardashian said on 2021-06-13: \"ARE YOU GUYS INTO CRYPTO???? THIS IS NOT FINANCIAL ADVICE BUT SHARING WHAT MY FRIENDS JUST TOLD ME ABOUT THE ETHEREUM MAX TOKEN! A FEW MINUTES AGO ETHEREUM MAX \" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 2.266e-7,
+            "shortPriceUsd": 1.418e-7,
+            "longPriceUsd": 2.449e-8,
+            "shortChangePct": -37.4,
+            "longChangePct": -89.2,
+            "maxRunUpPct": 0,
+            "maxDrawdownPct": 89.2,
+            "liquidityChangePct": -70.2
+          },
+          "shortVerdict": "contradicted",
+          "verdict": "contradicted",
+          "explanation": "Kim Kardashian said on 2021-06-13: \"ARE YOU GUYS INTO CRYPTO???? THIS IS NOT FINANCIAL ADVICE BUT SHARING WHAT MY FRIENDS JUST TOLD ME ABOUT THE ETHEREUM MAX TOKEN! A FEW MINUTES AGO ETHEREUM MAX \" (read as: price will go up). In the next 3 days the price moved -37.4% ($0.000000227 → $0.000000142). Over 30 days it moved -89.2% (to $0.0000000245); at its best it was 0%, then fell 89.2% from that high. Money available to sell into (liquidity) changed -70.2%. The market went the other way. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "kardashian-2021-06-13",
+            "price:2021-06-13",
+            "price:2021-06-16",
+            "price:2021-07-13"
+          ]
+        },
+        {
+          "claimId": "mayweather-2021-05-26",
+          "direction": "up",
+          "cause": "Floyd Mayweather Jr. said on 2021-05-26: \"Floyd Mayweather Jr. promoted the token (no exact quote documented)\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 1.438e-7,
+            "shortPriceUsd": 4.81e-7,
+            "longPriceUsd": 5.71e-8,
+            "shortChangePct": 234.5,
+            "longChangePct": -60.3,
+            "maxRunUpPct": 253.8,
+            "maxDrawdownPct": 88.8,
+            "liquidityChangePct": 0.3
+          },
+          "shortVerdict": "supported",
+          "verdict": "contradicted",
+          "explanation": "Floyd Mayweather Jr. said on 2021-05-26: \"Floyd Mayweather Jr. promoted the token (no exact quote documented)\" (read as: price will go up). In the next 3 days the price moved +234.5% ($0.000000144 → $0.000000481). Over 30 days it moved -60.3% (to $0.0000000571); at its best it was +253.8%, then fell 88.8% from that high. Money available to sell into (liquidity) changed +0.3%. It looked right for a few days, then the opposite happened: someone who bought on the day of the claim would be down 60.3% a month later. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "mayweather-2021-05-26",
+            "price:2021-05-26",
+            "price:2021-05-29",
+            "price:2021-05-30",
+            "price:2021-06-25"
+          ]
+        },
+        {
+          "claimId": "mayweather-2021-06-conference",
+          "direction": "up",
+          "cause": "Floyd Mayweather Jr. said on 2021-06-01: \"I believe there's gonna be another cryptocurrency just as large as Bitcoin someday.\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 3.851e-7,
+            "shortPriceUsd": 2.696e-7,
+            "longPriceUsd": 3.955e-8,
+            "shortChangePct": -30,
+            "longChangePct": -89.7,
+            "maxRunUpPct": 14.5,
+            "maxDrawdownPct": 91,
+            "liquidityChangePct": -62.8
+          },
+          "shortVerdict": "contradicted",
+          "verdict": "contradicted",
+          "explanation": "Floyd Mayweather Jr. said on 2021-06-01: \"I believe there's gonna be another cryptocurrency just as large as Bitcoin someday.\" (read as: price will go up). In the next 3 days the price moved -30% ($0.000000385 → $0.000000270). Over 30 days it moved -89.7% (to $0.0000000396); at its best it was +14.5%, then fell 91% from that high. Money available to sell into (liquidity) changed -62.8%. The market went the other way. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "mayweather-2021-06-conference",
+            "price:2021-06-01",
+            "price:2021-06-04",
+            "price:2021-06-02",
+            "price:2021-07-01"
+          ]
+        },
+        {
+          "claimId": "mayweather-2021-06-06",
+          "direction": "up",
+          "cause": "Floyd Mayweather Jr. said on 2021-06-06: \"Floyd Mayweather Jr. promoted the token (no exact quote documented)\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 2.448e-7,
+            "shortPriceUsd": 1.209e-7,
+            "longPriceUsd": 3.666e-8,
+            "shortChangePct": -50.6,
+            "longChangePct": -85,
+            "maxRunUpPct": 0,
+            "maxDrawdownPct": 85,
+            "liquidityChangePct": -57.5
+          },
+          "shortVerdict": "contradicted",
+          "verdict": "contradicted",
+          "explanation": "Floyd Mayweather Jr. said on 2021-06-06: \"Floyd Mayweather Jr. promoted the token (no exact quote documented)\" (read as: price will go up). In the next 3 days the price moved -50.6% ($0.000000245 → $0.000000121). Over 30 days it moved -85% (to $0.0000000367); at its best it was 0%, then fell 85% from that high. Money available to sell into (liquidity) changed -57.5%. The market went the other way. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "mayweather-2021-06-06",
+            "price:2021-06-06",
+            "price:2021-06-09",
+            "price:2021-07-06"
+          ]
+        }
+      ],
+      "prevHash": "7e76fafe8a91e38b737720ed8abfaa5da5b633d7699064c49c68be898a9d080c",
+      "hash": "c12f45fc3ae05bdff7cd6020abdb81b89c9778026df06be3f93150664c25c608"
+    },
+    {
+      "seq": 3,
+      "at": "2026-10-30T00:00:05.000Z",
+      "agent": "hunter",
+      "kind": "hunter.selected",
+      "summary": "EMAX: 8 of 12 points (selected; 4 needed). Red flags: liquidity drop from its peak; promoters pushing it in the same window; paid posts that did not disclose payment; price run-up during the promotion. Not checked for lack of data: liquidity vs claimed market cap; top-10 holders' share of supply.",
+      "evidenceIds": [
+        "price:2021-05-31",
+        "price:2021-09-21",
+        "price:2021-05-26",
+        "price:2021-05-30",
+        "convergence",
+        "pierce-2021-05-26",
+        "kardashian-2021-06-13"
+      ],
+      "data": {
+        "selectThreshold": 4,
+        "selected": [
+          {
+            "symbol": "EMAX",
+            "score": 8,
+            "maxScore": 12,
+            "selected": true,
+            "rules": [
+              {
+                "id": "liquidity-depth",
+                "label": "Liquidity vs claimed market cap",
+                "value": null,
+                "threshold": 2,
+                "comparison": "< 2%",
+                "outcome": "unknown",
+                "points": 0,
+                "explanation": "Liquidity vs claimed market cap: no data, so this rule could not be checked (no points either way)."
+              },
+              {
+                "id": "holder-concentration",
+                "label": "Top-10 holders' share of supply",
+                "value": null,
+                "threshold": 50,
+                "comparison": "> 50%",
+                "outcome": "unknown",
+                "points": 0,
+                "explanation": "Top-10 holders' share of supply: no data, so this rule could not be checked (no points either way)."
+              },
+              {
+                "id": "liquidity-drop",
+                "label": "Liquidity drop from its peak",
+                "value": 79.4,
+                "threshold": 50,
+                "comparison": ">= 50%",
+                "outcome": "red-flag",
+                "points": 2,
+                "explanation": "Liquidity fell 79.4% from its peak ($7,263,266 → $1,495,631). At least 50%: money was pulled out of the pool."
+              },
+              {
+                "id": "promoter-convergence",
+                "label": "Promoters pushing it in the same window",
+                "value": 3,
+                "threshold": 3,
+                "comparison": ">= 3",
+                "outcome": "red-flag",
+                "points": 2,
+                "explanation": "3 promoters pushed it in the same window, 3 of them independent. At least 3: many voices pushing one token at once."
+              },
+              {
+                "id": "undisclosed-paid",
+                "label": "Paid posts that did not disclose payment",
+                "value": 2,
+                "threshold": 0,
+                "comparison": "> 0",
+                "outcome": "red-flag",
+                "points": 3,
+                "explanation": "2 posts were documented as paid without saying so. Undisclosed paid promotion of a security is illegal touting (Securities Act §17(b))."
+              },
+              {
+                "id": "price-run-up",
+                "label": "Price run-up during the promotion",
+                "value": 253.8,
+                "threshold": 100,
+                "comparison": ">= 100%",
+                "outcome": "red-flag",
+                "points": 1,
+                "explanation": "The price rose 253.8% during the promotion. At least 100%: the classic \"pump\"."
+              }
+            ],
+            "unknownCount": 2,
+            "explanation": "EMAX: 8 of 12 points (selected; 4 needed). Red flags: liquidity drop from its peak; promoters pushing it in the same window; paid posts that did not disclose payment; price run-up during the promotion. Not checked for lack of data: liquidity vs claimed market cap; top-10 holders' share of supply.",
+            "evidenceIds": [
+              "price:2021-05-31",
+              "price:2021-09-21",
+              "price:2021-05-26",
+              "price:2021-05-30",
+              "convergence",
+              "pierce-2021-05-26",
+              "kardashian-2021-06-13"
+            ]
+          }
+        ],
+        "rejected": []
+      },
+      "prevHash": "c12f45fc3ae05bdff7cd6020abdb81b89c9778026df06be3f93150664c25c608",
+      "hash": "8c54fcbd43ccaf0ed48c09403c5a5ae6aa191f771a16b55bc36630e7ed858407"
+    },
+    {
+      "seq": 4,
+      "at": "2026-10-30T00:00:06.000Z",
+      "agent": "collapse",
+      "kind": "collapse.detected",
+      "summary": "The price peaked at $0.000000509 on 2021-05-30 and by 2021-06-11 had fallen 82% to $0.0000000916, past the 80% collapse line. Liquidity fell 48.6% over the same days.",
+      "evidenceIds": [
+        "price:2021-05-30",
+        "price:2021-06-11"
+      ],
+      "data": {
+        "detected": true,
+        "thresholdPct": 80,
+        "peak": {
+          "t": "2021-05-30",
+          "priceUsd": 5.088e-7
+        },
+        "collapse": {
+          "t": "2021-06-11",
+          "priceUsd": 9.159e-8,
+          "dropPct": 82
+        },
+        "liquidityDropPct": 48.6,
+        "matchesCaseFile": true,
+        "explanation": "The price peaked at $0.000000509 on 2021-05-30 and by 2021-06-11 had fallen 82% to $0.0000000916, past the 80% collapse line. Liquidity fell 48.6% over the same days.",
+        "evidenceIds": [
+          "price:2021-05-30",
+          "price:2021-06-11"
+        ]
+      },
+      "prevHash": "8c54fcbd43ccaf0ed48c09403c5a5ae6aa191f771a16b55bc36630e7ed858407",
+      "hash": "3d720213b5947c6bd8d16b7b69993e3a138af0edc9615fcfd26298a5f1f0898a"
+    },
+    {
+      "seq": 5,
+      "at": "2026-10-30T00:00:07.000Z",
+      "agent": "bull",
+      "kind": "bull.rules",
+      "summary": "Bull: The rise could be organic and the promotion lawful. (2 claims that cite real evidence).",
+      "evidenceIds": [
+        "hunter:EMAX",
+        "pierce-2021-05-26"
+      ],
+      "data": {
+        "bundleHash": "3026fa7efc6d14221749688ba98750d9f796a3ae1e35c283d7bbb424a5b4296c",
+        "side": "bull",
+        "stance": "The rise could be organic and the promotion lawful.",
+        "claims": [
+          {
+            "text": "Some warning signs could not be checked for lack of data (top-10 holders' share of supply); missing data is not proof of fraud.",
+            "evidenceIds": [
+              "hunter:EMAX",
+              "pierce-2021-05-26"
+            ]
+          },
+          {
+            "text": "A price move right after a post shows timing, not that the post caused it.",
+            "evidenceIds": [
+              "hunter:EMAX",
+              "pierce-2021-05-26"
+            ]
+          }
+        ],
+        "mode": "rules",
+        "fallbackReason": "no model configured",
+        "rejected": []
+      },
+      "prevHash": "3d720213b5947c6bd8d16b7b69993e3a138af0edc9615fcfd26298a5f1f0898a",
+      "hash": "694f7eb2c5f7ce306414957daec56b84f214b9d9cfc65bf278992999c78cac0e"
+    },
+    {
+      "seq": 6,
+      "at": "2026-10-30T00:00:08.000Z",
+      "agent": "bear",
+      "kind": "bear.rules",
+      "summary": "Bear: This was paid promotion that was not disclosed and/or a pump-and-dump. (5 claims that cite real evidence).",
+      "evidenceIds": [
+        "hunter:EMAX",
+        "pierce-2021-05-26",
+        "collapse.detected",
+        "price:2021-05-30",
+        "price:2021-06-11",
+        "convergence"
+      ],
+      "data": {
+        "bundleHash": "3026fa7efc6d14221749688ba98750d9f796a3ae1e35c283d7bbb424a5b4296c",
+        "side": "bear",
+        "stance": "This was paid promotion that was not disclosed and/or a pump-and-dump.",
+        "claims": [
+          {
+            "text": "2 posts were documented as paid without saying so. Undisclosed paid promotion of a security is illegal touting (Securities Act §17(b)).",
+            "evidenceIds": [
+              "hunter:EMAX",
+              "pierce-2021-05-26"
+            ]
+          },
+          {
+            "text": "The price peaked at $0.000000509 on 2021-05-30 and by 2021-06-11 had fallen 82% to $0.0000000916, past the 80% collapse line. Liquidity fell 48.6% over the same days.",
+            "evidenceIds": [
+              "collapse.detected",
+              "price:2021-05-30",
+              "price:2021-06-11"
+            ]
+          },
+          {
+            "text": "3 promoters pushed it in the same window, 3 of them independent. At least 3: many voices pushing one token at once.",
+            "evidenceIds": [
+              "hunter:EMAX",
+              "convergence"
+            ]
+          },
+          {
+            "text": "The price rose 253.8% during the promotion. At least 100%: the classic \"pump\".",
+            "evidenceIds": [
+              "hunter:EMAX"
+            ]
+          },
+          {
+            "text": "Liquidity fell 79.4% from its peak ($7,263,266 → $1,495,631). At least 50%: money was pulled out of the pool.",
+            "evidenceIds": [
+              "hunter:EMAX"
+            ]
+          }
+        ],
+        "mode": "rules",
+        "fallbackReason": "no model configured",
+        "rejected": []
+      },
+      "prevHash": "694f7eb2c5f7ce306414957daec56b84f214b9d9cfc65bf278992999c78cac0e",
+      "hash": "ad61236485c0bc3dbbfb9b05ea9fd2bd1109e0d891351fc6892473ce869ade24"
+    },
+    {
+      "seq": 7,
+      "at": "2026-10-30T00:00:09.000Z",
+      "agent": "judge",
+      "kind": "judge.pump-and-dump",
+      "summary": "Verdict: a pump-and-dump (score 0.9 of 1).",
+      "evidenceIds": [
+        "hunter:EMAX",
+        "pierce-2021-05-26",
+        "collapse.detected",
+        "price:2021-05-30",
+        "price:2021-06-11",
+        "convergence"
+      ],
+      "data": {
+        "bundleHash": "3026fa7efc6d14221749688ba98750d9f796a3ae1e35c283d7bbb424a5b4296c",
+        "verdict": "pump-and-dump",
+        "score": 0.9,
+        "weights": {
+          "undisclosed-paid": 0.3,
+          "collapse": 0.25,
+          "promoter-convergence": 0.2,
+          "price-run-up": 0.1,
+          "holder-concentration": 0.1,
+          "liquidity-drop": 0.05
+        },
+        "factors": [
+          {
+            "id": "undisclosed-paid",
+            "label": "Paid posts that did not disclose payment",
+            "weight": 0.3,
+            "present": true,
+            "detail": "2 posts were documented as paid without saying so. Undisclosed paid promotion of a security is illegal touting (Securities Act §17(b)).",
+            "evidenceIds": [
+              "hunter:EMAX",
+              "pierce-2021-05-26"
+            ]
+          },
+          {
+            "id": "collapse",
+            "label": "Price collapse of 80% or more",
+            "weight": 0.25,
+            "present": true,
+            "detail": "The price peaked at $0.000000509 on 2021-05-30 and by 2021-06-11 had fallen 82% to $0.0000000916, past the 80% collapse line. Liquidity fell 48.6% over the same days.",
+            "evidenceIds": [
+              "collapse.detected",
+              "price:2021-05-30",
+              "price:2021-06-11"
+            ]
+          },
+          {
+            "id": "promoter-convergence",
+            "label": "Promoters pushing it in the same window",
+            "weight": 0.2,
+            "present": true,
+            "detail": "3 promoters pushed it in the same window, 3 of them independent. At least 3: many voices pushing one token at once.",
+            "evidenceIds": [
+              "hunter:EMAX",
+              "convergence"
+            ]
+          },
+          {
+            "id": "price-run-up",
+            "label": "Price run-up during the promotion",
+            "weight": 0.1,
+            "present": true,
+            "detail": "The price rose 253.8% during the promotion. At least 100%: the classic \"pump\".",
+            "evidenceIds": [
+              "hunter:EMAX"
+            ]
+          },
+          {
+            "id": "holder-concentration",
+            "label": "Top-10 holders' share of supply",
+            "weight": 0.1,
+            "present": null,
+            "detail": "Top-10 holders' share of supply: no data, so this rule could not be checked (no points either way).",
+            "evidenceIds": [
+              "hunter:EMAX"
+            ]
+          },
+          {
+            "id": "liquidity-drop",
+            "label": "Liquidity drop from its peak",
+            "weight": 0.05,
+            "present": true,
+            "detail": "Liquidity fell 79.4% from its peak ($7,263,266 → $1,495,631). At least 50%: money was pulled out of the pool.",
+            "evidenceIds": [
+              "hunter:EMAX"
+            ]
+          }
+        ],
+        "tally": {
+          "bullClaims": 2,
+          "bearClaims": 5
+        },
+        "reasoning": "Verdict: a pump-and-dump (score 0.9 of 1). Weighing against the token: paid posts that did not disclose payment (weight 0.3); price collapse of 80% or more (weight 0.25); promoters pushing it in the same window (weight 0.2); price run-up during the promotion (weight 0.1); liquidity drop from its peak (weight 0.05). Could not be checked: top-10 holders' share of supply. The bull side made 2 supported claims and the bear side 5; only claims that cite real evidence were counted.",
+        "mode": "rules",
+        "rejected": []
+      },
+      "prevHash": "ad61236485c0bc3dbbfb9b05ea9fd2bd1109e0d891351fc6892473ce869ade24",
+      "hash": "b8be17c48469d4b31e4bb437034526b421cb2f769bfbdf27dcc16c20c24bed47"
+    },
+    {
+      "seq": 8,
+      "at": "2026-10-30T00:00:10.000Z",
+      "agent": "risk",
+      "kind": "risk.refused",
+      "summary": "Practice trade refused: This token was promoted by people who were paid and did not say so. Your rules refuse those tokens.",
+      "evidenceIds": [
+        "price:2021-05-30",
+        "price:2021-06-03"
+      ],
+      "data": {
+        "symbol": "EMAX",
+        "side": "buy",
+        "sizeUsd": 500,
+        "decision": "refused",
+        "reasons": [
+          "This token was promoted by people who were paid and did not say so. Your rules refuse those tokens."
+        ],
+        "limits": {
+          "maxPositionUsd": 1000,
+          "minLiquidityUsd": 250000,
+          "maxTop10HolderPct": 50,
+          "refuseUndisclosedPaidPromotion": "true",
+          "maxDrawdownPct": 25,
+          "dailyLossLimitUsd": 300,
+          "unknownHolders": "half-size"
+        },
+        "plan": {
+          "symbol": "EMAX",
+          "side": "buy",
+          "at": "2021-06-03",
+          "entryPriceUsd": 2.564e-7,
+          "sizeUsd": 500,
+          "stopPriceUsd": 2.0512e-7,
+          "exitPriceUsd": 3.5896e-7,
+          "rationale": "The price is 49.6% below its high of $0.000000509 (2021-05-30). Plan: buy $750.00 at $0.000000256, stop 20% lower at $0.000000205, take profit at $0.000000359. Size halved to $500.00 because who holds the supply is unknown.",
+          "evidenceIds": [
+            "price:2021-05-30",
+            "price:2021-06-03"
+          ]
+        },
+        "checks": [
+          {
+            "limit": "data",
+            "ok": true,
+            "value": "ok",
+            "threshold": "stop < entry < exit, size > 0",
+            "reason": "The plan has an entry, a stop below it and an exit above it."
+          },
+          {
+            "limit": "maxPositionUsd",
+            "ok": true,
+            "value": 500,
+            "threshold": 1000,
+            "reason": "Size $500.00 is within your $1.0k maximum."
+          },
+          {
+            "limit": "minLiquidityUsd",
+            "ok": true,
+            "value": 5747276,
+            "threshold": 250000,
+            "reason": "Liquidity $5.75M meets your $250.0k minimum."
+          },
+          {
+            "limit": "maxTop10HolderPct",
+            "ok": true,
+            "value": null,
+            "threshold": 50,
+            "reason": "Who holds the supply is unknown, so your rule allows only half size ($500.00 at most)."
+          },
+          {
+            "limit": "refuseUndisclosedPaidPromotion",
+            "ok": false,
+            "value": "true",
+            "threshold": "no undisclosed paid promotion",
+            "reason": "This token was promoted by people who were paid and did not say so. Your rules refuse those tokens."
+          },
+          {
+            "limit": "maxDrawdownPct",
+            "ok": true,
+            "value": 20,
+            "threshold": 25,
+            "reason": "The stop is 20% below the entry, within your 25% limit."
+          },
+          {
+            "limit": "dailyLossLimitUsd",
+            "ok": true,
+            "value": 100,
+            "threshold": 300,
+            "reason": "Worst case today $100.00 stays within your $300.00 daily loss limit."
+          }
+        ],
+        "worstCaseLossUsd": 100,
+        "hindsight": {
+          "priceUsd": 1.587e-7,
+          "at": "2021-06-07",
+          "pnlUsd": -285.78,
+          "note": "Had it been taken, it would have ended at the stop on 2021-06-07 at $0.000000159: -$285.78. The price gapped through the stop ($0.000000205), so the loss is bigger than planned."
+        }
+      },
+      "prevHash": "b8be17c48469d4b31e4bb437034526b421cb2f769bfbdf27dcc16c20c24bed47",
+      "hash": "6e5d96901b75fb73da94da65b7002fa116a65a34c286fc7e3bf5801b08bf3665"
+    },
+    {
+      "seq": 9,
+      "at": "2026-10-30T00:00:11.000Z",
+      "agent": "claims",
+      "kind": "case.summary",
+      "summary": "Verdict: pump-and-dump. 1 paid post without disclosure; 7 related legal actions.",
+      "evidenceIds": [
+        "pierce-2021-05-26",
+        "sec-kardashian",
+        "sec-pierce",
+        "class-action-filed",
+        "class-action-dismissed-2022",
+        "class-action-proceeds-2023",
+        "class-action-certified-2025",
+        "sec-mayweather-2018"
+      ],
+      "data": {
+        "verdict": "pump-and-dump",
+        "score": 0.9,
+        "paidButUndisclosed": [
+          "pierce-2021-05-26"
+        ],
+        "legal": [
+          "sec-kardashian",
+          "sec-pierce",
+          "class-action-filed",
+          "class-action-dismissed-2022",
+          "class-action-proceeds-2023",
+          "class-action-certified-2025",
+          "sec-mayweather-2018"
+        ],
+        "bundleHash": "3026fa7efc6d14221749688ba98750d9f796a3ae1e35c283d7bbb424a5b4296c",
+        "gaps": [
+          "top-10 holder concentration: not in the case file",
+          "claimed market cap: no documented claim; liquidity-vs-market-cap rule left unchecked"
+        ]
+      },
+      "prevHash": "6e5d96901b75fb73da94da65b7002fa116a65a34c286fc7e3bf5801b08bf3665",
+      "hash": "36e48891bb457da8cbafd04306b8516f626b6c9a71e580034920782a2250b745"
+    }
+  ]
+}

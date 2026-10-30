@@ -1,0 +1,88 @@
+{
+  "_source": "https://github.com/IamHarrie-Labs/hanko/tree/bb83ec3d1b97e0b39558becb52ce189286b15986/fixtures",
+  "_license": "MIT (c) the hanko authors — https://github.com/IamHarrie-Labs/hanko/blob/bb83ec3d1b97e0b39558becb52ce189286b15986/LICENSE",
+  "_commit": "bb83ec3d1b97e0b39558becb52ce189286b15986",
+  "_fetched": "2026-10-30, via gh api repos/IamHarrie-Labs/hanko/contents/<path>",
+  "_notes": [
+    "Each entry under files is the fixture file copied verbatim (same keys and values, re-serialised as JSON), keyed by its path in the hanko repo.",
+    "ryo_*.json use hanko FixtureFactsSource shape: {status, coverage, payload} where payload is what the RYO tool returned (hanko/ryotools/fixture.py). status=failed carries the transport error instead.",
+    "market_*.json are hanko market-fact snapshots (flat: subject, price_usd, volume_24h_usd, liquidity_usd, safety_score).",
+    "check_safety is NOT on RYO’s authenticated catalog (hanko DECISIONS.md D-06, 2026-09-05); it was on the hackathon’s public tool list. Canary uses it to exercise discovery of a seventh tool.",
+    "Per hanko/ryotools/facts.py and client.py (confirmed live 2026-09-05): analyze_token nests price and volume under data.market; the envelope carries schema_version/status/data_mode/data/summary/warnings/availability; deep_analysis token_profile was null; no holder-concentration field exists in the six tools.",
+    "TOKENA / TOKENB / TOKENC are hanko placeholder names, not real coins."
+  ],
+  "catalog_tools_hanko": [
+    "market_overview",
+    "scan_market",
+    "analyze_token",
+    "deep_analysis",
+    "compare_tokens",
+    "monitor_market_sentiment_shift"
+  ],
+  "files": {
+    "fixtures/ryo_analyze_tokena.json": {
+      "status": "ok",
+      "coverage": "complete",
+      "payload": {
+        "price_usd": 1.25,
+        "volume_24h": 4200000
+      }
+    },
+    "fixtures/ryo_analyze_tokena_dip.json": {
+      "status": "ok",
+      "coverage": "complete",
+      "payload": {
+        "price_usd": 1,
+        "volume_24h": 4200000
+      }
+    },
+    "fixtures/ryo_check_safety_tokena.json": {
+      "status": "ok",
+      "coverage": "complete",
+      "payload": {
+        "safety_score": 0.82
+      }
+    },
+    "fixtures/ryo_deep_analysis_tokena.json": {
+      "status": "ok",
+      "coverage": "complete",
+      "payload": {
+        "pools": {
+          "liquidity_usd": 900000
+        }
+      }
+    },
+    "fixtures/ryo_failed.json": {
+      "status": "failed",
+      "coverage": "unknown",
+      "error": "rate limited (429)"
+    },
+    "fixtures/market_tokena.json": {
+      "subject": "TOKENA",
+      "price_usd": 1.25,
+      "volume_24h_usd": 4200000,
+      "liquidity_usd": 900000,
+      "safety_score": 0.82,
+      "snapshot_id": "snap_market_demo"
+    },
+    "fixtures/market_tokenb.json": {
+      "subject": "TOKENB",
+      "price_usd": 0.4,
+      "volume_24h_usd": 800000,
+      "liquidity_usd": 150000,
+      "safety_score": 0.71
+    },
+    "fixtures/market_tokenc_thin.json": {
+      "subject": "TOKENC",
+      "price_usd": 0.04,
+      "volume_24h_usd": 900000,
+      "liquidity_usd": 25000,
+      "safety_score": 0.88
+    },
+    "fixtures/market_no_liquidity.json": {
+      "subject": "TOKENA",
+      "price_usd": 1.25,
+      "volume_24h_usd": 4200000
+    }
+  }
+}

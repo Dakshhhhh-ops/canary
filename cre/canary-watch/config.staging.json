@@ -2,19 +2,20 @@
   "schedule": "0 */10 * * * *",
   "snapshotUrl": "",
   "fixtureSnapshot": {
-    "caseId": "0x6a1f3c0e4b8d2a7f9e5c1b3d7a2e8f4c6b0d9e1a3c5f7b2d4e6a8c0f1b3d5e7a",
-    "symbol": "MOONCAT",
-    "token": "0x000000000000000000000000000000000000dEaD",
-    "level": 2,
-    "promoters": 7,
-    "trailHash": "0x9b2e4f6a8c1d3e5f7a9b0c2d4e6f8a1b3c5d7e9f0a2b4c6d8e0f1a3b5c7d9e1f",
-    "liquidityBeforeUsd": 120000000,
-    "liquidityNowUsd": 18500000
+    "caseId": "0xec37cf03d275f8d560ab4244c8da6e0572a67d885ae7f42c25de4e15dd407255",
+    "symbol": "EMAX",
+    "token": "0x15874d65e649880c2614e7a480cb7c9A55787FF6",
+    "level": 3,
+    "promoters": 3,
+    "trailHash": "0x36e48891bb457da8cbafd04306b8516f626b6c9a71e580034920782a2250b745",
+    "liquidityBeforeUsd": 7263266,
+    "liquidityNowUsd": 1850255,
+    "pair": "0xb6CA52c7916ad7960C12Dc489FD93E5Af7cA257f"
   },
   "collapseDropBps": 8000,
   "liquidity": {
     "chainName": "ethereum-mainnet",
-    "pairAddress": "0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc",
+    "pairAddress": "0xb6CA52c7916ad7960C12Dc489FD93E5Af7cA257f",
     "quoteTokens": [
       {
         "symbol": "WETH",
@@ -48,7 +49,7 @@
   },
   "registry": {
     "chainName": "ethereum-testnet-sepolia",
-    "address": "0x0000000000000000000000000000000000000000",
-    "gasLimit": "500000"
+    "address": "0x9978E9F91cABfBB1e1b9A5Ae714328068B2DC116",
+    "gasLimit": "1500000"
   }
 }

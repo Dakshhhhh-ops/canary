@@ -1,10 +1,10 @@
 {
   "schedule": "0 */10 * * * *",
-  "snapshotUrl": "https://YOUR-CANARY-APP.example.com/api/watch/snapshot",
+  "snapshotUrl": "https://YOUR-CANARY-APP.example.com/api/watch/snapshot?case=emax",
   "collapseDropBps": 8000,
   "liquidity": {
     "chainName": "ethereum-mainnet",
-    "pairAddress": "0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc",
+    "pairAddress": "0xb6CA52c7916ad7960C12Dc489FD93E5Af7cA257f",
     "quoteTokens": [
       {
         "symbol": "WETH",
@@ -38,7 +38,7 @@
   },
   "registry": {
     "chainName": "ethereum-testnet-sepolia",
-    "address": "0x0000000000000000000000000000000000000000",
-    "gasLimit": "500000"
+    "address": "0x9978E9F91cABfBB1e1b9A5Ae714328068B2DC116",
+    "gasLimit": "1500000"
   }
 }

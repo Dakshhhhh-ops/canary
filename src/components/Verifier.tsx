@@ -109,7 +109,7 @@ export function Verifier() {
     <div className="grid gap-5 lg:grid-cols-[1fr_1fr]">
       <div className="card p-5">
         <label
-          className="grid min-h-[11rem] cursor-pointer place-items-center rounded-2xl border-[2.5px] border-dashed border-[var(--line-2)] bg-[var(--paper)] p-6 text-center hover:border-[var(--ink)]"
+          className="grid min-h-[11rem] cursor-pointer place-items-center rounded-2xl border-[2.5px] border-dashed border-[var(--line-2)] bg-[var(--paper)] p-6 text-center hover:border-[var(--ink)] has-[:focus-visible]:border-solid has-[:focus-visible]:border-[var(--ink)] has-[:focus-visible]:outline has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-[3px] has-[:focus-visible]:outline-[var(--beak)]"
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => {
             e.preventDefault();
@@ -118,7 +118,7 @@ export function Verifier() {
         >
           <input type="file" accept=".json,application/json" className="sr-only" onChange={(e) => onFile(e.target.files?.[0])} />
           <span>
-            <span className="block text-4xl">📄</span>
+            <span className="block text-4xl" aria-hidden>📄</span>
             <span className="mt-2 block font-display text-lg font-bold">Drop a Canary file here, or tap to choose</span>
             <span className="block text-sm text-[var(--ink-3)]">An evidence file from the hotline, or an agents&apos; notebook. It never leaves your device.</span>
           </span>

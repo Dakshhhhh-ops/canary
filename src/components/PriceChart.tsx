@@ -47,13 +47,16 @@ export function PriceChart({
   const t0 = pts[0].t;
   const t1 = pts[pts.length - 1].t;
   const vmax = Math.max(...pts.map((p) => p.v)) * 1.08;
-  const x = (t: number) => PAD.l + ((t - t0) / (t1 - t0 || 1)) * (W - PAD.l - PAD.r);
+  const ticks = 4;
+  // tiny token prices make long axis labels ($0.0000055): widen the left margin to fit them
+  const tickLabels = Array.from({ length: ticks + 1 }, (_, i) => fmtUsd((vmax / ticks) * i, 1));
+  const padL = Math.max(PAD.l, Math.ceil(Math.max(...tickLabels.map((l) => l.length)) * 6.4) + 14);
+  const x = (t: number) => padL + ((t - t0) / (t1 - t0 || 1)) * (W - padL - PAD.r);
   const y = (v: number) => PAD.t + (1 - v / vmax) * (H - PAD.t - PAD.b);
   const cut = upto ? day(upto) : Infinity;
   const vis = pts.filter((p) => p.t <= cut);
   const line = vis.map((p, i) => `${i ? "L" : "M"}${x(p.t).toFixed(1)},${y(p.v).toFixed(1)}`).join(" ");
   const area = vis.length ? `${line} L${x(vis[vis.length - 1].t)},${H - PAD.b} L${x(vis[0].t)},${H - PAD.b} Z` : "";
-  const ticks = 4;
   const months: number[] = [];
   if (t1 - t0 < 75 * 864e5) {
     const d = new Date(t0);
@@ -101,21 +104,21 @@ export function PriceChart({
         </defs>
         {Array.from({ length: ticks + 1 }, (_, i) => (vmax / ticks) * i).map((v) => (
           <g key={v}>
-            <line x1={PAD.l} x2={W - PAD.r} y1={y(v)} y2={y(v)} stroke="#ecd9b8" strokeDasharray="3 5" />
-            <text x={PAD.l - 8} y={y(v) + 4} textAnchor="end" fontSize="11" fill="#8a6f58">
+            <line x1={padL} x2={W - PAD.r} y1={y(v)} y2={y(v)} stroke="#ecd9b8" strokeDasharray="3 5" />
+            <text x={padL - 8} y={y(v) + 4} textAnchor="end" fontSize="11" fill="#765b45">
               {fmtUsd(v, 1)}
             </text>
           </g>
         ))}
         {months.map((m) => (
-          <text key={m} x={x(m)} y={H - 12} textAnchor="middle" fontSize="11" fill="#8a6f58">
+          <text key={m} x={x(m)} y={H - 12} textAnchor="middle" fontSize="11" fill="#765b45">
             {new Date(m).toLocaleDateString("en-US", t1 - t0 < 75 * 864e5 ? { month: "short", day: "numeric", timeZone: "UTC" } : { month: "short", year: "2-digit", timeZone: "UTC" })}
           </text>
         ))}
         {crash && crash <= cut && (
           <g>
-            <rect x={x(crash)} y={PAD.t} width={Math.max(0, W - PAD.r - x(crash))} height={H - PAD.t - PAD.b} fill="#d93a2b" opacity=".06" />
-            <text x={x(crash) + 6} y={PAD.t + 14} fontSize="11" fontWeight="700" fill="#d93a2b">
+            <rect x={x(crash)} y={PAD.t} width={Math.max(0, W - PAD.r - x(crash))} height={H - PAD.t - PAD.b} fill="#bd3022" opacity=".06" />
+            <text x={x(crash) + 6} y={PAD.t + 14} fontSize="11" fontWeight="700" fill="#bd3022">
               collapse
             </text>
           </g>
@@ -132,7 +135,7 @@ export function PriceChart({
           return (
             <g key={p.id}>
               <line x1={px} x2={px} y1={PAD.t + 18 + (i % 3) * 22} y2={H - PAD.b} stroke="#fe6a28" strokeWidth="1.5" strokeDasharray="4 3" />
-              <circle cx={px} cy={PAD.t + 8 + (i % 3) * 22} r="11" fill={p.disclosedPayment === false ? "#d93a2b" : "#fe6a28"} stroke="#2a190e" strokeWidth="1.5" />
+              <circle cx={px} cy={PAD.t + 8 + (i % 3) * 22} r="11" fill={p.disclosedPayment === false ? "#bd3022" : "#fe6a28"} stroke="#2a190e" strokeWidth="1.5" />
               <text x={px} y={PAD.t + 12 + (i % 3) * 22} textAnchor="middle" fontSize="9.5" fontWeight="800" fill="#fff">
                 {initials}
               </text>
@@ -146,7 +149,7 @@ export function PriceChart({
             <circle cx={x(h.t)} cy={y(h.v)} r="5" fill="#ffd84d" stroke="#2a190e" strokeWidth="2" />
             <g transform={`translate(${Math.min(x(h.t) + 10, W - 170)},${Math.max(PAD.t, y(h.v) - 46)})`}>
               <rect width="160" height="40" rx="10" fill="#fff" stroke="#2a190e" strokeWidth="1.5" />
-              <text x="10" y="17" fontSize="11" fill="#8a6f58">
+              <text x="10" y="17" fontSize="11" fill="#765b45">
                 {short(h.t)}
               </text>
               <text x="10" y="32" fontSize="13" fontWeight="800" fill="#2a190e">

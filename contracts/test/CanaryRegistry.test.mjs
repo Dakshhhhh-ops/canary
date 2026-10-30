@@ -26,6 +26,7 @@ import {
 const here = dirname(fileURLToPath(import.meta.url))
 const { abi, bytecode } = JSON.parse(readFileSync(join(here, '..', 'out', 'CanaryRegistry.json'), 'utf8'))
 const generatedPath = join(here, '..', '..', 'cre', 'canary-watch', 'fixtures', 'reports.generated.json')
+const claimsGeneratedPath = join(here, '..', '..', 'cre', 'canary-claims', 'fixtures', 'reports.generated.json')
 
 const FORWARDER = '0x15fC6ae953E024d975e77382eEeC56A9101f9F88' // Sepolia MockKeystoneForwarder
 const Envelope = parseAbiParameters('uint8 kind, bytes body')
@@ -39,6 +40,14 @@ const alertReport = (caseId, level, trail, symbol = 'MOONCAT', token = '0x000000
 	encodeAbiParameters(Envelope, [1, encodeAbiParameters(AlertBody, [caseId, symbol, token, level, promoters, trail])])
 const collapseReport = (caseId, before, now, drop, token = '0x000000000000000000000000000000000000dEaD') =>
 	encodeAbiParameters(Envelope, [2, encodeAbiParameters(CollapseBody, [caseId, token, before, now, drop])])
+const ClaimVerifiedBody = parseAbiParameters(
+	'bytes32 caseId, bytes32 evidenceHash, bytes32 claimantRef, bytes32 walletRef, uint32 purchases, uint64 firstBuyBlock',
+)
+const claimVerifiedReport = (caseId, evidence, claimant, walletRef, purchases, firstBuyBlock) =>
+	encodeAbiParameters(Envelope, [
+		3,
+		encodeAbiParameters(ClaimVerifiedBody, [caseId, evidence, claimant, walletRef, purchases, firstBuyBlock]),
+	])
 const id = (s) => keccak256(toHex(s))
 
 let provider, pub, wallet, owner, relayer, stranger, registry
@@ -262,5 +271,96 @@ describe('CanaryRegistry', () => {
 		const [level, , collapsed] = await read('statusOf', [g.snapshot.caseId])
 		assert.equal(level, 3)
 		assert.equal(collapsed, true)
+	})
+
+	// ---------------- kind 3: claim verified (cre/canary-claims) ----------------
+	describe('claim verified (report kind 3)', () => {
+		const caseV = id('case-V')
+		const walletRef = id('salt|0xwallet')
+
+		it('records a verified claim once and anchors it too', async () => {
+			const ev = id('evidence-V1')
+			const ref = id('ref-V1')
+			assert.equal(await read('claimVerifiedAt', [caseV, ev]), 0n)
+			const before = await read('caseCount')
+			let events = await send(FORWARDER, 'onReport', ['0x', claimVerifiedReport(caseV, ev, ref, walletRef, 5, 12556426n)])
+			assert.deepEqual(
+				events.map((e) => e.eventName),
+				['ClaimAnchored', 'ClaimVerified'],
+			)
+			const v = events[1].args
+			assert.equal(v.caseId, caseV)
+			assert.equal(v.evidenceHash, ev)
+			assert.equal(v.claimantRef, ref)
+			assert.equal(v.purchases, 5)
+			assert.equal(v.firstBuyBlock, 12556426n)
+			assert.ok(v.at > 0n)
+			assert.equal(await read('claimVerifiedAt', [caseV, ev]), v.at)
+			assert.equal(await read('isClaimAnchored', [caseV, ev]), true)
+			const stored = await read('getClaimVerification', [caseV, ev])
+			assert.equal(stored.walletRef, walletRef)
+			assert.equal(stored.purchases, 5)
+			assert.equal(await read('verifiedClaimCount', [caseV]), 1)
+			assert.equal((await read('getCase', [caseV])).claimCount, 1)
+			assert.equal(await read('caseCount'), before + 1n)
+
+			// idempotent: same claim again (even with other numbers) -> no event, nothing changes
+			events = await send(FORWARDER, 'onReport', ['0x', claimVerifiedReport(caseV, ev, ref, walletRef, 9, 1n)])
+			assert.equal(events.length, 0)
+			assert.equal((await read('getClaimVerification', [caseV, ev])).purchases, 5)
+			assert.equal(await read('verifiedClaimCount', [caseV]), 1)
+			// the relayer can't anchor it a second time either
+			await reverts(send(relayer, 'anchorClaim', [caseV, ev, ref]), 'ClaimAlreadyAnchored')
+		})
+
+		it('verifies a claim the relayer already anchored without anchoring it twice', async () => {
+			const ev = id('evidence-V2')
+			await send(relayer, 'anchorClaim', [caseV, ev, id('ref-V2')])
+			const events = await send(FORWARDER, 'onReport', ['0x', claimVerifiedReport(caseV, ev, id('ref-V2'), walletRef, 1, 12700228n)])
+			assert.deepEqual(
+				events.map((e) => e.eventName),
+				['ClaimVerified'],
+			)
+			assert.equal((await read('getCase', [caseV])).claimCount, 2)
+			assert.equal(await read('verifiedClaimCount', [caseV]), 2)
+		})
+
+		it('is forwarder-only and rejects bad claim reports', async () => {
+			const r = claimVerifiedReport(caseV, id('evidence-V3'), id('ref'), walletRef, 1, 1n)
+			await reverts(send(stranger, 'onReport', ['0x', r]), 'NotForwarder')
+			await reverts(send(relayer, 'onReport', ['0x', r]), 'NotForwarder')
+			const zero = `0x${'00'.repeat(32)}`
+			await reverts(
+				send(FORWARDER, 'onReport', ['0x', claimVerifiedReport(zero, id('e'), id('r'), walletRef, 1, 1n)]),
+				'InvalidCaseId',
+			)
+			await reverts(
+				send(FORWARDER, 'onReport', ['0x', claimVerifiedReport(caseV, zero, id('r'), walletRef, 1, 1n)]),
+				'InvalidEvidenceHash',
+			)
+			await reverts(
+				send(FORWARDER, 'onReport', ['0x', claimVerifiedReport(caseV, id('e'), id('r'), walletRef, 0, 1n)]),
+				'NoVerifiedPurchases',
+			)
+		})
+
+		it(
+			'accepts the exact report bytes produced by the canary-claims workflow',
+			{ skip: !existsSync(claimsGeneratedPath) },
+			async () => {
+				const g = JSON.parse(readFileSync(claimsGeneratedPath, 'utf8'))
+				const events = await send(FORWARDER, 'onReport', ['0x', g.claimVerified])
+				const v = events.find((e) => e.eventName === 'ClaimVerified').args
+				assert.equal(v.caseId, g.claim.caseId)
+				assert.equal(v.evidenceHash, g.claim.evidenceHash)
+				assert.equal(v.claimantRef, g.claim.claimantRef)
+				assert.equal(v.purchases, g.expected.purchases)
+				assert.equal(v.firstBuyBlock, BigInt(g.expected.firstBuyBlock))
+				const stored = await read('getClaimVerification', [g.claim.caseId, g.claim.evidenceHash])
+				assert.equal(stored.walletRef, g.expected.walletRef)
+				assert.ok((await read('claimVerifiedAt', [g.claim.caseId, g.claim.evidenceHash])) > 0n)
+				assert.equal(await read('isClaimAnchored', [g.claim.caseId, g.claim.evidenceHash]), true)
+			},
+		)
 	})
 })

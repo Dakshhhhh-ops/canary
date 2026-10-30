@@ -16,13 +16,19 @@ export const DEFAULT_LIMITS: RiskLimits = {
   refuseUndisclosedPaidPromotion: true,
   maxDrawdownPct: 25,
   dailyLossLimitUsd: 300,
+  unknownHolders: "half-size",
 };
 
 const r2 = (n: number) => Math.round(n * 100) / 100;
 
 /** Check one plan against the limits. `lossTodayUsd` = losses already realised today. */
-export function evaluatePlan(plan: TradePlan, market: MarketSnapshot, limits: RiskLimits, lossTodayUsd = 0): TradeDecision {
+export function evaluatePlan(input: TradePlan, market: MarketSnapshot, limits: RiskLimits, lossTodayUsd = 0): TradeDecision {
   const checks: RiskCheck[] = [];
+  // Holder data is often missing (RYO's tools don't report it). The published rule: unless the user chose
+  // "refuse", trade at most half the maximum size, so an unknown can only shrink the risk, never hide it.
+  const halfSize = market.top10HolderPct === null && (limits.unknownHolders ?? "half-size") === "half-size";
+  const cap = r2(limits.maxPositionUsd / 2);
+  const plan: TradePlan = halfSize && input.sizeUsd > cap ? { ...input, sizeUsd: cap, rationale: `${input.rationale} Size halved to ${fmtUsd(cap)} because who holds the supply is unknown.` } : input;
   const add = (c: RiskCheck) => checks.push(c);
   const sane = plan.entryPriceUsd > 0 && plan.sizeUsd > 0 && plan.stopPriceUsd < plan.entryPriceUsd && plan.exitPriceUsd > plan.entryPriceUsd;
   add({ limit: "data", ok: sane, value: sane ? "ok" : "invalid", threshold: "stop < entry < exit, size > 0", reason: sane ? "The plan has an entry, a stop below it and an exit above it." : "The plan is not a complete decision: it needs a positive size, a stop below the entry and an exit above it." });
@@ -35,8 +41,8 @@ export function evaluatePlan(plan: TradePlan, market: MarketSnapshot, limits: Ri
     reason: liq === null ? "Liquidity is unknown, so we cannot tell whether you could sell; refused rather than guessed." : liq >= limits.minLiquidityUsd ? `Liquidity ${fmtUsd(liq)} meets your ${fmtUsd(limits.minLiquidityUsd)} minimum.` : `Only ${fmtUsd(liq)} of liquidity, below your ${fmtUsd(limits.minLiquidityUsd)} minimum: you might not be able to sell.` });
 
   const top = market.top10HolderPct;
-  add({ limit: "maxTop10HolderPct", ok: top !== null && top <= limits.maxTop10HolderPct, value: top, threshold: limits.maxTop10HolderPct,
-    reason: top === null ? "Who holds the supply is unknown; refused rather than guessed." : top <= limits.maxTop10HolderPct ? `Top 10 wallets hold ${top}%, within your ${limits.maxTop10HolderPct}% limit.` : `Top 10 wallets hold ${top}% of the supply, above your ${limits.maxTop10HolderPct}% limit: a few sellers could crash it.` });
+  add({ limit: "maxTop10HolderPct", ok: top !== null ? top <= limits.maxTop10HolderPct : halfSize, value: top, threshold: limits.maxTop10HolderPct,
+    reason: top === null ? (halfSize ? `Who holds the supply is unknown, so your rule allows only half size (${fmtUsd(cap)} at most).` : "Who holds the supply is unknown; refused rather than guessed (your rule).") : top <= limits.maxTop10HolderPct ? `Top 10 wallets hold ${top}%, within your ${limits.maxTop10HolderPct}% limit.` : `Top 10 wallets hold ${top}% of the supply, above your ${limits.maxTop10HolderPct}% limit: a few sellers could crash it.` });
 
   if (limits.refuseUndisclosedPaidPromotion) {
     const bad = market.undisclosedPaidPromotion === true;
@@ -61,7 +67,7 @@ export function evaluatePlan(plan: TradePlan, market: MarketSnapshot, limits: Ri
     sizeUsd: plan.sizeUsd,
     decision: failed.length ? "refused" : "accepted",
     reasons: failed.length ? failed.map((c) => c.reason) : ["Every one of your limits passed. Practice trade only: no real order is placed."],
-    limits: { ...limits, refuseUndisclosedPaidPromotion: String(limits.refuseUndisclosedPaidPromotion) },
+    limits: { ...limits, refuseUndisclosedPaidPromotion: String(limits.refuseUndisclosedPaidPromotion), unknownHolders: limits.unknownHolders ?? "half-size" },
     plan,
     checks,
     worstCaseLossUsd: worst,
@@ -146,3 +152,34 @@ export function hindsight(plan: TradePlan, prices: PricePoint[]): TradeDecision[
   return { priceUsd: hit.priceUsd, at: hit.t, pnlUsd, note: `Had it been taken, it would have ended at ${kind} on ${hit.t.slice(0, 10)} at ${fmtUsd(hit.priceUsd)}: ${pnlUsd >= 0 ? "+" : "-"}${fmtUsd(Math.abs(pnlUsd))}.${gap}` };
 }
 
+
+export type LivePlanOptions = DipOptions & { change24hPct?: number | null };
+
+/**
+ * The live "Buy the Dip" decision: entry at RYO's current price, with size, stop and take-profit
+ * set together. Size risks at most half the daily loss budget at the stop, capped by max position.
+ * With no price the plan is left empty on purpose, so the risk desk refuses it instead of guessing.
+ */
+export function planAtPrice(symbol: string, priceUsd: number | null, at: string, limits: RiskLimits, opts: LivePlanOptions = {}, evidenceIds: string[] = []): TradePlan {
+  const stopPct = opts.stopPct ?? 20;
+  const rr = opts.rewardRisk ?? 2;
+  if (!priceUsd || !(priceUsd > 0))
+    return { symbol, side: "buy", at, entryPriceUsd: 0, sizeUsd: 0, stopPriceUsd: 0, exitPriceUsd: 0, rationale: "No current price, so no entry can be set.", evidenceIds };
+  const entry = priceUsd;
+  const stop = entry * (1 - stopPct / 100);
+  const exit = entry * (1 + (rr * stopPct) / 100);
+  const size = r2(Math.min(limits.maxPositionUsd, (limits.dailyLossLimitUsd * 0.5) / (stopPct / 100)));
+  const ch = opts.change24hPct;
+  const move = typeof ch === "number" && Number.isFinite(ch) ? (ch < 0 ? `It is down ${Math.abs(ch)}% over 24 hours (a dip). ` : `It is up ${ch}% over 24 hours (not a dip). `) : "";
+  return {
+    symbol,
+    side: "buy",
+    at,
+    entryPriceUsd: entry,
+    sizeUsd: size,
+    stopPriceUsd: stop,
+    exitPriceUsd: exit,
+    rationale: `${move}Plan: buy ${fmtUsd(size)} at RYO's current price ${fmtUsd(entry)}, sell if it falls ${stopPct}% to ${fmtUsd(stop)}, take profit at ${fmtUsd(exit)} (${rr}× the risk). Size chosen so the stop costs at most half your daily loss limit.`,
+    evidenceIds,
+  };
+}

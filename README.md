@@ -76,6 +76,28 @@ npm test                       # agent engine + hotline tests
 
 Contracts: `cd contracts && npm install && npm test`. Workflow: see [cre/README.md](cre/README.md) (needs the `cre` CLI and Bun; simulation needs a Chainlink account).
 
+## On-chain proof
+
+Three commands produce the proof that the Chainlink CRE workflow ran and wrote to the chain. They need a fresh Sepolia **test** wallet (`CANARY_RELAYER_KEY=0x…` in `.env.local`, funded at [faucets.chain.link/sepolia](https://faucets.chain.link/sepolia)) and a Chainlink account (`cre login`, CLI in `.tools/`).
+
+```bash
+npm run chain:setup                       # compile + deploy CanaryRegistry to Sepolia; writes the address into the CRE configs, .env.local, cre/.env and data/onchain.json
+npm run chain:simulate -- --broadcast     # cre workflow simulate (dry run, then --broadcast): real EMAX pool read on mainnet → alert + collapse reports on Sepolia
+npm run chain:status                      # what the registry now holds for EMAX, with Etherscan links
+```
+
+`chain:simulate` saves the simulator's full, redacted output with a step-by-step explanation to [cre/SIMULATION.md](cre/SIMULATION.md) and the transaction hashes to `data/onchain.json`; the app shows both on `/judges` and on the EMAX case page. Optional: `-- --target local-settings` reads the snapshot from the running app over HTTP; `-- --target production-settings --url https://<deployed app>` from the public one.
+
+<!-- onchain:start -->
+- **CanaryRegistry (Sepolia):** [`0x9978E9F91cABfBB1e1b9A5Ae714328068B2DC116`](https://sepolia.etherscan.io/address/0x9978E9F91cABfBB1e1b9A5Ae714328068B2DC116) · deployed in block 12023671 ([deploy tx](https://sepolia.etherscan.io/tx/0x309c662cedc606f39c66afdfce1b8a2932bab1e178ccc9437ec4bdadcee6e72a))
+- **Reports written by the CRE workflow** (`cre workflow simulate --broadcast` → MockKeystoneForwarder → `CanaryRegistry.onReport`):
+  - alert · [`0xd6003f3d…d6e10c9a`](https://sepolia.etherscan.io/tx/0xd6003f3d3839816a223cc59c8ab05dcd63b5ca8f236341fa14f5c597d6e10c9a) · canary-watch `staging-settings` · 2026-10-30 02:43 UTC
+  - collapse · [`0xc0fad796…e0952cc9`](https://sepolia.etherscan.io/tx/0xc0fad796d7417550fecb531c8f4124cdf67041e47fe7538c430b30f6e0952cc9) · canary-watch `staging-settings` · 2026-10-30 02:43 UTC
+  - claim-verification · [`0x85473c98…8905ae6c`](https://sepolia.etherscan.io/tx/0x85473c9811d3e7a70d1e25187faa3298291aa61a9b12e3dc98d92a278905ae6c) · canary-claims `staging-settings` · 2026-10-30 02:44 UTC
+- **Simulation runs recorded:** 4 (last: canary-claims `staging-settings` with --broadcast, CRE CLI v1.39.0, 2026-10-30 02:44 UTC)
+- **Full simulator output:** [cre/SIMULATION.md](cre/SIMULATION.md) (also shown on `/judges` in the app)
+<!-- onchain:end -->
+
 ## Honest limits
 
 - Live influencer posts need paid X/Telegram API access. The replay uses posts quoted in SEC orders and court records.

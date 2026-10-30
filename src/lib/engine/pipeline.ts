@@ -11,8 +11,8 @@ import { detectConvergence, type ConvergenceOptions } from "./convergence";
 import { buildBundle, defaultLlm, JUDGE_WEIGHTS, runDebate, type LlmJsonFn } from "./debate";
 import { candidateFromCase, hunt, type HunterThresholds } from "./hunter";
 import { checkClaims, claimFromPost, type NewsOptions } from "./news";
-import { DEFAULT_LIMITS, evaluatePlan, hindsight, planDip, type DipOptions } from "./risk";
-import { extractMarketFacts, RyoClient, type MarketFacts, type RyoResult, type RyoTool } from "./ryo";
+import { DEFAULT_LIMITS, evaluatePlan, hindsight, planAtPrice, planDip, type DipOptions } from "./risk";
+import { argsFor, extractMarketFacts, RyoClient, type Catalog, type MarketFacts, type RyoResult } from "./ryo";
 import { fmtUsd, ms, priceId, sorted } from "./series";
 import { systemClock, Trail, verifyTrail, type Clock } from "./trail";
 import type {
@@ -220,12 +220,22 @@ function caseTrade(cf: CaseFile, limits: RiskLimits, dip?: DipOptions): TradeDec
 
 // ---------- runLive ----------
 
+/** A raw call as the trail records it: the reply itself lives in the saved run file, bound here by its hash. */
+export type RawDigest = { tool: string; args: Record<string, unknown>; ok: boolean; fetchedAt: string; digest: string | null };
+
 export type LiveRun = {
   symbols: string[];
-  ryo: { configured: boolean; calls: { tool: RyoTool; symbol?: string; ok: boolean; degraded?: string | null }[] };
+  startedAt: string;
+  mode: "live" | "recorded-fixture"; // recorded-fixture = replies replayed from a published fixture, never live data
+  ryo: { configured: boolean; calls: { tool: string; symbol?: string; ok: boolean; degraded?: string | null }[]; raw: RawDigest[] };
+  catalog: Catalog;
+  limits: RiskLimits;
+  stopPct: number;
+  lossTodayUsd: number;
   facts: MarketFacts[];
   hunter: ReturnType<typeof hunt>;
-  perSymbol: { symbol: string; debate: DebateResult; trade: TradeDecision }[];
+  perSymbol: { symbol: string; debate: DebateResult; trade: TradeDecision; riskEntryHash: string }[];
+  extras: { tool: string; symbol: string | null; ok: boolean; preview: string | null; reason: string | null }[]; // unplaced catalog tools, recorded raw
   convergence: ConvergenceResult | null;
   gaps: Gap[];
   trail: StepEvent["entry"][];
@@ -235,8 +245,18 @@ export type LiveRun = {
 
 export type RunLiveOptions = RunOptions & {
   ryo?: RyoClient;
-  deep?: boolean; // also call deep_analysis per symbol
+  deep?: boolean; // also call the deep-analysis tool per symbol (default true: it is where pool liquidity lives)
   posts?: CaseFile["posts"]; // promoter posts you have collected, for convergence (tokens read from $CASHTAGS)
+  lossTodayUsd?: number; // losses the paper ledger already realised today (daily circuit breaker)
+  mode?: LiveRun["mode"];
+};
+
+/** sha256 of the canonical JSON of a raw reply: lets anyone check a saved reply against the trail. */
+export const rawDigest = async (response: unknown) => (response == null ? null : sha256Hex(canonical(response)));
+
+const previewOf = (v: unknown) => {
+  const t = typeof v === "string" ? v : JSON.stringify(v);
+  return t == null ? null : t.length > 2000 ? `${t.slice(0, 2000)}… (${t.length} characters; full reply in the saved run)` : t;
 };
 
 /** Current tokens through RYO. When RYO is unavailable every missing fact is a recorded gap, never a number. */
@@ -245,8 +265,12 @@ export async function runLive(symbols: string[], opts: RunLiveOptions = {}): Pro
   const { trail, step } = recorder(clock, opts.onStep);
   const ryo = opts.ryo ?? new RyoClient({ clock });
   const limits = { ...DEFAULT_LIMITS, ...opts.limits };
+  const stopPct = opts.dip?.stopPct ?? 20;
+  const lossTodayUsd = opts.lossTodayUsd ?? 0;
   const llm = await resolveLlm(opts.llm);
   const syms = [...new Set(symbols.map((s) => s.toUpperCase()))];
+  const startedAt = clock();
+  const logStart = ryo.log.length;
   const gaps: Gap[] = [];
   const calls: LiveRun["ryo"]["calls"] = [];
   const note = (r: RyoResult, symbol?: string) => {
@@ -255,32 +279,80 @@ export async function runLive(symbols: string[], opts: RunLiveOptions = {}): Pro
     else if (r.degraded) gaps.push({ source: `ryo:${r.tool}`, what: `RYO ${r.tool}${symbol ? ` for ${symbol}` : ""} is partial`, reason: r.degraded, at: clock() });
   };
 
+  // 0. catalog: what the server really offers today
+  const catalog = await ryo.listTools();
+  if (catalog.gap && ryo.configured) gaps.push(catalog.gap);
+  const extraNames = [...catalog.safety, ...catalog.unknown];
+  // (when the list could not be read, the assumed catalog and its gap ride along in the collector step)
+  if (catalog.source === "tools/list")
+    await step(
+      "collector",
+      "collector.catalog",
+      `RYO lists ${catalog.tools.length} tools.${catalog.renamed.length ? ` Renamed: ${catalog.renamed.map((r) => `${r.from} → ${r.to}`).join(", ")}.` : ""}${extraNames.length ? ` New: ${extraNames.join(", ")}.` : ""}${catalog.missingKnown.length ? ` No longer listed: ${catalog.missingKnown.join(", ")}.` : ""}`,
+      [],
+      catalog,
+    );
+
   // 1. collector (sequential: the client spaces calls politely anyway)
-  const overview = await ryo.callTool("market_overview", {});
-  note(overview);
+  const entryFor = (name: string | undefined) => (name ? catalog.tools.find((t) => t.name === name) : undefined);
+  const overviewTool = catalog.roles.overview;
+  if (overviewTool) note(await ryo.callTool(overviewTool, {}));
+  const tokenTool = entryFor(catalog.roles.token);
+  const deepTool = opts.deep === false ? undefined : entryFor(catalog.roles.deep);
+  const safetyTools = catalog.safety.map((n) => entryFor(n)).filter((t): t is NonNullable<typeof t> => Boolean(t));
   const facts: MarketFacts[] = [];
   const items: EvidenceItem[] = [];
   for (const s of syms) {
-    const payloads: Partial<Record<RyoTool, unknown>> = {};
-    const a = await ryo.callTool("analyze_token", { symbol: s });
-    note(a, s);
-    if (a.ok) payloads.analyze_token = a.payload;
-    if (opts.deep) {
-      const d = await ryo.callTool("deep_analysis", { symbol: s });
-      note(d, s);
-      if (d.ok) payloads.deep_analysis = d.payload;
+    const payloads: Record<string, unknown> = {};
+    for (const t of [tokenTool, deepTool, ...safetyTools]) {
+      if (!t) continue;
+      const args = argsFor(t, s);
+      if (!args) {
+        gaps.push({ source: `ryo:${t.name}`, what: `RYO ${t.name} for ${s}`, reason: `needs arguments Canary cannot fill (${t.requiredArgs.join(", ")})`, at: clock() });
+        continue;
+      }
+      const r = await ryo.callTool(t.name, args);
+      note(r, s);
+      if (r.ok) payloads[t.name] = r.payload;
     }
+    if (!tokenTool) gaps.push({ source: "ryo:catalog", what: `price for ${s}`, reason: "RYO's catalog has no token-analysis tool today", at: clock() });
     const f = extractMarketFacts(s, payloads);
     facts.push(f);
     if (Object.keys(payloads).length && f.missing.length) gaps.push({ source: "ryo:extract", what: `${s}: ${f.missing.join(", ")}`, reason: "not present in the RYO reply", at: clock() });
     items.push({
       id: `market:${s}`,
       kind: "market",
-      text: `${s} now (RYO): price ${f.priceUsd === null ? "unknown" : fmtUsd(f.priceUsd)}, liquidity ${f.liquidityUsd === null ? "unknown" : `$${Math.round(f.liquidityUsd).toLocaleString("en-US")}`}, market cap ${f.marketCapUsd === null ? "unknown" : `$${Math.round(f.marketCapUsd).toLocaleString("en-US")}`}, top-10 holders ${f.top10HolderPct === null ? "unknown" : `${f.top10HolderPct}%`}.`,
+      text: `${s} now (RYO): price ${f.priceUsd === null ? "unknown" : fmtUsd(f.priceUsd)}, liquidity ${f.liquidityUsd === null ? "unknown" : `$${Math.round(f.liquidityUsd).toLocaleString("en-US")}`}, market cap ${f.marketCapUsd === null ? "unknown" : `$${Math.round(f.marketCapUsd).toLocaleString("en-US")}`}, top-10 holders ${f.top10HolderPct === null ? "unknown" : `${f.top10HolderPct}%`}${f.safetyScore != null ? `, safety score ${f.safetyScore}` : ""}${f.change24hPct != null ? `, 24h change ${f.change24hPct}%` : ""}.`,
       data: f,
     });
   }
-  await step("collector", ryo.configured ? "collector.ryo" : "collector.ryo-unavailable", ryo.configured ? `Asked RYO about ${syms.join(", ")}: ${calls.filter((c) => c.ok).length} of ${calls.length} calls answered.` : `RYO is not configured, so no live market data was fetched for ${syms.join(", ")}; every market number is recorded as unknown.`, items.map((i) => i.id), { calls, facts, gaps: [...gaps] });
+
+  // 1b. tools nobody planned for: called only when their arguments are obvious; replies recorded raw
+  const extras: LiveRun["extras"] = [];
+  for (const name of catalog.unknown) {
+    const t = entryFor(name)!;
+    const targets: (string | null)[] = t.symbolArg ? syms : [null];
+    for (const s of targets) {
+      const args = argsFor(t, s);
+      if (!args) {
+        extras.push({ tool: name, symbol: s, ok: false, preview: null, reason: `not called: needs ${t.requiredArgs.join(", ")}, which Canary cannot fill` });
+        continue;
+      }
+      const r = await ryo.callTool(name, args);
+      note(r, s ?? undefined);
+      extras.push({ tool: name, symbol: s, ok: r.ok, preview: r.ok ? previewOf(r.payload) : null, reason: r.ok ? null : r.gap.reason });
+    }
+  }
+
+  const raw: RawDigest[] = await Promise.all(ryo.log.slice(logStart).map(async (c) => ({ tool: c.tool, args: c.args, ok: c.ok, fetchedAt: c.fetchedAt, digest: await rawDigest(c.response) })));
+  await step(
+    "collector",
+    ryo.configured ? "collector.ryo" : "collector.ryo-unavailable",
+    ryo.configured ? `Asked RYO about ${syms.join(", ")}: ${calls.filter((c) => c.ok).length} of ${calls.length} calls answered.` : `RYO is not configured, so no live market data was fetched for ${syms.join(", ")}; every market number is recorded as unknown.`,
+    items.map((i) => i.id),
+    { calls, facts, raw, catalog: catalog.source === "assumed" ? catalog : undefined, gaps: [...gaps] },
+  );
+  if (extras.length) await step("collector", "collector.unplaced-tools", `Recorded ${extras.length} raw repl${extras.length === 1 ? "y" : "ies"} from tools Canary has no job for yet (${[...new Set(extras.map((e) => e.tool))].join(", ")}).`, [], extras);
 
   // 2. convergence (only if posts were supplied)
   const convergence = opts.posts?.length ? detectConvergence(opts.posts, opts.convergence) : null;
@@ -318,28 +390,41 @@ export async function runLive(symbols: string[], opts: RunLiveOptions = {}): Pro
     gaps.push(...debate.gaps);
     await step("judge", `judge.${debate.judge.verdict}`, `${v.symbol}: ${debate.judge.reasoning.split(/(?<=\.)\s/)[0]}`, [...new Set(factors.flatMap((x) => x.evidenceIds))], { symbol: v.symbol, bundleHash: bundle.hash, bull: debate.bull, bear: debate.bear, judge: debate.judge, rejected: debate.rejected });
 
-    const e = f.priceUsd;
-    const plan: TradePlan = {
-      symbol: v.symbol,
-      side: "buy",
-      at: clock(),
-      entryPriceUsd: e ?? 0,
-      sizeUsd: limits.maxPositionUsd,
-      stopPriceUsd: e ? e * 0.8 : 0,
-      exitPriceUsd: e ? e * 1.4 : 0,
-      rationale: e ? `Buy at the current RYO price ${fmtUsd(e)}, stop 20% lower, take profit 40% higher.` : "No current price, so no entry can be set.",
-      evidenceIds: [`market:${v.symbol}`],
-    };
+    const plan: TradePlan = planAtPrice(v.symbol, f.priceUsd, clock(), limits, { ...opts.dip, stopPct, change24hPct: f.change24hPct }, [`market:${v.symbol}`]);
     const ev = evFor(v.symbol);
-    const trade = evaluatePlan(plan, { liquidityUsd: f.liquidityUsd, top10HolderPct: f.top10HolderPct, undisclosedPaidPromotion: convergence ? (ev?.disclosure.paidButUndisclosed.length ?? 0) > 0 : null }, limits);
+    const trade = evaluatePlan(plan, { liquidityUsd: f.liquidityUsd, top10HolderPct: f.top10HolderPct, undisclosedPaidPromotion: convergence ? (ev?.disclosure.paidButUndisclosed.length ?? 0) > 0 : null }, limits, lossTodayUsd);
     // say the real reason first when there was no price to plan with
-    if (!e && trade.decision === "refused") trade.reasons.unshift(`No current price for ${v.symbol}${ryo.configured ? " in RYO's reply" : " (RYO is not connected)"}, so there is nothing to plan. Refused rather than guessed.`);
-    await step("risk", `risk.${trade.decision}`, `${v.symbol}: practice trade ${trade.decision}${trade.decision === "refused" ? ` — ${trade.reasons[0]}` : ""}`, plan.evidenceIds, trade);
-    perSymbol.push({ symbol: v.symbol, debate, trade });
+    if (!f.priceUsd && trade.decision === "refused") trade.reasons.unshift(`No current price for ${v.symbol}${ryo.configured ? " in RYO's reply" : " (RYO is not connected)"}, so there is nothing to plan. Refused rather than guessed.`);
+    const entry = await step(
+      "risk",
+      `risk.${trade.decision}`,
+      `${v.symbol}: practice trade ${trade.decision}${trade.decision === "refused" ? ` — ${trade.reasons[0]}` : ` — buy ${fmtUsd(plan.sizeUsd)} at ${fmtUsd(plan.entryPriceUsd)}, stop ${fmtUsd(plan.stopPriceUsd)}, take profit ${fmtUsd(plan.exitPriceUsd)}`}`,
+      plan.evidenceIds,
+      trade,
+    );
+    perSymbol.push({ symbol: v.symbol, debate, trade, riskEntryHash: entry.hash });
   }
 
   const check = await verifyTrail(trail.entries);
-  return { symbols: syms, ryo: { configured: ryo.configured, calls }, facts, hunter, perSymbol, convergence, gaps, trail: trail.entries, trailOk: check.ok, headHash: trail.head };
+  return {
+    symbols: syms,
+    startedAt,
+    mode: opts.mode ?? "live",
+    ryo: { configured: ryo.configured, calls, raw },
+    catalog,
+    limits,
+    stopPct,
+    lossTodayUsd,
+    facts,
+    hunter,
+    perSymbol,
+    extras,
+    convergence,
+    gaps,
+    trail: trail.entries,
+    trailOk: check.ok,
+    headHash: trail.head,
+  };
 }
 
 // ---------- streaming ----------

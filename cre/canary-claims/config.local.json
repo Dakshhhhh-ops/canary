@@ -1,0 +1,27 @@
+{
+  "authorizedEvmAddresses": [],
+  "cases": [
+    {
+      "slug": "emax",
+      "caseId": "0xec37cf03d275f8d560ab4244c8da6e0572a67d885ae7f42c25de4e15dd407255",
+      "symbol": "EMAX",
+      "chainName": "ethereum-mainnet",
+      "token": "0x15874d65e649880c2614e7a480cb7c9A55787FF6",
+      "pair": "0xb6CA52c7916ad7960C12Dc489FD93E5Af7cA257f",
+      "classPeriod": {
+        "from": "2021-05-14",
+        "to": "2021-06-27"
+      },
+      "classStartBlock": 12429199,
+      "classEndBlock": 12719181,
+      "pairCreatedBlock": 12503000
+    }
+  ],
+  "logQueryBlockLimit": 100,
+  "maxLogQueries": 10,
+  "registry": {
+    "chainName": "ethereum-testnet-sepolia",
+    "address": "0x9978E9F91cABfBB1e1b9A5Ae714328068B2DC116",
+    "gasLimit": "1500000"
+  }
+}

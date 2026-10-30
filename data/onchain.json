@@ -1,0 +1,104 @@
+{
+  "network": "sepolia",
+  "chainId": 11155111,
+  "registry": "0x9978E9F91cABfBB1e1b9A5Ae714328068B2DC116",
+  "deployTx": "0x309c662cedc606f39c66afdfce1b8a2932bab1e178ccc9437ec4bdadcee6e72a",
+  "deployBlock": "12023671",
+  "deployer": "0x96529807b032A9832525eE582C186BD7296D518b",
+  "forwarders": [
+    "0x15fC6ae953E024d975e77382eEeC56A9101f9F88"
+  ],
+  "relayer": "0x96529807b032A9832525eE582C186BD7296D518b",
+  "deployedAt": "2026-10-30T02:22:39.113Z",
+  "explorer": "https://sepolia.etherscan.io",
+  "simulations": [
+    {
+      "at": "2026-10-30T02:43:15.129Z",
+      "workflow": "canary-watch",
+      "target": "staging-settings",
+      "broadcast": false,
+      "cliVersion": "v1.39.0",
+      "command": "cre workflow simulate ./canary-watch -T staging-settings --non-interactive --trigger-index 0",
+      "result": {
+        "caseId": "0xec37cf03d275f8d560ab4244c8da6e0572a67d885ae7f42c25de4e15dd407255",
+        "symbol": "EMAX",
+        "level": 3,
+        "onchainLiquidityCents": "5805269",
+        "snapshotLiquidityNowCents": "185025500",
+        "liquidityBeforeCents": "726326600",
+        "dropBps": 9920,
+        "alert": "written",
+        "collapse": "written",
+        "txs": [
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x0000000000000000000000000000000000000000000000000000000000000000"
+        ]
+      },
+      "txs": []
+    },
+    {
+      "at": "2026-10-30T02:43:15.129Z",
+      "workflow": "canary-watch",
+      "target": "staging-settings",
+      "broadcast": true,
+      "cliVersion": "v1.39.0",
+      "command": "cre workflow simulate ./canary-watch -T staging-settings --non-interactive --trigger-index 0 --broadcast",
+      "result": {
+        "caseId": "0xec37cf03d275f8d560ab4244c8da6e0572a67d885ae7f42c25de4e15dd407255",
+        "symbol": "EMAX",
+        "level": 3,
+        "onchainLiquidityCents": "5805269",
+        "snapshotLiquidityNowCents": "185025500",
+        "liquidityBeforeCents": "726326600",
+        "dropBps": 9920,
+        "alert": "written",
+        "collapse": "written",
+        "txs": [
+          "0xd6003f3d3839816a223cc59c8ab05dcd63b5ca8f236341fa14f5c597d6e10c9a",
+          "0xc0fad796d7417550fecb531c8f4124cdf67041e47fe7538c430b30f6e0952cc9"
+        ]
+      },
+      "txs": [
+        {
+          "kind": "alert",
+          "hash": "0xd6003f3d3839816a223cc59c8ab05dcd63b5ca8f236341fa14f5c597d6e10c9a",
+          "status": "success",
+          "block": "12023773"
+        },
+        {
+          "kind": "collapse",
+          "hash": "0xc0fad796d7417550fecb531c8f4124cdf67041e47fe7538c430b30f6e0952cc9",
+          "status": "success",
+          "block": "12023774"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-30T02:44:26.170Z",
+      "workflow": "canary-claims",
+      "target": "staging-settings",
+      "broadcast": false,
+      "cliVersion": "v1.39.0",
+      "command": "cre workflow simulate ./canary-claims -T staging-settings --non-interactive --trigger-index 0 --http-payload ./canary-claims/payloads/demo-emax.json",
+      "result": null,
+      "txs": []
+    },
+    {
+      "at": "2026-10-30T02:44:26.170Z",
+      "workflow": "canary-claims",
+      "target": "staging-settings",
+      "broadcast": true,
+      "cliVersion": "v1.39.0",
+      "command": "cre workflow simulate ./canary-claims -T staging-settings --non-interactive --trigger-index 0 --http-payload ./canary-claims/payloads/demo-emax.json --broadcast",
+      "result": null,
+      "txs": [
+        {
+          "kind": "claim-verification",
+          "hash": "0x85473c9811d3e7a70d1e25187faa3298291aa61a9b12e3dc98d92a278905ae6c",
+          "status": "success",
+          "block": "12023780"
+        }
+      ]
+    }
+  ]
+}

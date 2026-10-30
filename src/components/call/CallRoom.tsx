@@ -263,7 +263,7 @@ export function CallRoom({ kase, demo }: { kase: HotlineCase; demo: boolean }) {
             <p className="text-[1.02rem] leading-snug">{latest}</p>
           </div>
           {!started ? (
-            <div className="mt-5 grid gap-2">
+            <div className="mt-5 grid gap-3">
               {demo ? (
                 <>
                   <button className="btn btn-primary text-lg" onClick={() => void runDemo()}>
@@ -336,7 +336,7 @@ export function CallRoom({ kase, demo }: { kase: HotlineCase; demo: boolean }) {
 
       {/* Conversation */}
       <section aria-label="Conversation" className="flex min-w-0 flex-col gap-4">
-        <ol className="flex gap-1.5 overflow-x-auto pb-1" aria-label="Call progress">
+        <ol className="flex gap-1.5 overflow-x-auto pb-1" aria-label="Call progress" tabIndex={0}>
           {PROGRESS.map((p, i) => {
             const state = !started ? "todo" : i < progress || step === "done" ? "done" : i === progress ? "now" : "todo";
             return (

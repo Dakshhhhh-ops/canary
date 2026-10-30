@@ -173,6 +173,8 @@ export type RiskLimits = {
   refuseUndisclosedPaidPromotion: boolean;
   maxDrawdownPct: number; // the stop may sit at most this far below entry
   dailyLossLimitUsd: number; // circuit breaker: realised + worst-case loss today
+  /** When nobody knows who holds the supply: refuse, or allow at half the maximum size (default). */
+  unknownHolders?: "refuse" | "half-size";
 };
 
 /** Entry, size, stop and exit as ONE decision (the "Buy the Dip" plan). Paper only. */

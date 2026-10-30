@@ -16,7 +16,17 @@ export type StoredClaim = {
   done: Partial<Record<string, boolean>>;
   salt?: string; // for claimantRef; never leaves this browser
   anchor?: AnchorState;
+  /** result of asking the Chainlink canary-claims workflow to confirm the purchases */
+  verify?: VerifyState;
+  walletSalt?: string; // for walletRef; never leaves this browser
 };
+
+export type VerifyState =
+  | { status: "verified"; verifiedAt: number; purchases: number; firstBuyBlock: number; registryUrl: string }
+  | { status: "not-configured"; simulateCommand: string }
+  | { status: "submitted"; requestId: string; note: string }
+  | { status: "no-purchases"; message: string }
+  | { status: "error"; message: string };
 
 const KEY = (id: string) => `canary.claim.${id}`;
 const INDEX = "canary.claims";

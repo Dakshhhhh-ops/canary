@@ -9,6 +9,10 @@ export const REGISTRY_ABI = parseAbi([
   "event AlertRecorded(bytes32 indexed caseId, string symbol, address indexed token, uint8 level, uint32 promoters, bytes32 trailHash, uint64 at)",
   "event CollapseRecorded(bytes32 indexed caseId, address indexed token, uint256 liquidityBefore, uint256 liquidityNow, uint16 dropBps, uint64 at)",
   "event ClaimAnchored(bytes32 indexed caseId, bytes32 indexed evidenceHash, bytes32 claimantRef, uint64 at)",
+  // Written by the canary-claims CRE workflow (report kind 3) once the Chainlink network confirmed the purchase.
+  "event ClaimVerified(bytes32 indexed caseId, bytes32 indexed evidenceHash, bytes32 claimantRef, uint32 purchases, uint64 firstBuyBlock, uint64 at)",
+  "function claimVerifiedAt(bytes32 caseId, bytes32 evidenceHash) view returns (uint64)",
+  "function getClaimVerification(bytes32 caseId, bytes32 evidenceHash) view returns ((bytes32 claimantRef, bytes32 walletRef, uint32 purchases, uint64 firstBuyBlock, uint64 at))",
 ]);
 
 export function registryConfig() {

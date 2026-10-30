@@ -1,0 +1,77 @@
+# Unattended radar: every 4 hours (and on demand), ask RYO about a list of coins, let Canary's agents
+# decide on practice trades, save the run with RYO's raw replies, update the paper ledger, and commit
+# the new files back to the repo so anyone can replay and verify them on /radar.
+#
+# Needs repo secret RYO_MCP_KEY (OPENROUTER_API_KEY optional) and Settings → Actions → General →
+# "Workflow permissions: Read and write" (or the permissions block below on a fine-grained setup).
+#
+# When RYO is unavailable (no key, server down, every call failed) the script writes NOTHING and exits 3:
+# the job stays green, a warning and the reason go into the job summary, and nothing is committed. A
+# run file only ever holds data RYO really sent; open positions simply wait for the next real price.
+name: radar
+
+on:
+  schedule:
+    - cron: "17 */4 * * *" # every 4 hours, off the top of the hour
+  workflow_dispatch:
+    inputs:
+      symbols:
+        description: "Coins, comma-separated (empty = the default list: BTC, ETH, SOL, XRP, PEPE, WIF)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: radar
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Radar run
+        id: radar
+        env:
+          RYO_MCP_KEY: ${{ secrets.RYO_MCP_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          RADAR_TRIGGER: ${{ github.event_name == 'schedule' && 'schedule' || 'manual' }}
+          SYMBOLS: ${{ inputs.symbols }}
+        run: |
+          set +e
+          npm run radar:run -- "$SYMBOLS"
+          code=$?
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" -eq 3 ]; then
+            echo "::warning::RYO unavailable this time: nothing saved, nothing committed (see the job summary)."
+            exit 0
+          fi
+          exit "$code"
+
+      - name: Commit the run
+        if: steps.radar.outputs.code == '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/radar
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit."
+            exit 0
+          fi
+          git commit -m "radar: run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          for i in 1 2 3; do
+            git push && exit 0
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+          done
+          exit 1

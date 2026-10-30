@@ -10,7 +10,7 @@ import { checkEvidenceFile } from "@/lib/claims/evidence";
 import type { ClaimDoc } from "@/lib/claims/types";
 import type { DocKind } from "@/lib/hotline/agent";
 import { Guide, type GuideStep } from "../Guide";
-import { copyText, download, loadClaim, recallFromTab, saveClaim, type AnchorState, type StoredClaim } from "./claimStore";
+import { copyText, download, loadClaim, recallFromTab, saveClaim, type AnchorState, type StoredClaim, type VerifyState } from "./claimStore";
 
 const INTRO: GuideStep = {
   id: "intro",
@@ -139,6 +139,7 @@ export function ClaimPackView({ id }: { id: string }) {
           )}
           <EvidenceCard n={++n} claim={claim} onDone={(v) => update((c) => ({ ...c, done: { ...c.done, evidence: v } }))} />
           <AnchorCard n={++n} claim={claim} onUpdate={update} />
+          <VerifyCard claim={claim} onUpdate={update} />
         </ol>
 
         <section className="card mt-8 border-[var(--alarm)] bg-[var(--alarm-soft)] p-5">
@@ -388,6 +389,88 @@ function AnchorCard({ n, claim, onUpdate }: { n: number; claim: StoredClaim; onU
           </p>
         )}
         {a?.status === "error" && <p className="mt-4 rounded-2xl bg-[var(--alarm-soft)] p-4 text-sm">The anchor didn&apos;t go through: {a.message}</p>}
+      </div>
+    </li>
+  );
+}
+
+type EvPurchases = { address: string; purchases: { blockNumber: number; inClassPeriod: boolean }[] } | null;
+
+/** The Chainlink network confirms the victim's purchases on Ethereum, then records the claim (cre/canary-claims). */
+function VerifyCard({ claim, onUpdate }: { claim: StoredClaim; onUpdate: (fn: (c: StoredClaim) => StoredClaim) => void }) {
+  const [busy, setBusy] = useState(false);
+  let ev: EvPurchases = null;
+  try {
+    ev = (JSON.parse(claim.pack.evidence.json) as { evidence?: { purchases?: EvPurchases } }).evidence?.purchases ?? null;
+  } catch {
+    ev = null;
+  }
+  const blocks = (ev?.purchases ?? []).filter((p) => p.inClassPeriod).map((p) => p.blockNumber);
+  const v = claim.verify;
+  const sha = claim.pack.evidence.sha256;
+  const evidenceHash = evidenceHashHex(sha);
+
+  const send = useCallback(async () => {
+    if (!ev) return;
+    setBusy(true);
+    try {
+      const salt = (claim.salt as `0x${string}` | undefined) ?? newSalt();
+      const walletSalt = (claim.walletSalt as `0x${string}` | undefined) ?? newSalt();
+      const body = { caseSlug: claim.pack.caseSlug, wallet: ev.address, evidenceHash, claimantRef: claimantRef(salt, sha), walletSalt, purchaseBlocks: blocks };
+      const res = await fetch("/api/claims/verify", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+      const j = (await res.json()) as VerifyState & Record<string, unknown>;
+      onUpdate((c) => ({ ...c, salt, walletSalt, verify: j }));
+    } catch {
+      onUpdate((c) => ({ ...c, verify: { status: "error", message: "Couldn't reach the server." } }));
+    } finally {
+      setBusy(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [claim.salt, claim.walletSalt, claim.pack.caseSlug, sha]);
+
+  // a deployed workflow answers asynchronously: poll until the record appears
+  useEffect(() => {
+    if (v?.status !== "submitted") return;
+    const id = window.setInterval(async () => {
+      const r = await fetch(`/api/claims/verify?caseSlug=${encodeURIComponent(claim.pack.caseSlug)}&evidenceHash=${evidenceHash}`).then((x) => x.json()).catch(() => null);
+      if (r?.status === "verified") onUpdate((c) => ({ ...c, verify: r }));
+    }, 15000);
+    return () => window.clearInterval(id);
+  }, [v?.status, claim.pack.caseSlug, evidenceHash, onUpdate]);
+
+  if (!ev || !blocks.length || !claim.pack.isCase) return null;
+  const verified = v?.status === "verified";
+  return (
+    <li data-guide="verify" className={`card p-5 sm:p-6 ${verified ? "!border-[var(--ok)]" : "!border-[var(--sky)]"}`}>
+      <h2 className="font-display text-xl font-extrabold sm:text-2xl">Optional: have Chainlink confirm your purchases</h2>
+      <p className="mt-1 text-[var(--ink-2)]">
+        A Chainlink workflow runs on independent nodes. Each one reads Ethereum itself to confirm that this wallet bought from the {claim.pack.caseSlug.toUpperCase()} pool during
+        the class period ({blocks.length} purchase{blocks.length === 1 ? "" : "s"} to check). When they agree, they record your claim as verified. Your wallet address is
+        never written on-chain, only a salted fingerprint of it.
+      </p>
+      <button className="btn btn-primary mt-4 !min-h-[48px]" onClick={send} disabled={busy || verified || v?.status === "submitted"}>
+        {busy ? "Asking Chainlink…" : verified ? "Verified ✓" : v?.status === "submitted" ? "Checking…" : "🔗 Verify with Chainlink"}
+      </button>
+      <div role="status" aria-live="polite">
+        {v?.status === "verified" && (
+          <p className="mt-4 rounded-2xl bg-[var(--ok-soft)] p-4 text-sm">
+            ✓ Verified by Chainlink: {v.purchases} purchase{v.purchases === 1 ? "" : "s"} from the pool during the class period, the first at Ethereum block{" "}
+            {v.firstBuyBlock.toLocaleString()}. Recorded {new Date(v.verifiedAt * 1000).toUTCString()}.{" "}
+            <a className="link" href={v.registryUrl} target="_blank" rel="noreferrer">
+              See the registry ↗
+            </a>
+          </p>
+        )}
+        {v?.status === "submitted" && <p className="mt-4 rounded-2xl bg-[var(--sky-soft)] p-4 text-sm">The Chainlink network is checking. This page updates by itself when the record appears.</p>}
+        {v?.status === "not-configured" && (
+          <div className="mt-4 rounded-2xl bg-[var(--sky-soft)] p-4 text-sm">
+            <p className="font-bold">Ready for Chainlink verification. The workflow isn&apos;t deployed to the live Chainlink network in this demo.</p>
+            <p className="mt-1 text-[var(--ink-2)]">It runs in Chainlink&apos;s simulator with this exact request:</p>
+            <pre tabIndex={0} className="mt-2 max-h-40 overflow-auto whitespace-pre-wrap break-all rounded-xl bg-[var(--ink)] p-3 font-mono text-[0.7rem] text-[var(--canary-soft)]">{v.simulateCommand}</pre>
+          </div>
+        )}
+        {v?.status === "no-purchases" && <p className="mt-4 rounded-2xl bg-[var(--alarm-soft)] p-4 text-sm">{v.message}</p>}
+        {v?.status === "error" && <p className="mt-4 rounded-2xl bg-[var(--alarm-soft)] p-4 text-sm">The request didn&apos;t go through: {v.message}</p>}
       </div>
     </li>
   );

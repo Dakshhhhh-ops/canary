@@ -26,10 +26,19 @@ test("each limit refuses with a plain-words reason", () => {
     [{ stopPriceUsd: 1.2 }, {}, /not a complete decision/],
   ];
   for (const [p, m, re] of cases) {
-    const d = evaluatePlan(plan(p), { ...clean, ...m }, DEFAULT_LIMITS);
+    // "refuse" makes the unknown-holder case strict; the default (half size) is tested below
+    const d = evaluatePlan(plan(p), { ...clean, ...m }, { ...DEFAULT_LIMITS, unknownHolders: "refuse" });
     assert.equal(d.decision, "refused", String(re));
     assert.ok(d.reasons.some((r) => re.test(r)), `${re} in ${d.reasons.join(" | ")}`);
   }
+});
+
+test("unknown holders: by default the trade goes ahead at half the maximum size, and says so", () => {
+  const d = evaluatePlan(plan({ sizeUsd: 1000 }), { ...clean, top10HolderPct: null }, DEFAULT_LIMITS);
+  assert.equal(d.decision, "accepted", d.reasons.join(" | "));
+  assert.ok(d.plan.sizeUsd <= DEFAULT_LIMITS.maxPositionUsd / 2);
+  assert.match(d.checks.find((c) => c.limit === "maxTop10HolderPct")!.reason, /only half size/);
+  assert.match(d.plan.rationale, /Size halved/);
 });
 
 test("daily loss circuit breaker trips after losses, resets the next day", () => {

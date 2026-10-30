@@ -78,15 +78,15 @@ export function PumpStory() {
         <svg viewBox="0 0 600 260" className="w-full" role="img" aria-label={`Illustrated price chart, step ${step + 1} of 4: ${STEPS[step].title}`}>
           <defs>
             <linearGradient id="fill" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0" stopColor={crash ? "#d93a2b" : "#ffd84d"} stopOpacity=".45" />
-              <stop offset="1" stopColor={crash ? "#d93a2b" : "#ffd84d"} stopOpacity="0" />
+              <stop offset="0" stopColor={crash ? "#bd3022" : "#ffd84d"} stopOpacity=".45" />
+              <stop offset="1" stopColor={crash ? "#bd3022" : "#ffd84d"} stopOpacity="0" />
             </linearGradient>
           </defs>
           {[60, 120, 180, 240].map((y) => (
             <line key={y} x1="0" x2="600" y1={y} y2={y} stroke="#ecd9b8" strokeDasharray="4 6" />
           ))}
           <path d={area} fill="url(#fill)" style={{ transition: "d .8s" }} />
-          <path d={d} fill="none" stroke={crash ? "#d93a2b" : "#2a190e"} strokeWidth="4" strokeLinejoin="round" strokeLinecap="round" />
+          <path d={d} fill="none" stroke={crash ? "#bd3022" : "#2a190e"} strokeWidth="4" strokeLinejoin="round" strokeLinecap="round" />
 
           {/* insiders */}
           <g opacity={step >= 0 ? 1 : 0}>
@@ -118,7 +118,7 @@ export function PumpStory() {
           {/* cash out */}
           {crash && (
             <g style={{ animation: "pop .4s both" }}>
-              <rect x="430" y="40" width="150" height="28" rx="14" fill="#d93a2b" />
+              <rect x="430" y="40" width="150" height="28" rx="14" fill="#bd3022" />
               <text x="505" y="59" textAnchor="middle" fontSize="13" fontWeight="800" fill="#fff">
                 insiders sell 💸
               </text>

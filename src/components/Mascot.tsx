@@ -4,7 +4,7 @@
 // The model ships with emissive-only materials and an inverted-hull outline, so we render it flat like a cartoon.
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
-import { Suspense, useEffect, useMemo, useRef } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { clone as cloneSkinned } from "three/examples/jsm/utils/SkeletonUtils.js";
 
@@ -69,10 +69,19 @@ function Bird({ mood, talking, lookAtPointer, flip, debug }: { mood: Mood; talki
     b.quaternion.copy(r.q).multiply(tmp.q);
   };
 
+  // reduced motion: read once and on change, not every frame
+  const reduce = useRef(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const apply = () => (reduce.current = mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
   useFrame((state) => {
     const t = state.clock.elapsedTime;
-    const reduce = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    const k = reduce ? 0 : 1;
+    const k = reduce.current ? 0 : 1;
 
     // body: bob + breathe; alarm = fast jitter; happy = hop
     if (root.current) {
@@ -177,10 +186,34 @@ export function Mascot({
   flip?: boolean;
   label?: string;
 }) {
+  // Only draw while Doki is on screen and the tab is visible; otherwise three.js burns battery for nothing.
+  const box = useRef<HTMLDivElement>(null);
+  const [onScreen, setOnScreen] = useState(true);
+  const [tabVisible, setTabVisible] = useState(true);
+  // phones: cap the pixel ratio, a cartoon bird doesn't need 3x
+  const [maxDpr, setMaxDpr] = useState(2);
+  useEffect(() => {
+    const onVis = () => setTabVisible(document.visibilityState !== "hidden");
+    onVis();
+    document.addEventListener("visibilitychange", onVis);
+    let io: IntersectionObserver | undefined;
+    if (box.current && "IntersectionObserver" in window) {
+      io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting), { rootMargin: "120px" });
+      io.observe(box.current);
+    }
+    if (window.matchMedia("(max-width: 767px), (pointer: coarse)").matches) setMaxDpr(1.5);
+    return () => {
+      document.removeEventListener("visibilitychange", onVis);
+      io?.disconnect();
+    };
+  }, []);
+
   return (
-    <div className={className} role="img" aria-label={label}>
+    <div ref={box} className={className} role="img" aria-label={label}>
       <Canvas
-        dpr={[1, 2]}
+        frameloop={onScreen && tabVisible ? "always" : "never"}
+        aria-hidden
+        dpr={[1, maxDpr]}
         gl={{ alpha: true, antialias: true, powerPreference: "low-power" }}
         camera={{ position: [0, 0.22, distance], fov: 30 }}
         onCreated={({ camera }) => camera.lookAt(0, 0.2, 0)}

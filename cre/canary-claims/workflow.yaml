@@ -1,0 +1,35 @@
+# ==========================================================================
+# canary-claims — CRE workflow settings (per target). Merged with ../project.yaml.
+#   staging-settings     simulation: HTTP trigger with no authorized keys, real mainnet reads,
+#                        registry.address 0x0 = observe-only until you deploy CanaryRegistry
+#   local-settings       same as staging; use it with the Canary app running locally
+#                        (the app's /api/claims/verify prints the matching simulate command)
+#   production-settings  `cre workflow deploy`: set authorizedEvmAddresses (the app's trigger key)
+#                        and registry.address in config.production.json first
+# Simulate (payload = the JSON body the app sends):
+#   cre workflow simulate ./canary-claims -T staging-settings --non-interactive --trigger-index 0 \
+#     --http-payload @./canary-claims/payloads/demo-emax.json
+# ==========================================================================
+staging-settings:
+  user-workflow:
+    workflow-name: "canary-claims-staging"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.staging.json"
+    secrets-path: ""
+
+local-settings:
+  user-workflow:
+    workflow-name: "canary-claims-local"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.local.json"
+    secrets-path: ""
+
+production-settings:
+  user-workflow:
+    workflow-name: "canary-claims"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.production.json"
+    secrets-path: ""

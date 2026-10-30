@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "functions": {
+    "src/app/api/case/**/*.ts": { "maxDuration": 120 },
+    "src/app/api/radar/**/*.ts": { "maxDuration": 120 },
+    "src/app/api/hotline/**/*.ts": { "maxDuration": 60 },
+    "src/app/api/claims/**/*.ts": { "maxDuration": 60 },
+    "src/app/api/registry/**/*.ts": { "maxDuration": 60 },
+    "src/app/api/watch/**/*.ts": { "maxDuration": 60 }
+  }
+}

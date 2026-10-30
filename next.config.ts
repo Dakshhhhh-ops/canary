@@ -12,11 +12,19 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  output: "standalone",
+  // standalone is for self-hosting (EC2/Docker: node .next/standalone/server.js). Vercel packages its own
+  // functions from the same traces, so it isn't needed there.
+  output: process.env.VERCEL ? undefined : "standalone",
   // lets a production build run next to the dev server (NEXT_DIST_DIR=.next-build)
   distDir: process.env.NEXT_DIST_DIR || ".next",
-  // the case file and its notes are read at runtime
-  outputFileTracingIncludes: { "/**": ["./data/cases/**"] },
+  // Files read at runtime from process.cwd() (src/lib/cases.ts, onchain.ts, radar/store.ts): the case files, the on-chain
+  // proof summary, the CRE simulation log and saved radar runs. This ships them with every server function, which Vercel needs
+  // (checked in .next/server/app/**/*.nft.json). Only an opt-in radar save (?save=1) writes, and it fails softly on Vercel.
+  outputFileTracingIncludes: {
+    "/**": ["./data/cases/**", "./data/onchain.json", "./cre/SIMULATION.md", "./data/radar/**", "./data/notebooks/**"],
+    // the social card is rendered at build time; this only matters if it is ever rendered on demand
+    "/(opengraph|twitter)-image": ["./src/app/_og/**"],
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

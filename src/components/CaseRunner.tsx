@@ -268,7 +268,7 @@ function StepDetail({ ev, data }: { ev: StepEvent; data: CaseFile }) {
       const list = r as unknown as NewsCheck[];
       const posts = new Map(data.posts.map((p) => [p.id, p]));
       return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="News checks table">
           <table className="w-full min-w-[30rem] text-left text-[0.8rem]">
             <thead className="text-[var(--ink-3)]">
               <tr>

@@ -66,6 +66,8 @@ export function Guide({
   const [talking, setTalking] = useState(false);
   const [typed, setTyped] = useState(intro.text.length);
   const [bubble, setBubble] = useState(!quiet);
+  // a bubble Doki opened by himself while you scroll stays compact (just the line); the buttons show once you open it
+  const [pinned, setPinned] = useState(true);
   // small screens behave like quiet pages: Doki talks when you tap him or take the tour
   const quietRef = useRef(Boolean(quiet));
   useEffect(() => {
@@ -78,6 +80,7 @@ export function Guide({
     mq.addEventListener("change", apply);
     return () => mq.removeEventListener("change", apply);
   }, [quiet]);
+  const pinnedNext = useRef(false);
   const touringRef = useRef(false);
   touringRef.current = touring;
   const [heroVisible, setHeroVisible] = useState(Boolean(heroId));
@@ -102,7 +105,11 @@ export function Guide({
       setCurrent(step);
       setMood(step.mood ?? "talk");
       setTyped(0);
-      if (open) setBubble(true);
+      if (open) {
+        setBubble(true);
+        setPinned(pinnedNext.current);
+      }
+      pinnedNext.current = false;
       const synth = typeof window !== "undefined" ? window.speechSynthesis : undefined;
       synth?.cancel();
       if (voice && synth) {
@@ -132,9 +139,9 @@ export function Guide({
   // fold the bubble away a while after Doki finishes, so it doesn't sit on top of the page
   useEffect(() => {
     if (touring || talking || typed < current.text.length || current.cta) return;
-    const id = window.setTimeout(() => setBubble(false), 9000);
+    const id = window.setTimeout(() => setBubble(false), pinned ? 9000 : 6000);
     return () => window.clearTimeout(id);
-  }, [touring, talking, typed, current]);
+  }, [touring, talking, typed, current, pinned]);
 
   // scroll mode
   useEffect(() => {
@@ -167,9 +174,10 @@ export function Guide({
       document.querySelectorAll(".guide-spot").forEach((el) => el.classList.remove("guide-spot"));
       const el = document.querySelector<HTMLElement>(`[data-guide="${step.id}"]`);
       if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        el.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
         el.classList.add("guide-spot");
       }
+      pinnedNext.current = true;
       speak(step);
     },
     [steps, speak],
@@ -187,7 +195,11 @@ export function Guide({
 
   const ctx = useMemo<Ctx>(
     () => ({
-      say: (text, m) => speak({ id: "adhoc", text, mood: m }),
+      say: (text, m) => {
+        // on phones (and quiet pages) the page’s own announcements stay compact so they cover less
+        pinnedNext.current = !quietRef.current;
+        speak({ id: "adhoc", text, mood: m });
+      },
       setMood,
       startTour,
       open,
@@ -222,7 +234,7 @@ export function Guide({
           className="fixed bottom-3 right-3 z-50 flex max-w-[calc(100vw-1.5rem)] items-end gap-2 sm:bottom-5 sm:right-5"
         >
           {bubble ? (
-          <div className="bubble mb-6 w-[min(300px,calc(100vw-8.5rem))] p-4 text-[0.95rem] leading-snug">
+          <div className="bubble mb-6 w-[min(300px,calc(100vw-7rem))] p-4 text-[0.95rem] leading-snug">
             <p aria-live="polite" className="min-h-[3.2em]">
               <span>{current.text.slice(0, typed)}</span>
               <span className="sr-only">{current.text}</span>
@@ -232,6 +244,7 @@ export function Guide({
                 {current.cta.label} →
               </Link>
             )}
+            {touring || pinned ? (
             <div className="mt-3 flex flex-wrap items-center gap-1.5 text-sm">
               {touring ? (
                 <>
@@ -263,14 +276,28 @@ export function Guide({
                 Hide
               </button>
             </div>
+            ) : (
+              <button type="button" className="mt-1 text-xs font-semibold text-[var(--ink-2)] underline decoration-[var(--canary)] decoration-2 underline-offset-2" onClick={() => setPinned(true)}>
+                More from Doki
+              </button>
+            )}
           </div>
           ) : (
-            <button className="bubble mb-10 px-3 py-1.5 text-sm font-bold" onClick={() => setBubble(true)} aria-label="Show what Doki said">
+            <button className="bubble mb-10 hidden px-3 py-1.5 text-sm font-bold sm:block" onClick={() => {
+                setPinned(true);
+                setBubble(true);
+              }}
+              aria-label="Show what Doki said">
               💬 Doki
             </button>
           )}
-          <button type="button" onClick={() => setBubble((b) => !b)} aria-label={bubble ? "Fold Doki's speech bubble" : "Show Doki's speech bubble"} className="shrink-0 cursor-pointer rounded-full">
-          <Mascot distance={1.6} mood={talking ? (mood === "alarm" || mood === "happy" ? mood : "talk") : mood} talking={talking} className="pointer-events-none h-32 w-28 sm:h-40 sm:w-32" />
+          <button
+            type="button"
+            onClick={() => {
+              setPinned(true);
+              setBubble((b) => !b);
+            }} aria-label={bubble ? "Fold Doki's speech bubble" : "Show Doki's speech bubble"} className="shrink-0 cursor-pointer rounded-full">
+          <Mascot distance={1.6} mood={talking ? (mood === "alarm" || mood === "happy" ? mood : "talk") : mood} talking={talking} className="pointer-events-none h-24 w-20 sm:h-40 sm:w-32" />
           </button>
         </aside>
       ) : (
