@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+/* Canary — warm paper, ink, canary yellow. Alarm red only for danger. */
+:root {
+  --paper: #fff8ea;
+  --paper-2: #fff1d2;
+  --card: #ffffff;
+  --ink: #2a190e;
+  --ink-2: #5c4330;
+  --ink-3: #8a6f58;
+  --line: #ecd9b8;
+  --line-2: #dcc195;
+  --canary: #ffd84d;
+  --canary-soft: #fff0b0;
+  --beak: #fe6a28;
+  --beak-soft: #ffe1cf;
+  --brown: #ba5c25;
+  --alarm: #d93a2b;
+  --alarm-soft: #ffe2dc;
+  --ok: #1f8a4c;
+  --ok-soft: #dcf3e3;
+  --sky: #2f6fd6;
+  --sky-soft: #e0ebff;
+  --shadow: 0 1px 0 rgba(42, 25, 14, 0.06), 0 10px 30px -12px rgba(42, 25, 14, 0.25);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  color-scheme: light;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--paper);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  letter-spacing: -0.02em;
+}
+.font-serif {
+  font-family: var(--font-serif), Georgia, serif;
+}
+.font-mono {
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+:focus-visible {
+  outline: 3px solid var(--beak);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+/* Paper grain, very light */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: radial-gradient(rgba(186, 92, 37, 0.08) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.card {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.7rem 1.3rem;
+  border-radius: 999px;
+  font-weight: 700;
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    background 0.2s;
+  border: 2px solid var(--ink);
+  box-shadow: 0 4px 0 var(--ink);
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--ink);
+}
+.btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+.btn-primary {
+  background: var(--canary);
+  color: var(--ink);
+}
+.btn-dark {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn-ghost {
+  background: var(--card);
+  color: var(--ink);
+}
+.btn-alarm {
+  background: var(--alarm);
+  color: #fff;
+}
+
+.link {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--canary);
+}
+.link:hover {
+  text-decoration-color: var(--beak);
+}
+
+/* Highlighter marker for key words */
+.mark {
+  background: linear-gradient(transparent 55%, var(--canary) 55%, var(--canary) 92%, transparent 92%);
+  padding: 0 0.1em;
+}
+.mark-red {
+  background: linear-gradient(transparent 55%, #ffb8ab 55%, #ffb8ab 92%, transparent 92%);
+  padding: 0 0.1em;
+}
+
+/* Speech bubble used by Doki */
+.bubble {
+  position: relative;
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  box-shadow: 0 5px 0 var(--ink);
+}
+
+.step-num {
+  display: inline-grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--canary);
+  font-weight: 800;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+.live-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--alarm);
+  animation: pulse-dot 1.2s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -1,0 +1,137 @@
+{
+  "status": "ok",
+  "address": "0xAC85724Be118b69a9AeE3B03bd2af2aC0071F26a",
+  "addressUrl": "https://etherscan.io/address/0xAC85724Be118b69a9AeE3B03bd2af2aC0071F26a",
+  "token": {
+    "symbol": "EMAX",
+    "address": "0x15874d65e649880c2614e7a480cb7c9A55787FF6",
+    "pair": "0xb6CA52c7916ad7960C12Dc489FD93E5Af7cA257f",
+    "pairDex": "Uniswap V2 (EMAX/WETH)"
+  },
+  "checkedAt": "2026-10-29T23:15:02.874Z",
+  "source": {
+    "label": "Ethereum mainnet, eth_getLogs on a public archive node",
+    "url": "https://mainnet.gateway.tenderly.co",
+    "fromBlock": 12503000,
+    "toBlock": 26301621
+  },
+  "purchases": [
+    {
+      "txHash": "0xdd3ae813c62eb3f57ca97eddaee0f2e6d456f8ab795243f855e042c186b52ba0",
+      "txUrl": "https://etherscan.io/tx/0xdd3ae813c62eb3f57ca97eddaee0f2e6d456f8ab795243f855e042c186b52ba0",
+      "blockNumber": 12556426,
+      "at": "2021-06-02T17:26:42Z",
+      "date": "2021-06-02",
+      "amount": "1924122545.506946367218507928",
+      "priceUsd": 4.409e-7,
+      "usdEstimate": 848.35,
+      "inClassPeriod": true,
+      "postsBefore": [
+        {
+          "postId": "pierce-2021-05-30-train",
+          "promoter": "Paul Pierce",
+          "postedAt": "2021-05-30",
+          "daysBefore": 3,
+          "platform": "x",
+          "documentedBy": "SEC order",
+          "sourceUrl": "https://www.sec.gov/litigation/admin/2023/33-11157.pdf"
+        },
+        {
+          "postId": "pierce-2021-05-30-coach",
+          "promoter": "Paul Pierce",
+          "postedAt": "2021-05-30",
+          "daysBefore": 3,
+          "platform": "x",
+          "documentedBy": "SEC order",
+          "sourceUrl": "https://www.sec.gov/litigation/admin/2023/33-11157.pdf"
+        },
+        {
+          "postId": "kardashian-2021-05-30",
+          "promoter": "Kim Kardashian",
+          "postedAt": "2021-05-30",
+          "daysBefore": 3,
+          "platform": "instagram",
+          "documentedBy": "court summary of the class-action complaint (an allegation)",
+          "sourceUrl": "https://www.johnreedstark.com/wp-content/uploads/sites/180/2022/12/Kardasnhian-Dismissil.pdf"
+        }
+      ]
+    },
+    {
+      "txHash": "0xccd8174eaa3dfa490f003da33a6b79ea8d50bf136b2b0afe7e8844819af938e1",
+      "txUrl": "https://etherscan.io/tx/0xccd8174eaa3dfa490f003da33a6b79ea8d50bf136b2b0afe7e8844819af938e1",
+      "blockNumber": 12638738,
+      "at": "2021-06-15T11:15:08Z",
+      "date": "2021-06-15",
+      "amount": "7635382269.287763940487829541",
+      "priceUsd": 1.595e-7,
+      "usdEstimate": 1217.84,
+      "inClassPeriod": true,
+      "postsBefore": [
+        {
+          "postId": "kardashian-2021-06-13",
+          "promoter": "Kim Kardashian",
+          "postedAt": "2021-06-13",
+          "daysBefore": 2,
+          "platform": "instagram",
+          "documentedBy": "SEC order",
+          "sourceUrl": "https://www.sec.gov/litigation/admin/2022/33-11116.pdf"
+        }
+      ]
+    },
+    {
+      "txHash": "0x7f224d8f7ac4fcb17a245ae1443d27ce1be4b02b250bff7950fe8327c71adc99",
+      "txUrl": "https://etherscan.io/tx/0x7f224d8f7ac4fcb17a245ae1443d27ce1be4b02b250bff7950fe8327c71adc99",
+      "blockNumber": 12660238,
+      "at": "2021-06-18T19:10:04Z",
+      "date": "2021-06-18",
+      "amount": "4654457184.739930309143060727",
+      "priceUsd": 1.018e-7,
+      "usdEstimate": 473.82,
+      "inClassPeriod": true,
+      "postsBefore": []
+    },
+    {
+      "txHash": "0x84cb47a710847637b9e056723aa0b91400ca4a09245b51a5f8dc0549b67f4e2c",
+      "txUrl": "https://etherscan.io/tx/0x84cb47a710847637b9e056723aa0b91400ca4a09245b51a5f8dc0549b67f4e2c",
+      "blockNumber": 12700204,
+      "at": "2021-06-25T00:49:07Z",
+      "date": "2021-06-25",
+      "amount": "337139314.603776304359248106",
+      "priceUsd": 5.71e-8,
+      "usdEstimate": 19.25,
+      "inClassPeriod": true,
+      "postsBefore": []
+    },
+    {
+      "txHash": "0xe9da72585eda003ea6af88f6dcf099dcf720c2cba62dec2665205df4880e9a28",
+      "txUrl": "https://etherscan.io/tx/0xe9da72585eda003ea6af88f6dcf099dcf720c2cba62dec2665205df4880e9a28",
+      "blockNumber": 12700228,
+      "at": "2021-06-25T00:55:47Z",
+      "date": "2021-06-25",
+      "amount": "6340474427.191996224182000633",
+      "priceUsd": 5.71e-8,
+      "usdEstimate": 362.04,
+      "inClassPeriod": true,
+      "postsBefore": []
+    }
+  ],
+  "sales": [],
+  "totals": {
+    "purchases": 5,
+    "sales": 0,
+    "boughtTokens": "20891575741.330413145390646935",
+    "soldTokens": "0",
+    "boughtUsd": 2921.3,
+    "soldUsd": null,
+    "inClassPeriod": 5,
+    "afterAPost": 2
+  },
+  "truncated": false,
+  "method": "ERC-20 Transfer events of EMAX (0x15874d65e649880c2614e7a480cb7c9A55787FF6) with from = the pool and to = the wallet (buys), and the reverse (sells), from block 12503000 (the pool's creation) to block 26301621.",
+  "notes": [
+    "Only buys straight from the Uniswap V2 (EMAX/WETH) pool 0xb6CA52c7916ad7960C12Dc489FD93E5Af7cA257f are seen. Buys through another pool, an aggregator that forwards the tokens, or a centralized exchange are not.",
+    "Dollar figures are estimates: tokens multiplied by that day's closing price of the pool (from the case file, 2021-05-25 to 2021-09-30). They are not what was actually paid.",
+    "Promoter posts are matched by date only (posted on the day of the purchase or up to 3 days before), because no source gives the time of day of a post.",
+    "EMAX trading from May 14 to May 24, 2021 happened on an older token contract and is not checked here (see the case file's data notes)."
+  ]
+}

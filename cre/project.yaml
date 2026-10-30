@@ -1,0 +1,26 @@
+# ==========================================================================
+# Canary CRE project settings (shared by every workflow in this folder).
+# RPC URLs support ${ENV_VAR} interpolation, so keys stay out of git.
+#   ethereum-mainnet          : read-only (Uniswap V2 reserves + Chainlink ETH/USD feed)
+#   ethereum-testnet-sepolia  : CanaryRegistry lives here (reads + report writes)
+# ==========================================================================
+staging-settings:
+  rpcs:
+    - chain-name: ethereum-mainnet
+      url: https://ethereum-rpc.publicnode.com
+    - chain-name: ethereum-testnet-sepolia
+      url: https://ethereum-sepolia-rpc.publicnode.com
+
+local-settings:
+  rpcs:
+    - chain-name: ethereum-mainnet
+      url: https://ethereum-rpc.publicnode.com
+    - chain-name: ethereum-testnet-sepolia
+      url: https://ethereum-sepolia-rpc.publicnode.com
+
+production-settings:
+  rpcs:
+    - chain-name: ethereum-mainnet
+      url: https://ethereum-rpc.publicnode.com
+    - chain-name: ethereum-testnet-sepolia
+      url: https://ethereum-sepolia-rpc.publicnode.com

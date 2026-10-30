@@ -1,0 +1,1298 @@
+{
+  "slug": "emax",
+  "token": {
+    "name": "EthereumMax",
+    "symbol": "EMAX",
+    "chain": "ethereum",
+    "address": "0x15874d65e649880c2614e7a480cb7c9A55787FF6",
+    "decimals": 18,
+    "pair": "0xb6CA52c7916ad7960C12Dc489FD93E5Af7cA257f",
+    "pairDex": "Uniswap V2 (EMAX/WETH)"
+  },
+  "oneLiner": "In May and June 2021, celebrities including Kim Kardashian and retired basketball star Paul Pierce were paid to tell millions of followers about a new digital coin called EthereumMax, without properly saying they were paid or how much. People rushed to buy: the price rose about 6-fold in five days, then fell 91% within a month, leaving later buyers with heavy losses. The SEC later made Kardashian pay $1.26 million and Pierce about $1.4 million, and an investor class action against them was still going in 2025.",
+  "window": {
+    "pumpStart": "2021-05-26",
+    "peak": "2021-05-30",
+    "collapse": "2021-06-27"
+  },
+  "posts": [
+    {
+      "id": "pierce-2021-05-26",
+      "promoter": "Paul Pierce",
+      "handle": "@paulpierce34",
+      "platform": "x",
+      "followers": 4000000,
+      "postedAt": "2021-05-26",
+      "datePrecision": "day",
+      "text": ".@espn I don't need you. I got @ethereum_max I made more money with this crypto in the past month then I did with y'all in a year. TRUTH shall set u Free 🤪🤪 my own Boss EthereumMax.org check it out for yourself",
+      "disclosedPayment": false,
+      "paid": {
+        "amountUsd": 244116,
+        "by": "EthereumMax and/or its agents, in EMAX tokens (total for all of Pierce's promotional tweets, received May 24 – June 18, 2021)"
+      },
+      "sources": [
+        {
+          "label": "SEC order, In the Matter of Paul Anthony Pierce, Securities Act Rel. No. 11157, File No. 3-21305 (Feb. 17, 2023)",
+          "url": "https://www.sec.gov/litigation/admin/2023/33-11157.pdf"
+        },
+        {
+          "label": "SEC press release 2023-34 (Feb. 17, 2023): SEC Charges NBA Hall of Famer Paul Pierce for Unlawfully Touting and Making Misleading Statements about Crypto Security",
+          "url": "https://www.sec.gov/newsroom/press-releases/2023-34"
+        }
+      ]
+    },
+    {
+      "id": "pierce-2021-05-28",
+      "promoter": "Paul Pierce",
+      "handle": "@paulpierce34",
+      "platform": "x",
+      "followers": 4000000,
+      "postedAt": "2021-05-28",
+      "datePrecision": "day",
+      "disclosedPayment": false,
+      "sources": [
+        {
+          "label": "SEC order, In the Matter of Paul Anthony Pierce, Securities Act Rel. No. 11157, File No. 3-21305 (Feb. 17, 2023)",
+          "url": "https://www.sec.gov/litigation/admin/2023/33-11157.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pierce-2021-05-29",
+      "promoter": "Paul Pierce",
+      "handle": "@paulpierce34",
+      "platform": "x",
+      "followers": 4000000,
+      "postedAt": "2021-05-29",
+      "datePrecision": "day",
+      "text": "The Goal is 1$ @ethereum_max only then will be out",
+      "disclosedPayment": false,
+      "sources": [
+        {
+          "label": "SEC order, In the Matter of Paul Anthony Pierce, Securities Act Rel. No. 11157, File No. 3-21305 (Feb. 17, 2023)",
+          "url": "https://www.sec.gov/litigation/admin/2023/33-11157.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pierce-2021-05-30-train",
+      "promoter": "Paul Pierce",
+      "handle": "@paulpierce34",
+      "platform": "x",
+      "followers": 4000000,
+      "postedAt": "2021-05-30",
+      "datePrecision": "day",
+      "text": "People asking if they should jump on the @ethereum_max train I'm n for the long haul if u missed out on the 1st wave now is the time to jump on board . . . .",
+      "disclosedPayment": false,
+      "sources": [
+        {
+          "label": "SEC order, In the Matter of Paul Anthony Pierce, Securities Act Rel. No. 11157, File No. 3-21305 (Feb. 17, 2023)",
+          "url": "https://www.sec.gov/litigation/admin/2023/33-11157.pdf"
+        },
+        {
+          "label": "C.D. Cal. order on motions to dismiss, In re EthereumMax Investor Litigation, No. 2:22-cv-00163-MWF, Dkt. 99 (Dec. 6, 2022) — copy hosted by John Reed Stark",
+          "url": "https://www.johnreedstark.com/wp-content/uploads/sites/180/2022/12/Kardasnhian-Dismissil.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pierce-2021-05-30-coach",
+      "promoter": "Paul Pierce",
+      "handle": "@paulpierce34",
+      "platform": "x",
+      "followers": 4000000,
+      "postedAt": "2021-05-30",
+      "datePrecision": "day",
+      "text": "Put me in coach coming in Hot like @jaytatum0 @espn @ethereum_max 🚀🚀🚀🚀🚀🚀🚀🚀",
+      "disclosedPayment": false,
+      "sources": [
+        {
+          "label": "SEC order, In the Matter of Paul Anthony Pierce, Securities Act Rel. No. 11157, File No. 3-21305 (Feb. 17, 2023)",
+          "url": "https://www.sec.gov/litigation/admin/2023/33-11157.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pierce-2021-06-05",
+      "promoter": "Paul Pierce",
+      "handle": "@paulpierce34",
+      "platform": "x",
+      "followers": 4000000,
+      "postedAt": "2021-06-05",
+      "datePrecision": "day",
+      "text": "Gonna double down know @ethereum_max",
+      "disclosedPayment": false,
+      "sources": [
+        {
+          "label": "SEC order, In the Matter of Paul Anthony Pierce, Securities Act Rel. No. 11157, File No. 3-21305 (Feb. 17, 2023)",
+          "url": "https://www.sec.gov/litigation/admin/2023/33-11157.pdf"
+        }
+      ]
+    },
+    {
+      "id": "kardashian-2021-05-30",
+      "promoter": "Kim Kardashian",
+      "handle": "@kimkardashian",
+      "platform": "instagram",
+      "postedAt": "2021-05-30",
+      "datePrecision": "day",
+      "text": "GROOT HOSPITALITY · LIV · STORY · NOW ACCEPTING CRYPTOCURRENCY FOR ALL TABLE RESERVATIONS & BOOKINGS · EXCLUSIVELY ACCEPTING · EthereumMax.org",
+      "disclosedPayment": false,
+      "sources": [
+        {
+          "label": "C.D. Cal. order on motions to dismiss, In re EthereumMax Investor Litigation, No. 2:22-cv-00163-MWF, Dkt. 99 (Dec. 6, 2022) — copy hosted by John Reed Stark",
+          "url": "https://www.johnreedstark.com/wp-content/uploads/sites/180/2022/12/Kardasnhian-Dismissil.pdf"
+        }
+      ]
+    },
+    {
+      "id": "kardashian-2021-06-13",
+      "promoter": "Kim Kardashian",
+      "handle": "@kimkardashian",
+      "platform": "instagram",
+      "followers": 225000000,
+      "postedAt": "2021-06-13",
+      "datePrecision": "day",
+      "text": "ARE YOU GUYS INTO CRYPTO???? THIS IS NOT FINANCIAL ADVICE BUT SHARING WHAT MY FRIENDS JUST TOLD ME ABOUT THE ETHEREUM MAX TOKEN! A FEW MINUTES AGO ETHEREUM MAX BURNED 400 TRILLION TOKENS- LITERALLY 50% OF THEIR ADMIN WALLET GIVING BACK TO THE ENTIRE E-MAX COMMUNITY. #EMAX #DISRUPTHISTORY #ETHEREUMMAX #WTFEMAX #GIOPEMAX @ETHEREUMMAX #AD SWIPE UP",
+      "disclosedPayment": false,
+      "paid": {
+        "amountUsd": 250000,
+        "by": "EthereumMax, through an intermediary"
+      },
+      "sources": [
+        {
+          "label": "SEC order, In the Matter of Kimberly Kardashian, Securities Act Rel. No. 11116, File No. 3-21197 (Oct. 3, 2022)",
+          "url": "https://www.sec.gov/litigation/admin/2022/33-11116.pdf"
+        },
+        {
+          "label": "SEC press release 2022-183 (Oct. 3, 2022): SEC Charges Kim Kardashian for Unlawfully Touting Crypto Security",
+          "url": "https://www.sec.gov/newsroom/press-releases/2022-183"
+        }
+      ]
+    },
+    {
+      "id": "mayweather-2021-05-26",
+      "promoter": "Floyd Mayweather Jr.",
+      "platform": "other",
+      "postedAt": "2021-05-26",
+      "datePrecision": "day",
+      "disclosedPayment": null,
+      "sources": [
+        {
+          "label": "C.D. Cal. order on motions to dismiss, In re EthereumMax Investor Litigation, No. 2:22-cv-00163-MWF, Dkt. 99 (Dec. 6, 2022) — copy hosted by John Reed Stark",
+          "url": "https://www.johnreedstark.com/wp-content/uploads/sites/180/2022/12/Kardasnhian-Dismissil.pdf"
+        },
+        {
+          "label": "NBC News (Jan. 12, 2022): Kim Kardashian and Floyd Mayweather sued by investors over alleged crypto scam",
+          "url": "https://www.nbcnews.com/tech/tech-news/kim-kardashian-floyd-mayweather-sued-investors-alleged-crypto-scam-rcna11921"
+        }
+      ]
+    },
+    {
+      "id": "mayweather-2021-06-conference",
+      "promoter": "Floyd Mayweather Jr.",
+      "platform": "other",
+      "postedAt": "2021-06-01",
+      "datePrecision": "month",
+      "text": "I believe there's gonna be another cryptocurrency just as large as Bitcoin someday.",
+      "disclosedPayment": null,
+      "sources": [
+        {
+          "label": "C.D. Cal. order on motions to dismiss, In re EthereumMax Investor Litigation, No. 2:22-cv-00163-MWF, Dkt. 99 (Dec. 6, 2022) — copy hosted by John Reed Stark",
+          "url": "https://www.johnreedstark.com/wp-content/uploads/sites/180/2022/12/Kardasnhian-Dismissil.pdf"
+        },
+        {
+          "label": "NBC News (Jan. 12, 2022): Kim Kardashian and Floyd Mayweather sued by investors over alleged crypto scam",
+          "url": "https://www.nbcnews.com/tech/tech-news/kim-kardashian-floyd-mayweather-sued-investors-alleged-crypto-scam-rcna11921"
+        }
+      ]
+    },
+    {
+      "id": "mayweather-2021-06-06",
+      "promoter": "Floyd Mayweather Jr.",
+      "platform": "other",
+      "postedAt": "2021-06-06",
+      "datePrecision": "day",
+      "disclosedPayment": null,
+      "sources": [
+        {
+          "label": "NBC News (Jan. 12, 2022): Kim Kardashian and Floyd Mayweather sued by investors over alleged crypto scam",
+          "url": "https://www.nbcnews.com/tech/tech-news/kim-kardashian-floyd-mayweather-sued-investors-alleged-crypto-scam-rcna11921"
+        },
+        {
+          "label": "Wikipedia: Floyd Mayweather Jr. vs. Logan Paul (date and venue of the exhibition)",
+          "url": "https://en.wikipedia.org/wiki/Floyd_Mayweather_Jr._vs._Logan_Paul"
+        }
+      ]
+    }
+  ],
+  "prices": [
+    {
+      "t": "2021-05-25",
+      "priceUsd": 8.711e-8,
+      "liquidityUsd": 1914047,
+      "volumeUsd": 6167678
+    },
+    {
+      "t": "2021-05-26",
+      "priceUsd": 1.438e-7,
+      "liquidityUsd": 2583329,
+      "volumeUsd": 7648173
+    },
+    {
+      "t": "2021-05-27",
+      "priceUsd": 3.191e-7,
+      "liquidityUsd": 4020515,
+      "volumeUsd": 25345378
+    },
+    {
+      "t": "2021-05-28",
+      "priceUsd": 4.919e-7,
+      "liquidityUsd": 5890614,
+      "volumeUsd": 80001303
+    },
+    {
+      "t": "2021-05-29",
+      "priceUsd": 4.81e-7,
+      "liquidityUsd": 5995159,
+      "volumeUsd": 111853389
+    },
+    {
+      "t": "2021-05-30",
+      "priceUsd": 5.088e-7,
+      "liquidityUsd": 6874700,
+      "volumeUsd": 74658614
+    },
+    {
+      "t": "2021-05-31",
+      "priceUsd": 5.053e-7,
+      "liquidityUsd": 7263266,
+      "volumeUsd": 30714993
+    },
+    {
+      "t": "2021-06-01",
+      "priceUsd": 3.851e-7,
+      "liquidityUsd": 6338171,
+      "volumeUsd": 34144471
+    },
+    {
+      "t": "2021-06-02",
+      "priceUsd": 4.409e-7,
+      "liquidityUsd": 7046263,
+      "volumeUsd": 23221527
+    },
+    {
+      "t": "2021-06-03",
+      "priceUsd": 2.564e-7,
+      "liquidityUsd": 5747276,
+      "volumeUsd": 66596145
+    },
+    {
+      "t": "2021-06-04",
+      "priceUsd": 2.696e-7,
+      "liquidityUsd": 5968485,
+      "volumeUsd": 28153425
+    },
+    {
+      "t": "2021-06-05",
+      "priceUsd": 2.337e-7,
+      "liquidityUsd": 5573909,
+      "volumeUsd": 17925663
+    },
+    {
+      "t": "2021-06-06",
+      "priceUsd": 2.448e-7,
+      "liquidityUsd": 5605505,
+      "volumeUsd": 18226651
+    },
+    {
+      "t": "2021-06-07",
+      "priceUsd": 1.587e-7,
+      "liquidityUsd": 4519178,
+      "volumeUsd": 31791698
+    },
+    {
+      "t": "2021-06-08",
+      "priceUsd": 1.671e-7,
+      "liquidityUsd": 4607238,
+      "volumeUsd": 13989467
+    },
+    {
+      "t": "2021-06-09",
+      "priceUsd": 1.209e-7,
+      "liquidityUsd": 4282051,
+      "volumeUsd": 9095583
+    },
+    {
+      "t": "2021-06-10",
+      "priceUsd": 1.166e-7,
+      "liquidityUsd": 3855113,
+      "volumeUsd": 8474212
+    },
+    {
+      "t": "2021-06-11",
+      "priceUsd": 9.159e-8,
+      "liquidityUsd": 3532642,
+      "volumeUsd": 8530272
+    },
+    {
+      "t": "2021-06-12",
+      "priceUsd": 1.373e-7,
+      "liquidityUsd": 4455361,
+      "volumeUsd": 16637418
+    },
+    {
+      "t": "2021-06-13",
+      "priceUsd": 2.266e-7,
+      "liquidityUsd": 6063509,
+      "volumeUsd": 22612643
+    },
+    {
+      "t": "2021-06-14",
+      "priceUsd": 1.68e-7,
+      "liquidityUsd": 5337180,
+      "volumeUsd": 19599778
+    },
+    {
+      "t": "2021-06-15",
+      "priceUsd": 1.595e-7,
+      "liquidityUsd": 5203772,
+      "volumeUsd": 9112747
+    },
+    {
+      "t": "2021-06-16",
+      "priceUsd": 1.418e-7,
+      "liquidityUsd": 4757205,
+      "volumeUsd": 8053144
+    },
+    {
+      "t": "2021-06-17",
+      "priceUsd": 1.219e-7,
+      "liquidityUsd": 4432612,
+      "volumeUsd": 5599377
+    },
+    {
+      "t": "2021-06-18",
+      "priceUsd": 1.018e-7,
+      "liquidityUsd": 3951533,
+      "volumeUsd": 9195038
+    },
+    {
+      "t": "2021-06-19",
+      "priceUsd": 9.009e-8,
+      "liquidityUsd": 3553008,
+      "volumeUsd": 3399458
+    },
+    {
+      "t": "2021-06-20",
+      "priceUsd": 1.02e-7,
+      "liquidityUsd": 3864029,
+      "volumeUsd": 3600330
+    },
+    {
+      "t": "2021-06-21",
+      "priceUsd": 7.333e-8,
+      "liquidityUsd": 3014633,
+      "volumeUsd": 3969351
+    },
+    {
+      "t": "2021-06-22",
+      "priceUsd": 8.501e-8,
+      "liquidityUsd": 3216048,
+      "volumeUsd": 2926852
+    },
+    {
+      "t": "2021-06-23",
+      "priceUsd": 8.038e-8,
+      "liquidityUsd": 3200536,
+      "volumeUsd": 2078004
+    },
+    {
+      "t": "2021-06-24",
+      "priceUsd": 6.58e-8,
+      "liquidityUsd": 2907662,
+      "volumeUsd": 3754200
+    },
+    {
+      "t": "2021-06-25",
+      "priceUsd": 5.71e-8,
+      "liquidityUsd": 2589977,
+      "volumeUsd": 3029174
+    },
+    {
+      "t": "2021-06-26",
+      "priceUsd": 5.574e-8,
+      "liquidityUsd": 2577864,
+      "volumeUsd": 1478885
+    },
+    {
+      "t": "2021-06-27",
+      "priceUsd": 4.389e-8,
+      "liquidityUsd": 2570210,
+      "volumeUsd": 2188126
+    },
+    {
+      "t": "2021-06-28",
+      "priceUsd": 4.111e-8,
+      "liquidityUsd": 2558061,
+      "volumeUsd": 2476467
+    },
+    {
+      "t": "2021-06-29",
+      "priceUsd": 5.031e-8,
+      "liquidityUsd": 2685237,
+      "volumeUsd": 2262506
+    },
+    {
+      "t": "2021-06-30",
+      "priceUsd": 4.711e-8,
+      "liquidityUsd": 2665883,
+      "volumeUsd": 864999
+    },
+    {
+      "t": "2021-07-01",
+      "priceUsd": 3.955e-8,
+      "liquidityUsd": 2359912,
+      "volumeUsd": 2149988
+    },
+    {
+      "t": "2021-07-02",
+      "priceUsd": 4.086e-8,
+      "liquidityUsd": 2418640,
+      "volumeUsd": 748127
+    },
+    {
+      "t": "2021-07-03",
+      "priceUsd": 4.661e-8,
+      "liquidityUsd": 2626949,
+      "volumeUsd": 1102513
+    },
+    {
+      "t": "2021-07-04",
+      "priceUsd": 4.2e-8,
+      "liquidityUsd": 2551437,
+      "volumeUsd": 565133
+    },
+    {
+      "t": "2021-07-05",
+      "priceUsd": 3.923e-8,
+      "liquidityUsd": 2398244,
+      "volumeUsd": 366015
+    },
+    {
+      "t": "2021-07-06",
+      "priceUsd": 3.666e-8,
+      "liquidityUsd": 2380871,
+      "volumeUsd": 513735
+    },
+    {
+      "t": "2021-07-07",
+      "priceUsd": 3.368e-8,
+      "liquidityUsd": 2280609,
+      "volumeUsd": 414263
+    },
+    {
+      "t": "2021-07-08",
+      "priceUsd": 2.749e-8,
+      "liquidityUsd": 1974523,
+      "volumeUsd": 998777
+    },
+    {
+      "t": "2021-07-09",
+      "priceUsd": 3.462e-8,
+      "liquidityUsd": 2234486,
+      "volumeUsd": 377007
+    },
+    {
+      "t": "2021-07-10",
+      "priceUsd": 3.657e-8,
+      "liquidityUsd": 2277238,
+      "volumeUsd": 209622
+    },
+    {
+      "t": "2021-07-11",
+      "priceUsd": 3.034e-8,
+      "liquidityUsd": 2088009,
+      "volumeUsd": 250098
+    },
+    {
+      "t": "2021-07-12",
+      "priceUsd": 2.65e-8,
+      "liquidityUsd": 1902641,
+      "volumeUsd": 275428
+    },
+    {
+      "t": "2021-07-13",
+      "priceUsd": 2.449e-8,
+      "liquidityUsd": 1807021,
+      "volumeUsd": 204261
+    },
+    {
+      "t": "2021-07-14",
+      "priceUsd": 1.985e-8,
+      "liquidityUsd": 1650773,
+      "volumeUsd": 612696
+    },
+    {
+      "t": "2021-07-15",
+      "priceUsd": 2.819e-8,
+      "liquidityUsd": 1930736,
+      "volumeUsd": 550368
+    },
+    {
+      "t": "2021-07-16",
+      "priceUsd": 4.186e-8,
+      "liquidityUsd": 2333624,
+      "volumeUsd": 2009018
+    },
+    {
+      "t": "2021-07-17",
+      "priceUsd": 4.577e-8,
+      "liquidityUsd": 2456639,
+      "volumeUsd": 653104
+    },
+    {
+      "t": "2021-07-18",
+      "priceUsd": 3.981e-8,
+      "liquidityUsd": 2294035,
+      "volumeUsd": 662398
+    },
+    {
+      "t": "2021-07-19",
+      "priceUsd": 3.998e-8,
+      "liquidityUsd": 2226315,
+      "volumeUsd": 337145
+    },
+    {
+      "t": "2021-07-20",
+      "priceUsd": 3.694e-8,
+      "liquidityUsd": 2121340,
+      "volumeUsd": 405968
+    },
+    {
+      "t": "2021-07-21",
+      "priceUsd": 4.212e-8,
+      "liquidityUsd": 2392390,
+      "volumeUsd": 607202
+    },
+    {
+      "t": "2021-07-22",
+      "priceUsd": 4.335e-8,
+      "liquidityUsd": 2447665,
+      "volumeUsd": 379452
+    },
+    {
+      "t": "2021-07-23",
+      "priceUsd": 4.472e-8,
+      "liquidityUsd": 2547456,
+      "volumeUsd": 185307
+    },
+    {
+      "t": "2021-07-24",
+      "priceUsd": 3.632e-8,
+      "liquidityUsd": 2320172,
+      "volumeUsd": 394840
+    },
+    {
+      "t": "2021-07-25",
+      "priceUsd": 3.25e-8,
+      "liquidityUsd": 2199309,
+      "volumeUsd": 425216
+    },
+    {
+      "t": "2021-07-26",
+      "priceUsd": 3.614e-8,
+      "liquidityUsd": 2345151,
+      "volumeUsd": 317369
+    },
+    {
+      "t": "2021-07-27",
+      "priceUsd": 3.569e-8,
+      "liquidityUsd": 2362448,
+      "volumeUsd": 226883
+    },
+    {
+      "t": "2021-07-28",
+      "priceUsd": 3.134e-8,
+      "liquidityUsd": 1972623,
+      "volumeUsd": 262502
+    },
+    {
+      "t": "2021-07-29",
+      "priceUsd": 3.043e-8,
+      "liquidityUsd": 1979257,
+      "volumeUsd": 225003
+    },
+    {
+      "t": "2021-07-30",
+      "priceUsd": 3.956e-8,
+      "liquidityUsd": 2301674,
+      "volumeUsd": 369800
+    },
+    {
+      "t": "2021-07-31",
+      "priceUsd": 4.098e-8,
+      "liquidityUsd": 2377834,
+      "volumeUsd": 554279
+    },
+    {
+      "t": "2021-08-01",
+      "priceUsd": 3.798e-8,
+      "liquidityUsd": 2300089,
+      "volumeUsd": 163646
+    },
+    {
+      "t": "2021-08-02",
+      "priceUsd": 3.493e-8,
+      "liquidityUsd": 2226372,
+      "volumeUsd": 263894
+    },
+    {
+      "t": "2021-08-03",
+      "priceUsd": 3.371e-8,
+      "liquidityUsd": 2142448,
+      "volumeUsd": 207447
+    },
+    {
+      "t": "2021-08-04",
+      "priceUsd": 3.79e-8,
+      "liquidityUsd": 2369973,
+      "volumeUsd": 326277
+    },
+    {
+      "t": "2021-08-05",
+      "priceUsd": 3.443e-8,
+      "liquidityUsd": 2296468,
+      "volumeUsd": 216064
+    },
+    {
+      "t": "2021-08-06",
+      "priceUsd": 3.359e-8,
+      "liquidityUsd": 2293419,
+      "volumeUsd": 200066
+    },
+    {
+      "t": "2021-08-07",
+      "priceUsd": 3.481e-8,
+      "liquidityUsd": 2443516,
+      "volumeUsd": 202555
+    },
+    {
+      "t": "2021-08-08",
+      "priceUsd": 3.174e-8,
+      "liquidityUsd": 2278027,
+      "volumeUsd": 146396
+    },
+    {
+      "t": "2021-08-09",
+      "priceUsd": 3.711e-8,
+      "liquidityUsd": 2523751,
+      "volumeUsd": 260177
+    },
+    {
+      "t": "2021-08-10",
+      "priceUsd": 3.559e-8,
+      "liquidityUsd": 2464030,
+      "volumeUsd": 203583
+    },
+    {
+      "t": "2021-08-11",
+      "priceUsd": 4.077e-8,
+      "liquidityUsd": 2656286,
+      "volumeUsd": 452384
+    },
+    {
+      "t": "2021-08-12",
+      "priceUsd": 3.824e-8,
+      "liquidityUsd": 2519843,
+      "volumeUsd": 329786
+    },
+    {
+      "t": "2021-08-13",
+      "priceUsd": 3.975e-8,
+      "liquidityUsd": 2685869,
+      "volumeUsd": 192488
+    },
+    {
+      "t": "2021-08-14",
+      "priceUsd": 3.727e-8,
+      "liquidityUsd": 2582442,
+      "volumeUsd": 112693
+    },
+    {
+      "t": "2021-08-15",
+      "priceUsd": 3.874e-8,
+      "liquidityUsd": 2648297,
+      "volumeUsd": 237708
+    },
+    {
+      "t": "2021-08-16",
+      "priceUsd": 3.513e-8,
+      "liquidityUsd": 2460953,
+      "volumeUsd": 111210
+    },
+    {
+      "t": "2021-08-17",
+      "priceUsd": 3.519e-8,
+      "liquidityUsd": 2407512,
+      "volumeUsd": 183136
+    },
+    {
+      "t": "2021-08-18",
+      "priceUsd": 3.695e-8,
+      "liquidityUsd": 2470674,
+      "volumeUsd": 196872
+    },
+    {
+      "t": "2021-08-19",
+      "priceUsd": 3.261e-8,
+      "liquidityUsd": 2382534,
+      "volumeUsd": 950377
+    },
+    {
+      "t": "2021-08-20",
+      "priceUsd": 3.093e-8,
+      "liquidityUsd": 2356767,
+      "volumeUsd": 168129
+    },
+    {
+      "t": "2021-08-21",
+      "priceUsd": 3.432e-8,
+      "liquidityUsd": 2466649,
+      "volumeUsd": 162769
+    },
+    {
+      "t": "2021-08-22",
+      "priceUsd": 3.369e-8,
+      "liquidityUsd": 2448799,
+      "volumeUsd": 159832
+    },
+    {
+      "t": "2021-08-23",
+      "priceUsd": 3.097e-8,
+      "liquidityUsd": 2376556,
+      "volumeUsd": 164271
+    },
+    {
+      "t": "2021-08-24",
+      "priceUsd": 3.057e-8,
+      "liquidityUsd": 2303156,
+      "volumeUsd": 150984
+    },
+    {
+      "t": "2021-08-25",
+      "priceUsd": 3.405e-8,
+      "liquidityUsd": 2448706,
+      "volumeUsd": 131753
+    },
+    {
+      "t": "2021-08-26",
+      "priceUsd": 3.357e-8,
+      "liquidityUsd": 2386817,
+      "volumeUsd": 137748
+    },
+    {
+      "t": "2021-08-27",
+      "priceUsd": 3.731e-8,
+      "liquidityUsd": 2585549,
+      "volumeUsd": 237822
+    },
+    {
+      "t": "2021-08-28",
+      "priceUsd": 3.48e-8,
+      "liquidityUsd": 2483625,
+      "volumeUsd": 200835
+    },
+    {
+      "t": "2021-08-29",
+      "priceUsd": 3.367e-8,
+      "liquidityUsd": 2381319,
+      "volumeUsd": 237305
+    },
+    {
+      "t": "2021-08-30",
+      "priceUsd": 3.118e-8,
+      "liquidityUsd": 2288994,
+      "volumeUsd": 87904
+    },
+    {
+      "t": "2021-08-31",
+      "priceUsd": 3.029e-8,
+      "liquidityUsd": 2327786,
+      "volumeUsd": 122089
+    },
+    {
+      "t": "2021-09-01",
+      "priceUsd": 3.186e-8,
+      "liquidityUsd": 2520535,
+      "volumeUsd": 281360
+    },
+    {
+      "t": "2021-09-02",
+      "priceUsd": 2.649e-8,
+      "liquidityUsd": 2290920,
+      "volumeUsd": 457264
+    },
+    {
+      "t": "2021-09-03",
+      "priceUsd": 2.424e-8,
+      "liquidityUsd": 2230491,
+      "volumeUsd": 199295
+    },
+    {
+      "t": "2021-09-04",
+      "priceUsd": 2.533e-8,
+      "liquidityUsd": 2267741,
+      "volumeUsd": 112385
+    },
+    {
+      "t": "2021-09-05",
+      "priceUsd": 2.583e-8,
+      "liquidityUsd": 2310066,
+      "volumeUsd": 95739
+    },
+    {
+      "t": "2021-09-06",
+      "priceUsd": 2.536e-8,
+      "liquidityUsd": 2283196,
+      "volumeUsd": 42780
+    },
+    {
+      "t": "2021-09-07",
+      "priceUsd": 2.138e-8,
+      "liquidityUsd": 1958875,
+      "volumeUsd": 152411
+    },
+    {
+      "t": "2021-09-08",
+      "priceUsd": 2.119e-8,
+      "liquidityUsd": 1967844,
+      "volumeUsd": 127106
+    },
+    {
+      "t": "2021-09-09",
+      "priceUsd": 2.095e-8,
+      "liquidityUsd": 1938314,
+      "volumeUsd": 67994
+    },
+    {
+      "t": "2021-09-10",
+      "priceUsd": 1.909e-8,
+      "liquidityUsd": 1791049,
+      "volumeUsd": 150162
+    },
+    {
+      "t": "2021-09-11",
+      "priceUsd": 1.917e-8,
+      "liquidityUsd": 1808860,
+      "volumeUsd": 137200
+    },
+    {
+      "t": "2021-09-12",
+      "priceUsd": 1.854e-8,
+      "liquidityUsd": 1819727,
+      "volumeUsd": 86790
+    },
+    {
+      "t": "2021-09-13",
+      "priceUsd": 1.877e-8,
+      "liquidityUsd": 1797459,
+      "volumeUsd": 67244
+    },
+    {
+      "t": "2021-09-14",
+      "priceUsd": 1.858e-8,
+      "liquidityUsd": 1822366,
+      "volumeUsd": 116376
+    },
+    {
+      "t": "2021-09-15",
+      "priceUsd": 2.034e-8,
+      "liquidityUsd": 1955310,
+      "volumeUsd": 72677
+    },
+    {
+      "t": "2021-09-16",
+      "priceUsd": 1.958e-8,
+      "liquidityUsd": 1909648,
+      "volumeUsd": 55705
+    },
+    {
+      "t": "2021-09-17",
+      "priceUsd": 1.808e-8,
+      "liquidityUsd": 1790829,
+      "volumeUsd": 66031
+    },
+    {
+      "t": "2021-09-18",
+      "priceUsd": 1.75e-8,
+      "liquidityUsd": 1770320,
+      "volumeUsd": 97993
+    },
+    {
+      "t": "2021-09-19",
+      "priceUsd": 1.743e-8,
+      "liquidityUsd": 1737597,
+      "volumeUsd": 59897
+    },
+    {
+      "t": "2021-09-20",
+      "priceUsd": 1.588e-8,
+      "liquidityUsd": 1568135,
+      "volumeUsd": 60738
+    },
+    {
+      "t": "2021-09-21",
+      "priceUsd": 1.553e-8,
+      "liquidityUsd": 1495631,
+      "volumeUsd": 30267
+    },
+    {
+      "t": "2021-09-22",
+      "priceUsd": 2.148e-8,
+      "liquidityUsd": 1855961,
+      "volumeUsd": 200558
+    },
+    {
+      "t": "2021-09-23",
+      "priceUsd": 2.296e-8,
+      "liquidityUsd": 1943986,
+      "volumeUsd": 93446
+    },
+    {
+      "t": "2021-09-24",
+      "priceUsd": 2.161e-8,
+      "liquidityUsd": 1817823,
+      "volumeUsd": 66795
+    },
+    {
+      "t": "2021-09-25",
+      "priceUsd": 2.142e-8,
+      "liquidityUsd": 1810675,
+      "volumeUsd": 60465
+    },
+    {
+      "t": "2021-09-26",
+      "priceUsd": 2.278e-8,
+      "liquidityUsd": 1909002,
+      "volumeUsd": 39950
+    },
+    {
+      "t": "2021-09-27",
+      "priceUsd": 2.217e-8,
+      "liquidityUsd": 1845945,
+      "volumeUsd": 77836
+    },
+    {
+      "t": "2021-09-28",
+      "priceUsd": 1.994e-8,
+      "liquidityUsd": 1709500,
+      "volumeUsd": 67694
+    },
+    {
+      "t": "2021-09-29",
+      "priceUsd": 2.121e-8,
+      "liquidityUsd": 1777557,
+      "volumeUsd": 91279
+    },
+    {
+      "t": "2021-09-30",
+      "priceUsd": 2.181e-8,
+      "liquidityUsd": 1850255,
+      "volumeUsd": 52354
+    }
+  ],
+  "peak": {
+    "t": "2021-05-30",
+    "priceUsd": 5.088e-7
+  },
+  "collapse": {
+    "t": "2021-06-27",
+    "priceUsd": 4.389e-8,
+    "dropPct": 91.4
+  },
+  "buyersInWindow": {
+    "count": 8671,
+    "method": "Distinct addresses that received EMAX directly from the Uniswap V2 EMAX/WETH pair (ERC-20 Transfer events on the EMAX contract with from = pair, i.e. buys from the pool) in the 72 hours after the Kardashian post: 2021-06-14T01:08:47Z to 2021-06-17T01:08:46Z (blocks 12629573–12648902; 13,076 buy transfers). The window starts at the token burn the post refers to (\"a few minutes ago … burned 400 trillion tokens\"), the earliest time the post could have gone up; the post's exact time is not documented. The Uniswap V2 router, the pair, the zero and burn addresses are excluded; everything else is counted, including bots and aggregator contracts, and buys through other pools or centralized exchanges are not seen. Sample: 12 buyers evenly spaced through the window in order of first purchase. This window comes after the price peak (2021-05-30, two weeks earlier); during the main pump (2021-05-26 to 2021-06-02, peak + 3 days) 56,954 distinct addresses bought from the pool by the same method.",
+    "sample": [
+      {
+        "address": "0x75f001f36bc6441be4c1d823165bd5a290e50748",
+        "firstBuy": "2021-06-14T01:08:55Z",
+        "txHash": "0xb12c5085bbf26658d0255afc494c0eb1334c5fd89f8f049fbfd448fd428da99b"
+      },
+      {
+        "address": "0x38c90063fe9767a759dba7ea4aef20d03d0e4fd9",
+        "firstBuy": "2021-06-14T01:55:41Z",
+        "txHash": "0x4be81710239bf4467b9e402233508b1181f87748b5d8b4595d156f4dc8d28965"
+      },
+      {
+        "address": "0xa40260ba1fdee66fb6e805c953134b8108cd3a5d",
+        "firstBuy": "2021-06-14T04:03:48Z",
+        "txHash": "0x6442bc66470ce3116bd8f55c6cf720f8f6fde28f5eb93e442a110a0fc77d5c64"
+      },
+      {
+        "address": "0x53d7ea121778660da8cf24d1d5c65235e1af26b0",
+        "firstBuy": "2021-06-14T09:24:12Z",
+        "txHash": "0x6e024f6f2f4d561fece3b37121e59f534efad5bddcef9bb60c7e93e58294af28"
+      },
+      {
+        "address": "0xa1fdb729e3f9f44e4ea7ba01c4485fc9bbd3f9be",
+        "firstBuy": "2021-06-14T16:06:55Z",
+        "txHash": "0x5809ee0f3b287220d1773d331d698e066560a6912a16702383f2cd96f3da94a2"
+      },
+      {
+        "address": "0x7511e2bdf6490a3cc770ecc541989fa6cb0b2491",
+        "firstBuy": "2021-06-14T21:31:10Z",
+        "txHash": "0x434e7c4970688d1608dd9e9330b44a5cd14d9b0c60c7fcc99ec58dffbedb4364"
+      },
+      {
+        "address": "0x7e73f6ad28e145fc0a4c665194f2f38e1263c9d3",
+        "firstBuy": "2021-06-15T02:22:53Z",
+        "txHash": "0xd945dcc2778f4b46aa03be1c0e9d741d99198ed5094889b71e2d3723b7018af4"
+      },
+      {
+        "address": "0xac85724be118b69a9aee3b03bd2af2ac0071f26a",
+        "firstBuy": "2021-06-15T11:15:08Z",
+        "txHash": "0xccd8174eaa3dfa490f003da33a6b79ea8d50bf136b2b0afe7e8844819af938e1"
+      },
+      {
+        "address": "0xc6c200fb24a60ce1a2bb01c81aca7ddf6585b3d0",
+        "firstBuy": "2021-06-15T19:58:47Z",
+        "txHash": "0x3613888a2dc496e8e897a1f918a081895b2b3caaeafbacfa9b32f0bc5eac7914"
+      },
+      {
+        "address": "0x195983595fd4c1c16b0c0f97b709a03c80d2b474",
+        "firstBuy": "2021-06-16T02:18:28Z",
+        "txHash": "0xec2fbffeeea41d5ab2fc3e30d4e1de73436ccbf1b00a9e0fb8d7256323e2e781"
+      },
+      {
+        "address": "0xb17fcdb17879b76f4c9b8345f189f145cb888c4e",
+        "firstBuy": "2021-06-16T12:58:52Z",
+        "txHash": "0x4d096307356b315cdf30df1521bfe10f835d67058b95d61ab204d8a797f5edc7"
+      },
+      {
+        "address": "0x513525aa144af24f848d85ab098de4e8211e9965",
+        "firstBuy": "2021-06-17T01:08:37Z",
+        "txHash": "0xfb73cb67c0bb7f9dc32941384206c5857e584d71ea9f7faf5baea29e8d685bff"
+      }
+    ]
+  },
+  "legal": [
+    {
+      "id": "sec-kardashian",
+      "kind": "sec",
+      "title": "SEC v. Kardashian (settled cease-and-desist order)",
+      "date": "2022-10-03",
+      "summary": "The SEC found that Kim Kardashian was paid $250,000 by EthereumMax, through an intermediary, to post about EMAX tokens on Instagram on June 13, 2021, to about 225 million followers, and did not say she was paid or how much. The post linked to the EthereumMax website, which told people how to buy. The SEC treated EMAX as a security (an investment contract).",
+      "outcome": "Settled without admitting or denying the findings: $250,000 disgorgement + $10,415.35 interest + $1,000,000 penalty (about $1.26 million); no paid promotion of crypto asset securities for three years; cooperation with the continuing investigation.",
+      "statute": "Securities Act of 1933, Section 17(b) (anti-touting)",
+      "sources": [
+        {
+          "label": "SEC press release 2022-183 (Oct. 3, 2022): SEC Charges Kim Kardashian for Unlawfully Touting Crypto Security",
+          "url": "https://www.sec.gov/newsroom/press-releases/2022-183"
+        },
+        {
+          "label": "SEC order, In the Matter of Kimberly Kardashian, Securities Act Rel. No. 11116, File No. 3-21197 (Oct. 3, 2022)",
+          "url": "https://www.sec.gov/litigation/admin/2022/33-11116.pdf"
+        }
+      ]
+    },
+    {
+      "id": "sec-pierce",
+      "kind": "sec",
+      "title": "SEC v. Pierce (settled cease-and-desist order)",
+      "date": "2023-02-17",
+      "summary": "The SEC found that Paul Pierce was paid EMAX tokens worth about $244,116 to promote them on Twitter (May 26 – June 5, 2021) without saying so, and that his tweets were misleading: he claimed big profits two days after first being paid, posted a screenshot of someone else's $2.5 million EMAX holdings as if it were his, and said he was holding and buying more while he was selling.",
+      "outcome": "Settled without admitting or denying the findings: $244,116 disgorgement + $15,449 interest + $1,150,000 penalty per the order (about $1.409 million in total); no paid promotion of crypto asset securities for three years.",
+      "statute": "Securities Act of 1933, Sections 17(a)(2) (misleading statements) and 17(b) (anti-touting)",
+      "sources": [
+        {
+          "label": "SEC press release 2023-34 (Feb. 17, 2023): SEC Charges NBA Hall of Famer Paul Pierce for Unlawfully Touting and Making Misleading Statements about Crypto Security",
+          "url": "https://www.sec.gov/newsroom/press-releases/2023-34"
+        },
+        {
+          "label": "SEC order, In the Matter of Paul Anthony Pierce, Securities Act Rel. No. 11157, File No. 3-21305 (Feb. 17, 2023)",
+          "url": "https://www.sec.gov/litigation/admin/2023/33-11157.pdf"
+        }
+      ]
+    },
+    {
+      "id": "class-action-filed",
+      "kind": "class-action",
+      "title": "Investor class action filed: Huegerich v. Gentile et al. (now In re EthereumMax Investor Litigation), C.D. Cal. No. 2:22-cv-00163",
+      "date": "2022-01-07",
+      "summary": "A New York investor, Ryan Huegerich, sued EthereumMax's founders and promoters Kim Kardashian, Floyd Mayweather Jr. and Paul Pierce in federal court in Los Angeles for buyers from mid-May to late June 2021, alleging celebrity promotions were used to pump the token's price so insiders could sell.",
+      "sources": [
+        {
+          "label": "Fortune (Jan. 11, 2022): Kim Kardashian and Floyd Mayweather sued over promotion of crypto token",
+          "url": "https://fortune.com/2022/01/11/kim-kardashian-floyd-mayweather-crypto-token-ethereummax-lawsuit"
+        },
+        {
+          "label": "NBC News (Jan. 12, 2022): Kim Kardashian and Floyd Mayweather sued by investors over alleged crypto scam",
+          "url": "https://www.nbcnews.com/tech/tech-news/kim-kardashian-floyd-mayweather-sued-investors-alleged-crypto-scam-rcna11921"
+        },
+        {
+          "label": "CourtListener docket: In re EthereumMax Investor Litigation, 2:22-cv-00163 (C.D. Cal.)",
+          "url": "https://www.courtlistener.com/docket/61802418/in-re-ethereummax-investor-litigation/"
+        }
+      ]
+    },
+    {
+      "id": "class-action-dismissed-2022",
+      "kind": "class-action",
+      "title": "In re EthereumMax Investor Litigation — first complaint dismissed with leave to amend",
+      "date": "2022-12-06",
+      "summary": "Judge Michael W. Fitzgerald dismissed the consolidated complaint, mostly because the fraud claims were not pleaded with enough detail (for example, that buyers actually saw and relied on the posts). Investors were allowed to refile most claims; the federal racketeering (RICO) claim was dismissed for lack of standing with leave to amend.",
+      "outcome": "Dismissed with leave to amend, except the California Consumer Legal Remedies Act claim (dismissed without leave because that law does not cover intangible goods like crypto).",
+      "sources": [
+        {
+          "label": "C.D. Cal. order on motions to dismiss, In re EthereumMax Investor Litigation, No. 2:22-cv-00163-MWF, Dkt. 99 (Dec. 6, 2022) — copy hosted by John Reed Stark",
+          "url": "https://www.johnreedstark.com/wp-content/uploads/sites/180/2022/12/Kardasnhian-Dismissil.pdf"
+        }
+      ]
+    },
+    {
+      "id": "class-action-proceeds-2023",
+      "kind": "class-action",
+      "title": "In re EthereumMax Investor Litigation — amended complaint partly survives",
+      "date": "2023-06-06",
+      "summary": "On the amended complaint the court denied the motions to dismiss in part, so some state consumer-protection claims against Kardashian, Mayweather and Pierce went forward to discovery. Press coverage reports the judge found some of Kardashian's statements could be \"literally false\", and treated some of Mayweather's statements as non-actionable puffery.",
+      "outcome": "Partly allowed to proceed (exact surviving claims taken from secondary reports, not read from the order itself).",
+      "sources": [
+        {
+          "label": "Scott+Scott (plaintiffs' co-counsel), June 8, 2023: Court Refuses to Dismiss the EthereumMax Case",
+          "url": "https://scott-scott.com/court-refuses-to-dismiss-the-ethereummax-case/"
+        },
+        {
+          "label": "Coinspeaker (June 7, 2023): Kim Kardashian EMAX Case Proceeds as California Judge Rejects Motion to Dismiss",
+          "url": "https://www.coinspeaker.com/kim-kardashian-emax-case-proceeds/"
+        }
+      ]
+    },
+    {
+      "id": "class-action-certified-2025",
+      "kind": "class-action",
+      "title": "In re EthereumMax Investor Litigation — state classes certified, nationwide class denied",
+      "date": "2025-08",
+      "summary": "The court certified classes of investors who bought EMAX between May and June 2021 in California, Florida, New York and New Jersey, against defendants including Kardashian, Mayweather, Pierce, EthereumMax Holdings and co-founder Giovanni Perone, but refused a nationwide class.",
+      "outcome": "Pending as of the latest report found (August 2025).",
+      "sources": [
+        {
+          "label": "Cointelegraph (Aug. 8, 2025): EthereumMax investors secure partial win in class action lawsuit",
+          "url": "https://cointelegraph.com/news/ethereummax-class-action-lawsuit-celebrities"
+        }
+      ]
+    },
+    {
+      "id": "sec-mayweather-2018",
+      "kind": "sec",
+      "title": "Background: SEC v. Mayweather (2018, other tokens — not EMAX)",
+      "date": "2018-11-29",
+      "summary": "Three years before EMAX, the SEC had already charged Floyd Mayweather Jr. for promoting three coin offerings (including Centra Tech, which paid him $100,000) without disclosing he was paid.",
+      "outcome": "Settled without admitting or denying: $300,000 disgorgement, $300,000 penalty and $14,775 interest.",
+      "statute": "Securities Act of 1933, Section 17(b) (anti-touting)",
+      "sources": [
+        {
+          "label": "SEC press release 2018-268 (Nov. 29, 2018): Two Celebrities Charged With Unlawfully Touting Coin Offerings",
+          "url": "https://www.sec.gov/newsroom/press-releases/2018-268"
+        }
+      ]
+    }
+  ],
+  "dataNotes": [
+    "Contract: EMAX was launched on 2021-05-12 as 0xa3e059c0b01f07f211c85bf7b4f1d907afb011df (Blockscout now labels it \"EthereumMax (Deprecated)\"); the SEC orders say public trading began about 2021-05-14. The project redeployed the token as 0x15874d65e649880c2614e7a480cb7c9a55787ff6 (an upgradeable proxy) on 2021-05-25 01:31 UTC and the Uniswap V2 EMAX/WETH pair 0xb6ca52c7916ad7960c12dc489fd93e5af7ca257f was created at 10:39 UTC that day (block 12503000). All the promoter posts above (from 2021-05-26 on) and the whole series are on the new contract. Blockscout shows the new contract's own address holding about 26 trillion of the old tokens (consistent with a token swap), but the mechanics of the migration were not verified, so the series starts on 2021-05-25 and May 14–24 trading on the old contract is not included.",
+    "Prices: for each UTC day, the EMAX/WETH pair's reserves after its last Sync event that day (end-of-day pool state); price in ETH = WETH reserve / EMAX reserve (both 18 decimals). ETH/USD is the same end-of-day reading of the Uniswap V2 USDC/WETH pair 0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc, so every dollar figure is derived from Ethereum itself with no outside price feed. USDC is treated as $1.",
+    "Liquidity = 2 x the pool's WETH reserve x ETH/USD (the two sides of a Uniswap V2 pool are equal in value). Volume = the WETH side of every Swap event in the UTC day x that day's closing ETH/USD. Only this pool is counted; trading on other pools or exchanges is not. 339,213 swaps were processed from 2021-05-25 to 2021-09-30 (blocks 12503000–13330089).",
+    "Daily closes, not intraday highs: the class-action complaint cites an all-time high of $0.000000863 on 2021-05-29 (CoinMarketCap-style intraday data, per the Dec. 6, 2022 court order). This file uses end-of-day pool prices, so its highest point ($5.088e-7 at the close of 2021-05-30) is lower than that intraday figure. The token's price is a tiny fraction of a cent because over 900 trillion tokens exist; what matters is the relative change.",
+    "Window: pumpStart = 2021-05-26, the first paid promotion documented by the SEC (Pierce's first EMAX tweet; the complaint also dates Mayweather's ticket promotion to on or around that day). From the 2021-05-25 close ($8.711e-8) to the peak close on 2021-05-30 ($5.088e-7) the price rose 484%; 105,224 swaps and about $299,506,857 of volume went through this pool from 2021-05-26 to 2021-05-30. The pair opened at $8.711e-8 on 2021-05-25.",
+    "Collapse: the first daily close at or below 10% of the peak close (a fall of 90% or more) — 2021-06-27, $4.389e-8, 91.4% below the peak. This rule was chosen because it is mechanical and reproducible; it also happens to coincide with the end of the class period (purchases from May 14 to June 27, 2021) in the class-action complaint. Lowest close in the series: $1.553e-8 on 2021-09-21 (96.9% below peak); last point: $2.181e-8 on 2021-09-30.",
+    "Kardashian post, daily view: the UTC daily close rose from $1.373e-7 on 2021-06-12 to $2.266e-7 on 2021-06-13 (+65%, $22,612,643 of volume) — a run-up that, on the timing below, came before the post itself (the SEC says the post came with an introductory video announcing a \"big announcement\"; when that video went up is not documented). Two weeks after 2021-06-13, on 2021-06-27, the close was $4.389e-8, 80.6% lower.",
+    "The Kardashian post says that \"a few minutes ago\" EthereumMax \"burned 400 trillion tokens- literally 50% of their admin wallet\". On-chain, the largest EMAX transfer to the burn address 0x…dEaD around that date is 437.97 trillion EMAX at 2021-06-14T01:08:47Z (2021-06-13 18:08 Pacific, i.e. the evening of June 13 in California) from 0x3b6c70a76465fa7b1b6ab10634e1d91d73054638 (tx 0x23078c9e48033faa61624df421aa95e654be0c29c7ebdc45a1e2cba7edec3773). That wallet held 565.3 trillion just before, so the burn was 77.5% of it, not 50%; whether it was the project's \"admin wallet\" is not established by any source used here.",
+    "Assuming the post went up a few minutes after that burn, as it says (an inference — no source gives the post's time), it was published around 01:08 UTC on June 14 (evening of June 13 in California), which fits both the SEC's June 13 date and the complaint's June 14. Pool prices around it: the June 13 (UTC) high came at 2021-06-13T19:30:05Z, before the post, at 18.1% above the price just before the burn; in the 24 hours after the burn the price fell as much as 44.1% (low at 2021-06-14T16:43:11Z) and ended the 24 hours 26.9% lower (prices in ETH, read from every Sync event of the pool). In this pool, the post was not followed by a new rally: the price fell in the hours after it.",
+    "Dates differ by a day between sources for some posts (SEC: Kardashian June 13, Pierce June 5; class-action complaint as summarized by the court: June 14 and June 6), probably time-zone or reading differences; this file uses the SEC dates. The court order also misprints 2022 for 2021 in places.",
+    "Pierce's May 28, 2021 tweet is emoji-only (a row of 😳 and a 😘) with a screenshot of an EMAX wallet worth \"$2,520,087.34\" — the SEC found it was someone else's holdings, provided to him for promotion; no text is quoted because the emoji count cannot be read reliably from the order's image. Pierce's follower count is the SEC's \"in excess of approximately 4 million\"; Kardashian's is the SEC's \"approximately 225 million\".",
+    "disclosedPayment: Kardashian's June 13 post ended with \"#AD\", but the SEC found she did not disclose that EthereumMax paid her or the amount, which Section 17(b) requires — so it is recorded as false. Her May 30, 2021 story (a \"Groot Hospitality / LIV / STORY\" graphic saying \"now accepting cryptocurrency … exclusively accepting EthereumMax.org\") is an allegation in the class-action complaint, reproduced as an image in the court's Dec. 6, 2022 order; the text field transcribes that image, with \" · \" marking line breaks between logos and lines. The SEC order does not mention this post, and no payment for it is documented.",
+    "Mayweather: no Mayweather post text is quoted by a regulator or court. The court's summary of the complaint says that on or around May 26, 2021 he encouraged people to buy pay-per-view tickets for his June 6, 2021 exhibition with Logan Paul using EMAX, and that at a Bitcoin conference in Miami he wore an EthereumMax T-shirt and said the quoted line on a panel (the conference date is not given in the source; the Financial Times chart reproduced in the order places it in early June 2021). The complaint alleges he was paid in ETH (amount unknown) and NBC reports the complaint says he did not appear to disclose payment; these remain allegations, so disclosedPayment is null.",
+    "Pierce's payment ($244,116 in EMAX) is the SEC's total for all his promotional tweets from May 24 to June 18, 2021, recorded on his first tweet only so it is not double-counted. The SEC press release gives his penalty as $1,115,000; the order says $1,150,000, and the order's figures are the ones that add up to the release's $1.409 million total.",
+    "Holder concentration is left out: on 2026-10-29 the EMAX contract reports a total supply of 904.1 trillion, but the three largest balances alone add up to more (0x000000000000000000000000000000000000dead: 548.0 trillion; 0x2470ff677c1d52f492ee1f79825e7089375565a0: 501.8 trillion; 0xb6ca52c7916ad7960c12dc489fd93e5af7ca257f (JamUniswapV2Pair): 167.3 trillion), so \"share of supply\" is not meaningful for this token. (On-chain, totalSupply() read at block 12629573, June 14, 2021, was 2000.0 trillion.) Blockscout lists 107,831 holder addresses.",
+    "Rebuild: npx tsx scripts/build-emax.mts (add --fresh to bypass the local cache; set RPC_URL to use another archive node that returns blockTimestamp on logs)."
+  ],
+  "sources": [
+    {
+      "label": "SEC press release 2022-183 (Oct. 3, 2022): SEC Charges Kim Kardashian for Unlawfully Touting Crypto Security",
+      "url": "https://www.sec.gov/newsroom/press-releases/2022-183"
+    },
+    {
+      "label": "SEC order, In the Matter of Kimberly Kardashian, Securities Act Rel. No. 11116, File No. 3-21197 (Oct. 3, 2022)",
+      "url": "https://www.sec.gov/litigation/admin/2022/33-11116.pdf"
+    },
+    {
+      "label": "SEC press release 2023-34 (Feb. 17, 2023): SEC Charges NBA Hall of Famer Paul Pierce for Unlawfully Touting and Making Misleading Statements about Crypto Security",
+      "url": "https://www.sec.gov/newsroom/press-releases/2023-34"
+    },
+    {
+      "label": "SEC order, In the Matter of Paul Anthony Pierce, Securities Act Rel. No. 11157, File No. 3-21305 (Feb. 17, 2023)",
+      "url": "https://www.sec.gov/litigation/admin/2023/33-11157.pdf"
+    },
+    {
+      "label": "SEC press release 2018-268 (Nov. 29, 2018): Two Celebrities Charged With Unlawfully Touting Coin Offerings",
+      "url": "https://www.sec.gov/newsroom/press-releases/2018-268"
+    },
+    {
+      "label": "C.D. Cal. order on motions to dismiss, In re EthereumMax Investor Litigation, No. 2:22-cv-00163-MWF, Dkt. 99 (Dec. 6, 2022) — copy hosted by John Reed Stark",
+      "url": "https://www.johnreedstark.com/wp-content/uploads/sites/180/2022/12/Kardasnhian-Dismissil.pdf"
+    },
+    {
+      "label": "CourtListener docket: In re EthereumMax Investor Litigation, 2:22-cv-00163 (C.D. Cal.)",
+      "url": "https://www.courtlistener.com/docket/61802418/in-re-ethereummax-investor-litigation/"
+    },
+    {
+      "label": "Fortune (Jan. 11, 2022): Kim Kardashian and Floyd Mayweather sued over promotion of crypto token",
+      "url": "https://fortune.com/2022/01/11/kim-kardashian-floyd-mayweather-crypto-token-ethereummax-lawsuit"
+    },
+    {
+      "label": "NBC News (Jan. 12, 2022): Kim Kardashian and Floyd Mayweather sued by investors over alleged crypto scam",
+      "url": "https://www.nbcnews.com/tech/tech-news/kim-kardashian-floyd-mayweather-sued-investors-alleged-crypto-scam-rcna11921"
+    },
+    {
+      "label": "Scott+Scott (plaintiffs' co-counsel), June 8, 2023: Court Refuses to Dismiss the EthereumMax Case",
+      "url": "https://scott-scott.com/court-refuses-to-dismiss-the-ethereummax-case/"
+    },
+    {
+      "label": "Coinspeaker (June 7, 2023): Kim Kardashian EMAX Case Proceeds as California Judge Rejects Motion to Dismiss",
+      "url": "https://www.coinspeaker.com/kim-kardashian-emax-case-proceeds/"
+    },
+    {
+      "label": "Cointelegraph (Aug. 8, 2025): EthereumMax investors secure partial win in class action lawsuit",
+      "url": "https://cointelegraph.com/news/ethereummax-class-action-lawsuit-celebrities"
+    },
+    {
+      "label": "Wikipedia: Floyd Mayweather Jr. vs. Logan Paul (date and venue of the exhibition)",
+      "url": "https://en.wikipedia.org/wiki/Floyd_Mayweather_Jr._vs._Logan_Paul"
+    },
+    {
+      "label": "Blockscout: EthereumMax (EMAX) token contract",
+      "url": "https://eth.blockscout.com/token/0x15874d65e649880c2614e7a480cb7c9A55787FF6"
+    },
+    {
+      "label": "Blockscout: EthereumMax (Deprecated) — the first EMAX contract",
+      "url": "https://eth.blockscout.com/token/0xA3E059c0b01F07F211c85bF7b4f1d907AfB011df"
+    },
+    {
+      "label": "Blockscout: Uniswap V2 EMAX/WETH pair",
+      "url": "https://eth.blockscout.com/address/0xb6CA52c7916ad7960C12Dc489FD93E5Af7cA257f"
+    },
+    {
+      "label": "Blockscout: Uniswap V2 USDC/WETH pair (ETH/USD reference)",
+      "url": "https://eth.blockscout.com/address/0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc"
+    },
+    {
+      "label": "Ethereum mainnet event logs via Tenderly public RPC gateway (eth_getLogs)",
+      "url": "https://mainnet.gateway.tenderly.co"
+    },
+    {
+      "label": "Build script that recomputes every on-chain number in this file",
+      "url": "scripts/build-emax.mts"
+    }
+  ]
+}

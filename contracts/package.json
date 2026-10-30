@@ -1,0 +1,16 @@
+{
+  "name": "canary-contracts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "compile": "node compile.mjs",
+    "test": "node compile.mjs && node --test test/CanaryRegistry.test.mjs",
+    "deploy": "node deploy.mts"
+  },
+  "devDependencies": {
+    "solc": "0.8.30",
+    "viem": "2.34.0",
+    "ganache": "7.9.2"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "schedule": "0 */10 * * * *",
+  "snapshotUrl": "http://localhost:3000/api/watch/snapshot",
+  "collapseDropBps": 8000,
+  "liquidity": {
+    "chainName": "ethereum-mainnet",
+    "pairAddress": "0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc",
+    "quoteTokens": [
+      {
+        "symbol": "WETH",
+        "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+        "decimals": 18,
+        "usdFeed": "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
+        "feedDecimals": 8
+      },
+      {
+        "symbol": "USDC",
+        "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+        "decimals": 6,
+        "usdFeed": "",
+        "feedDecimals": 8
+      },
+      {
+        "symbol": "USDT",
+        "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+        "decimals": 6,
+        "usdFeed": "",
+        "feedDecimals": 8
+      },
+      {
+        "symbol": "DAI",
+        "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+        "decimals": 18,
+        "usdFeed": "",
+        "feedDecimals": 8
+      }
+    ]
+  },
+  "registry": {
+    "chainName": "ethereum-testnet-sepolia",
+    "address": "0x0000000000000000000000000000000000000000",
+    "gasLimit": "500000"
+  }
+}

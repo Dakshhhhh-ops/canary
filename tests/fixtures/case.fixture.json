@@ -1,0 +1,638 @@
+{
+ "slug": "fixture-fmax",
+ "token": {
+  "name": "Fixture Max (TEST FIXTURE)",
+  "symbol": "FMAX",
+  "chain": "ethereum",
+  "address": "0x000000000000000000000000000000000000f1a7",
+  "decimals": 9
+ },
+ "oneLiner": "TEST FIXTURE ONLY: a fictional token, fictional promoters and illustrative numbers shaped like a celebrity-promoted pump-and-dump. Not real data.",
+ "window": {
+  "pumpStart": "2021-05-20",
+  "peak": "2021-06-08",
+  "collapse": "2021-07-05"
+ },
+ "posts": [
+  {
+   "id": "post-a",
+   "promoter": "Celebrity A (fictional)",
+   "handle": "@celeb_a",
+   "platform": "instagram",
+   "followers": 200000000,
+   "postedAt": "2021-06-03T18:00:00Z",
+   "datePrecision": "datetime",
+   "text": "Are you guys into crypto? This is not financial advice but sharing what my friends just told me about the $FMAX token! Swipe up to join the FMAX community 🚀",
+   "disclosedPayment": false,
+   "paid": {
+    "amountUsd": 250000,
+    "by": "Promo Agency X"
+   },
+   "sources": [
+    {
+     "label": "Test fixture source a",
+     "url": "https://example.com/fixture/a"
+    }
+   ]
+  },
+  {
+   "id": "post-b",
+   "promoter": "Athlete B (fictional)",
+   "handle": "@athlete_b",
+   "platform": "x",
+   "followers": 5000000,
+   "postedAt": "2021-06-04",
+   "datePrecision": "day",
+   "text": "Not financial advice but sharing what my friends just told me about the $FMAX token! Swipe up to join the FMAX community 🚀",
+   "disclosedPayment": false,
+   "paid": {
+    "amountUsd": 100000,
+    "by": "promo agency x"
+   },
+   "sources": [
+    {
+     "label": "Test fixture source b",
+     "url": "https://example.com/fixture/b"
+    }
+   ]
+  },
+  {
+   "id": "post-c",
+   "promoter": "Athlete C (fictional)",
+   "handle": "@athlete_c",
+   "platform": "x",
+   "followers": 2000000,
+   "postedAt": "2021-06-05",
+   "datePrecision": "day",
+   "text": "Big night tonight. Proud to rep $FMAX, the future of payments.",
+   "disclosedPayment": null,
+   "paid": null,
+   "sources": [
+    {
+     "label": "Test fixture source c",
+     "url": "https://example.com/fixture/c"
+    }
+   ]
+  },
+  {
+   "id": "post-d",
+   "promoter": "Influencer D (fictional)",
+   "handle": "@influencer_d",
+   "platform": "telegram",
+   "followers": 80000,
+   "postedAt": "2021-06-06",
+   "datePrecision": "day",
+   "text": "Sharing what my friends just told me about the $FMAX token!! Swipe up to join the FMAX community 🚀🚀",
+   "disclosedPayment": false,
+   "paid": null,
+   "sources": [
+    {
+     "label": "Test fixture source d",
+     "url": "https://example.com/fixture/d"
+    }
+   ]
+  },
+  {
+   "id": "post-e",
+   "promoter": "Creator E (fictional)",
+   "handle": "@creator_e",
+   "platform": "youtube",
+   "followers": 1500000,
+   "postedAt": "2021-06-05",
+   "datePrecision": "day",
+   "text": "#ad Sponsored by the FMAX Foundation. $FMAX is building something new, do your own research.",
+   "disclosedPayment": true,
+   "paid": {
+    "amountUsd": 50000,
+    "by": "FMAX Foundation"
+   },
+   "sources": [
+    {
+     "label": "Test fixture source e",
+     "url": "https://example.com/fixture/e"
+    }
+   ]
+  },
+  {
+   "id": "post-f",
+   "promoter": "Trader F (fictional)",
+   "platform": "other",
+   "postedAt": "2021-04",
+   "datePrecision": "month",
+   "text": "watching $FMAX",
+   "disclosedPayment": null,
+   "sources": [
+    {
+     "label": "Test fixture source f",
+     "url": "https://example.com/fixture/f"
+    }
+   ]
+  }
+ ],
+ "prices": [
+  {
+   "t": "2021-05-01",
+   "priceUsd": 1e-7,
+   "liquidityUsd": 400000
+  },
+  {
+   "t": "2021-05-02",
+   "priceUsd": 1.005e-7,
+   "liquidityUsd": 402632
+  },
+  {
+   "t": "2021-05-03",
+   "priceUsd": 1.01e-7,
+   "liquidityUsd": 405263
+  },
+  {
+   "t": "2021-05-04",
+   "priceUsd": 1.015e-7,
+   "liquidityUsd": 407895
+  },
+  {
+   "t": "2021-05-05",
+   "priceUsd": 1.02e-7,
+   "liquidityUsd": 410526
+  },
+  {
+   "t": "2021-05-06",
+   "priceUsd": 1.025e-7,
+   "liquidityUsd": 413158
+  },
+  {
+   "t": "2021-05-07",
+   "priceUsd": 1.031e-7,
+   "liquidityUsd": 415789
+  },
+  {
+   "t": "2021-05-08",
+   "priceUsd": 1.036e-7,
+   "liquidityUsd": 418421
+  },
+  {
+   "t": "2021-05-09",
+   "priceUsd": 1.041e-7,
+   "liquidityUsd": 421053
+  },
+  {
+   "t": "2021-05-10",
+   "priceUsd": 1.046e-7,
+   "liquidityUsd": 423684
+  },
+  {
+   "t": "2021-05-11",
+   "priceUsd": 1.051e-7,
+   "liquidityUsd": 426316
+  },
+  {
+   "t": "2021-05-12",
+   "priceUsd": 1.057e-7,
+   "liquidityUsd": 428947
+  },
+  {
+   "t": "2021-05-13",
+   "priceUsd": 1.062e-7,
+   "liquidityUsd": 431579
+  },
+  {
+   "t": "2021-05-14",
+   "priceUsd": 1.067e-7,
+   "liquidityUsd": 434211
+  },
+  {
+   "t": "2021-05-15",
+   "priceUsd": 1.073e-7,
+   "liquidityUsd": 436842
+  },
+  {
+   "t": "2021-05-16",
+   "priceUsd": 1.078e-7,
+   "liquidityUsd": 439474
+  },
+  {
+   "t": "2021-05-17",
+   "priceUsd": 1.084e-7,
+   "liquidityUsd": 442105
+  },
+  {
+   "t": "2021-05-18",
+   "priceUsd": 1.089e-7,
+   "liquidityUsd": 444737
+  },
+  {
+   "t": "2021-05-19",
+   "priceUsd": 1.094e-7,
+   "liquidityUsd": 447368
+  },
+  {
+   "t": "2021-05-20",
+   "priceUsd": 1.1e-7,
+   "liquidityUsd": 450000
+  },
+  {
+   "t": "2021-05-21",
+   "priceUsd": 1.188e-7,
+   "liquidityUsd": 507692
+  },
+  {
+   "t": "2021-05-22",
+   "priceUsd": 1.284e-7,
+   "liquidityUsd": 565385
+  },
+  {
+   "t": "2021-05-23",
+   "priceUsd": 1.387e-7,
+   "liquidityUsd": 623077
+  },
+  {
+   "t": "2021-05-24",
+   "priceUsd": 1.498e-7,
+   "liquidityUsd": 680769
+  },
+  {
+   "t": "2021-05-25",
+   "priceUsd": 1.618e-7,
+   "liquidityUsd": 738462
+  },
+  {
+   "t": "2021-05-26",
+   "priceUsd": 1.748e-7,
+   "liquidityUsd": 796154
+  },
+  {
+   "t": "2021-05-27",
+   "priceUsd": 1.888e-7,
+   "liquidityUsd": 853846
+  },
+  {
+   "t": "2021-05-28",
+   "priceUsd": 2.04e-7,
+   "liquidityUsd": 911538
+  },
+  {
+   "t": "2021-05-29",
+   "priceUsd": 2.203e-7,
+   "liquidityUsd": 969231
+  },
+  {
+   "t": "2021-05-30",
+   "priceUsd": 2.38e-7,
+   "liquidityUsd": 1026923
+  },
+  {
+   "t": "2021-05-31",
+   "priceUsd": 2.571e-7,
+   "liquidityUsd": 1084615
+  },
+  {
+   "t": "2021-06-01",
+   "priceUsd": 2.777e-7,
+   "liquidityUsd": 1142308
+  },
+  {
+   "t": "2021-06-02",
+   "priceUsd": 3e-7,
+   "liquidityUsd": 1200000
+  },
+  {
+   "t": "2021-06-03",
+   "priceUsd": 3.78e-7,
+   "liquidityUsd": 1416667
+  },
+  {
+   "t": "2021-06-04",
+   "priceUsd": 4.762e-7,
+   "liquidityUsd": 1633333
+  },
+  {
+   "t": "2021-06-05",
+   "priceUsd": 6e-7,
+   "liquidityUsd": 1850000
+  },
+  {
+   "t": "2021-06-06",
+   "priceUsd": 7.56e-7,
+   "liquidityUsd": 2066667
+  },
+  {
+   "t": "2021-06-07",
+   "priceUsd": 9.524e-7,
+   "liquidityUsd": 2283333
+  },
+  {
+   "t": "2021-06-08",
+   "priceUsd": 0.0000012,
+   "liquidityUsd": 2500000
+  },
+  {
+   "t": "2021-06-09",
+   "priceUsd": 0.000001039,
+   "liquidityUsd": 2300000
+  },
+  {
+   "t": "2021-06-10",
+   "priceUsd": 9.004e-7,
+   "liquidityUsd": 2100000
+  },
+  {
+   "t": "2021-06-11",
+   "priceUsd": 7.8e-7,
+   "liquidityUsd": 1900000
+  },
+  {
+   "t": "2021-06-12",
+   "priceUsd": 7.242e-7,
+   "liquidityUsd": 1788889
+  },
+  {
+   "t": "2021-06-13",
+   "priceUsd": 6.724e-7,
+   "liquidityUsd": 1677778
+  },
+  {
+   "t": "2021-06-14",
+   "priceUsd": 6.243e-7,
+   "liquidityUsd": 1566667
+  },
+  {
+   "t": "2021-06-15",
+   "priceUsd": 5.797e-7,
+   "liquidityUsd": 1455556
+  },
+  {
+   "t": "2021-06-16",
+   "priceUsd": 5.382e-7,
+   "liquidityUsd": 1344444
+  },
+  {
+   "t": "2021-06-17",
+   "priceUsd": 4.997e-7,
+   "liquidityUsd": 1233333
+  },
+  {
+   "t": "2021-06-18",
+   "priceUsd": 4.64e-7,
+   "liquidityUsd": 1122222
+  },
+  {
+   "t": "2021-06-19",
+   "priceUsd": 4.308e-7,
+   "liquidityUsd": 1011111
+  },
+  {
+   "t": "2021-06-20",
+   "priceUsd": 4e-7,
+   "liquidityUsd": 900000
+  },
+  {
+   "t": "2021-06-21",
+   "priceUsd": 3.482e-7,
+   "liquidityUsd": 850000
+  },
+  {
+   "t": "2021-06-22",
+   "priceUsd": 3.031e-7,
+   "liquidityUsd": 800000
+  },
+  {
+   "t": "2021-06-23",
+   "priceUsd": 2.639e-7,
+   "liquidityUsd": 750000
+  },
+  {
+   "t": "2021-06-24",
+   "priceUsd": 2.297e-7,
+   "liquidityUsd": 700000
+  },
+  {
+   "t": "2021-06-25",
+   "priceUsd": 2e-7,
+   "liquidityUsd": 650000
+  },
+  {
+   "t": "2021-06-26",
+   "priceUsd": 1.741e-7,
+   "liquidityUsd": 600000
+  },
+  {
+   "t": "2021-06-27",
+   "priceUsd": 1.516e-7,
+   "liquidityUsd": 550000
+  },
+  {
+   "t": "2021-06-28",
+   "priceUsd": 1.32e-7,
+   "liquidityUsd": 500000
+  },
+  {
+   "t": "2021-06-29",
+   "priceUsd": 1.149e-7,
+   "liquidityUsd": 450000
+  },
+  {
+   "t": "2021-06-30",
+   "priceUsd": 1e-7,
+   "liquidityUsd": 400000
+  },
+  {
+   "t": "2021-07-01",
+   "priceUsd": 8.706e-8,
+   "liquidityUsd": 350000
+  },
+  {
+   "t": "2021-07-02",
+   "priceUsd": 7.579e-8,
+   "liquidityUsd": 300000
+  },
+  {
+   "t": "2021-07-03",
+   "priceUsd": 6.598e-8,
+   "liquidityUsd": 250000
+  },
+  {
+   "t": "2021-07-04",
+   "priceUsd": 5.743e-8,
+   "liquidityUsd": 200000
+  },
+  {
+   "t": "2021-07-05",
+   "priceUsd": 5e-8,
+   "liquidityUsd": 150000
+  },
+  {
+   "t": "2021-07-06",
+   "priceUsd": 4.903e-8,
+   "liquidityUsd": 147692
+  },
+  {
+   "t": "2021-07-07",
+   "priceUsd": 4.807e-8,
+   "liquidityUsd": 145385
+  },
+  {
+   "t": "2021-07-08",
+   "priceUsd": 4.714e-8,
+   "liquidityUsd": 143077
+  },
+  {
+   "t": "2021-07-09",
+   "priceUsd": 4.622e-8,
+   "liquidityUsd": 140769
+  },
+  {
+   "t": "2021-07-10",
+   "priceUsd": 4.532e-8,
+   "liquidityUsd": 138462
+  },
+  {
+   "t": "2021-07-11",
+   "priceUsd": 4.444e-8,
+   "liquidityUsd": 136154
+  },
+  {
+   "t": "2021-07-12",
+   "priceUsd": 4.358e-8,
+   "liquidityUsd": 133846
+  },
+  {
+   "t": "2021-07-13",
+   "priceUsd": 4.273e-8,
+   "liquidityUsd": 131538
+  },
+  {
+   "t": "2021-07-14",
+   "priceUsd": 4.19e-8,
+   "liquidityUsd": 129231
+  },
+  {
+   "t": "2021-07-15",
+   "priceUsd": 4.108e-8,
+   "liquidityUsd": 126923
+  },
+  {
+   "t": "2021-07-16",
+   "priceUsd": 4.028e-8,
+   "liquidityUsd": 124615
+  },
+  {
+   "t": "2021-07-17",
+   "priceUsd": 3.95e-8,
+   "liquidityUsd": 122308
+  },
+  {
+   "t": "2021-07-18",
+   "priceUsd": 3.873e-8,
+   "liquidityUsd": 120000
+  },
+  {
+   "t": "2021-07-19",
+   "priceUsd": 3.798e-8,
+   "liquidityUsd": 117692
+  },
+  {
+   "t": "2021-07-20",
+   "priceUsd": null,
+   "liquidityUsd": 115385
+  },
+  {
+   "t": "2021-07-21",
+   "priceUsd": 3.651e-8,
+   "liquidityUsd": 113077
+  },
+  {
+   "t": "2021-07-22",
+   "priceUsd": 3.58e-8,
+   "liquidityUsd": 110769
+  },
+  {
+   "t": "2021-07-23",
+   "priceUsd": 3.511e-8,
+   "liquidityUsd": 108462
+  },
+  {
+   "t": "2021-07-24",
+   "priceUsd": 3.442e-8,
+   "liquidityUsd": 106154
+  },
+  {
+   "t": "2021-07-25",
+   "priceUsd": 3.375e-8,
+   "liquidityUsd": 103846
+  },
+  {
+   "t": "2021-07-26",
+   "priceUsd": 3.31e-8,
+   "liquidityUsd": 101538
+  },
+  {
+   "t": "2021-07-27",
+   "priceUsd": 3.245e-8,
+   "liquidityUsd": 99231
+  },
+  {
+   "t": "2021-07-28",
+   "priceUsd": 3.182e-8,
+   "liquidityUsd": 96923
+  },
+  {
+   "t": "2021-07-29",
+   "priceUsd": 3.12e-8,
+   "liquidityUsd": 94615
+  },
+  {
+   "t": "2021-07-30",
+   "priceUsd": 3.06e-8,
+   "liquidityUsd": 92308
+  },
+  {
+   "t": "2021-07-31",
+   "priceUsd": 3e-8,
+   "liquidityUsd": 90000
+  }
+ ],
+ "peak": {
+  "t": "2021-06-08",
+  "priceUsd": 0.0000012
+ },
+ "collapse": {
+  "t": "2021-07-05",
+  "priceUsd": 5e-8,
+  "dropPct": 95.8
+ },
+ "buyersInWindow": {
+  "count": 1843,
+  "method": "fixture: illustrative count",
+  "sample": []
+ },
+ "holders": {
+  "top10Pct": 72,
+  "asOf": "2021-06-08",
+  "method": "fixture: illustrative"
+ },
+ "legal": [
+  {
+   "id": "legal-1",
+   "kind": "class-action",
+   "title": "Doe v. FMAX promoters (fictional fixture)",
+   "date": "2022-01-10",
+   "summary": "Buyers say they were misled by paid celebrity posts that did not disclose payment.",
+   "statute": "Securities Act of 1933, Section 17(b)",
+   "sources": [
+    {
+     "label": "Test fixture source legal-1",
+     "url": "https://example.com/fixture/legal-1"
+    }
+   ]
+  }
+ ],
+ "dataNotes": [
+  "TEST FIXTURE: every name and number here is invented for unit tests."
+ ],
+ "sources": [
+  {
+   "label": "Test fixture source case",
+   "url": "https://example.com/fixture/case"
+  }
+ ]
+}
