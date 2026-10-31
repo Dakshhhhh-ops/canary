@@ -6,12 +6,12 @@
 import { useState } from "react";
 import { fmtDate } from "@/lib/format";
 import { verifySavedRun, type SavedRun, type SavedRunCheck, type SavedRunSummary } from "@/lib/radar/saved";
-import { RunView, StepList } from "./RunView";
+import { RunView, StepList, type WatchInfo } from "./RunView";
 
 const when = (iso: string) => `${fmtDate(iso)}, ${iso.slice(11, 16)} UTC`;
 const TRIGGER: Record<string, string> = { schedule: "on schedule", manual: "started by hand", ui: "from this page", local: "from a laptop" };
 
-export function SavedRuns({ runs, total }: { runs: SavedRunSummary[]; total: number }) {
+export function SavedRuns({ runs, total, watch }: { runs: SavedRunSummary[]; total: number; watch?: WatchInfo }) {
   const [open, setOpen] = useState<string | null>(null);
   const [saved, setSaved] = useState<SavedRun | null>(null);
   const [loading, setLoading] = useState(false);
@@ -62,6 +62,12 @@ export function SavedRuns({ runs, total }: { runs: SavedRunSummary[]; total: num
               <span className="chip">
                 RYO {r.callsOk}/{r.calls} answered
               </span>
+              {r.socialPosts != null && (
+                <span className="chip">
+                  {r.socialPosts} live post{r.socialPosts === 1 ? "" : "s"}
+                  {r.socialSources?.length ? ` (${r.socialSources.join(", ")})` : ""}
+                </span>
+              )}
               <span className={`chip ${r.accepted.length ? "!border-[var(--ok)] !text-[var(--ok)]" : ""}`}>
                 {r.accepted.length ? `took ${r.accepted.join(", ")}` : "no trade taken"} · {r.refused} refused
               </span>
@@ -81,14 +87,14 @@ export function SavedRuns({ runs, total }: { runs: SavedRunSummary[]; total: num
                         Verify this run in your browser
                       </button>
                       <a className="link" href={`/api/radar?run=${encodeURIComponent(r.file)}`} target="_blank" rel="noreferrer">
-                        Raw file ({saved.rawRyo.length} RYO replies)
+                        Raw file ({saved.rawRyo.length} RYO replies{saved.rawSocial?.length ? `, ${saved.rawSocial.length} social-source replies` : ""})
                       </a>
                       <span className="text-[var(--ink-3)]">{saved.appVersion}</span>
                     </div>
                     {check && (
                       <p className={`rounded-xl border-2 p-3 text-sm font-semibold ${check.ok ? "border-[var(--ok)] bg-[var(--ok-soft)]" : "border-[var(--alarm)] bg-[var(--alarm-soft)]"}`}>
                         {check.ok
-                          ? `✓ All ${check.steps} notebook steps chain together, and all ${check.rawChecked} raw RYO replies match the fingerprints recorded when they arrived.`
+                          ? `✓ All ${check.steps} notebook steps chain together, and all ${check.rawChecked} raw RYO replies${check.socialChecked ? ` and ${check.socialChecked} raw social-source replies (Telegram pages, Bluesky searches…)` : ""} match the fingerprints recorded when they arrived.${check.socialWithheld ? ` ${check.socialWithheld} social repl${check.socialWithheld === 1 ? "y was" : "ies were"} left out of the file because ${check.socialWithheld === 1 ? "it" : "they"} contained something key-shaped; ${check.socialWithheld === 1 ? "its" : "their"} fingerprint is in the notebook.` : ""}`
                           : `✗ ${check.problems.join(" ")}`}
                       </p>
                     )}
@@ -98,7 +104,7 @@ export function SavedRuns({ runs, total }: { runs: SavedRunSummary[]; total: num
                         <StepList steps={saved.run.trail} />
                       </div>
                     </details>
-                    <RunView run={saved.run} />
+                    <RunView run={saved.run} watch={watch} runFile={r.file} />
                   </>
                 )}
               </div>

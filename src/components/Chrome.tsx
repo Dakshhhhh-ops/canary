@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const NAV = [
   { href: "/#how", label: "How it works" },
-  { href: "/case/emax", label: "Real case" },
+  { href: "/cases", label: "Real cases" },
   { href: "/radar", label: "Live radar" },
   { href: "/call", label: "Hotline" },
   { href: "/verify", label: "Verify" },
@@ -90,8 +90,8 @@ export function Footer() {
               <a className="link" href="https://www.ic3.gov" target="_blank" rel="noreferrer">FBI IC3</a>
             </li>
             <li>
-              UK: <a className="link" href="https://www.fca.org.uk/consumers/report-scam-us" target="_blank" rel="noreferrer">FCA</a> ·{" "}
-              <a className="link" href="https://www.actionfraud.police.uk" target="_blank" rel="noreferrer">Action Fraud</a>
+              UK: <a className="link" href="https://www.fca.org.uk/consumers/report-scam" target="_blank" rel="noreferrer">FCA</a> ·{" "}
+              <a className="link" href="https://www.reportfraud.police.uk" target="_blank" rel="noreferrer">Report Fraud</a>
             </li>
             <li>
               India: <a className="link" href="https://cybercrime.gov.in" target="_blank" rel="noreferrer">cybercrime.gov.in</a> · call 1930

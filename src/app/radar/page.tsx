@@ -3,8 +3,20 @@ import { Footer, Header } from "@/components/Chrome";
 import { Guide, type GuideStep } from "@/components/Guide";
 import { RadarRunner } from "@/components/RadarRunner";
 import { LedgerPanel } from "@/components/radar/LedgerPanel";
+import type { WatchInfo } from "@/components/radar/RunView";
 import { SavedRuns } from "@/components/radar/SavedRuns";
 import { listRuns, readLedger } from "@/lib/radar/store";
+import { registryConfig } from "@/lib/registry";
+import { RADAR_TOKENS, radarCaseId, radarWatch } from "@/lib/watch";
+
+/** Per coin: is it on the Chainlink workflow's watch list (the same rule as /api/watch/snapshot?list=1)? */
+async function watchInfo(): Promise<WatchInfo> {
+  const { cases, skipped } = await radarWatch().catch(() => ({ cases: [], skipped: [] }));
+  const coins: WatchInfo["coins"] = {};
+  for (const c of cases) coins[c.symbol] = { watched: true, caseId: c.caseId, run: c.run ?? null, reason: null };
+  for (const s of skipped) coins[s.symbol] = { watched: false, caseId: radarCaseId(s.symbol), run: s.run, reason: s.reason };
+  return { coins, registry: registryConfig()?.address ?? null };
+}
 
 export const metadata = { title: "Live radar · Canary" };
 // saved runs and the ledger change on disk between visits
@@ -28,7 +40,8 @@ const TOOLS = [
 ];
 
 export default async function RadarPage() {
-  const [{ runs, total }, ledger] = await Promise.all([listRuns(), readLedger()]);
+  const [{ runs, total }, ledger, watch] = await Promise.all([listRuns(), readLedger(), watchInfo()]);
+  const watched = Object.entries(watch.coins).filter(([, b]) => b.watched).map(([s]) => s);
   return (
     <Guide intro={{ id: "intro", mood: "wave", text: "This is the live radar. Want me to explain it?" }} steps={STEPS}>
       <Header />
@@ -52,7 +65,22 @@ export default async function RadarPage() {
             Real runs, kept with every reply RYO sent. Replay any of them and check it yourself, even if no key is configured here.
           </p>
           <div className="mt-4">
-            <SavedRuns runs={runs} total={total} />
+            <SavedRuns runs={runs} total={total} watch={watch} />
+          </div>
+          <div className="card mt-4 p-5 text-sm">
+            <h3 className="font-display text-lg font-bold">⛓ Handed to Chainlink</h3>
+            <p className="mt-1 text-[var(--ink-2)]">
+              When a coin&apos;s latest saved run is flagged (suspicious or worse) and the coin trades in a known Uniswap pool on Ethereum, it joins the{" "}
+              <a className="link" href="/api/watch/snapshot?list=1" target="_blank" rel="noreferrer">
+                watch list
+              </a>{" "}
+              next to the EMAX case. Every 10 minutes the Chainlink workflow canary-watch reads that list on several independent computers, checks
+              each coin&apos;s pool on Ethereum itself, and writes the alert into the public registry. Coins it can check today:{" "}
+              {Object.keys(RADAR_TOKENS).join(", ")}.
+            </p>
+            <p className="mt-2 font-semibold">
+              {watched.length ? `Watched on-chain right now: ${watched.join(", ")}.` : "No radar coin is on the list right now: there is no saved real run that flags one of them."}
+            </p>
           </div>
         </section>
         <section data-guide="ledger" className="pt-16">
@@ -75,8 +103,9 @@ export default async function RadarPage() {
           </ul>
           <p className="mt-4 max-w-3xl text-sm text-[var(--ink-3)]">
             Each run first asks RYO for its current tool list. A renamed tool is matched to its job, a new holder or safety tool feeds the holder check, and
-            any other new tool&apos;s replies are kept raw in the notebook. Live posts from influencers need paid X or Telegram access, which this copy
-            doesn&apos;t have; the multi-influencer check runs on posts you supply, and on documented posts in the case replay.
+            any other new tool&apos;s replies are kept raw in the notebook. Alongside RYO, each run reads today&apos;s promoter posts from free public
+            sources (public Telegram channels and Bluesky search; Reddit and Farcaster when API credentials are set) and the multi-influencer watcher
+            counts who is pushing each coin. A source that doesn&apos;t answer is a recorded gap. X (Twitter) needs paid access, so it isn&apos;t read.
           </p>
         </section>
       </main>

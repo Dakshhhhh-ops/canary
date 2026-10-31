@@ -2,6 +2,7 @@ import "server-only";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import type { CaseFile } from "./types";
+import { CASE_SLUGS } from "./caseIndex";
 
 /** Loads a documented case from data/cases/<slug>.json. Returns null while it hasn't been built yet. */
 export async function loadCase(slug: string): Promise<CaseFile | null> {
@@ -14,4 +15,5 @@ export async function loadCase(slug: string): Promise<CaseFile | null> {
   }
 }
 
-export const CASES = ["emax"] as const;
+export { CASE_INDEX, caseMeta } from "./caseIndex";
+export const CASES = CASE_SLUGS;

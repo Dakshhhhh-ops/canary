@@ -5,9 +5,12 @@
 // planned at the dip, before the collapse, and its hindsight shows what the collapse would have cost.)
 
 import { canonical, sha256Hex } from "../canonical";
+import { isSocialPost, type SocialCollection, type SocialCollector } from "../social/collect";
+import { promotionalPosts, socialDigests, socialEvidence, socialSummary } from "../social/summary";
+import type { SocialSummary } from "../social/types";
 import type { CaseFile } from "../types";
 import { detectCollapse } from "./collapse";
-import { detectConvergence, type ConvergenceOptions } from "./convergence";
+import { cashtags, detectConvergence, type ConvergenceOptions } from "./convergence";
 import { buildBundle, defaultLlm, JUDGE_WEIGHTS, runDebate, type LlmJsonFn } from "./debate";
 import { candidateFromCase, hunt, type HunterThresholds } from "./hunter";
 import { checkClaims, claimFromPost, type NewsOptions } from "./news";
@@ -148,7 +151,7 @@ export async function runCase(cf: CaseFile, opts: RunCaseOptions = {}): Promise<
   await step(
     "convergence",
     convergence.detected ? (ev!.coordinated ? "convergence.coordinated" : "convergence.detected") : "convergence.none",
-    ev ? ev.reasoning[0] + (ev.coordinated ? " Their posts are linked by payer or wording, so they are not independent." : "") : "No promoter posts to compare.",
+    ev ? ev.reasoning[0] + (ev.coordinated ? " Their posts are linked by payer, wording or a documented shared team, so they are not independent." : "") : "No promoter posts to compare.",
     ev?.postIds ?? [],
     convergence,
   );
@@ -237,6 +240,8 @@ export type LiveRun = {
   perSymbol: { symbol: string; debate: DebateResult; trade: TradeDecision; riskEntryHash: string }[];
   extras: { tool: string; symbol: string | null; ok: boolean; preview: string | null; reason: string | null }[]; // unplaced catalog tools, recorded raw
   convergence: ConvergenceResult | null;
+  /** Live promoter posts from free public sources, and what the Multi-KOL watcher made of them (null = not collected). */
+  social?: SocialSummary | null;
   gaps: Gap[];
   trail: StepEvent["entry"][];
   trailOk: boolean;
@@ -247,6 +252,8 @@ export type RunLiveOptions = RunOptions & {
   ryo?: RyoClient;
   deep?: boolean; // also call the deep-analysis tool per symbol (default true: it is where pool liquidity lives)
   posts?: CaseFile["posts"]; // promoter posts you have collected, for convergence (tokens read from $CASHTAGS)
+  /** Collect today's posts from Telegram / Bluesky / Reddit / Farcaster (src/lib/social) and feed them to the Multi-KOL watcher. */
+  social?: SocialCollector | null;
   lossTodayUsd?: number; // losses the paper ledger already realised today (daily circuit breaker)
   mode?: LiveRun["mode"];
 };
@@ -271,6 +278,8 @@ export async function runLive(symbols: string[], opts: RunLiveOptions = {}): Pro
   const syms = [...new Set(symbols.map((s) => s.toUpperCase()))];
   const startedAt = clock();
   const logStart = ryo.log.length;
+  // social sources are other hosts: ask them while RYO is being asked (the collector has its own clock)
+  const socialPending: Promise<SocialCollection> | null = opts.social?.enabled ? opts.social.collect(syms) : null;
   const gaps: Gap[] = [];
   const calls: LiveRun["ryo"]["calls"] = [];
   const note = (r: RyoResult, symbol?: string) => {
@@ -354,9 +363,48 @@ export async function runLive(symbols: string[], opts: RunLiveOptions = {}): Pro
   );
   if (extras.length) await step("collector", "collector.unplaced-tools", `Recorded ${extras.length} raw repl${extras.length === 1 ? "y" : "ies"} from tools Canary has no job for yet (${[...new Set(extras.map((e) => e.tool))].join(", ")}).`, [], extras);
 
-  // 2. convergence (only if posts were supplied)
-  const convergence = opts.posts?.length ? detectConvergence(opts.posts, opts.convergence) : null;
-  if (convergence) await step("convergence", convergence.detected ? "convergence.detected" : "convergence.none", convergence.detected ? convergence.events[0].reasoning[0] : "No token was pushed by enough promoters at once.", convergence.events.flatMap((e) => e.postIds), convergence);
+  // 1c. live promoter posts from free sources: every raw reply is fingerprinted here, the bodies live in the saved run
+  const col = socialPending ? await socialPending : null;
+  const socialAnswered = Boolean(col?.sources.some((s) => s.answered > 0));
+  let socialRaw: SocialSummary["raw"] = [];
+  if (col && opts.social) {
+    socialRaw = await socialDigests(opts.social.log.slice(col.logFrom, col.logTo));
+    gaps.push(...col.gaps);
+    const answered = col.sources.filter((s) => s.answered > 0).map((s) => s.label);
+    const missing = col.sources.filter((s) => s.state === "gap").map((s) => s.label);
+    await step(
+      "collector",
+      socialAnswered ? "collector.social" : "collector.social-unavailable",
+      socialAnswered
+        ? `Read ${col.read} public post${col.read === 1 ? "" : "s"} from ${answered.join(" and ")}; ${col.posts.length} mention ${syms.join(", ")} in the last ${col.windowHours} hours, ${promotionalPosts(col.posts).length} in promotion-style words.${missing.length ? ` No answer from ${missing.join(", ")} (recorded as gaps).` : ""}`
+        : `No social source answered (${missing.join(", ") || "none enabled"}), so no live posts were read; every reason is recorded as a gap.`,
+      col.posts.map((p) => p.id),
+      { at: col.at, windowHours: col.windowHours, sources: col.sources, read: col.read, outsideWindow: col.outsideWindow, raw: socialRaw, posts: col.posts, gaps: col.gaps },
+    );
+  }
+
+  // 2. convergence: posts you supplied, plus live posts in promotion-style words ("pushing" a coin, not just naming it)
+  const livePromo = col ? promotionalPosts(col.posts) : [];
+  const convPosts = [...(opts.posts ?? []), ...livePromo];
+  const convergence =
+    convPosts.length || socialAnswered
+      ? detectConvergence(convPosts, col ? { windowHours: col.windowHours, tokenOf: (p) => (isSocialPost(p) ? p.symbols : cashtags(p.text)), ...opts.convergence } : opts.convergence)
+      : null;
+  const social: SocialSummary | null = col ? socialSummary(col, convergence, syms, socialRaw, convergence?.params.minPromoters) : null;
+  if (convergence)
+    await step(
+      "convergence",
+      convergence.detected ? (convergence.events.some((e) => e.coordinated) ? "convergence.coordinated" : "convergence.detected") : "convergence.none",
+      convergence.detected
+        ? convergence.events[0].reasoning[0]
+        : col
+          ? `No coin was pushed by ${convergence.params.minPromoters} or more promoters at once: ${livePromo.length} promotion-style post${livePromo.length === 1 ? "" : "s"} from ${new Set(livePromo.map((p) => p.promoter)).size} account${new Set(livePromo.map((p) => p.promoter)).size === 1 ? "" : "s"} in the last ${col.windowHours} hours, across the sources that answered.`
+          : "No token was pushed by enough promoters at once.",
+      convergence.events.flatMap((e) => e.postIds),
+      social ? { ...convergence, perSymbol: social.perSymbol } : convergence,
+    );
+  // live posts say what they say; nobody has documented a payment for them, so "paid but undisclosed" stays unknown
+  const paymentDocumented = Boolean(opts.posts?.length);
 
   // 3. hunter
   const evFor = (s: string) => convergence?.events.find((e) => e.token === s) ?? null;
@@ -371,7 +419,7 @@ export async function runLive(symbols: string[], opts: RunLiveOptions = {}): Pro
       priceRunUpPct: null,
       convergingPromoters: convergence ? (ev?.promoters.length ?? 0) : null,
       independentVoices: ev?.independentVoices ?? null,
-      undisclosedPaidPosts: convergence ? (ev?.disclosure.paidButUndisclosed.length ?? 0) : null,
+      undisclosedPaidPosts: convergence && paymentDocumented ? (ev?.disclosure.paidButUndisclosed.length ?? 0) : null,
       evidenceIds: [`market:${f.symbol}`, ...(ev ? ev.postIds : [])],
     };
   });
@@ -382,9 +430,11 @@ export async function runLive(symbols: string[], opts: RunLiveOptions = {}): Pro
   const perSymbol: LiveRun["perSymbol"] = [];
   const posts = convergence ? (opts.posts ?? []) : [];
   const postItems = postEvidence(posts);
+  // each coin's debate sees the live posts about that coin (newest 25), with their links and signals
+  const livePostItems = (s: string) => (col?.posts ?? []).filter((p) => p.symbols.includes(s)).slice(0, 25).map(socialEvidence);
   for (const v of [...hunter.selected, ...hunter.rejected]) {
     const f = facts.find((x) => x.symbol === v.symbol)!;
-    const bundle = await buildBundle([...items, ...postItems, hunterItem(v)]);
+    const bundle = await buildBundle([...items, ...postItems, ...livePostItems(v.symbol), hunterItem(v)]);
     const factors = judgeFactors(v, null, convergence);
     const debate = await runDebate(bundle, factors, { llm, clock });
     gaps.push(...debate.gaps);
@@ -392,7 +442,7 @@ export async function runLive(symbols: string[], opts: RunLiveOptions = {}): Pro
 
     const plan: TradePlan = planAtPrice(v.symbol, f.priceUsd, clock(), limits, { ...opts.dip, stopPct, change24hPct: f.change24hPct }, [`market:${v.symbol}`]);
     const ev = evFor(v.symbol);
-    const trade = evaluatePlan(plan, { liquidityUsd: f.liquidityUsd, top10HolderPct: f.top10HolderPct, undisclosedPaidPromotion: convergence ? (ev?.disclosure.paidButUndisclosed.length ?? 0) > 0 : null }, limits, lossTodayUsd);
+    const trade = evaluatePlan(plan, { liquidityUsd: f.liquidityUsd, top10HolderPct: f.top10HolderPct, undisclosedPaidPromotion: convergence && paymentDocumented ? (ev?.disclosure.paidButUndisclosed.length ?? 0) > 0 : null }, limits, lossTodayUsd);
     // say the real reason first when there was no price to plan with
     if (!f.priceUsd && trade.decision === "refused") trade.reasons.unshift(`No current price for ${v.symbol}${ryo.configured ? " in RYO's reply" : " (RYO is not connected)"}, so there is nothing to plan. Refused rather than guessed.`);
     const entry = await step(
@@ -420,6 +470,7 @@ export async function runLive(symbols: string[], opts: RunLiveOptions = {}): Pro
     perSymbol,
     extras,
     convergence,
+    social,
     gaps,
     trail: trail.entries,
     trailOk: check.ok,

@@ -13,6 +13,9 @@ export const REGISTRY_ABI = parseAbi([
   "event ClaimVerified(bytes32 indexed caseId, bytes32 indexed evidenceHash, bytes32 claimantRef, uint32 purchases, uint64 firstBuyBlock, uint64 at)",
   "function claimVerifiedAt(bytes32 caseId, bytes32 evidenceHash) view returns (uint64)",
   "function getClaimVerification(bytes32 caseId, bytes32 evidenceHash) view returns ((bytes32 claimantRef, bytes32 walletRef, uint32 purchases, uint64 firstBuyBlock, uint64 at))",
+  // Written by the canary-anchor CRE workflow (EVM log trigger on ClaimAnchored, report kind 4): the claim's chain of custody.
+  // A registry deployed before kind 4 simply has no such events.
+  "event ClaimCustodyRecorded(bytes32 indexed caseId, bytes32 indexed evidenceHash, bytes32 anchorTx, bytes32 trailHash, uint8 level, uint256 poolLiquidityCents, uint64 mainnetBlock, uint64 at)",
 ]);
 
 export function registryConfig() {

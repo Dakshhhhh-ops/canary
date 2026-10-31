@@ -235,6 +235,16 @@ export default async function Home() {
           <div className="mt-8">
             <CasePreview data={emax} />
           </div>
+          <p className="mt-4 text-[var(--ink-2)]">
+            A second real case shows the method isn&apos;t a one-off: in{" "}
+            <Link className="link font-semibold" href="/case/saitama">
+              Saitama Inu (2021)
+            </Link>{" "}
+            the promoters were the coin&apos;s own officers, and the SEC&apos;s case is market manipulation, not paid touting.{" "}
+            <Link className="link" href="/cases">
+              All cases
+            </Link>
+          </p>
         </section>
 
         {/* CHAIN */}

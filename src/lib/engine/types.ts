@@ -24,7 +24,7 @@ export type EvidenceBundle = { items: EvidenceItem[]; ids: string[]; hash: strin
 export type EchoLink = {
   a: string; // post id
   b: string; // post id
-  reason: "same-payer" | "copy-paste";
+  reason: "same-payer" | "copy-paste" | "same-team";
   detail: string;
 };
 

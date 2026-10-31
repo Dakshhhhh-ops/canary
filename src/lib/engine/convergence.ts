@@ -32,7 +32,7 @@ export function postInterval(p: PromoterPost): [number, number] {
   return [t, t];
 }
 
-const cashtags = (text = "") => [...new Set([...text.matchAll(/\$([A-Za-z][A-Za-z0-9]{1,11})\b/g)].map((m) => m[1].toUpperCase()))];
+export const cashtags = (text = "") => [...new Set([...text.matchAll(/\$([A-Za-z][A-Za-z0-9]{1,11})\b/g)].map((m) => m[1].toUpperCase()))];
 
 function tokensFor(p: PromoterPost, opts: ConvergenceOptions): string[] {
   const t = opts.tokenOf;
@@ -85,6 +85,11 @@ function echoGroups(posts: PromoterPost[], copyThreshold: number) {
       if (a.promoter === b.promoter) continue;
       if (payerKey(a) && payerKey(a) === payerKey(b)) {
         links.push({ a: a.id, b: b.id, reason: "same-payer", detail: `${a.promoter} and ${b.promoter} were both paid by ${a.paid!.by}` });
+        union(a.promoter, b.promoter);
+      }
+      if (a.affiliation && a.affiliation.trim().toLowerCase() === b.affiliation?.trim().toLowerCase()) {
+        const [x, y] = [a.promoter, b.promoter].sort();
+        links.push({ a: a.id, b: b.id, reason: "same-team", detail: `${x} and ${y} are both ${a.affiliation}` });
         union(a.promoter, b.promoter);
       }
       const sim = textSimilarity(a.text, b.text);

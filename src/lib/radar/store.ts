@@ -9,6 +9,7 @@ import path from "node:path";
 import { emptyLedger, lossOnDay, replayLedger, updateLedger, type LedgerFile } from "../engine/ledger";
 import type { LiveRun } from "../engine/pipeline";
 import type { RyoRawCall } from "../engine/ryo";
+import type { SocialRawCall } from "../social/types";
 import { RUN_FORMAT, summarise, type SavedRun, type SavedRunSummary } from "./saved";
 
 export const radarDir = () => process.env.RADAR_DATA_DIR || path.join(process.cwd(), "data", "radar");
@@ -36,7 +37,7 @@ const SECRET_PATTERNS: [string, RegExp][] = [
 /** Names of the secret kinds found in a text (never the values). */
 export function findSecrets(text: string, env: Record<string, string | undefined> = process.env): string[] {
   const hits = SECRET_PATTERNS.filter(([, re]) => re.test(text)).map(([name]) => name);
-  for (const k of ["RYO_MCP_KEY", "OPENROUTER_API_KEY", "ANTHROPIC_API_KEY", "INTERNAL_TOKEN"]) {
+  for (const k of ["RYO_MCP_KEY", "OPENROUTER_API_KEY", "ANTHROPIC_API_KEY", "INTERNAL_TOKEN", "NEYNAR_API_KEY", "REDDIT_CLIENT_SECRET"]) {
     const v = env[k];
     if (v && v.length >= 8 && text.includes(v)) hits.push(`the value of ${k}`);
   }
@@ -80,7 +81,20 @@ export const openSymbols = async (dir = radarDir()) => (await readLedger(dir))?.
 
 // ---------- runs ----------
 
-export type SaveInput = { run: LiveRun; rawRyo: RyoRawCall[]; trigger: string; updateLedger?: boolean; dir?: string; expiryDays?: number };
+export type SaveInput = { run: LiveRun; rawRyo: RyoRawCall[]; rawSocial?: SocialRawCall[]; trigger: string; updateLedger?: boolean; dir?: string; expiryDays?: number };
+
+/**
+ * Social replies are other people's public posts: one of them could contain a string that merely looks
+ * like a key. Such a body is left out of the file (its fingerprint stays in the notebook, marked withheld)
+ * instead of blocking the whole save. Canary's own key values are still checked over the whole file.
+ */
+export function withholdKeyShaped(calls: SocialRawCall[]): SocialRawCall[] {
+  return calls.map((c) => {
+    if (c.body == null) return c;
+    const hits = findSecrets(c.body, {});
+    return hits.length ? { ...c, body: null, withheld: `left out of the file: the reply contains something that looks like ${hits.join(", ")}` } : c;
+  });
+}
 export type SaveResult = { file: string; path: string; ledger: { head: string; added: number } | null };
 
 /** True when the run actually reached RYO: at least one tool answered. Gap-only runs are not saved. */
@@ -105,7 +119,17 @@ export async function saveRun(input: SaveInput): Promise<SaveResult> {
     ledger = { head: added.length ? added[added.length - 1].hash : (next.trail.at(-1)?.hash ?? ""), added: added.length };
   }
 
-  const saved: SavedRun = { format: RUN_FORMAT, savedAt: new Date().toISOString(), appVersion: await appVersion(), trigger: input.trigger, run, rawRyo: input.rawRyo, catalog: run.catalog, ledger };
+  const saved: SavedRun = {
+    format: RUN_FORMAT,
+    savedAt: new Date().toISOString(),
+    appVersion: await appVersion(),
+    trigger: input.trigger,
+    run,
+    rawRyo: input.rawRyo,
+    catalog: run.catalog,
+    ledger,
+    ...(input.rawSocial ? { rawSocial: withholdKeyShaped(input.rawSocial) } : {}),
+  };
   const text = JSON.stringify(saved);
   const ledgerText = ledgerFile ? JSON.stringify(ledgerFile, null, 1) : null;
   const leaks = [...findSecrets(text), ...(ledgerText ? findSecrets(ledgerText) : [])];

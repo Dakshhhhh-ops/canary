@@ -4,6 +4,7 @@ import { parseLimits } from "@/lib/radar/limits";
 import { HANKO_SYMBOLS, hankoReplayClient } from "@/lib/radar/replay";
 import { ledgerLossToday, listRuns, readLedger, readRun, reachedRyo, saveRun } from "@/lib/radar/store";
 import { clientIp, makeLimiter } from "@/lib/rateLimit";
+import { SocialCollector } from "@/lib/social/collect";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -14,6 +15,7 @@ const sseHeaders = { "content-type": "text/event-stream; charset=utf-8", "cache-
 
 // GET /api/radar?symbols=PEPE,WIF[&maxPositionUsd=..&minLiquidityUsd=..&maxTop10HolderPct=..&stopPct=..&dailyLossLimitUsd=..][&save=1]
 //      → live run over RYO's tools, streamed as server-sent events. save=1 keeps the run in data/radar/runs and updates the paper ledger.
+//      Live promoter posts are read from free public sources (SOCIAL_SOURCES, TELEGRAM_CHANNELS, ...) for the Multi-KOL watcher; social=0 skips them.
 // GET /api/radar?replay=hanko[&limits…] → the same agents on hanko's PUBLISHED FIXTURES (recorded sample, never live, never saved)
 // GET /api/radar?health=1   → is RYO reachable, and is a key configured?
 // GET /api/radar?runs=1     → saved runs, newest first
@@ -55,12 +57,13 @@ export async function GET(req: Request) {
   return new Response(
     sseStream(async (onStep) => {
       const ryo = new RyoClient();
+      const social = q.get("social") === "0" ? null : new SocialCollector();
       const lossTodayUsd = await ledgerLossToday().catch(() => 0);
-      const run = await runLive(symbols, { ryo, llm: "auto", limits: parsed.limits, dip: { stopPct: parsed.stopPct }, lossTodayUsd, onStep });
+      const run = await runLive(symbols, { ryo, llm: "auto", limits: parsed.limits, dip: { stopPct: parsed.stopPct }, lossTodayUsd, social, onStep });
       let saved: { file: string; ledgerAdded: number } | { error: string } | null = null;
       if (wantSave)
         saved = reachedRyo(run)
-          ? await saveRun({ run, rawRyo: ryo.log, trigger: "ui" })
+          ? await saveRun({ run, rawRyo: ryo.log, rawSocial: social?.log, trigger: "ui" })
               .then((r) => ({ file: r.file, ledgerAdded: r.ledger?.added ?? 0 }))
               .catch((e: unknown) => ({ error: e instanceof Error ? e.message : "could not save" }))
           : { error: "Not saved: RYO did not answer, so there is nothing real to keep." };

@@ -1,9 +1,13 @@
 import "server-only";
+import { readdir } from "node:fs/promises";
+import path from "node:path";
 import { keccak256, toBytes } from "viem";
-import { loadCase } from "./cases";
+import { CASES, loadCase } from "./cases";
 import { runCase } from "./engine/pipeline";
 import { stepClock } from "./engine/trail";
 import { loadNotebook } from "./notebooks";
+import { radarDir, RUN_FILE_RE } from "./radar/store";
+import { buildWatchList, radarWatch, type WatchList } from "./watch";
 
 /** What the Chainlink CRE workflow reads (see cre/README.md). Deterministic: every node must get identical JSON. */
 export type Snapshot = {
@@ -49,4 +53,30 @@ async function build(slug: string): Promise<Snapshot | null> {
     liquidityNowUsd: Math.round(liq[liq.length - 1] ?? 0),
     ...(cf.token.pair ? { pair: cf.token.pair } : {}),
   };
+}
+
+// ---------- the watch list (GET /api/watch/snapshot?list=1, read by canary-watch in list mode) ----------
+
+let watchMemo: { key: string; list: Promise<WatchList> } | null = null;
+
+/**
+ * Every case file (CASES) plus the radar coins that qualify (see src/lib/watch.ts). Rebuilt only when the
+ * set of saved radar runs changes, so all DON nodes fetching in the same minute get the same bytes.
+ */
+export async function watchList(): Promise<WatchList> {
+  const names = (await readdir(path.join(radarDir(), "runs")).catch(() => [] as string[])).filter((n) => RUN_FILE_RE.test(n)).sort();
+  const key = names.join("|");
+  if (watchMemo && watchMemo.key === key) return watchMemo.list;
+  const list = (async () => {
+    const files = (await Promise.all(CASES.map(async (slug) => ({ slug, snap: await snapshotFor(slug) })))).filter((x) => x.snap);
+    return buildWatchList(
+      files.map(({ slug, snap }) => ({ ...snap!, source: "case" as const, slug })),
+      await radarWatch(),
+    );
+  })();
+  watchMemo = { key, list };
+  list.catch(() => {
+    if (watchMemo?.list === list) watchMemo = null; // don't keep a failure
+  });
+  return list;
 }

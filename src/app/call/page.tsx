@@ -12,9 +12,10 @@ export const metadata: Metadata = {
 
 export default async function CallPage({ searchParams }: { searchParams: Promise<{ demo?: string }> }) {
   const { demo } = await searchParams;
-  const cf = await loadCase("emax");
-  if (!cf) notFound();
-  const kase = toHotlineCase(cf);
+  // EMAX first: a call starts there (and the demo call is about it); Saitama buyers are recognised by what they say or by their wallet
+  const files = await Promise.all(["emax", "saitama"].map((s) => loadCase(s)));
+  const cases = files.filter((cf) => cf != null).map(toHotlineCase);
+  if (!cases.length || cases[0].slug !== "emax") notFound();
   return (
     <>
       <Header />
@@ -29,7 +30,7 @@ export default async function CallPage({ searchParams }: { searchParams: Promise
             your details stay on your device.
           </p>
         </div>
-        <CallRoom kase={kase} demo={demo === "1"} />
+        <CallRoom cases={cases} demo={demo === "1"} />
       </main>
       <Footer />
     </>

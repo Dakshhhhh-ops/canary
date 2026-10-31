@@ -4,7 +4,8 @@ import { CaseRunner } from "@/components/CaseRunner";
 import { Footer, Header } from "@/components/Chrome";
 import { Guide, type GuideStep } from "@/components/Guide";
 import { OnChainPanel } from "@/components/OnChainPanel";
-import { CASES, loadCase } from "@/lib/cases";
+import { CASES, caseMeta, loadCase } from "@/lib/cases";
+import type { CaseMeta } from "@/lib/caseIndex";
 import { fmtDate, fmtUsd } from "@/lib/format";
 import type { PromoterPost } from "@/lib/types";
 
@@ -21,13 +22,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 const PLATFORM: Record<PromoterPost["platform"], string> = { instagram: "Instagram", x: "X (Twitter)", telegram: "Telegram", youtube: "YouTube", tiktok: "TikTok", other: "In public" };
 
-const STEPS: GuideStep[] = [
-  { id: "summary", mood: "talk", text: "This is a real case from 2021. Everything on this page comes from SEC orders, court records, or the blockchain itself." },
+const SEC_TCR = "https://www.sec.gov/tcr";
+
+const stepsFor = (m: CaseMeta | null): GuideStep[] => [
+  { id: "summary", mood: "talk", text: `This is a real case from ${m?.year ?? "2021"}. Everything on this page comes from SEC filings, court records, or the blockchain itself.` },
   { id: "posts", mood: "point", text: "These are the promoters' posts, word for word where a regulator or court quoted them. Red means they were paid and didn't properly disclose it." },
   { id: "run", mood: "happy", text: "Now the fun part. Press Run, and my ten agent friends will work through this case one by one. Tap any step to see why." },
   { id: "onchain", mood: "think", text: "Here's how the verdict reaches the blockchain: Chainlink nodes check it independently, then write it where nobody can change it." },
-  { id: "legal", mood: "talk", text: "And this is what happened in the real world afterwards: two SEC settlements and an investor class action." },
-  { id: "victim", mood: "wave", text: "If you bought EMAX back then, talk to me. I can find your purchase and help you file.", cta: { label: "Open the hotline", href: "/call" } },
+  { id: "legal", mood: "talk", text: m?.legalLine ?? "And this is what happened in the real world afterwards." },
+  {
+    id: "victim",
+    mood: "wave",
+    text: m?.victimLine ?? "If you bought this coin back then, the SEC's tip portal is the place to start.",
+    cta: m?.hotline ? { label: "Open the hotline", href: "/call" } : { label: "Open the SEC tip portal", href: SEC_TCR },
+  },
 ];
 
 export default async function CasePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -38,9 +46,10 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
   const startIdx = cf.prices.findIndex((p) => p.t === cf.window.pumpStart);
   const rise = cf.prices[Math.max(0, startIdx - 1)];
   const promoters = [...new Set(cf.posts.map((p) => p.promoter))];
+  const meta = caseMeta(slug);
 
   return (
-    <Guide intro={{ id: "intro", mood: "wave", text: `Welcome to the ${cf.token.name} case file! Want me to walk you through it?` }} steps={STEPS}>
+    <Guide intro={{ id: "intro", mood: "wave", text: `Welcome to the ${cf.token.name} case file! Want me to walk you through it?` }} steps={stepsFor(meta)}>
       <Header />
       <main id="main" className="mx-auto max-w-6xl px-4">
         <section data-guide="summary" className="pt-10">
@@ -49,7 +58,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
           </Link>
           <p className="chip mt-4">Real case · replayed by Canary&apos;s agents</p>
           <h1 className="font-display mt-3 text-4xl font-extrabold leading-tight sm:text-6xl">
-            {cf.token.name} <span className="text-[var(--ink-3)]">({cf.token.symbol})</span>, 2021
+            {cf.token.name} <span className="text-[var(--ink-3)]">({cf.token.symbol})</span>, {meta?.year ?? cf.window.pumpStart.slice(0, 4)}
           </h1>
           <p className="mt-4 max-w-3xl text-lg text-[var(--ink-2)] sm:text-xl">{cf.oneLiner}</p>
           <dl className="mt-6 grid gap-3 sm:grid-cols-4">
@@ -61,7 +70,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
             <div className="card p-4">
               <dt className="text-xs font-semibold uppercase tracking-wider text-[var(--ink-3)]">Rise to the peak</dt>
               <dd className="font-display text-2xl font-extrabold text-[var(--ok)]">
-                {rise?.priceUsd ? `+${Math.round((cf.peak.priceUsd / rise.priceUsd - 1) * 100)}%` : "—"}
+                {rise?.priceUsd ? `+${Math.round((cf.peak.priceUsd / rise.priceUsd - 1) * 100).toLocaleString("en-US")}%` : "—"}
               </dd>
               <dd className="text-xs text-[var(--ink-3)]">
                 {fmtDate(rise?.t ?? cf.window.pumpStart)} close → {fmtDate(cf.peak.t)}
@@ -75,7 +84,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
             <div className="card p-4">
               <dt className="text-xs font-semibold uppercase tracking-wider text-[var(--ink-3)]">Wallets that bought</dt>
               <dd className="font-display text-2xl font-extrabold">{cf.buyersInWindow ? cf.buyersInWindow.count.toLocaleString() : "—"}</dd>
-              <dd className="text-xs text-[var(--ink-3)]">in the 72 hours after the token burn Kardashian&apos;s post announced</dd>
+              <dd className="text-xs text-[var(--ink-3)]">{meta?.buyersLabel ?? "during the promotion, from the blockchain"}</dd>
             </div>
           </dl>
           <p className="mt-3 text-sm text-[var(--ink-3)]">
@@ -96,7 +105,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
         <section data-guide="posts" className="pt-16">
           <h2 className="font-display text-3xl font-extrabold sm:text-4xl">What the promoters said</h2>
           <p className="mt-2 max-w-3xl text-[var(--ink-2)]">
-            Quoted only where an SEC order or court record quotes them. Where a source describes a post without quoting it, we say so.
+            Quoted only where an SEC filing or court record quotes them. Where a source describes a post without quoting it, we say so.
           </p>
           <ul className="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
             {cf.posts.map((p) => (
@@ -181,15 +190,28 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
         <section data-guide="victim" className="pt-16">
           <div className="card grid items-center gap-4 bg-[var(--canary)] p-6 sm:p-8 md:grid-cols-[1fr_auto]">
             <div>
-              <h2 className="font-display text-3xl font-extrabold">Bought {cf.token.symbol} in 2021?</h2>
-              <p className="mt-2 max-w-2xl text-lg">
-                Doki can find your purchase on the blockchain from your wallet address, line it up with these posts, and draft your SEC tip and other complaints.
-                You approve everything before it goes anywhere.
-              </p>
+              <h2 className="font-display text-3xl font-extrabold">Bought {cf.token.symbol} in {meta?.year ?? cf.window.pumpStart.slice(0, 4)}?</h2>
+              {meta?.hotline ? (
+                <p className="mt-2 max-w-2xl text-lg">
+                  Doki can find your purchase on the blockchain from your wallet address, line it up with these posts, and draft your SEC tip and other complaints.
+                  You approve everything before it goes anywhere.
+                </p>
+              ) : (
+                <p className="mt-2 max-w-2xl text-lg">
+                  Doki&apos;s hotline walks EMAX buyers through filing today; it doesn&apos;t cover {cf.token.symbol} yet. You can tell the SEC what happened to you through
+                  its tip portal, and keep your wallet address and transaction links ready.
+                </p>
+              )}
             </div>
-            <Link href="/call" className="btn btn-dark text-lg">
-              📞 Talk to Doki
-            </Link>
+            {meta?.hotline ? (
+              <Link href="/call" className="btn btn-dark text-lg">
+                📞 Talk to Doki
+              </Link>
+            ) : (
+              <a href={SEC_TCR} target="_blank" rel="noreferrer" className="btn btn-dark text-lg">
+                SEC tip portal ↗
+              </a>
+            )}
           </div>
         </section>
 
@@ -212,7 +234,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
               ))}
             </ul>
             <p className="mt-4 text-sm text-[var(--ink-3)]">
-              Rebuild the data yourself: <code className="font-mono">npx tsx scripts/build-emax.mts</code>
+              Rebuild the data yourself: <code className="font-mono">{meta?.rebuild ?? "npx tsx scripts/build-case.mts " + cf.slug}</code>
             </p>
           </details>
         </section>

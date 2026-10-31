@@ -14,6 +14,8 @@ export type PromoterPost = {
   text?: string; // exact quote, only if quoted in a source
   disclosedPayment: boolean | null; // did the post say it was paid? null = unknown
   paid?: { amountUsd: number; by: string } | null; // only if documented
+  /** A documented tie between promoters (e.g. officers of the same company). Promoters who share one are not independent voices. */
+  affiliation?: string;
   sources: Source[];
 };
 
@@ -33,7 +35,7 @@ export type LegalAction = {
 /** A real, publicly documented case, replayed by the agents. */
 export type CaseFile = {
   slug: string; // "emax"
-  token: { name: string; symbol: string; chain: "ethereum"; address: string; decimals: number; pair?: string; pairDex?: string };
+  token: { name: string; symbol: string; chain: "ethereum"; address: string; decimals: number; pair?: string; pairDex?: string; pairCreatedBlock?: number };
   oneLiner: string; // plain-words summary for a newcomer
   window: { pumpStart: string; peak: string; collapse: string };
   posts: PromoterPost[];

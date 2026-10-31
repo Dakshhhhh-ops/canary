@@ -8,8 +8,41 @@ import type { LiveRun } from "@/lib/engine/pipeline";
 import type { StepEvent } from "@/lib/engine/types";
 import { verifyTrail } from "@/lib/engine/trail";
 import { fmtUsd } from "@/lib/format";
+import { SocialPanel } from "./SocialPanel";
 
 export type ApiRun = LiveRun & { notes?: string[]; saved?: { file: string; ledgerAdded: number } | { error: string } | null };
+
+/** Is this coin on the Chainlink workflow's watch list (GET /api/watch/snapshot?list=1)? Built server-side by src/lib/watch.ts. */
+export type WatchBadge = { watched: boolean; caseId: string; run: string | null; reason: string | null };
+export type WatchInfo = { coins: Record<string, WatchBadge>; registry: string | null };
+
+/** One line per coin: watched on-chain by Chainlink (with links to the registry record), or why not. */
+function ChainlinkWatch({ symbol, info, runFile }: { symbol: string; info: WatchInfo; runFile?: string }) {
+  const b = info.coins[symbol.toUpperCase()];
+  if (!b) return <p className="mt-3 text-xs text-[var(--ink-3)]">Not on the Chainlink watch list: a newer saved run decides, and none mentions {symbol}.</p>;
+  if (!b.watched) return <p className="mt-3 text-xs text-[var(--ink-3)]">Not watched on-chain by Chainlink: {b.reason}.</p>;
+  return (
+    <div className="mt-3 rounded-xl border-[1.5px] border-[var(--canary)] p-2 text-xs">
+      <p className="font-bold">⛓ Watched on-chain by Chainlink</p>
+      <p className="mt-0.5 text-[var(--ink-2)]">
+        The canary-watch workflow reads this coin&apos;s pool on Ethereum and records the alert in the registry
+        {b.run && runFile && b.run !== runFile ? " (using the verdict of a newer saved run)" : ""}.{" "}
+        <a className="link" href={`/api/registry/status?radar=${encodeURIComponent(symbol)}`} target="_blank" rel="noreferrer">
+          Registry status
+        </a>
+        {info.registry && (
+          <>
+            {" · "}
+            <a className="link" href={`https://sepolia.etherscan.io/address/${info.registry}#events`} target="_blank" rel="noreferrer">
+              Contract on Etherscan
+            </a>
+          </>
+        )}
+      </p>
+      <p className="mt-0.5 break-all font-mono text-[0.65rem] text-[var(--ink-3)]">case id {b.caseId}</p>
+    </div>
+  );
+}
 
 export const STEP_ICON: Record<string, string> = { collector: "📡", convergence: "🗣️", news: "📰", hunter: "🔎", collapse: "📉", bull: "🐂", bear: "🐻", judge: "⚖️", risk: "🧮", claims: "📋" };
 
@@ -45,7 +78,7 @@ export function StepList({ steps }: { steps: StepEvent["entry"][] }) {
   );
 }
 
-function SymbolCard({ run, p }: { run: LiveRun; p: LiveRun["perSymbol"][number] }) {
+function SymbolCard({ run, p, watch, runFile }: { run: LiveRun; p: LiveRun["perSymbol"][number]; watch?: WatchInfo; runFile?: string }) {
   const f = run.facts.find((x) => x.symbol === p.symbol);
   const v = [...run.hunter.selected, ...run.hunter.rejected].find((x) => x.symbol === p.symbol);
   const t = p.trade;
@@ -95,6 +128,7 @@ function SymbolCard({ run, p }: { run: LiveRun; p: LiveRun["perSymbol"][number] 
       <p className="mt-3 text-sm">
         <strong>{ok ? "Why it passed:" : "Why not:"}</strong> {t.reasons[0]}
       </p>
+      {watch && <ChainlinkWatch symbol={p.symbol} info={watch} runFile={runFile} />}
       <details className="mt-2 text-sm">
         <summary className="cursor-pointer font-semibold text-[var(--ink-2)]">All {t.checks.length} risk checks{f && Object.keys(f.found).length ? " and where each number came from" : ""}</summary>
         <ul className="mt-2 space-y-1">
@@ -121,16 +155,18 @@ function SymbolCard({ run, p }: { run: LiveRun; p: LiveRun["perSymbol"][number] 
   );
 }
 
-export function RunView({ run }: { run: ApiRun }) {
+export function RunView({ run, watch, runFile }: { run: ApiRun; watch?: WatchInfo; runFile?: string }) {
   const [verified, setVerified] = useState<string | null>(null);
   const extraTools = [...run.catalog.safety, ...run.catalog.unknown];
   return (
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2">
         {run.perSymbol.map((p) => (
-          <SymbolCard key={p.symbol} run={run} p={p} />
+          <SymbolCard key={p.symbol} run={run} p={p} watch={watch} runFile={runFile} />
         ))}
       </div>
+
+      {run.social && <SocialPanel social={run.social} />}
 
       <div className="card p-5 text-sm">
         <p className="font-bold">
