@@ -8,13 +8,17 @@ Built for the **BLI Legal Tech Hackathon 2** (Blockchain Legal Institute, DoraHa
 
 ## Try it
 
+**Live:** https://canary.3-26-157-118.sslip.io (no login; start with [`/call?demo=1`](https://canary.3-26-157-118.sslip.io/call?demo=1) and [`/judges`](https://canary.3-26-157-118.sslip.io/judges))
+
 | Page | What you'll see |
 |---|---|
 | `/` | Doki explains pump-and-dumps from zero, the law that makes hidden paid promotion illegal, and what Canary does |
 | `/case/emax` | **The real EthereumMax case (2021).** Press *Run the agents*: ten agents work through SEC- and court-documented posts and on-chain prices, step by step. Tap *Why?* on any step. Verify the notebook, then try to tamper with it |
-| `/call` | **The hotline.** Talk to Doki (or type). Doki finds your purchase on the blockchain and drafts your complaints. `/call?demo=1` plays a full demo call |
+| `/case/saitama` | **A second real case, Saitama Inu (2021).** Different promoters (the coin's own officers), different law (market manipulation and fraud, not paid touting), same agents and same on-chain method. The agents count the four officers as one voice |
+| `/cases` | Both cases side by side |
+| `/call` | **The hotline.** Talk to Doki (or type). Doki finds your purchase on the blockchain and drafts your complaints for the US, UK, EU or India, depending on where you live. `/call?demo=1` plays a full demo call. The claim pack downloads as one PDF, and its rules can be switched to another country |
 | `/verify` | Drop an evidence file or a notebook; every fingerprint is recomputed in your browser |
-| `/radar` | The same agents on coins trading today, through RYO's market tools |
+| `/radar` | The same agents on coins trading today, through RYO's market tools, with today's promoter posts from public Telegram channels and Bluesky; flagged coins with a known Ethereum pool are handed to Chainlink |
 | `/judges` | Every bounty requirement mapped to where it runs and where the code is |
 | `/how` | The architecture on one page |
 
@@ -25,15 +29,43 @@ Built for the **BLI Legal Tech Hackathon 2** (Blockchain Legal Institute, DoraHa
 - **In re EthereumMax Investor Litigation**, C.D. Cal. No. 2:22-cv-00163: investor class action; state classes certified in 2025.
 - **FTC Endorsement Guides**, 16 CFR Part 255.
 
+### Outside the US
+
+Doki works out where the caller lives, either from an answer or from something said in passing ("I'm in London", "from Mumbai", "Germany"). The drafts then cite that country's rules. Every provision is stored with its official source in `src/lib/claims/law.ts` (checked October 2026), and the fact guard rejects any article, instrument or phone number a draft cites that isn't in that table.
+
+- **UK**
+  - Law: FSMA 2000 **s.21**, the financial promotion restriction, and **s.25**, which makes breaching it an offence.
+  - Crypto promotions: under SI 2023/612, cryptoassets have been inside the s.21 regime since **8 Oct 2023**. The FCA's risk warning is in **COBS 4.12A.11R** (PS23/6).
+  - Influencers: FCA **FG24/1** (March 2024) covers finfluencers.
+  - Where to report: the FCA's *Report a scam*, and **Report Fraud**, which replaced Action Fraud in December 2025. In Scotland, Police Scotland on 101.
+- **EU**
+  - Law: **MiCA**, Regulation (EU) 2023/1114, applying from 30 Dec 2024. Title VI covers market abuse:
+    - Art. 86(1), scope;
+    - Art. 88, disclosure of inside information;
+    - Art. 89, insider dealing;
+    - Art. 91(2)(c), spreading misleading information;
+    - Art. 91(3)(c), voicing an opinion after taking a position, without disclosing the conflict.
+  - Marketing communications: MiCA **Art. 7**.
+  - Advertorials: **UCPD 2005/29/EC Annex I point 11**, undisclosed paid editorial content.
+  - Where to report: the national authority. Canary maps BaFin, AMF, Central Bank of Ireland, AFM, CNMV and CONSOB; for other countries it points to ESMA's list.
+- **India**
+  - Advertising rules: **ASCI's VDA advertising guidelines** (Feb 2022, with a mandatory risk disclaimer) and the **ASCI influencer guidelines**, which require disclosure labels.
+  - Crypto businesses: notification **S.O. 1072(E)** (7 Mar 2023) brings VDA service providers under the PMLA. FIU-IND's guidelines require them to register.
+  - Where to report: ASCI, **cybercrime.gov.in** and the **1930** helpline.
+
+Each draft says when a rule began to apply. For example, EMAX was bought in 2021, before the UK crypto promotion rules and before MiCA.
+
 Canary is not a law firm and nothing in it is legal advice. Documents are drafts that the victim reviews and sends.
 
 ## How it works
 
 ```
-SEC orders · court records ─┐
-Ethereum (Uniswap pool logs) ├─► ten agents ─► hash-chained notebook ─► /api/watch/snapshot ─► Chainlink CRE ─► CanaryRegistry (Sepolia)
-RYO market tools (live) ────┘                                                                                        ▲
-                                         victim ─► Doki hotline ─► on-chain purchase check ─► claim pack ─► anchorClaim ┘
+SEC orders · court records ─┐                                       /api/watch/snapshot?list=1
+Ethereum (Uniswap pool logs) ├─► ten agents ─► hash-chained notebook ─► (EMAX + flagged radar coins) ─► canary-watch (cron) ─► CanaryRegistry (Sepolia)
+RYO market tools (live) ────┤                                                                                                  ▲   │ ClaimAnchored
+Telegram · Bluesky (live) ──┘                                                                                                  │   │
+                                victim ─► Doki hotline ─► purchase check ─► claim pack ─► anchorClaim / canary-claims (HTTP) ──┘   ▼
+                                                                                          canary-anchor (EVM log) ─► custody record ┘
 ```
 
 ### Agents (`src/lib/engine/`)
@@ -42,6 +74,7 @@ RYO market tools (live) ────┘                                         
 |---|---|---|
 | Collector | What was posted, what did the coin do? | `pipeline.ts` |
 | Multi-influencer watcher (Multi-KOL) | Are 3+ promoters pushing it at once? Same payer or copy-paste counts as one voice | `convergence.ts` |
+| Social-post collector | What are promoters posting **today**? Public Telegram channel previews and Bluesky search (no key), Reddit and Farcaster with optional API credentials. Reads each post for a payment disclosure (and whether it names payer and amount, as §17(b) requires), promotion words, tickers and contract addresses; every raw page is fingerprinted, every block is a gap | `src/lib/social/` |
 | News checker | Did what they claimed happen? Cause → effect | `news.ts` |
 | Token hunter | Six published rules, selected and rejected explained with raw numbers | `hunter.ts` |
 | Collapse watcher | Did it fall 80%+ from the peak? | `collapse.ts` |
@@ -53,17 +86,25 @@ RYO market tools (live) ────┘                                         
 
 The model (OpenRouter) is optional. Without it, every agent runs on its rule-based path and the run records that as a gap.
 
-### Chainlink CRE (`cre/canary-watch/`)
+### Chainlink CRE (`cre/`): three workflows, three trigger types
 
-Cron every 10 minutes → **HTTP** fetch of Canary's verdict snapshot with **consensus** across nodes → **EVM read** of the token's Uniswap V2 pool and the Chainlink ETH/USD feed on Ethereum mainnet → **EVM read** of the registry on Sepolia → **writeReport** of an alert and/or a collapse to `CanaryRegistry.onReport`. See [cre/README.md](cre/README.md).
+- **`canary-watch` (cron trigger).** Every 10 minutes → **HTTP** fetch of Canary's **watch list** (`/api/watch/snapshot?list=1`: the EMAX case plus every radar coin whose latest saved, verified run is flagged and whose Uniswap V2 pool on Ethereum is known) with **consensus** across nodes, and a bearer token from the **CRE secret** `WATCH_TOKEN` → per case, **EVM read** of the token's pool and the Chainlink ETH/USD feed on Ethereum mainnet and of the registry on Sepolia → **writeReport** of an alert and/or a collapse. At most 3 cases per run (CRE's 15-read limit); longer lists rotate. The single-case `?case=emax` path still works (staging uses it offline).
+- **`canary-claims` (HTTP trigger).** Confirms a victim's purchases on mainnet logs before recording `ClaimVerified`.
+- **`canary-anchor` (EVM log trigger on `ClaimAnchored`).** For every anchored claim, writes a chain-of-custody record: the case's level, reasoning-trail head and collapse status at filing, whether the purchase was verified, and the token pool's liquidity on Ethereum mainnet at a named finalized block.
+
+See [cre/README.md](cre/README.md).
 
 ### Contract (`contracts/CanaryRegistry.sol`)
 
-A CRE receiver (forwarder allow-list, ERC-165) that stores alerts, collapses and claim fingerprints (`anchorClaim`, relayer-only, no personal data). 14 tests on an in-process chain.
+A CRE receiver (forwarder allow-list, ERC-165) that stores alerts, collapses, claim fingerprints (`anchorClaim`, relayer-only, no personal data), verified claims (kind 3) and claim-custody records (kind 4). 22 tests on an in-process chain, including each workflow's exact report bytes. The registry deployed on Sepolia today predates kind 4, so `canary-anchor` runs observe-only against it until `npm run chain:setup` redeploys.
 
 ### The EMAX case file (`data/cases/emax.json`)
 
 Posts and legal facts quoted from SEC orders and court records, each with a source. Prices and liquidity are rebuilt from the EMAX/WETH Uniswap V2 pool's logs, priced through the USDC/WETH pool, so every dollar figure comes from Ethereum. Rebuild it: `npx tsx scripts/build-emax.mts`. What couldn't be verified is listed in `data/cases/emax.sources.md`.
+
+### The Saitama case file (`data/cases/saitama.json`)
+
+The second case: SEC v. Armand, Hernandez, Kohli and Tran (D. Mass. No. 1:24-cv-12586, Oct 2024), with a parallel criminal case in Boston. Posts are quoted only from the SEC complaint; prices, liquidity and buyers are rebuilt from the Uniswap V2 SAITAMA/WETH pool. Rebuild it: `npx tsx scripts/build-case.mts saitama`. The generic builder (`scripts/lib/pool-series.mts`, one config per case in `scripts/cases/`) reproduces EMAX's published price series exactly: `npx tsx scripts/build-case.mts emax --compare`. Sources, gaps and the other candidates considered: `data/cases/saitama.sources.md`.
 
 ## Run it
 
@@ -100,10 +141,15 @@ npm run chain:status                      # what the registry now holds for EMAX
 
 ## Honest limits
 
-- Live influencer posts need paid X/Telegram API access. The replay uses posts quoted in SEC orders and court records.
+- Live posts come only from free sources: public Telegram channel previews (each channel's latest posts, from a configurable list) and Bluesky search. X needs paid API access and is not read; Reddit (robots.txt disallows scraping) and Farcaster (keyless endpoints disallow automated access) are read only with API credentials, otherwise they are recorded gaps. Cloud servers may be blocked by a source; that is a gap too.
+- A live post is counted as pushing a coin from its words ("100x", "to the moon", "buy now"…), a published heuristic. Payment is never inferred: "no disclosure" is not proof of payment, so the paid-but-undisclosed rule stays unknown for live posts. The EMAX replay uses posts quoted in SEC orders and court records.
 - RYO tools need a hackathon key. Without it, the radar records gaps and refuses every practice trade.
 - EMAX holder concentration is left out: the token reports a total supply smaller than its three largest balances combined.
+- Doki's hotline covers both cases: it recognises the coin from what the caller says, or from the purchases in their wallet. Saitama drafts cite that case's own law and lawsuit (Exchange Act §§9(a)(2), 10(b), Securities Act §17(a)), never §17(b). Only EMAX has an on-chain record from the Chainlink workflow so far.
+- The Saitama facts are the SEC's allegations; the criminal case is described from press reports.
 - Prices are end-of-day pool readings, not intraday highs.
+- Outside the US, Canary names the national regulator for six EU countries. For the others it points to ESMA's list. Whether MiCA covers a token depends on whether it is admitted to trading (Art. 86), which the drafts leave to the regulator.
+- The PDF uses the standard PDF fonts (Western European characters). Characters outside that set are replaced or dropped, including emoji in quoted posts.
 
 ## Mascot
 

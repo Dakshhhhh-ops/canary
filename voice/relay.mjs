@@ -92,7 +92,8 @@ wss.on("connection", (ws) => {
     if (turn.reply.action?.type === "check-wallet") {
       let purchases;
       try {
-        const j = await app("/api/hotline/purchases", { address: turn.reply.action.address });
+        const { address, cases } = turn.reply.action;
+        const j = await app("/api/hotline/purchases", cases ? { address, cases } : { address, caseSlug: call.state.caseSlug });
         purchases = j.ok ? { ok: true, report: j.report } : { ok: false, error: j.error || "failed" };
       } catch (e) {
         purchases = { ok: false, error: e.message };

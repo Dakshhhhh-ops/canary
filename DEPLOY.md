@@ -52,6 +52,11 @@ packages its own functions.
 | `OPENROUTER_MODEL` | Override the model (default `anthropic/claude-haiku-5.5`) | Optional |
 | `RYO_MCP_KEY` | Live radar market data (`/radar`) | Optional (radar reports the gap) |
 | `RYO_MCP_URL` | Override the RYO endpoint | Optional |
+| `SOCIAL_SOURCES` | Which free sources the radar reads promoter posts from: `telegram,bluesky,reddit,farcaster` (default all; `off` disables) | Optional |
+| `TELEGRAM_CHANNELS` | Public Telegram channels whose web previews are read (max 8; default list in `src/lib/social/collect.ts`) | Optional |
+| `BSKY_APPVIEW_URL` | Bluesky AppView for search (default `https://api.bsky.app`) | Optional |
+| `REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET`, `SUBREDDITS` | Reddit through its official API (free app). Without them Reddit is a recorded gap: its robots.txt disallows scraping | Optional |
+| `NEYNAR_API_KEY` | Farcaster cast search through Neynar. Without it Farcaster is a recorded gap | Optional |
 | `RPC_URL` | Ethereum mainnet archive RPC for the hotline's purchase lookup | Optional (public Tenderly gateway by default) |
 | `BLOCKSCOUT_URL`, `BLOCKSCOUT_API_KEY` | Faster/keyed Blockscout lookups for wallet histories | Optional |
 | `CANARY_REGISTRY_ADDRESS`, `CANARY_REGISTRY_FROM_BLOCK` | Reading the CanaryRegistry on Sepolia | Optional (needed to show on-chain status) |
@@ -68,6 +73,10 @@ packages its own functions.
 Never prefix a secret with `NEXT_PUBLIC_`: those are sent to the browser.
 
 ### Limits to know on serverless
+
+- Social sources may turn away requests from cloud IP ranges (403/429). On Vercel that simply shows up as a recorded
+  gap for that source in the run; nothing is retried around the block. Each request has an 8 s timeout and the whole
+  social collection a 45 s budget, running alongside the RYO calls.
 
 - Rate limits are kept in memory per function instance, so on Vercel they are per instance, not global. Fine for a
   demo; use Vercel KV/Upstash if it needs to hold under load.
@@ -96,3 +105,19 @@ Put Caddy (`reverse_proxy localhost:3000`, automatic HTTPS) or nginx in front. W
 `proxy_buffering off` for `/api/case/` and `/api/radar` so the agents' events stream, and set
 `TRUSTED_PROXY_HOPS=1`. The phone relay runs on the same box: `node voice/relay.mjs` (port 3001) behind the
 same proxy as a WebSocket upgrade.
+
+### The live deployment (canary.3-26-157-118.sslip.io)
+
+A 1 GB EC2 instance (Amazon Linux 2023) is too small to run `next build`, so the app is built on a laptop and
+the standalone folder is copied over:
+
+1. `npm run build`, then copy `public` and `.next/static` into `.next/standalone` as above.
+2. Built on Windows or macOS? Delete `node_modules/@img/sharp-*` from the standalone folder and add the Linux
+   ones on the server (`npm install sharp@<same version>` in a scratch folder, then copy
+   `@img/sharp-linux-x64` and `@img/sharp-libvips-linux-x64`).
+3. Unpack into `/opt/canary/app`. A systemd unit runs `node server.js` as its own user with `PORT=3100`,
+   `HOSTNAME=127.0.0.1`, `EnvironmentFile=/etc/canary/env` (mode 640), `ProtectSystem=strict` and
+   `RADAR_DATA_DIR=/var/lib/canary/radar` as the only writable path.
+4. Caddy gets its own site block, `canary.<ip-with-dashes>.sslip.io { reverse_proxy 127.0.0.1:3100 { flush_interval -1 } }`.
+   sslip.io resolves that name to the IP, so HTTPS works with no domain. `flush_interval -1` keeps the agents'
+   events streaming.

@@ -15,3 +15,12 @@ next-env.d.ts
 /contracts/cache
 /.tools/
 /.next-build/
+
+# Claude Code agent worktrees
+.claude/worktrees/
+
+# submission video (upload to YouTube; 30 MB)
+submission/*.mp4
+
+# submission materials stay local
+/submission/
