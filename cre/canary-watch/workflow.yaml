@@ -1,8 +1,11 @@
 # ==========================================================================
 # canary-watch — CRE workflow settings (per target). Merged with ../project.yaml.
-#   staging-settings     offline demo: inline fixture snapshot, real mainnet reads, Sepolia writes
-#   local-settings       Canary app running locally (http://localhost:3000/api/watch/snapshot)
-#   production-settings  deployed Canary app (public URL) — use for `cre workflow deploy`
+#   staging-settings     offline demo: inline fixture snapshot (EMAX), real mainnet reads, Sepolia writes
+#   local-settings       Canary app running locally: the watch LIST
+#                        (http://localhost:3100/api/watch/snapshot?list=1), bearer token from the
+#                        WATCH_TOKEN secret (../secrets.yaml -> CANARY_WATCH_TOKEN in cre/.env; empty = public)
+#   production-settings  deployed Canary app (public URL) — use for `cre workflow deploy`;
+#                        store the secret with `cre secrets create ./secrets.yaml -T production-settings`
 # ==========================================================================
 staging-settings:
   user-workflow:
@@ -18,7 +21,7 @@ local-settings:
   workflow-artifacts:
     workflow-path: "./main.ts"
     config-path: "./config.local.json"
-    secrets-path: ""
+    secrets-path: "../secrets.yaml"
 
 production-settings:
   user-workflow:
@@ -26,4 +29,4 @@ production-settings:
   workflow-artifacts:
     workflow-path: "./main.ts"
     config-path: "./config.production.json"
-    secrets-path: ""
+    secrets-path: "../secrets.yaml"

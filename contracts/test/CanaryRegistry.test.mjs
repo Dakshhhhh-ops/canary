@@ -27,6 +27,7 @@ const here = dirname(fileURLToPath(import.meta.url))
 const { abi, bytecode } = JSON.parse(readFileSync(join(here, '..', 'out', 'CanaryRegistry.json'), 'utf8'))
 const generatedPath = join(here, '..', '..', 'cre', 'canary-watch', 'fixtures', 'reports.generated.json')
 const claimsGeneratedPath = join(here, '..', '..', 'cre', 'canary-claims', 'fixtures', 'reports.generated.json')
+const anchorGeneratedPath = join(here, '..', '..', 'cre', 'canary-anchor', 'fixtures', 'reports.generated.json')
 
 const FORWARDER = '0x15fC6ae953E024d975e77382eEeC56A9101f9F88' // Sepolia MockKeystoneForwarder
 const Envelope = parseAbiParameters('uint8 kind, bytes body')
@@ -47,6 +48,25 @@ const claimVerifiedReport = (caseId, evidence, claimant, walletRef, purchases, f
 	encodeAbiParameters(Envelope, [
 		3,
 		encodeAbiParameters(ClaimVerifiedBody, [caseId, evidence, claimant, walletRef, purchases, firstBuyBlock]),
+	])
+const ClaimCustodyBody = parseAbiParameters(
+	'bytes32 caseId, bytes32 evidenceHash, bytes32 anchorTx, uint64 anchorBlock, uint8 level, bytes32 trailHash, bool collapsed, uint32 verifiedPurchases, uint256 poolLiquidityCents, uint64 mainnetBlock',
+)
+const custodyReport = (c) =>
+	encodeAbiParameters(Envelope, [
+		4,
+		encodeAbiParameters(ClaimCustodyBody, [
+			c.caseId,
+			c.evidenceHash,
+			c.anchorTx,
+			c.anchorBlock,
+			c.level,
+			c.trailHash,
+			c.collapsed,
+			c.verifiedPurchases,
+			c.poolLiquidityCents,
+			c.mainnetBlock,
+		]),
 	])
 const id = (s) => keccak256(toHex(s))
 
@@ -360,6 +380,100 @@ describe('CanaryRegistry', () => {
 				assert.equal(stored.walletRef, g.expected.walletRef)
 				assert.ok((await read('claimVerifiedAt', [g.claim.caseId, g.claim.evidenceHash])) > 0n)
 				assert.equal(await read('isClaimAnchored', [g.claim.caseId, g.claim.evidenceHash]), true)
+			},
+		)
+	})
+
+	// ---------------- kind 4: claim custody (cre/canary-anchor, EVM log trigger) ----------------
+	describe('claim custody (report kind 4)', () => {
+		const caseK = id('case-K')
+		const base = (evidenceHash) => ({
+			caseId: caseK,
+			evidenceHash,
+			anchorTx: id('anchor-tx'),
+			anchorBlock: 12023780n,
+			level: 3,
+			trailHash: trail1,
+			collapsed: true,
+			verifiedPurchases: 5,
+			poolLiquidityCents: 5_805_269n,
+			mainnetBlock: 26303071n,
+		})
+
+		it('records the chain-of-custody of an anchored claim once', async () => {
+			const ev = id('evidence-K1')
+			await send(relayer, 'anchorClaim', [caseK, ev, id('ref-K1')])
+			const empty = await read('getClaimCustody', [caseK, ev])
+			assert.equal(empty.at, 0n)
+			let events = await send(FORWARDER, 'onReport', ['0x', custodyReport(base(ev))])
+			assert.deepEqual(
+				events.map((e) => e.eventName),
+				['ClaimCustodyRecorded'],
+			)
+			const a = events[0].args
+			assert.equal(a.caseId, caseK)
+			assert.equal(a.evidenceHash, ev)
+			assert.equal(a.anchorTx, id('anchor-tx'))
+			assert.equal(a.trailHash, trail1)
+			assert.equal(a.level, 3)
+			assert.equal(a.poolLiquidityCents, 5_805_269n)
+			assert.equal(a.mainnetBlock, 26303071n)
+			const k = await read('getClaimCustody', [caseK, ev])
+			assert.equal(k.anchorBlock, 12023780n)
+			assert.equal(k.collapsed, true)
+			assert.equal(k.verifiedPurchases, 5)
+			assert.equal(k.at, a.at)
+			// the custody report anchors nothing and counts no extra claim
+			assert.equal((await read('getCase', [caseK])).claimCount, 1)
+
+			// idempotent: a second report for the same claim (even with other numbers) changes nothing
+			events = await send(FORWARDER, 'onReport', ['0x', custodyReport({ ...base(ev), trailHash: trail2, level: 1 })])
+			assert.equal(events.length, 0)
+			assert.equal((await read('getClaimCustody', [caseK, ev])).trailHash, trail1)
+		})
+
+		it('keeps the trail a claim was filed against, even after a later alert replaces the case trail', async () => {
+			const ev = id('evidence-K2')
+			await send(FORWARDER, 'onReport', ['0x', alertReport(caseK, 2, trail1)])
+			await send(relayer, 'anchorClaim', [caseK, ev, id('ref-K2')])
+			await send(FORWARDER, 'onReport', ['0x', custodyReport({ ...base(ev), level: 2, collapsed: false, verifiedPurchases: 0 })])
+			await send(FORWARDER, 'onReport', ['0x', alertReport(caseK, 2, trail2)])
+			const [, caseTrail] = await read('statusOf', [caseK])
+			assert.equal(caseTrail, trail2, 'the case moved on to a newer reasoning trail')
+			assert.equal((await read('getClaimCustody', [caseK, ev])).trailHash, trail1, 'the claim still points at the one it was filed against')
+		})
+
+		it('refuses custody for a claim that was never anchored, and other bad reports', async () => {
+			const zero = `0x${'00'.repeat(32)}`
+			await reverts(send(FORWARDER, 'onReport', ['0x', custodyReport(base(id('never-anchored')))]), 'ClaimNotAnchored')
+			await reverts(send(stranger, 'onReport', ['0x', custodyReport(base(id('evidence-K1')))]), 'NotForwarder')
+			await reverts(send(FORWARDER, 'onReport', ['0x', custodyReport({ ...base(id('e')), caseId: zero })]), 'InvalidCaseId')
+			await reverts(send(FORWARDER, 'onReport', ['0x', custodyReport(base(zero))]), 'InvalidEvidenceHash')
+			await reverts(send(FORWARDER, 'onReport', ['0x', custodyReport({ ...base(id('evidence-K1')), level: 4 })]), 'InvalidLevel')
+		})
+
+		it(
+			'accepts the exact report bytes produced by the canary-anchor workflow',
+			{ skip: !existsSync(anchorGeneratedPath) },
+			async () => {
+				const g = JSON.parse(readFileSync(anchorGeneratedPath, 'utf8'))
+				// The workflow fired on a real ClaimAnchored log (the demo claim on Sepolia). Anchor the same evidence here
+				// first, unless the canary-claims bytes above already did (same demo claim).
+				if (!(await read('isClaimAnchored', [g.expected.caseId, g.expected.evidenceHash])))
+					await send(relayer, 'anchorClaim', [g.expected.caseId, g.expected.evidenceHash, g.expected.claimantRef])
+				const events = await send(FORWARDER, 'onReport', ['0x', g.custody])
+				const a = events.find((e) => e.eventName === 'ClaimCustodyRecorded').args
+				assert.equal(a.caseId, g.expected.caseId)
+				assert.equal(a.evidenceHash, g.expected.evidenceHash)
+				assert.equal(a.anchorTx, g.expected.anchorTx)
+				assert.equal(a.trailHash, g.expected.trailHash)
+				assert.equal(a.level, g.expected.level)
+				assert.equal(a.poolLiquidityCents, BigInt(g.expected.poolLiquidityCents))
+				assert.equal(a.mainnetBlock, BigInt(g.expected.mainnetBlock))
+				const k = await read('getClaimCustody', [g.expected.caseId, g.expected.evidenceHash])
+				assert.equal(k.anchorBlock, BigInt(g.expected.anchorBlock))
+				assert.equal(k.verifiedPurchases, g.expected.verifiedPurchases)
+				assert.equal(k.collapsed, g.expected.collapsed)
 			},
 		)
 	})

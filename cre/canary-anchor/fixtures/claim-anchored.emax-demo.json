@@ -1,0 +1,68 @@
+{
+  "_source": "Captured 2026-10-30T04:29:18.708Z by eth_getTransactionReceipt / eth_call (publicnode). Sepolia https://ethereum-sepolia-rpc.publicnode.com at finalized block 12024205; Ethereum mainnet https://ethereum-rpc.publicnode.com at finalized block 26303103. Nothing here is made up: the tests replay these replies.",
+  "log": {
+    "address": "0x9978e9f91cabfbb1e1b9a5ae714328068b2dc116",
+    "topics": [
+      "0x70eeab8e63d4a8e4b76a50d78f7d441989a2990bd7f06ca8f020c1fc06896d08",
+      "0xec37cf03d275f8d560ab4244c8da6e0572a67d885ae7f42c25de4e15dd407255",
+      "0x40befb1f86421ec08d3f41fdc704905a87b1fd8f4d5d04c6946e70f2e0eeb952"
+    ],
+    "data": "0x021611b967a5966f24b47ab975d28eec68864e60818b278cea8bf9bfbc8e6808000000000000000000000000000000000000000000000000000000006ae40488",
+    "blockNumber": "12023780",
+    "blockHash": "0x07ac47248645ee6514f6f3b4c1260bcac5ee9c8e3accf4ee062181a5e099e10b",
+    "transactionHash": "0x85473c9811d3e7a70d1e25187faa3298291aa61a9b12e3dc98d92a278905ae6c",
+    "transactionIndex": 74,
+    "logIndex": 123,
+    "removed": false
+  },
+  "sepolia": {
+    "finalizedBlock": "12024205",
+    "registry": "0x9978E9F91cABfBB1e1b9A5Ae714328068B2DC116",
+    "getCase": {
+      "symbol": "EMAX",
+      "token": "0x15874d65e649880c2614e7a480cb7c9A55787FF6",
+      "level": 3,
+      "promoters": 3,
+      "trailHash": "0x36e48891bb457da8cbafd04306b8516f626b6c9a71e580034920782a2250b745",
+      "alertAt": "1793328180",
+      "liquidityBefore": "726326600",
+      "liquidityNow": "5805269",
+      "dropBps": 9920,
+      "collapsedAt": "1793328192",
+      "claimCount": 1
+    },
+    "claimAnchoredAt": "1793328264",
+    "getClaimVerification": {
+      "claimantRef": "0x021611b967a5966f24b47ab975d28eec68864e60818b278cea8bf9bfbc8e6808",
+      "walletRef": "0xe77f16719c4c383e273a187c21447b753e463e30abb3449cae31a76b40be7abd",
+      "purchases": 5,
+      "firstBuyBlock": "12556426",
+      "at": "1793328264"
+    }
+  },
+  "mainnet": {
+    "finalizedBlock": "26303103",
+    "finalizedBlockHash": "0xb889ea512735acef481bd65265a4d02c3f8c4f76e9372de3cfbafa4c653bf8a8",
+    "finalizedTimestamp": "1793333591",
+    "factory": "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
+    "getPair": {
+      "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2": "0xb6CA52c7916ad7960C12Dc489FD93E5Af7cA257f",
+      "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48": "0x0000000000000000000000000000000000000000"
+    },
+    "pair": "0xb6CA52c7916ad7960C12Dc489FD93E5Af7cA257f",
+    "token0": "0x15874d65e649880c2614e7a480cb7c9A55787FF6",
+    "reserves": [
+      "167276024706377148583740813626525",
+      "13172539426403660684",
+      1793279243
+    ],
+    "ethUsdFeed": "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
+    "latestRoundData": [
+      "129127208515966896481",
+      "222965765985",
+      "1793332045",
+      "1793332067",
+      "129127208515966896481"
+    ]
+  }
+}

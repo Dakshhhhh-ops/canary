@@ -1,0 +1,37 @@
+# ==========================================================================
+# canary-anchor — CRE workflow settings (per target). Merged with ../project.yaml.
+# Trigger: EVM log trigger on CanaryRegistry (Sepolia), event ClaimAnchored.
+#   staging-settings     simulation: the real demo-claim log on Sepolia, real mainnet reads.
+#                        Confidence FINALIZED; reads Sepolia at the finalized block.
+#   local-settings       for `--listen` while developing: confidence LATEST, reads Sepolia at the
+#                        latest block, so a fresh anchor is processed without the ~13 min finality wait
+#   production-settings  `cre workflow deploy`: confidence FINALIZED (evidence must not be reorged away)
+# A registry deployed before report kind 4 has no getClaimCustody: the workflow then runs observe-only
+# (decides and logs, writes nothing) until `npm run chain:setup` deploys the current contract.
+# Simulate with the real ClaimAnchored log of the demo claim (first log of that transaction):
+#   cre workflow simulate ./canary-anchor -T staging-settings --non-interactive --trigger-index 0 \
+#     --evm-tx-hash 0x85473c9811d3e7a70d1e25187faa3298291aa61a9b12e3dc98d92a278905ae6c --evm-event-index 0
+# ==========================================================================
+staging-settings:
+  user-workflow:
+    workflow-name: "canary-anchor-staging"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.staging.json"
+    secrets-path: ""
+
+local-settings:
+  user-workflow:
+    workflow-name: "canary-anchor-local"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.local.json"
+    secrets-path: ""
+
+production-settings:
+  user-workflow:
+    workflow-name: "canary-anchor"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.production.json"
+    secrets-path: ""

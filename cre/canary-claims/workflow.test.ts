@@ -300,6 +300,8 @@ describe('onHttpTrigger', () => {
 
 	test('saves the generated report bytes for the contract test', async () => {
 		expect(generated.claimVerified).toBeDefined()
+		// The wallet and its salt are dropped on purpose: the saved fixture holds no personal data.
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { walletSalt: _salt, wallet: _wallet, ...publicClaim } = DEMO
 		await Bun.write(
 			`${import.meta.dir}/fixtures/reports.generated.json`,

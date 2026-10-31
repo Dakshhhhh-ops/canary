@@ -1,6 +1,10 @@
 {
   "schedule": "0 */10 * * * *",
   "snapshotUrl": "https://YOUR-CANARY-APP.example.com/api/watch/snapshot?case=emax",
+  "snapshotListUrl": "https://YOUR-CANARY-APP.example.com/api/watch/snapshot?list=1",
+  "maxCasesPerRun": 3,
+  "rotateEveryMinutes": 10,
+  "authSecret": "WATCH_TOKEN",
   "collapseDropBps": 8000,
   "liquidity": {
     "chainName": "ethereum-mainnet",

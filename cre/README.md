@@ -1,19 +1,29 @@
 # Canary × Chainlink CRE
 
-This folder holds two **Chainlink Runtime Environment (CRE)** workflows: `canary-watch` (catches the pump and the collapse) and `canary-claims` (confirms a victim's purchase before their claim is recorded, see [below](#canary-claims-the-chainlink-network-confirms-the-victims-evidence)). The contract it writes to lives in `../contracts/CanaryRegistry.sol`.
+This folder holds three **Chainlink Runtime Environment (CRE)** workflows, one per trigger type:
+
+| Workflow | Trigger | What it does |
+|---|---|---|
+| `canary-watch` | **cron** (every 10 min) | Catches the pump and the collapse, for the EMAX case and every coin the live radar flagged |
+| `canary-claims` | **HTTP** | Confirms a victim's purchase on Ethereum mainnet before their claim is recorded ([below](#canary-claims-the-chainlink-network-confirms-the-victims-evidence)) |
+| `canary-anchor` | **EVM log** (`ClaimAnchored` on Sepolia) | Writes the chain-of-custody record of every anchored claim ([below](#canary-anchor-chain-of-custody-for-every-claim-evm-log-trigger)) |
+
+All three write to one contract, `../contracts/CanaryRegistry.sol`. `canary-watch` also reads a **CRE secret** (`WATCH_TOKEN`).
 
 ## What it does
 
-Canary's AI agents watch crypto promoters. When several of them push the same token at once, the agents flag it and keep a hash-chained reasoning trail. The Canary app publishes its current verdict at `GET /api/watch/snapshot`.
+Canary's AI agents watch crypto promoters. When several of them push the same token at once, the agents flag it and keep a hash-chained reasoning trail. The Canary app publishes its verdicts at `GET /api/watch/snapshot?case=emax` (one documented case) and `GET /api/watch/snapshot?list=1` (the **watch list**: the case files plus every radar coin whose latest saved, real run is flagged and whose Ethereum pool is known; see [the list contract](#watch-list-contract-get-apiwatchsnapshotlist1)).
 
 Every 10 minutes, `canary-watch` runs on a Chainlink network of independent nodes:
 
-1. **Fetches the snapshot (HTTP capability).** Every node fetches the snapshot on its own. They must agree on the case ID, symbol, level and trail hash, and they take the median of the dollar figures. Nothing is used unless the nodes reach consensus.
+1. **Fetches the snapshot or the watch list (HTTP capability).** Every node fetches it on its own. For one case they must agree on the case ID, symbol, level and trail hash, and they take the median of the dollar figures. For the list, each node reduces it to one canonical string and the DON requires that string to be identical everywhere (`consensusIdenticalAggregation`). Nothing is used unless the nodes reach consensus. If the app protects the list with `WATCH_TOKEN`, the workflow sends `Authorization: Bearer …` with the value of the CRE secret `WATCH_TOKEN` (`runtime.getSecret`); with no secret it fetches publicly.
 2. **Checks the liquidity on-chain (EVM read on Ethereum mainnet).** Canary's own numbers aren't trusted for this step. The workflow reads the token's Uniswap V2 pool (`getReserves`, `token0`, `token1`) and prices it with the Chainlink ETH/USD Data Feed (stablecoin pairs are priced at $1). This gives the pool's real dollar liquidity.
 3. **Asks the registry what it already knows (EVM read on Sepolia).** It calls `CanaryRegistry.statusOf(caseId)` so it doesn't re-send old news.
 4. **Writes signed reports (EVM write on Sepolia).** Each report goes through `writeReport` → Chainlink forwarder → `CanaryRegistry.onReport`:
    - **alert**: the agents rate the case level ≥ 1 (1 suspicious, 2 pump-and-dump, 3 collapsed)
    - **collapse**: on-chain liquidity is down **≥ 80%** from the snapshot's "liquidity before" figure
+
+In list mode it does steps 2–4 for each case. CRE allows **15 chain reads** and 10 writes per run; one case costs at most 3 pool reads + 1 `statusOf`, and the ETH/USD price is read once per run and shared, so a run handles at most `maxCasesPerRun` (default **3**: 3 + 1 + 1 + 2 × 4 = 13 reads, at most 6 writes). A longer list is worked through in turns: run *k* takes the 3 cases starting at *k* × 3 (wrapping), where *k* counts 10-minute slots of the cron trigger's scheduled time, so every node picks the same slice. A read budget guard defers (and logs) any case that could push a run over 15 reads.
 
 Victims' claims can be anchored two ways. The hotline's relayer calls `CanaryRegistry.anchorClaim(caseId, sha256(evidence file), saltedClaimantHash)` directly (any claim, including people who bought on an exchange). For a claim with a wallet, the `canary-claims` workflow has the Chainlink network confirm the purchases on Ethereum mainnet first and records a `ClaimVerified` report (which anchors the claim too). No personal data ever goes on-chain.
 
@@ -22,22 +32,25 @@ Victims' claims can be anchored two ways. The hotline's relayer calls `CanaryReg
 | File | What it is |
 |---|---|
 | `project.yaml` | RPC endpoints per target (`ethereum-mainnet` for reads, an archive node because `canary-claims` reads 2021 logs; `ethereum-testnet-sepolia` for the registry) |
-| `secrets.yaml` | Empty. The workflow needs no secrets. |
-| `.env.example` | Copy it to `.env` and set `CRE_ETH_PRIVATE_KEY` (Sepolia key, no `0x`) |
-| `canary-watch/workflow.yaml` | The three targets: `staging-settings`, `local-settings` and `production-settings` |
+| `secrets.yaml` | The CRE secrets: `WATCH_TOKEN` → env var `CANARY_WATCH_TOKEN` (simulation reads it from `cre/.env`; deployed, `cre secrets create ./secrets.yaml -T production-settings` stores it in the Vault DON) |
+| `.env.example` | Copy it to `.env` and set `CRE_ETH_PRIVATE_KEY` (Sepolia key, no `0x`) and `CANARY_WATCH_TOKEN` (empty = public fetch; the line must exist because the simulator requires every secret's variable) |
+| `canary-watch/workflow.yaml` | The three targets: `staging-settings`, `local-settings` and `production-settings` (local and production use `../secrets.yaml`) |
 | `canary-watch/config.staging.json` | No app needed: the app's real EMAX verdict inline as `fixtureSnapshot`, real mainnet reads of the EMAX/WETH pool |
-| `canary-watch/config.local.json` | Reads the snapshot over HTTP from the app running locally at `http://localhost:3100/api/watch/snapshot?case=emax` |
-| `canary-watch/config.production.json` | Reads the snapshot from the public app URL (`npm run chain:simulate -- --target production-settings --url https://…` fills it in) |
+| `canary-watch/config.local.json` | Reads the **watch list** over HTTP from the app running locally at `http://localhost:3100/api/watch/snapshot?list=1`, bearer token from the `WATCH_TOKEN` secret |
+| `canary-watch/config.production.json` | The same from the public app URL (`npm run chain:simulate -- --target production-settings --url https://…` fills it in) |
 | `canary-watch/workflow.ts` | The workflow logic |
 | `canary-watch/main.ts` | The entry point |
-| `canary-watch/workflow.test.ts` | Unit tests (`bun test`), with mocked HTTP and EVM |
+| `canary-watch/workflow.test.ts` | 22 unit tests (`bun test`), with mocked HTTP, EVM and secrets |
 | `canary-watch/abi/` | The minimal ABIs: Uniswap V2 pair, Chainlink feed, and CanaryRegistry plus the report layout |
 | `canary-watch/fixtures/snapshot.json` | The app's live EMAX snapshot (`GET /api/watch/snapshot?case=emax`), the exact JSON the workflow reads; `config.staging.json` embeds the same object |
 | `SIMULATION.md` | Written by `npm run chain:simulate`: the simulator's full output (keys redacted) and what each step did |
 
 ### Config fields
 
-- `snapshotUrl`: the snapshot API URL. Set it to `""` to use `fixtureSnapshot` from the same file instead.
+- `snapshotUrl`: the snapshot API URL for one case. Set it to `""` to use `fixtureSnapshot` from the same file instead.
+- `snapshotListUrl` (optional): the watch-list URL. When it is non-empty it wins over `snapshotUrl`, and the run's result is `{"mode":"list","cases":[…],"deferred":[…],…}` instead of one case. `fixtureSnapshots` is the offline list (used when both URLs are empty and there is no `fixtureSnapshot`).
+- `maxCasesPerRun` (optional, 1–5, default 3) and `rotateEveryMinutes` (optional, default 10): how many cases one run handles and how often the slice moves on.
+- `authSecret` (optional): the name of the CRE secret holding the bearer token (`"WATCH_TOKEN"` in local and production). Missing or empty secret → public fetch, logged.
 - `liquidity.pairAddress`: the default Uniswap V2 pair to check (the EMAX/WETH pair `0xb6CA52c7916ad7960C12Dc489FD93E5Af7cA257f`). A snapshot can override it with its own `pair` field.
 - `liquidity.quoteTokens`: the tokens a pool can be priced in (WETH via Chainlink ETH/USD, plus USDC, USDT and DAI at $1).
 - `collapseDropBps`: the collapse threshold. `8000` means 80%.
@@ -60,6 +73,30 @@ Victims' claims can be anchored two ways. The hotline's relayer calls `CanaryReg
 ```
 
 The app must return the same JSON to every node during a run, so use no per-request randomness or timestamps. On-chain, liquidity is stored in **US cents** (USD × 100).
+
+### Watch list contract (`GET /api/watch/snapshot?list=1`)
+
+Built by `src/lib/watch.ts` (the radar part) and `src/lib/snapshot.ts → watchList()`:
+
+```json
+{
+  "format": "canary.watch.list/1",
+  "caseIds": "case files: keccak256(\"canary:<slug>\"); radar coins: keccak256(\"canary:radar:<SYMBOL>\")",
+  "cases": [
+    { "caseId": "0xec37…7255", "symbol": "EMAX", "level": 3, "…": "the snapshot above", "source": "case", "slug": "emax" },
+    { "caseId": "0xedca…e1e1", "symbol": "PEPE", "token": "0x6982…1933", "pair": "0xA43f…Ec9f", "level": 1,
+      "trailHash": "0x<head of the saved radar run's notebook>", "liquidityBeforeUsd": 0, "liquidityNowUsd": 0,
+      "source": "radar", "run": "2026-…-PEPE.json", "gaps": ["no \"before\" liquidity from this same pool, …"] }
+  ],
+  "skipped": [{ "symbol": "BTC", "reason": "no verified ERC-20 token and Uniswap V2 pool on Ethereum mainnet on record, …", "run": "…" }]
+}
+```
+
+- **Which radar coins join:** the coin's *latest* saved, real run (`data/radar/runs`, `mode: live`, RYO answered) must verify (`verifySavedRun`: hash chain, head, every raw RYO reply), the judge's verdict must be level ≥ 1 (suspicious or pump-and-dump), and the coin must be in `RADAR_TOKENS`: FLOKI, MOG, PEPE, SHIB. Each was checked on Ethereum mainnet on 2026-10-30 (around block 26,302,107): the Uniswap V2 factory's `getPair(token, WETH)` returned the listed pair, the pair's `token0()/token1()` are exactly that token and WETH, and the token's `symbol()` matches. Coins that aren't ERC-20s on Ethereum (BTC, SOL, XRP, WIF…) are listed under `skipped` with the reason.
+- **No collapse for radar coins:** RYO's liquidity figure covers all of a coin's pools, the workflow reads one V2 pool, so comparing them could fake an 80% drop. A radar coin therefore carries `liquidityBeforeUsd: 0` (a recorded gap) and gets alerts only.
+- **Order and determinism:** case files first (`CASES`), then radar coins A→Z; repeated case ids dropped; at most 25 cases (the workflow refuses longer lists). The list depends only on files on disk and is rebuilt only when the set of saved runs changes, so every node fetching in the same minute gets the same bytes. (A run saved between two nodes' fetches makes consensus fail for that one run; the next run retries.)
+- **Token:** if the app's `WATCH_TOKEN` is set, the list needs `Authorization: Bearer <WATCH_TOKEN>` (401 otherwise); unset, it's public. `?case=emax` stays public and unchanged.
+- In this copy there are no saved radar runs yet (no RYO key), so the list today is EMAX alone, and `skipped` is empty. Nothing is filled in to make it look busier.
 
 ## One-command proof (recommended)
 
@@ -95,7 +132,7 @@ bun --version        # 1.3.11
 ```powershell
 cd C:\Users\daksh\canary\cre\canary-watch
 bun install
-bun test                                        # 11 unit tests (mocked HTTP and EVM)
+bun test                                        # 22 unit tests (mocked HTTP, EVM and secrets)
 cd ..
 cre workflow build ./canary-watch -T staging-settings   # -> canary-watch/binary.wasm
 ```
@@ -111,7 +148,8 @@ copy .env.example .env   # then put your Sepolia key (64 hex, no 0x) in CRE_ETH_
 # Dry run: real mainnet reads; writes are simulated, not sent.
 cre workflow simulate ./canary-watch -T staging-settings --non-interactive --trigger-index 0
 
-# Against the app running locally (npm run dev in the repo root; config.local.json expects port 3100):
+# Against the app running locally (npm run dev in the repo root; config.local.json expects port 3100).
+# Reads the watch list; CANARY_WATCH_TOKEN must be defined in cre/.env (empty = public fetch):
 cre workflow simulate ./canary-watch -T local-settings --non-interactive --trigger-index 0
 
 # Real Sepolia transactions through the simulation forwarder (needs registry.address set and Sepolia ETH):
@@ -125,7 +163,7 @@ In a headless shell, set `CRE_API_KEY` (created under Organization → API Keys 
 ```powershell
 cd C:\Users\daksh\canary\contracts
 npm install
-npm test                                  # compile + 18 contract tests on a local in-process chain
+npm test                                  # compile + 22 contract tests on a local in-process chain
 $env:SEPOLIA_RPC_URL = "https://ethereum-sepolia-rpc.publicnode.com"   # or your Alchemy/Infura URL
 $env:DEPLOYER_PRIVATE_KEY = "0x…"         # funded Sepolia key (faucet: https://faucets.chain.link/sepolia)
 $env:CANARY_FORWARDERS = "simulation"     # simulation | production | both
@@ -141,7 +179,9 @@ Next, put the printed address into `registry.address` in `canary-watch/config.*.
 
 **Going to production:** run `cre workflow deploy ./canary-watch -T production-settings` (this needs deploy access: `cre account access`). Then, on the contract, call `setForwarder(0x15fC…9F88, false)`, `setForwarder(0xF834…4482, true)` and `setExpectedWorkflow(<cre workflow hash>, <your owner address>)`.
 
-> **Two workflows, one registry:** `setExpectedWorkflow` pins a single workflow ID. `canary-watch` and `canary-claims` both write to the same `CanaryRegistry`, so in production pin only the owner: `setExpectedWorkflow(0x00…00, <your workflow owner address>)`. Pinning one workflow ID would make every report from the other one revert with `WrongWorkflow`.
+> **Three workflows, one registry:** `setExpectedWorkflow` pins a single workflow ID. `canary-watch`, `canary-claims` and `canary-anchor` all write to the same `CanaryRegistry`, so in production pin only the owner: `setExpectedWorkflow(0x00…00, <your workflow owner address>)`. Pinning one workflow ID would make every report from the others revert with `WrongWorkflow`.
+
+**Verified in the simulator (dry run, no `--broadcast`, 2026-10-30, CRE CLI v1.39.0):** `canary-watch -T local-settings` against the app with the list endpoint: `Watch list: 1 case(s) [EMAX]`, real EMAX/WETH pool read on mainnet ($59,037), `statusOf` on the deployed registry → `already-recorded`, 5 chain reads. With the app's `WATCH_TOKEN` set: the run logs `Using the WATCH_TOKEN secret as a bearer token` and succeeds; with an empty secret the app answers 401 and the run fails (`Snapshot list request failed: HTTP 401`). With `CANARY_WATCH_TOKEN` not defined at all, the simulator refuses to start, which is why `.env.example` and `npm run chain:simulate` always define it.
 
 ---
 
@@ -261,3 +301,52 @@ App API:
   - `not-configured`: with `simulateCommand` and `payload`
   - `no-purchases` or `error`
 - `GET /api/claims/verify?caseSlug=emax&evidenceHash=0x…` returns `verified`, `pending` or `not-configured`. Use it to poll after `submitted`.
+
+---
+
+## canary-anchor: chain of custody for every claim (EVM log trigger)
+
+A claim is filed against one version of the agents' analysis. The registry keeps only the **latest** reasoning-trail head per case, so a later alert overwrites it, and a court reading the registry a year later couldn't tell which analysis a claim relied on. `canary-anchor` fixes that: each time a claim is anchored, the Chainlink network writes a **custody record** that freezes what the case looked like at filing, plus one fact a contract on Sepolia can't read for itself: how much money was still in the token's pool on Ethereum mainnet, at a named block.
+
+### Trigger: EVM log (`ClaimAnchored`)
+
+`EVMClient.logTrigger(logTriggerConfig({ addresses: [registry], topics: [[keccak256("ClaimAnchored(bytes32,bytes32,bytes32,uint64)")]], confidence }))` from the CRE TypeScript SDK 1.23.0. It fires for every anchor: the hotline relayer's `anchorClaim`, and the anchor that a `canary-claims` `ClaimVerified` report makes. The custody report emits no `ClaimAnchored`, so it never re-triggers itself. Confidence is `FINALIZED` in staging and production (evidence must not be undone by a reorg) and `LATEST` in local-settings (for `--listen` while developing); Sepolia is then read at the same finality.
+
+### What it does
+
+1. **Checks the log.** It must come from the configured registry and be a `ClaimAnchored` with both indexed fields; a log removed by a reorg is ignored.
+2. **EVM read, Sepolia** (4 reads): `getClaimCustody` (already recorded? also tells whether this registry knows report kind 4), `claimAnchoredAt` (is the anchor really there at the block read?), `getCase` (level, trail head, collapse, token), `getClaimVerification` (did `canary-claims` confirm the purchase?).
+3. **EVM read, Ethereum mainnet** (≤ 8 reads, all pinned to one block number): `headerByNumber(LAST_FINALIZED)`, then the Uniswap V2 factory's `getPair(token, quote)` for WETH, USDC, USDT, DAI in turn, `token0` + `getReserves` on the pool found, and the Chainlink ETH/USD feed. At most 12 reads per run, under CRE's 15.
+4. **EVM write, Sepolia:** report **kind 4** `abi.encode(uint8 4, abi.encode(bytes32 caseId, bytes32 evidenceHash, bytes32 anchorTx, uint64 anchorBlock, uint8 level, bytes32 trailHash, bool collapsed, uint32 verifiedPurchases, uint256 poolLiquidityCents, uint64 mainnetBlock))` → `writeReport` → forwarder → `onReport`. The contract stores it once per claim (`getClaimCustody(caseId, evidenceHash)`), emits `ClaimCustodyRecorded`, and refuses a custody record for a claim that was never anchored (`ClaimNotAnchored`).
+
+Missing facts are gaps, never guesses: a case with no alert yet is recorded as level 0 with a zero trail (logged as a gap); a case with no token or no Uniswap V2 pool is recorded with `poolLiquidityCents = 0` and `mainnetBlock = 0` ("not checked"). No personal data: only hashes the registry already holds, plus public numbers.
+
+**The registry deployed today (`0x9978…C116`) predates report kind 4.** It has no `getClaimCustody`, so the workflow detects that and runs **observe-only** (it builds and logs the report, writes nothing). `npm run chain:setup` deploys the current contract and writes the new address into every `cre/*/config.*.json`; after that the same run writes the record.
+
+### Verified in the simulator (dry run)
+
+```powershell
+cre workflow simulate ./canary-anchor -T staging-settings --non-interactive --trigger-index 0 `
+  --evm-tx-hash 0x85473c9811d3e7a70d1e25187faa3298291aa61a9b12e3dc98d92a278905ae6c --evm-event-index 0
+```
+
+That transaction is the demo claim's real `canary-claims --broadcast` on Sepolia; its first log is the `ClaimAnchored`. On 2026-10-30 (CRE CLI v1.39.0, no `--broadcast`) the simulator fetched the receipt, fired the trigger, and the workflow logged: case EMAX, `caseLevel=3`, trail `0x36e4…b745`, collapse recorded, 5 verified purchases; pool `0xb6CA…257f` at mainnet block 26,303,295 held 13.17 WETH × $2,240.93 ≈ **$59,037**; then observe-only because the deployed registry has no kind 4. `npm run chain:simulate -- --workflow canary-anchor` runs the same with that transaction by default (`--evm-tx-hash` / `--evm-event-index` override it).
+
+### Files
+
+| File | What it is |
+|---|---|
+| `canary-anchor/workflow.ts` | The workflow: log trigger → Sepolia reads → mainnet pool at a finalized block → kind-4 report |
+| `canary-anchor/abi/` | `ClaimAnchored` topic and data layout, registry views, the kind-4 report layout, Uniswap V2 factory/pair, Chainlink feed |
+| `canary-anchor/config.{staging,local,production}.json` | Registry (address, gas, confidence) and the mainnet pricing setup |
+| `canary-anchor/fixtures/claim-anchored.emax-demo.json` | Real data the tests replay: the `ClaimAnchored` log (`eth_getTransactionReceipt`), the registry's state for that claim at Sepolia's finalized block, and the EMAX/WETH pool + ETH/USD at mainnet's finalized block (`eth_call`) |
+| `canary-anchor/fixtures/reports.generated.json` | Written by `bun test`: the exact kind-4 bytes, fed into the real contract by `contracts/test` |
+| `canary-anchor/workflow.test.ts` | 15 unit tests |
+
+```powershell
+cd C:\Users\daksh\canary\cre\canary-anchor
+bun install
+bun test                                                   # 15 tests
+cd ..
+cre workflow build ./canary-anchor -T staging-settings     # -> canary-anchor/binary.wasm
+```

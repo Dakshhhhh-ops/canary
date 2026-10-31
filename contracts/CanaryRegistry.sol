@@ -27,6 +27,12 @@ interface IReceiver is IERC165 {
 ///   3. The Canary hotline relayer -> anchorClaim():
 ///        - the SHA-256 of a victim's evidence file, plus a salted hash that points to the
 ///          claimant in Canary's private database. No personal data ever goes on-chain.
+///   4. Chainlink CRE workflow "canary-anchor" (EVM log trigger on ClaimAnchored) -> onReport():
+///        - claim-custody reports: the chain-of-custody record for an anchored claim. It freezes which
+///          version of the case the claim relies on (level, reasoning-trail head, collapse yes/no, whether
+///          the purchase was verified) and adds the token pool's liquidity on Ethereum mainnet at a named
+///          block, read by the Chainlink network when the claim was filed. Later alerts overwrite the
+///          case's trailHash; this record keeps the one each claim was filed against.
 ///
 ///  Reports are idempotent: the cron workflow can send the same alert many times and only the
 ///  first one (or a higher level / new reasoning trail) is recorded. That way a retry from the
@@ -42,11 +48,16 @@ contract CanaryRegistry is IReceiver {
     //   kind 3 (claim verified, cre/canary-claims/workflow.ts):
     //                      body = abi.encode(bytes32 caseId, bytes32 evidenceHash, bytes32 claimantRef,
     //                                        bytes32 walletRef, uint32 purchases, uint64 firstBuyBlock)
+    //   kind 4 (claim custody, cre/canary-anchor/workflow.ts):
+    //                      body = abi.encode(bytes32 caseId, bytes32 evidenceHash, bytes32 anchorTx,
+    //                                        uint64 anchorBlock, uint8 level, bytes32 trailHash, bool collapsed,
+    //                                        uint32 verifiedPurchases, uint256 poolLiquidityCents, uint64 mainnetBlock)
     //   Liquidity amounts are in US cents (USD * 100).
     // ------------------------------------------------------------------
     uint8 public constant REPORT_ALERT = 1;
     uint8 public constant REPORT_COLLAPSE = 2;
     uint8 public constant REPORT_CLAIM_VERIFIED = 3;
+    uint8 public constant REPORT_CLAIM_CUSTODY = 4;
 
     uint8 public constant LEVEL_SUSPICIOUS = 1;
     uint8 public constant LEVEL_PUMP_AND_DUMP = 2;
@@ -74,6 +85,34 @@ contract CanaryRegistry is IReceiver {
         uint32 purchases; // buys from the token's pool confirmed on Ethereum mainnet, inside the class period
         uint64 firstBuyBlock; // Ethereum mainnet block of the earliest confirmed buy
         uint64 at; // time recorded (0 = not verified)
+    }
+
+    /// @notice Chain-of-custody for one anchored claim, written by the canary-anchor workflow (all zero if none).
+    ///         "When this evidence was anchored, the case it relies on stood here."
+    struct ClaimCustody {
+        bytes32 anchorTx; // Sepolia transaction that emitted ClaimAnchored for this evidence file
+        uint64 anchorBlock; // Sepolia block of that transaction
+        uint8 level; // the case's level when the claim was filed (0 = no alert recorded yet)
+        bytes32 trailHash; // head of the agents' reasoning trail the claim was filed against
+        bool collapsed; // was a collapse already recorded?
+        uint32 verifiedPurchases; // buys the canary-claims workflow had confirmed (0 = not verified)
+        uint256 poolLiquidityCents; // the token's pool on Ethereum mainnet, US cents (0 = not checked)
+        uint64 mainnetBlock; // Ethereum mainnet block of that reading (0 = not checked)
+        uint64 at; // time recorded (0 = no custody record)
+    }
+
+    /// @dev The kind-4 report body, decoded in one go (a struct keeps the stack small).
+    struct CustodyReport {
+        bytes32 caseId;
+        bytes32 evidenceHash;
+        bytes32 anchorTx;
+        uint64 anchorBlock;
+        uint8 level;
+        bytes32 trailHash;
+        bool collapsed;
+        uint32 verifiedPurchases;
+        uint256 poolLiquidityCents;
+        uint64 mainnetBlock;
     }
 
     // ------------------------------------------------------------------
@@ -105,6 +144,16 @@ contract CanaryRegistry is IReceiver {
         uint64 firstBuyBlock,
         uint64 at
     );
+    event ClaimCustodyRecorded(
+        bytes32 indexed caseId,
+        bytes32 indexed evidenceHash,
+        bytes32 anchorTx,
+        bytes32 trailHash,
+        uint8 level,
+        uint256 poolLiquidityCents,
+        uint64 mainnetBlock,
+        uint64 at
+    );
 
     event ForwarderSet(address indexed forwarder, bool allowed);
     event RelayerSet(address indexed relayer, bool allowed);
@@ -128,6 +177,7 @@ contract CanaryRegistry is IReceiver {
     error WrongWorkflow(bytes32 workflowId, address workflowOwner);
     error ClaimAlreadyAnchored(bytes32 caseId, bytes32 evidenceHash);
     error NoVerifiedPurchases();
+    error ClaimNotAnchored(bytes32 caseId, bytes32 evidenceHash);
 
     // ------------------------------------------------------------------
     // Storage
@@ -153,6 +203,8 @@ contract CanaryRegistry is IReceiver {
     mapping(bytes32 => mapping(bytes32 => ClaimVerification)) private _verifications;
     /// @notice caseId => number of claims verified on-chain by the canary-claims workflow.
     mapping(bytes32 => uint32) public verifiedClaimCount;
+    /// @notice caseId => evidenceHash => the chain-of-custody record from the canary-anchor workflow.
+    mapping(bytes32 => mapping(bytes32 => ClaimCustody)) private _custody;
 
     // ------------------------------------------------------------------
     // Setup / admin
@@ -225,6 +277,8 @@ contract CanaryRegistry is IReceiver {
             _recordCollapse(body);
         } else if (kind == REPORT_CLAIM_VERIFIED) {
             _recordClaimVerified(body);
+        } else if (kind == REPORT_CLAIM_CUSTODY) {
+            _recordClaimCustody(body);
         } else {
             revert UnknownReportKind(kind);
         }
@@ -314,6 +368,38 @@ contract CanaryRegistry is IReceiver {
         emit ClaimVerified(caseId, evidenceHash, claimantRef, purchases, firstBuyBlock, uint64(block.timestamp));
     }
 
+    /// @dev Chain-of-custody for an anchored claim (canary-anchor workflow). Only for a claim that really is
+    ///      anchored here; recorded once per (caseId, evidenceHash), a repeat is a no-op (no revert).
+    function _recordClaimCustody(bytes memory body) private {
+        CustodyReport memory r = abi.decode(body, (CustodyReport));
+        if (r.caseId == bytes32(0)) revert InvalidCaseId();
+        if (r.evidenceHash == bytes32(0)) revert InvalidEvidenceHash();
+        if (r.level > LEVEL_COLLAPSED) revert InvalidLevel(r.level);
+        if (claimAnchoredAt[r.caseId][r.evidenceHash] == 0) revert ClaimNotAnchored(r.caseId, r.evidenceHash);
+
+        ClaimCustody storage k = _custody[r.caseId][r.evidenceHash];
+        if (k.at != 0) return;
+        k.anchorTx = r.anchorTx;
+        k.anchorBlock = r.anchorBlock;
+        k.level = r.level;
+        k.trailHash = r.trailHash;
+        k.collapsed = r.collapsed;
+        k.verifiedPurchases = r.verifiedPurchases;
+        k.poolLiquidityCents = r.poolLiquidityCents;
+        k.mainnetBlock = r.mainnetBlock;
+        k.at = uint64(block.timestamp);
+        emit ClaimCustodyRecorded(
+            r.caseId,
+            r.evidenceHash,
+            r.anchorTx,
+            r.trailHash,
+            r.level,
+            r.poolLiquidityCents,
+            r.mainnetBlock,
+            uint64(block.timestamp)
+        );
+    }
+
     // ------------------------------------------------------------------
     // Victim claims (hotline relayer; or anchored by a verified CRE report above)
     // ------------------------------------------------------------------
@@ -365,6 +451,11 @@ contract CanaryRegistry is IReceiver {
         returns (ClaimVerification memory)
     {
         return _verifications[caseId][evidenceHash];
+    }
+
+    /// @notice The chain-of-custody record for an anchored claim (all zero if the canary-anchor workflow hasn't written one).
+    function getClaimCustody(bytes32 caseId, bytes32 evidenceHash) external view returns (ClaimCustody memory) {
+        return _custody[caseId][evidenceHash];
     }
 
     function caseCount() external view returns (uint256) {

@@ -1,0 +1,42 @@
+{
+  "registry": {
+    "chainName": "ethereum-testnet-sepolia",
+    "address": "0x9978E9F91cABfBB1e1b9A5Ae714328068B2DC116",
+    "gasLimit": "500000",
+    "confidence": "LATEST"
+  },
+  "liquidity": {
+    "chainName": "ethereum-mainnet",
+    "uniswapV2Factory": "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
+    "quoteTokens": [
+      {
+        "symbol": "WETH",
+        "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+        "decimals": 18,
+        "usdFeed": "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
+        "feedDecimals": 8
+      },
+      {
+        "symbol": "USDC",
+        "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+        "decimals": 6,
+        "usdFeed": "",
+        "feedDecimals": 8
+      },
+      {
+        "symbol": "USDT",
+        "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+        "decimals": 6,
+        "usdFeed": "",
+        "feedDecimals": 8
+      },
+      {
+        "symbol": "DAI",
+        "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+        "decimals": 18,
+        "usdFeed": "",
+        "feedDecimals": 8
+      }
+    ]
+  }
+}
