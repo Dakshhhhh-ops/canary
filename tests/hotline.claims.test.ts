@@ -88,7 +88,7 @@ test("state note routes through NASAA; UK and India notes use the official sites
   assert.ok(st.body.includes("https://www.nasaa.org/contact-your-regulator/"));
   assert.match(st.body, /Texas/);
   const uk = (await buildClaimPack(input(call(SCENARIOS["EMAX, UK, Scotland"])))).docs.find((d) => d.kind === "uk")!;
-  assert.ok(uk.body.includes("https://www.fca.org.uk/consumers/report-scam-us"));
+  assert.ok(uk.body.includes("https://www.fca.org.uk/consumers/report-scam")); // the FCA moved it from /report-scam-us
   assert.match(uk.body, /Police Scotland by calling 101/);
   const india = (await buildClaimPack(input(call(SCENARIOS["EMAX, India"])))).docs.find((d) => d.kind === "india")!;
   assert.ok(india.body.includes("https://cybercrime.gov.in"));

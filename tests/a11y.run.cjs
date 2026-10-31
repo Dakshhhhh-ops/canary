@@ -22,6 +22,8 @@ const PAGES = [
       await page.waitForTimeout(Number(process.env.A11Y_RUN_WAIT || 30000));
     },
   },
+  { path: "/cases" },
+  { path: "/case/saitama" },
   { path: "/call" },
   { path: "/call?demo=1" }, // loaded, not played
   { path: "/verify" },

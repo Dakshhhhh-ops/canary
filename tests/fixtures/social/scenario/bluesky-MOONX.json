@@ -1,0 +1,41 @@
+{
+ "posts": [
+  {
+   "uri": "at://did:plc:scenario1/app.bsky.feed.post/3moonx1",
+   "cid": "bafyscenario1",
+   "author": {
+    "did": "did:plc:scenario1",
+    "handle": "delta-trader.bsky.social",
+    "displayName": "Delta Trader"
+   },
+   "record": {
+    "$type": "app.bsky.feed.post",
+    "createdAt": "2026-10-30T01:00:00.000Z",
+    "text": "Aping into #MOONX here. Sending it to the moon 🚀 NFA"
+   },
+   "indexedAt": "2026-10-30T01:00:01.000Z",
+   "likeCount": 4,
+   "repostCount": 1,
+   "replyCount": 0
+  },
+  {
+   "uri": "at://did:plc:scenario2/app.bsky.feed.post/3moonx2",
+   "cid": "bafyscenario2",
+   "author": {
+    "did": "did:plc:scenario2",
+    "handle": "skeptic.bsky.social",
+    "displayName": "Skeptic"
+   },
+   "record": {
+    "$type": "app.bsky.feed.post",
+    "createdAt": "2026-10-30T02:00:00.000Z",
+    "text": "Everyone is suddenly posting about #MOONX. Who is paying for this?"
+   },
+   "indexedAt": "2026-10-30T02:00:01.000Z",
+   "likeCount": 9,
+   "repostCount": 3,
+   "replyCount": 2
+  }
+ ],
+ "hitsTotal": 2
+}

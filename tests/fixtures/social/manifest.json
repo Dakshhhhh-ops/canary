@@ -1,0 +1,18 @@
+{
+ "_source": {
+  "recorded": "Captured by Canary's social collector on 2026-10-30T04:35:46.154Z (User-Agent \"Canary/1.0 (+https://github.com/Dakshhhhh-ops/canary; hackathon research)\", read-only GETs). Telegram pages are public channel web previews from https://t.me/s/<channel>, trimmed to the page head and their last 6 posts; texts unchanged. bluesky-PEPE.json is a reply of https://api.bsky.app/xrpc/app.bsky.feed.searchPosts?q=%23PEPE&sort=latest&limit=25 trimmed to 10 posts, with each author's handle, DID, display name and avatar replaced by account-N placeholders; post texts unchanged. telegram-no-preview.html is t.me/s/CryptoGems (a name with no public preview) with styles and scripts removed.",
+  "scenario": "CONSTRUCTED FOR TESTS, not real posts: three made-up Telegram channels (alpha_calls, beta_gems, gamma_signals) and two made-up Bluesky accounts posting about a made-up coin MOONX, written into the real Telegram preview markup and Bluesky reply shape so the parsers and the Multi-KOL watcher can be tested end to end. beta_gems copies alpha_calls word for word (an echo); gamma_signals says it is an ad and names a payer but no amount.",
+  "capturedAt": "2026-10-30T04:35:46.154Z"
+ },
+ "files": [
+  "recorded/bluesky-PEPE.json",
+  "recorded/telegram-WatcherGuru.html",
+  "recorded/telegram-gem_tools_calls.html",
+  "recorded/telegram-lookonchainchannel.html",
+  "recorded/telegram-no-preview.html",
+  "scenario/bluesky-MOONX.json",
+  "scenario/telegram-alpha_calls.html",
+  "scenario/telegram-beta_gems.html",
+  "scenario/telegram-gamma_signals.html"
+ ]
+}

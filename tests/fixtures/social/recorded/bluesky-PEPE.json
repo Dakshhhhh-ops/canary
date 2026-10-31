@@ -1,0 +1,1072 @@
+{
+ "posts": [
+  {
+   "uri": "at://did:plc:sanitized1/app.bsky.feed.post/3mz2tphpzko2b",
+   "cid": "bafyreiguw4srt7zaoyzlhfvrshyhhtrn2pdfzfbqvzc6pekf4fv675lfg4",
+   "author": {
+    "did": "did:plc:sanitized1",
+    "handle": "account-1.bsky.social",
+    "displayName": "Account 1",
+    "associated": {
+     "chat": {
+      "allowIncoming": "none",
+      "allowGroupInvites": "none"
+     },
+     "activitySubscription": {
+      "allowSubscriptions": "followers"
+     }
+    },
+    "labels": [],
+    "createdAt": "2026-03-01T09:39:48.250Z"
+   },
+   "record": {
+    "$type": "app.bsky.feed.post",
+    "createdAt": "2026-10-30T03:30:27+00:00",
+    "facets": [
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#link",
+        "uri": "https://ift.tt/SR2T0BY"
+       }
+      ],
+      "index": {
+       "byteEnd": 75,
+       "byteStart": 53
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "btc"
+       }
+      ],
+      "index": {
+       "byteEnd": 80,
+       "byteStart": 76
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "crypto"
+       }
+      ],
+      "index": {
+       "byteEnd": 88,
+       "byteStart": 81
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "PEPE"
+       }
+      ],
+      "index": {
+       "byteEnd": 94,
+       "byteStart": 89
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "BTCWeekly"
+       }
+      ],
+      "index": {
+       "byteEnd": 105,
+       "byteStart": 95
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "CryptoSentiment"
+       }
+      ],
+      "index": {
+       "byteEnd": 122,
+       "byteStart": 106
+      }
+     }
+    ],
+    "text": "⚡ CryptOn Alpha | BTC/USDT\n🔗 CryptOn Forecast - https://ift.tt/SR2T0BY #btc #crypto #PEPE #BTCWeekly #CryptoSentiment\nWhales are buying while retail is selling. This divergence has predicted 3 of the last 4 rallies. 👇\n🟥⬜⬜⬜⬜ 24/100 🔴 Strong Sell\n💰 $77,704.01 (-0.37%)\nKey Signals (4H):\n- RSI: 34…"
+   },
+   "bookmarkCount": 0,
+   "replyCount": 0,
+   "repostCount": 0,
+   "likeCount": 1,
+   "quoteCount": 0,
+   "indexedAt": "2026-10-30T03:30:27.875Z",
+   "labels": []
+  },
+  {
+   "uri": "at://did:plc:sanitized1/app.bsky.feed.post/3myzy3ef7zb2l",
+   "cid": "bafyreigjsngisby55taaamcsmkgbykk3cqhzvdfkenlvatlhazawayau2e",
+   "author": {
+    "did": "did:plc:sanitized1",
+    "handle": "account-1.bsky.social",
+    "displayName": "Account 1",
+    "associated": {
+     "chat": {
+      "allowIncoming": "none",
+      "allowGroupInvites": "none"
+     },
+     "activitySubscription": {
+      "allowSubscriptions": "followers"
+     }
+    },
+    "labels": [],
+    "createdAt": "2026-03-01T09:39:48.250Z"
+   },
+   "record": {
+    "$type": "app.bsky.feed.post",
+    "createdAt": "2026-10-29T19:16:01+00:00",
+    "facets": [
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#link",
+        "uri": "https://ift.tt/a9SAzEP"
+       }
+      ],
+      "index": {
+       "byteEnd": 74,
+       "byteStart": 52
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "btc"
+       }
+      ],
+      "index": {
+       "byteEnd": 79,
+       "byteStart": 75
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "crypto"
+       }
+      ],
+      "index": {
+       "byteEnd": 87,
+       "byteStart": 80
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "PEPE"
+       }
+      ],
+      "index": {
+       "byteEnd": 93,
+       "byteStart": 88
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "CryptoSignals"
+       }
+      ],
+      "index": {
+       "byteEnd": 108,
+       "byteStart": 94
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "TraderDNA"
+       }
+      ],
+      "index": {
+       "byteEnd": 119,
+       "byteStart": 109
+      }
+     }
+    ],
+    "text": "📊 BTC Momentum Indicator\n🔗 CryptOn Forecast - https://ift.tt/a9SAzEP #btc #crypto #PEPE #CryptoSignals #TraderDNA\n🟩🟩🟩🟩⬜ 71/100 — Bullish\n💰 BTC: $80,810.01 (-1.18%)\n📈 5/7 indicators bullish\nIndicator Breakdown (4H):\n🟢 RSI (14): 50.4\n🟢 MACD: Bullish\n🟢 EMA 9/21: Bullish\n🟢 Bollinger %B: 0.59\n🟢 Sto…"
+   },
+   "bookmarkCount": 0,
+   "replyCount": 0,
+   "repostCount": 0,
+   "likeCount": 0,
+   "quoteCount": 0,
+   "indexedAt": "2026-10-29T19:16:03.570Z",
+   "labels": []
+  },
+  {
+   "uri": "at://did:plc:sanitized1/app.bsky.feed.post/3myzttodbe62p",
+   "cid": "bafyreifoooraipr5b7b7kthnxytlymuwv6nzry724mmrbujyqzma72jzxa",
+   "author": {
+    "did": "did:plc:sanitized1",
+    "handle": "account-1.bsky.social",
+    "displayName": "Account 1",
+    "associated": {
+     "chat": {
+      "allowIncoming": "none",
+      "allowGroupInvites": "none"
+     },
+     "activitySubscription": {
+      "allowSubscriptions": "followers"
+     }
+    },
+    "labels": [],
+    "createdAt": "2026-03-01T09:39:48.250Z"
+   },
+   "record": {
+    "$type": "app.bsky.feed.post",
+    "createdAt": "2026-10-29T18:00:08+00:00",
+    "facets": [
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#link",
+        "uri": "https://ift.tt/a9SAzEP"
+       }
+      ],
+      "index": {
+       "byteEnd": 96,
+       "byteStart": 74
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "btc"
+       }
+      ],
+      "index": {
+       "byteEnd": 101,
+       "byteStart": 97
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "crypto"
+       }
+      ],
+      "index": {
+       "byteEnd": 109,
+       "byteStart": 102
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "CryptoGains"
+       }
+      ],
+      "index": {
+       "byteEnd": 122,
+       "byteStart": 110
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "AITrading"
+       }
+      ],
+      "index": {
+       "byteEnd": 133,
+       "byteStart": 123
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "PEPE"
+       }
+      ],
+      "index": {
+       "byteEnd": 139,
+       "byteStart": 134
+      }
+     }
+    ],
+    "text": "🏆 Strategy Marketplace — Creator Leaderboard\n🔗 CryptOn Forecast - https://ift.tt/a9SAzEP #btc #crypto #CryptoGains #AITrading #PEPE\nWe turned crypto trading into an open-source community. Publish your strategy. Let others use it. Build your reputation on the leaderboard. 👇\n🏆 How the Leaderboar…"
+   },
+   "bookmarkCount": 0,
+   "replyCount": 0,
+   "repostCount": 0,
+   "likeCount": 0,
+   "quoteCount": 0,
+   "indexedAt": "2026-10-29T18:00:08.980Z",
+   "labels": []
+  },
+  {
+   "uri": "at://did:plc:sanitized1/app.bsky.feed.post/3myzt3byq6z2c",
+   "cid": "bafyreih3glqmlkvwdccvnzxs2mwevgueapy7fivrwlhfdsg2qukvbeya54",
+   "author": {
+    "did": "did:plc:sanitized1",
+    "handle": "account-1.bsky.social",
+    "displayName": "Account 1",
+    "associated": {
+     "chat": {
+      "allowIncoming": "none",
+      "allowGroupInvites": "none"
+     },
+     "activitySubscription": {
+      "allowSubscriptions": "followers"
+     }
+    },
+    "labels": [],
+    "createdAt": "2026-03-01T09:39:48.250Z"
+   },
+   "record": {
+    "$type": "app.bsky.feed.post",
+    "createdAt": "2026-10-29T17:46:30+00:00",
+    "facets": [
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#link",
+        "uri": "https://ift.tt/a9SAzEP"
+       }
+      ],
+      "index": {
+       "byteEnd": 96,
+       "byteStart": 74
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "btc"
+       }
+      ],
+      "index": {
+       "byteEnd": 101,
+       "byteStart": 97
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "crypto"
+       }
+      ],
+      "index": {
+       "byteEnd": 109,
+       "byteStart": 102
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "PythonBot"
+       }
+      ],
+      "index": {
+       "byteEnd": 120,
+       "byteStart": 110
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "NoCodeBot"
+       }
+      ],
+      "index": {
+       "byteEnd": 131,
+       "byteStart": 121
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "PEPE"
+       }
+      ],
+      "index": {
+       "byteEnd": 137,
+       "byteStart": 132
+      }
+     }
+    ],
+    "text": "❓ How do you spot a breakout BEFORE it happens?\n🔗 CryptOn Forecast - https://ift.tt/a9SAzEP #btc #crypto #PythonBot #NoCodeBot #PEPE\nVolume leads price. When a coin's hourly volume spikes to 3x, 5x, or 10x its average — something big is happening. Our Volume Spike Scanner monitors ALL Binance …"
+   },
+   "bookmarkCount": 0,
+   "replyCount": 0,
+   "repostCount": 0,
+   "likeCount": 0,
+   "quoteCount": 0,
+   "indexedAt": "2026-10-29T17:46:30.683Z",
+   "labels": []
+  },
+  {
+   "uri": "at://did:plc:sanitized2/app.bsky.feed.post/3myzqbmfyvz25",
+   "cid": "bafyreifccwt7q6rq4nutogz6t5xgmqc4myzox4j3eyudiotilj6gzkacwm",
+   "author": {
+    "did": "did:plc:sanitized2",
+    "handle": "account-2.bsky.social",
+    "displayName": "Account 2",
+    "associated": {
+     "activitySubscription": {
+      "allowSubscriptions": "followers"
+     }
+    },
+    "labels": [],
+    "createdAt": "2026-10-08T12:14:59.554Z"
+   },
+   "record": {
+    "$type": "app.bsky.feed.post",
+    "createdAt": "2026-10-29T16:56:20.648322Z",
+    "embed": {
+     "$type": "app.bsky.embed.images",
+     "images": [
+      {
+       "alt": "PATTERN+ trend card: 📈 $PEPE +11% in 24 hours",
+       "aspectRatio": {
+        "height": 900,
+        "width": 1600
+       },
+       "image": {
+        "$type": "blob",
+        "ref": {
+         "$link": "bafkreidjgv53mm445qafprmndkuv6zdovbotnztenvbraenqclkk7sgngm"
+        },
+        "mimeType": "image/png",
+        "size": 284477
+       }
+      }
+     ]
+    },
+    "facets": [
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#link",
+        "uri": "https://pattern.plus/token/pepe-pepe"
+       }
+      ],
+      "index": {
+       "byteEnd": 281,
+       "byteStart": 253
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "crypto"
+       }
+      ],
+      "index": {
+       "byteEnd": 289,
+       "byteStart": 282
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "pepe"
+       }
+      ],
+      "index": {
+       "byteEnd": 295,
+       "byteStart": 290
+      }
+     }
+    ],
+    "langs": [
+     "en"
+    ],
+    "text": "📈 $PEPE +11% in 24 hours\n\nNow $5.39e-06, nothing on our calendar behind it.\n\nPEPE has risen 10%+ in a day 82 times since 2023. A week later it was higher 36 times (44%; any week: 43%). Typical week after: -1.8%.\n\nPast patterns, not financial advice.\npattern.plus/token/pepe-pepe\n#crypto #pepe"
+   },
+   "embed": {
+    "images": [
+     {
+      "thumb": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:sanitized2/bafkreidjgv53mm445qafprmndkuv6zdovbotnztenvbraenqclkk7sgngm",
+      "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:sanitized2/bafkreidjgv53mm445qafprmndkuv6zdovbotnztenvbraenqclkk7sgngm",
+      "alt": "PATTERN+ trend card: 📈 $PEPE +11% in 24 hours",
+      "aspectRatio": {
+       "height": 900,
+       "width": 1600
+      }
+     }
+    ],
+    "$type": "app.bsky.embed.images#view"
+   },
+   "bookmarkCount": 0,
+   "replyCount": 0,
+   "repostCount": 0,
+   "likeCount": 0,
+   "quoteCount": 0,
+   "indexedAt": "2026-10-29T16:56:22.378Z",
+   "labels": []
+  },
+  {
+   "uri": "at://did:plc:sanitized1/app.bsky.feed.post/3myzn5oekcl2f",
+   "cid": "bafyreiafzlvmziljsotufw3r4nsh5thsc366lrhvkc5mgs5bohb55cnxuy",
+   "author": {
+    "did": "did:plc:sanitized1",
+    "handle": "account-1.bsky.social",
+    "displayName": "Account 1",
+    "associated": {
+     "chat": {
+      "allowIncoming": "none",
+      "allowGroupInvites": "none"
+     },
+     "activitySubscription": {
+      "allowSubscriptions": "followers"
+     }
+    },
+    "labels": [],
+    "createdAt": "2026-03-01T09:39:48.250Z"
+   },
+   "record": {
+    "$type": "app.bsky.feed.post",
+    "createdAt": "2026-10-29T16:00:27+00:00",
+    "facets": [
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#link",
+        "uri": "https://ift.tt/a9SAzEP"
+       }
+      ],
+      "index": {
+       "byteEnd": 74,
+       "byteStart": 52
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "btc"
+       }
+      ],
+      "index": {
+       "byteEnd": 79,
+       "byteStart": 75
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "crypto"
+       }
+      ],
+      "index": {
+       "byteEnd": 87,
+       "byteStart": 80
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "PEPE"
+       }
+      ],
+      "index": {
+       "byteEnd": 93,
+       "byteStart": 88
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "CryptoHistory"
+       }
+      ],
+      "index": {
+       "byteEnd": 108,
+       "byteStart": 94
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "AsianSession"
+       }
+      ],
+      "index": {
+       "byteEnd": 122,
+       "byteStart": 109
+      }
+     }
+    ],
+    "text": "📡 CryptOn Pulse Terminal\n🔗 CryptOn Forecast - https://ift.tt/a9SAzEP #btc #crypto #PEPE #CryptoHistory #AsianSession\nBloomberg-grade crypto intelligence · Free forever\n💰 BTC: $81,814 (+1.56%) | Vol: $1.27B\n📈 Total Market Volume: $5.93B\n🧠 Fear & Greed: 51/100 — Neutral\n🚀 Top Gainers (24H):\n🟢 HY…"
+   },
+   "bookmarkCount": 0,
+   "replyCount": 0,
+   "repostCount": 0,
+   "likeCount": 0,
+   "quoteCount": 0,
+   "indexedAt": "2026-10-29T16:00:28.473Z",
+   "labels": []
+  },
+  {
+   "uri": "at://did:plc:sanitized1/app.bsky.feed.post/3myyln2p35l2p",
+   "cid": "bafyreiabsjqoi3jg76vrtogqdlthk5l53nno3ksr24orm66cwd5epk3xam",
+   "author": {
+    "did": "did:plc:sanitized1",
+    "handle": "account-1.bsky.social",
+    "displayName": "Account 1",
+    "associated": {
+     "chat": {
+      "allowIncoming": "none",
+      "allowGroupInvites": "none"
+     },
+     "activitySubscription": {
+      "allowSubscriptions": "followers"
+     }
+    },
+    "labels": [],
+    "createdAt": "2026-03-01T09:39:48.250Z"
+   },
+   "record": {
+    "$type": "app.bsky.feed.post",
+    "createdAt": "2026-10-29T06:00:36+00:00",
+    "facets": [
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#link",
+        "uri": "https://ift.tt/a9SAzEP"
+       }
+      ],
+      "index": {
+       "byteEnd": 91,
+       "byteStart": 69
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "btc"
+       }
+      ],
+      "index": {
+       "byteEnd": 96,
+       "byteStart": 92
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "crypto"
+       }
+      ],
+      "index": {
+       "byteEnd": 104,
+       "byteStart": 97
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "PEPE"
+       }
+      ],
+      "index": {
+       "byteEnd": 110,
+       "byteStart": 105
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "CryptoInvesting"
+       }
+      ],
+      "index": {
+       "byteEnd": 127,
+       "byteStart": 111
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "TokenUnlocks"
+       }
+      ],
+      "index": {
+       "byteEnd": 141,
+       "byteStart": 128
+      }
+     }
+    ],
+    "text": "🏪 Featured Strategy: RSI Oversold Scanner\n🔗 CryptOn Forecast - https://ift.tt/a9SAzEP #btc #crypto #PEPE #CryptoInvesting #TokenUnlocks\nA community member shared this strategy. Deploy it in 10 seconds. 👇\n📋 Strategy: RSI Oversold Scanner\n💬 Prompt: \"Open $200 long on any 3 coins with RSI under 3…"
+   },
+   "bookmarkCount": 0,
+   "replyCount": 0,
+   "repostCount": 0,
+   "likeCount": 1,
+   "quoteCount": 0,
+   "indexedAt": "2026-10-29T06:00:37.681Z",
+   "labels": []
+  },
+  {
+   "uri": "at://did:plc:sanitized3/app.bsky.feed.post/3myxonurdzn2e",
+   "cid": "bafyreianrrouwlj3la46aeamkodwtpk4ykctra3hqqo5r37ql255naak4y",
+   "author": {
+    "did": "did:plc:sanitized3",
+    "handle": "account-3.bsky.social",
+    "displayName": "Account 3",
+    "associated": {
+     "activitySubscription": {
+      "allowSubscriptions": "followers"
+     }
+    },
+    "labels": [],
+    "createdAt": "2026-07-25T07:58:00.461Z"
+   },
+   "record": {
+    "$type": "app.bsky.feed.post",
+    "createdAt": "2026-10-28T21:22:04Z",
+    "embed": {
+     "$type": "app.bsky.embed.images",
+     "images": [
+      {
+       "alt": "whatif crypto update",
+       "aspectRatio": {
+        "height": 768,
+        "width": 1344
+       },
+       "image": {
+        "$type": "blob",
+        "ref": {
+         "$link": "bafkreihedvvu7bhnttpijmjymvxb4j7rel2pie5sfhaanlah5tfaoiobka"
+        },
+        "mimeType": "image/png",
+        "size": 1134696
+       }
+      }
+     ]
+    },
+    "facets": [
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#link",
+        "uri": "https://cryptocurrency.com.tr/what-if/pepe-with-eth-marketcap"
+       }
+      ],
+      "index": {
+       "byteEnd": 169,
+       "byteStart": 108
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "PEPE"
+       }
+      ],
+      "index": {
+       "byteEnd": 176,
+       "byteStart": 171
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "ETH"
+       }
+      ],
+      "index": {
+       "byteEnd": 181,
+       "byteStart": 177
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "Crypto"
+       }
+      ],
+      "index": {
+       "byteEnd": 189,
+       "byteStart": 182
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "CryptoNews"
+       }
+      ],
+      "index": {
+       "byteEnd": 201,
+       "byteStart": 190
+      }
+     }
+    ],
+    "langs": [
+     "en"
+    ],
+    "text": "🤔 What if PEPE had ETH's market cap?\n\n1 PEPE would be worth $0.000683 (137x today!) 🤯\n\nTry any combo:\nhttps://cryptocurrency.com.tr/what-if/pepe-with-eth-marketcap\n\n#PEPE #ETH #Crypto #CryptoNews"
+   },
+   "embed": {
+    "images": [
+     {
+      "thumb": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:sanitized3/bafkreihedvvu7bhnttpijmjymvxb4j7rel2pie5sfhaanlah5tfaoiobka",
+      "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:sanitized3/bafkreihedvvu7bhnttpijmjymvxb4j7rel2pie5sfhaanlah5tfaoiobka",
+      "alt": "whatif crypto update",
+      "aspectRatio": {
+       "height": 768,
+       "width": 1344
+      }
+     }
+    ],
+    "$type": "app.bsky.embed.images#view"
+   },
+   "bookmarkCount": 0,
+   "replyCount": 0,
+   "repostCount": 0,
+   "likeCount": 0,
+   "quoteCount": 0,
+   "indexedAt": "2026-10-28T21:22:06.380Z",
+   "labels": []
+  },
+  {
+   "uri": "at://did:plc:sanitized4/app.bsky.feed.post/3myxeu4ceis23",
+   "cid": "bafyreia3tutq4qhzg6jiabx2h7fdxhgmhkaj3r2ffwh5tpnalyfdwysala",
+   "author": {
+    "did": "did:plc:sanitized4",
+    "handle": "account-4.bsky.social",
+    "displayName": "Account 4",
+    "associated": {
+     "activitySubscription": {
+      "allowSubscriptions": "followers"
+     }
+    },
+    "labels": [],
+    "createdAt": "2026-07-27T17:12:04.061Z"
+   },
+   "record": {
+    "$type": "app.bsky.feed.post",
+    "createdAt": "2026-10-28T18:26:37.804667+00:00",
+    "facets": [
+     {
+      "$type": "app.bsky.richtext.facet",
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "pepe"
+       }
+      ],
+      "index": {
+       "$type": "app.bsky.richtext.facet#byteSlice",
+       "byteEnd": 5,
+       "byteStart": 0
+      }
+     },
+     {
+      "$type": "app.bsky.richtext.facet",
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "bitcoin"
+       }
+      ],
+      "index": {
+       "$type": "app.bsky.richtext.facet#byteSlice",
+       "byteEnd": 14,
+       "byteStart": 6
+      }
+     }
+    ],
+    "langs": [
+     "en"
+    ],
+    "reply": {
+     "$type": "app.bsky.feed.post#replyRef",
+     "parent": {
+      "$type": "com.atproto.repo.strongRef",
+      "cid": "bafyreibp3o2lvd5tpwmfsmxc47gohkstcapann2wpft6fraeulnxzujawe",
+      "uri": "at://did:plc:sanitized4/app.bsky.feed.post/3myxeu3l3vr2z"
+     },
+     "root": {
+      "$type": "com.atproto.repo.strongRef",
+      "cid": "bafyreibp3o2lvd5tpwmfsmxc47gohkstcapann2wpft6fraeulnxzujawe",
+      "uri": "at://did:plc:sanitized4/app.bsky.feed.post/3myxeu3l3vr2z"
+     }
+    },
+    "text": "#pepe #bitcoin Datos de mercado en tiempo real. No es asesoramiento financiero."
+   },
+   "bookmarkCount": 0,
+   "replyCount": 0,
+   "repostCount": 0,
+   "likeCount": 0,
+   "quoteCount": 0,
+   "indexedAt": "2026-10-28T18:26:37.975Z",
+   "labels": []
+  },
+  {
+   "uri": "at://did:plc:sanitized5/app.bsky.feed.post/3myvwptgcbc2g",
+   "cid": "bafyreia2nnkk6p5isvls7uyc5igyuqc3dhrkvgrc345hesas7yd2vreaja",
+   "author": {
+    "did": "did:plc:sanitized5",
+    "handle": "account-5.bsky.social",
+    "displayName": "Account 5",
+    "associated": {
+     "activitySubscription": {
+      "allowSubscriptions": "followers"
+     }
+    },
+    "labels": [],
+    "createdAt": "2025-12-06T05:49:07.122Z"
+   },
+   "record": {
+    "$type": "app.bsky.feed.post",
+    "createdAt": "2026-10-28T04:41:02.239Z",
+    "embed": {
+     "$type": "app.bsky.embed.images",
+     "images": [
+      {
+       "alt": "",
+       "aspectRatio": {
+        "height": 627,
+        "width": 1200
+       },
+       "image": {
+        "$type": "blob",
+        "ref": {
+         "$link": "bafkreigemde27e6ns6ciqiov2ghr4fprupczyce6tcxaufofej4n76krmy"
+        },
+        "mimeType": "image/jpeg",
+        "size": 537377
+       }
+      }
+     ]
+    },
+    "facets": [
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#link",
+        "uri": "https://www.coingabbar.com"
+       }
+      ],
+      "index": {
+       "byteEnd": 222,
+       "byteStart": 204
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "JustinSun"
+       }
+      ],
+      "index": {
+       "byteEnd": 234,
+       "byteStart": 224
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "PEPE"
+       }
+      ],
+      "index": {
+       "byteEnd": 240,
+       "byteStart": 235
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "PepeCoin"
+       }
+      ],
+      "index": {
+       "byteEnd": 250,
+       "byteStart": 241
+      }
+     },
+     {
+      "features": [
+       {
+        "$type": "app.bsky.richtext.facet#tag",
+        "tag": "CryptoWhales"
+       }
+      ],
+      "index": {
+       "byteEnd": 264,
+       "byteStart": 251
+      }
+     }
+    ],
+    "langs": [
+     "en"
+    ],
+    "text": "🚨Justin Sun’s PEPE Holdings Reach $51.25M!\n\nJustin Sun-linked wallets now hold around 2.82% of PEPE’s total supply, valued at approximately $51.25 million, according to Arkham Intelligence. \n\n🌐 www.coingabbar.com\n\n#JustinSun #PEPE #PepeCoin #CryptoWhales"
+   },
+   "embed": {
+    "images": [
+     {
+      "thumb": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:sanitized5/bafkreigemde27e6ns6ciqiov2ghr4fprupczyce6tcxaufofej4n76krmy",
+      "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:sanitized5/bafkreigemde27e6ns6ciqiov2ghr4fprupczyce6tcxaufofej4n76krmy",
+      "alt": "",
+      "aspectRatio": {
+       "height": 627,
+       "width": 1200
+      }
+     }
+    ],
+    "$type": "app.bsky.embed.images#view"
+   },
+   "bookmarkCount": 0,
+   "replyCount": 0,
+   "repostCount": 0,
+   "likeCount": 0,
+   "quoteCount": 0,
+   "indexedAt": "2026-10-28T04:41:06.878Z",
+   "labels": []
+  }
+ ],
+ "hitsTotal": 6654
+}
