@@ -4,7 +4,7 @@
 // The model ships with emissive-only materials and an inverted-hull outline, so we render it flat like a cartoon.
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Component, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import * as THREE from "three";
 import { clone as cloneSkinned } from "three/examples/jsm/utils/SkeletonUtils.js";
 
@@ -208,8 +208,18 @@ export function Mascot({
     };
   }, []);
 
+  const [gl, setGl] = useState(true);
+  useEffect(() => setGl(webglOk()), []);
+  const fallback = (
+    <span aria-hidden className="grid h-full w-full place-items-center text-[min(5rem,60%)] leading-none">
+      🐤
+    </span>
+  );
+
   return (
     <div ref={box} className={className} role="img" aria-label={label}>
+      {!gl ? fallback : (
+      <SafeBox fallback={fallback}>
       <Canvas
         frameloop={onScreen && tabVisible ? "always" : "never"}
         aria-hidden
@@ -222,8 +232,34 @@ export function Mascot({
           <Bird mood={mood} talking={talking} lookAtPointer={lookAtPointer} flip={flip} debug={debug} />
         </Suspense>
       </Canvas>
+      </SafeBox>
+      )}
     </div>
   );
+}
+
+// No WebGL (hardware acceleration off, blocklisted GPU): show the emoji instead of crashing the page.
+function webglOk() {
+  try {
+    const c = document.createElement("canvas");
+    return Boolean(c.getContext("webgl2") || c.getContext("webgl"));
+  } catch {
+    return false;
+  }
+}
+
+// If three.js or the model fails at runtime, only Doki falls back; the page keeps working.
+class SafeBox extends Component<{ fallback: ReactNode; children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch(e: unknown) {
+    console.warn("Doki fell back to the emoji:", e);
+  }
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children;
+  }
 }
 
 useGLTF.preload(URL);

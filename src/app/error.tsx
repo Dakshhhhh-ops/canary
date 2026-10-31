@@ -32,6 +32,10 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
             📞 I lost money
           </Link>
         </div>
+        <p className="mt-4 max-w-xl break-words font-mono text-xs text-[var(--ink-2)]">
+          Detail: {String(error?.message || "unknown").slice(0, 160)}
+          {error?.digest ? ` · ${error.digest}` : ""}
+        </p>
         <div className="card mt-10 max-w-xl p-5 text-left text-sm">
           <p className="font-bold">Need help right now?</p>
           <p className="mt-1 text-[var(--ink-2)]">
@@ -44,8 +48,8 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
               SEC tips
             </a>
             , UK{" "}
-            <a className="link" href="https://www.actionfraud.police.uk" target="_blank" rel="noreferrer">
-              Action Fraud
+            <a className="link" href="https://www.reportfraud.police.uk" target="_blank" rel="noreferrer">
+              Report Fraud
             </a>
             , India{" "}
             <a className="link" href="https://cybercrime.gov.in" target="_blank" rel="noreferrer">
