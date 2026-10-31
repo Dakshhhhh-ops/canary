@@ -25,15 +25,19 @@ import {
   parseEmail,
   parseExchange,
   parseName,
+  mentionedPlace,
   parsePlace,
   parsePromoters,
   parseWhen,
   yesNo,
-  EMAX_RE,
+  caseCoin,
+  CASE_COINS,
   type Amount,
+  type Coin,
   type Place,
   type When,
 } from "./parse";
+import { euAuthority } from "../claims/law";
 import { checkAddress, findAddress, humanTokens, type NoWalletRecord, type PurchaseReport } from "./purchases";
 
 export type DokiMood = "idle" | "wave" | "talk" | "think" | "alarm" | "happy" | "point";
@@ -55,10 +59,10 @@ export type StepId =
   | "consent"
   | "done";
 
-export type DocKind = "sec" | "ftc" | "state" | "uk" | "india" | "generic" | "classAction" | "evidence";
+export type DocKind = "sec" | "ftc" | "state" | "uk" | "eu" | "india" | "generic" | "classAction" | "evidence";
 
 export type Facts = {
-  coin?: { text: string; isCase: boolean };
+  coin?: Coin;
   promoters?: { text: string; matched: string[] };
   when?: When;
   wallet?: { address?: string; exchange?: string; none?: boolean; text?: string };
@@ -67,6 +71,8 @@ export type Facts = {
   purchaseCheck?: "pending" | "done" | "failed";
   amount?: Amount;
   place?: Place;
+  /** the place was heard in passing ("I'm in London"), so Doki confirms it instead of asking */
+  placeHeard?: boolean;
   name?: string;
   email?: string;
   recoveryScam?: boolean;
@@ -74,7 +80,10 @@ export type Facts = {
 
 export type HotlineState = {
   v: 1;
+  /** the case the call is about (the first case until the caller names a coin with a case file) */
   caseSlug: string;
+  /** every case this hotline has a file on (older states: just caseSlug) */
+  cases?: string[];
   step: StepId;
   facts: Facts;
   skipped: StepId[];
@@ -93,7 +102,8 @@ export type Reply = {
   step: StepId;
   progress: number; // index into PROGRESS
   inputHint?: "address" | "email" | "name" | "text";
-  action?: { type: "check-wallet"; address: string } | { type: "make-claim" };
+  /** check-wallet: look the address up on the pool of the call's case, or, when `cases` is given, of each of those cases */
+  action?: { type: "check-wallet"; address: string; cases?: string[] } | { type: "make-claim" };
   /** the caller's last message held a secret: the UI must not show or keep it */
   redactUser?: boolean;
   alert?: "secret" | "recovery";
@@ -102,6 +112,33 @@ export type Reply = {
 };
 
 export type Turn = { state: HotlineState; reply: Reply };
+
+/** One case file, or every case file the hotline knows (the first is where a call starts). */
+export type Cases = HotlineCase | HotlineCase[];
+const listOf = (c: Cases): HotlineCase[] => (Array.isArray(c) ? c : [c]);
+/** The case a call is about now. */
+export const caseOf = (s: Pick<HotlineState, "caseSlug">, cases: Cases): HotlineCase => listOf(cases).find((k) => k.slug === s.caseSlug) ?? listOf(cases)[0];
+const knownSlugs = (s: HotlineState) => s.cases ?? [s.caseSlug];
+
+/** A coin the caller named: it counts as a case only if this hotline has that case file. Switches the call to it. */
+function adoptCoin(s: HotlineState, all: HotlineCase[], c: Coin): Coin {
+  const k = c.isCase ? all.find((x) => x.slug === (c.slug ?? "emax")) : undefined;
+  if (!k) return { text: c.text, isCase: false };
+  if (k.slug !== s.caseSlug) {
+    // purchases read from another case's pool don't belong to this coin
+    s.facts.purchases = undefined;
+    s.facts.purchaseCheck = undefined;
+    s.consentQueue = [];
+  }
+  s.caseSlug = k.slug;
+  return c;
+}
+
+// quick answers for "when did you buy it?", per case (suggestions only, not facts)
+const WHEN_SUGGESTIONS: Record<string, string[]> = {
+  emax: ["Late May 2021", "Early June 2021", "Mid June 2021", "I don't remember"],
+  saitama: ["Late July 2021", "Mid September 2021", "Early November 2021", "I don't remember"],
+};
 
 export const PROGRESS: { label: string; steps: StepId[] }[] = [
   { label: "What happened", steps: ["coin", "promoter", "when"] },
@@ -185,7 +222,11 @@ export function docLabel(kind: DocKind, f: Facts): string {
     case "state":
       return `a note for ${f.place?.stateName ? f.place.stateName + "'s" : "your state's"} securities regulator`;
     case "uk":
-      return "reports for the FCA and Action Fraud";
+      return "reports for the FCA and Report Fraud";
+    case "eu": {
+      const a = euAuthority(f.place);
+      return a.known ? `a complaint for ${a.short}, the financial regulator in ${f.place?.countryName}` : "a complaint for your country's financial regulator in the EU";
+    }
     case "india":
       return "a complaint for India's national cybercrime portal";
     case "generic":
@@ -204,6 +245,7 @@ export function complaintsFor(f: Facts): DocKind[] {
   if (f.coin?.isCase || country === "US") out.push("sec");
   if (country === "US") out.push("ftc", "state");
   if (country === "UK") out.push("uk");
+  if (country === "EU") out.push("eu");
   if (country === "IN") out.push("india");
   if (!country || country === "other") out.push("generic");
   return out;
@@ -213,8 +255,8 @@ export function complaintsFor(f: Facts): DocKind[] {
 
 const ORDER: StepId[] = ["coin", "promoter", "when", "wallet", "amount", "location", "name", "email", "summary", "consent", "done"];
 
-function fresh(k: HotlineCase): HotlineState {
-  return { v: 1, caseSlug: k.slug, step: "coin", facts: {}, skipped: [], consentQueue: [], consents: {}, misses: 0, lastSay: [], secretsBlocked: 0 };
+function fresh(all: HotlineCase[]): HotlineState {
+  return { v: 1, caseSlug: all[0].slug, ...(all.length > 1 ? { cases: all.map((k) => k.slug) } : {}), step: "coin", facts: {}, skipped: [], consentQueue: [], consents: {}, misses: 0, lastSay: [], secretsBlocked: 0 };
 }
 
 const clone = (s: HotlineState): HotlineState => JSON.parse(JSON.stringify(s));
@@ -235,7 +277,7 @@ function ask(s: HotlineState, k: HotlineCase): Ask {
   const f = s.facts;
   switch (s.step) {
     case "coin":
-      return { say: ["Which coin did you buy?"], mood: "talk", suggestions: ["EthereumMax (EMAX)", "A different coin", "I don't remember"] };
+      return { say: ["Which coin did you buy?"], mood: "talk", suggestions: [...CASE_COINS.filter((c) => knownSlugs(s).includes(c.slug)).map((c) => c.label), "A different coin", "I don't remember"] };
     case "promoter": {
       const names = f.coin?.isCase ? casePromoters(k) : [];
       return {
@@ -248,7 +290,7 @@ function ask(s: HotlineState, k: HotlineCase): Ask {
       return {
         say: ["When did you buy it? A month is enough."],
         mood: "talk",
-        suggestions: f.coin?.isCase ? ["Late May 2021", "Early June 2021", "Mid June 2021", "I don't remember"] : ["Last month", "Earlier this year", "I don't remember"],
+        suggestions: f.coin?.isCase ? (WHEN_SUGGESTIONS[k.slug] ?? WHEN_SUGGESTIONS.emax) : ["Last month", "Earlier this year", "I don't remember"],
       };
     case "wallet":
       return {
@@ -276,7 +318,7 @@ function ask(s: HotlineState, k: HotlineCase): Ask {
       return {
         say: ["Where do you live? Your state or country tells me which regulator to write to."],
         mood: "talk",
-        suggestions: ["New York", "California", "Texas", "United Kingdom", "India", "Somewhere else"],
+        suggestions: ["New York", "California", "Texas", "United Kingdom", "Germany", "India", "Somewhere else"],
       };
     case "state":
       return { say: ["Which state?"], mood: "talk", suggestions: ["New York", "California", "Florida", "New Jersey", "Texas"] };
@@ -353,6 +395,16 @@ function reply(s: HotlineState, k: HotlineCase, pre: string[] = [], extra: Parti
 }
 
 function go(s: HotlineState, k: HotlineCase, step: StepId, pre: string[] = [], extra: Partial<Reply> = {}): Turn {
+  // a place heard earlier in the call ("I'm in London"): confirm it instead of asking again
+  if (step === "location" && s.facts.placeHeard && s.facts.place) {
+    const p = s.facts.place;
+    s.facts.placeHeard = undefined;
+    if (p.country === "US" && !p.state) step = "state";
+    else {
+      pre = [...pre, `You said you live in ${p.stateName ?? p.ukNation ?? p.countryName}, so I'll write for the rules there. You can change it later.`];
+      step = nextAfter(s, "location");
+    }
+  }
   s.step = step;
   s.misses = 0;
   if (step === "consent" && !s.consentQueue.length) s.consentQueue = complaintsFor(s.facts).filter((d) => s.consents[d] === undefined);
@@ -375,8 +427,9 @@ function miss(s: HotlineState, k: HotlineCase, pre: string[] = []): Turn {
 
 // ---------- public API ----------
 
-export function startCall(k: HotlineCase): Turn {
-  const s = fresh(k);
+export function startCall(cases: Cases): Turn {
+  const s = fresh(listOf(cases));
+  const k = caseOf(s, cases);
   return reply(
     s,
     k,
@@ -404,11 +457,11 @@ function correctionField(t: string, k: HotlineCase, s: HotlineState): Field | nu
   if (parsePromoters(t, casePromoters(k)).length) return "promoter";
   if (parsePlace(t)) return "place";
   if (/[$£€₹]|\b(dollars?|pounds?|euros?|rupees?|lost|spent|paid)\b/i.test(t) && parseAmount(t)) return "amount";
-  if (EMAX_RE.test(t)) return "coin";
+  if (caseCoin(t)) return "coin";
   return null;
 }
 
-function applyField(s: HotlineState, k: HotlineCase, field: Field, t: string): string | null {
+function applyField(s: HotlineState, k: HotlineCase, field: Field, t: string, all: HotlineCase[] = [k]): string | null {
   const f = s.facts;
   switch (field) {
     case "when": {
@@ -439,7 +492,7 @@ function applyField(s: HotlineState, k: HotlineCase, field: Field, t: string): s
     case "coin": {
       const c = parseCoin(t);
       if (!c) return null;
-      f.coin = c;
+      f.coin = adoptCoin(s, all, c);
       return `the coin to ${c.text}`;
     }
     case "wallet":
@@ -448,8 +501,10 @@ function applyField(s: HotlineState, k: HotlineCase, field: Field, t: string): s
 }
 
 /** Handle one thing the caller said (spoken or typed). */
-export function respond(prev: HotlineState, raw: string, k: HotlineCase, opts: { extracted?: Extracted } = {}): Turn {
+export function respond(prev: HotlineState, raw: string, cases: Cases, opts: { extracted?: Extracted } = {}): Turn {
   const s = clone(prev);
+  const all = listOf(cases);
+  let k = caseOf(s, all);
   const text = norm(raw).slice(0, 2000);
   if (!text) return reply(s, k, ["I didn't hear anything."]);
 
@@ -468,9 +523,19 @@ export function respond(prev: HotlineState, raw: string, k: HotlineCase, opts: {
   }
   const extra: Partial<Reply> = alarm ? { mood: "alarm", alert: "recovery" } : {};
 
+  // Where the caller lives, if they mention it in passing ("I'm in London", "from Mumbai"). It decides the regulator.
+  if (!s.facts.place && !(["location", "state", "name", "email"] as StepId[]).includes(s.step)) {
+    const heard = mentionedPlace(text);
+    if (heard) {
+      s.facts.place = heard;
+      s.facts.placeHeard = true;
+      s.consentQueue = [];
+    }
+  }
+
   // 2. Things you can say at any point.
   if (isStartOver(text)) {
-    const t = startCall(k);
+    const t = startCall(all);
     t.reply.say = ["Okay, let's start again.", ...t.reply.say.slice(1)];
     return t;
   }
@@ -489,7 +554,8 @@ export function respond(prev: HotlineState, raw: string, k: HotlineCase, opts: {
     const body = stripCorrection(text);
     const field = correctionField(body, k, s);
     if (field && field !== current && field !== "wallet") {
-      const changed = applyField(s, k, field, body);
+      const changed = applyField(s, k, field, body, all);
+      k = caseOf(s, all);
       if (changed) return reply(s, k, [...pre, `Got it, I've changed ${changed}.`], extra);
     }
     if (field === "wallet" && s.step !== "wallet") {
@@ -504,11 +570,14 @@ export function respond(prev: HotlineState, raw: string, k: HotlineCase, opts: {
 
   switch (s.step) {
     case "coin": {
-      const c = dk ? null : parseCoin(t) ?? (opts.extracted?.coin ? { text: opts.extracted.coin, isCase: EMAX_RE.test(opts.extracted.coin) } : null);
+      const said = opts.extracted?.coin ? caseCoin(opts.extracted.coin) : null;
+      const parsed = dk ? null : parseCoin(t) ?? (opts.extracted?.coin ? { text: opts.extracted.coin, isCase: Boolean(said), ...(said ? { slug: said.slug } : {}) } : null);
+      const c = parsed ? adoptCoin(s, all, parsed) : null;
       if (c) {
         f.coin = c;
+        k = caseOf(s, all);
         const known = c.isCase
-          ? [`${k.token.name}. I know that one.`, "Canary has a full case file on it, built from the SEC's own orders and the blockchain."]
+          ? [`${k.token.name}. I know that one.`, `Canary has a full case file on it, built from the SEC's ${k.theory === "insider-fraud" ? "complaint" : "own orders"} and the blockchain.`]
           : [`Okay, ${c.text}.`, "I don't have a case file on that coin, but I can still help you write a clear complaint."];
         return advance(s, k, "coin", [...pre, ...known], extra);
       }
@@ -528,7 +597,7 @@ export function respond(prev: HotlineState, raw: string, k: HotlineCase, opts: {
       if (!matched.length && opts.extracted?.promoters) matched = opts.extracted.promoters.filter((n) => casePromoters(k).includes(n));
       if (matched.length) {
         f.promoters = { text: t, matched };
-        const lines = f.coin?.isCase ? matched.slice(0, 2).map((n) => promoterFact(k, n)) : [];
+        const lines = f.coin?.isCase ? promoterFacts(k, matched.slice(0, 2)) : [];
         return advance(s, k, "promoter", [...pre, ...lines], extra);
       }
       if (dk) return skip(s, k, "promoter", pre);
@@ -571,6 +640,18 @@ export function respond(prev: HotlineState, raw: string, k: HotlineCase, opts: {
           return {
             state: s,
             reply: { say, mood: alarm ? "alarm" : "think", suggestions: [], step: "checking", progress: progressOf("checking"), action: { type: "check-wallet", address: c.address }, alert: extra.alert },
+          };
+        }
+        // the caller doesn't remember the coin: the wallet's own purchases may say which case it is
+        if (f.coin?.text === "unknown" && !f.coin.isCase) {
+          f.purchaseCheck = "pending";
+          s.step = "checking";
+          s.misses = 0;
+          const say = [...pre, "Thanks. Let me check whether that address bought a coin Canary has a case file on.", "This takes a few seconds."];
+          s.lastSay = say;
+          return {
+            state: s,
+            reply: { say, mood: alarm ? "alarm" : "think", suggestions: [], step: "checking", progress: progressOf("checking"), action: { type: "check-wallet", address: c.address, cases: knownSlugs(s) }, alert: extra.alert },
           };
         }
         return advance(s, k, "wallet", [...pre, "Thanks, I'll put that address in your documents.", "I can only read purchases automatically for coins Canary has a case file on."], extra);
@@ -671,7 +752,8 @@ export function respond(prev: HotlineState, raw: string, k: HotlineCase, opts: {
       // "no, it was June" -> fix it straight away
       const field = correctionField(stripCorrection(t), k, s);
       if (field && field !== "wallet") {
-        const changed = applyField(s, k, field, stripCorrection(t));
+        const changed = applyField(s, k, field, stripCorrection(t), all);
+        k = caseOf(s, all);
         if (changed) return reply(s, k, [...pre, `Got it, I've changed ${changed}.`], extra);
       }
       if (yn === "no" || /\bchange\b/i.test(t)) {
@@ -684,7 +766,8 @@ export function respond(prev: HotlineState, raw: string, k: HotlineCase, opts: {
     case "fix": {
       const field = correctionField(t, k, s);
       if (field && field !== "wallet") {
-        const changed = applyField(s, k, field, t);
+        const changed = applyField(s, k, field, t, all);
+        k = caseOf(s, all);
         if (changed) return go(s, k, "summary", [...pre, `Got it, I've changed ${changed}.`], extra);
       }
       const target: StepId | null = /\b(coin|token)\b/i.test(t)
@@ -745,7 +828,19 @@ function promoterFact(k: HotlineCase, name: string): string {
   const paid = paidPost(k, name);
   if (paid?.paid && documentedBy(paid) === "SEC order")
     return `The SEC found ${name} was paid ${usd(paid.paid.amountUsd)} to promote ${k.token.symbol} without properly disclosing it.`;
+  if (k.posts.some((p) => p.promoter === name && documentedBy(p) === "SEC complaint (an allegation)")) return `The SEC's complaint quotes ${name}'s posts.`;
   return `${name}'s promotion is described in the class-action lawsuit. That's an allegation, not a ruling.`;
+}
+
+function promoterFacts(k: HotlineCase, names: string[]): string[] {
+  const lines = names.map((n) => promoterFact(k, n));
+  if (lines.some((l) => l.startsWith("The SEC's complaint quotes")))
+    lines.push(
+      k.theory === "insider-fraud"
+        ? `It says the people running ${k.token.name} hyped it while they sold their own coins. That's an allegation, not a ruling.`
+        : "That's an allegation, not a ruling.",
+    );
+  return lines;
 }
 
 function exchangeLines(ex: string): string[] {
@@ -755,6 +850,10 @@ function exchangeLines(ex: string): string[] {
 function placeLines(p: Place, s: HotlineState, k: HotlineCase): string[] {
   const where = p.stateName ?? p.ukNation ?? p.countryName;
   const lines = [`Thanks. ${where}.`];
+  if (p.country === "EU") {
+    const a = euAuthority(p);
+    lines.push(a.known ? `I'll write to ${a.short}, the regulator there, under the EU's crypto rules.` : "I'll write to your national regulator, under the EU's crypto rules.");
+  }
   const ca = k.classAction;
   if (s.facts.coin?.isCase && ca && p.country === "US" && p.state && ca.certifiedStates.includes(p.state)) {
     const window = s.facts.purchases?.purchases.some((x) => x.inClassPeriod) || (s.facts.when?.date ? inClassPeriod(k, s.facts.when.date) : false);
@@ -764,9 +863,27 @@ function placeLines(p: Place, s: HotlineState, k: HotlineCase): string[] {
 }
 
 /** Feed the result of the blockchain check back into the call. */
-export function applyPurchaseResult(prev: HotlineState, result: { ok: true; report: PurchaseReport } | { ok: false; error: string }, k: HotlineCase): Turn {
+export function applyPurchaseResult(prev: HotlineState, result: { ok: true; report: PurchaseReport } | { ok: false; error: string }, cases: Cases): Turn {
   const s = clone(prev);
   const f = s.facts;
+  const all = listOf(cases);
+  let k = caseOf(s, all);
+  const intro: string[] = [];
+  // the caller didn't know the coin: the purchases found say which case it is
+  if (result.ok && !f.coin?.isCase) {
+    const r = result.report;
+    const found = all.find((x) => x.token.address.toLowerCase() === r.token.address.toLowerCase());
+    if (!found || !r.purchases.length) {
+      f.purchaseCheck = "done";
+      return advance(s, k, "checking", [
+        "I couldn't find purchases of the coins Canary has case files on at that address.",
+        "That's okay. I'll put the address in your documents, and we'll use your own words.",
+      ]);
+    }
+    f.coin = adoptCoin(s, all, { text: `${found.token.name} (${found.token.symbol})`, isCase: true, slug: found.slug });
+    k = found;
+    intro.push(`That wallet bought ${found.token.name}. Canary has a case file on that coin.`);
+  }
   if (!result.ok) {
     f.purchaseCheck = "failed";
     return advance(s, k, "checking", ["The blockchain service didn't answer just now.", "I've kept your address, so it goes into your documents, and you can check it again later."], { mood: "talk" });
@@ -784,6 +901,7 @@ export function applyPurchaseResult(prev: HotlineState, result: { ok: true; repo
   const first = r.purchases[0].date;
   const last = r.purchases[n - 1].date;
   const lines = [
+    ...intro,
     n === 1 ? `Found it. One purchase of ${k.token.symbol}, on ${longDate(first)}.` : `Found it. ${n} purchases of ${k.token.symbol}, from ${longDate(first)} to ${longDate(last)}.`,
     `${humanTokens(r.totals.boughtTokens)} tokens in all.`,
   ];

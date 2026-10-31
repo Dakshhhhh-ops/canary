@@ -8,6 +8,7 @@ import { formatAmount } from "../hotline/parse";
 import type { PromoterPost } from "../types";
 import { postsCited } from "./evidence";
 import { longDate, monthYear, tokenAmount, usdCents, usdWhole, utcTime } from "./format";
+import { euAuthority, law, type LawRef } from "./law";
 import type { ClaimDoc, ClaimInput } from "./types";
 
 const PLATFORM: Record<string, string> = { instagram: "Instagram", x: "X (Twitter)", telegram: "Telegram", youtube: "YouTube", tiktok: "TikTok", other: "other channel" };
@@ -99,11 +100,19 @@ function purchaseList(c: Ctx): string {
   ].join("\n");
 }
 
-function postLine(p: PromoterPost): string {
+function postLine(p: PromoterPost, insider = false): string {
   const who = `${p.promoter}${p.handle ? ` (${p.handle})` : ""}`;
   const when = p.datePrecision === "month" ? monthYear(p.postedAt) : longDate(p.postedAt);
   const paid = p.paid ? ` Payment documented: ${usdWhole(p.paid.amountUsd)}, by ${p.paid.by}.` : "";
-  const disclosed = p.disclosedPayment === false ? " Did not disclose the payment (per the source)." : p.disclosedPayment === null ? " Whether payment was disclosed is not documented." : "";
+  const disclosed = insider
+    ? p.affiliation
+      ? ` Who: ${p.affiliation}.`
+      : ""
+    : p.disclosedPayment === false
+      ? " Did not disclose the payment (per the source)."
+      : p.disclosedPayment === null
+        ? " Whether payment was disclosed is not documented."
+        : "";
   return [
     `- ${when}, ${who} on ${PLATFORM[p.platform] ?? p.platform}. Recorded in: ${documentedBy(p)}.`,
     ...(p.text ? [`  Text: "${p.text}"`] : []),
@@ -116,7 +125,7 @@ function postLine(p: PromoterPost): string {
 
 function postsSection(c: Ctx): string {
   const posts = postsCited(c.input);
-  return posts.length ? posts.map(postLine).join("\n") : "";
+  return posts.length ? posts.map((p) => postLine(p, insider(c))).join("\n") : "";
 }
 
 function evidenceSection(c: Ctx): string {
@@ -142,6 +151,40 @@ function aboutYou(c: Ctx): string {
 
 const secLegal = (c: Ctx) => c.k.legal.filter((l) => l.kind === "sec" && !/not EMAX/i.test(l.title));
 
+/**
+ * A case where the SEC sued the coin's own officers for fraud and market manipulation (Saitama), not promoters
+ * paid without disclosure (EMAX). Its documents cite the statutes of the SEC's own complaint, never §17(b).
+ */
+const insider = (c: Ctx) => c.isCase && c.k.theory === "insider-fraud";
+
+/** The people behind the documented posts (for Saitama: the officers the SEC sued, and their official account). */
+const postAuthors = (c: Ctx) => [...new Set(c.k.posts.map((p) => p.promoter))];
+
+/** Section 2 and 3 of the SEC tip for an insider case: who, and the law the SEC's own complaint relies on. */
+function insiderSubjects(c: Ctx): string[] {
+  const named = c.input.facts.promoters?.matched ?? [];
+  const people = named.length ? named : postAuthors(c);
+  return [
+    ...people.map((name) => {
+      const post = c.k.posts.find((p) => p.promoter === name);
+      const handle = c.k.posts.find((p) => p.promoter === name && p.handle)?.handle;
+      return `- ${name}${handle ? ` (${handle})` : ""}${post?.affiliation ? `: ${post.affiliation}` : ""}. The SEC's complaint quotes their posts; these are allegations, not findings.`;
+    }),
+    ...secLegal(c).map((l) => `- Already before the court: ${l.title}, ${longDate(l.date)}.`),
+  ];
+}
+
+function insiderLaw(c: Ctx): string[] {
+  return [
+    ...secLegal(c)
+      .filter((l) => l.statute)
+      .map((l) => `The SEC's complaint in ${l.title.split(" (")[0]} relies on: ${l.statute}.`),
+    "The SEC has already sued the people running this token (allegations, not findings):",
+    ...secLegal(c).map((l) => `- ${l.title}, ${longDate(l.date)}. ${l.summary} ${l.outcome ?? ""} ${l.sources.map((s) => s.url).join(" ")}`),
+    "I am sending this as an investor who bought while, according to the SEC, this token's market was being manipulated, in case it helps that case or any continuing investigation.",
+  ];
+}
+
 // ---------- the documents ----------
 
 function secTip(c: Ctx): ClaimDoc {
@@ -150,7 +193,8 @@ function secTip(c: Ctx): ClaimDoc {
   const tcr = ref("sec-tcr");
   const s17 = ref("17b");
   const subjects: string[] = [];
-  if (c.isCase) {
+  if (insider(c)) subjects.push(...insiderSubjects(c));
+  else if (c.isCase) {
     const promoters = named.length ? named : [...new Set(c.k.posts.filter((p) => documentedBy(p) === "SEC order").map((p) => p.promoter))];
     for (const name of promoters) {
       const paid = c.k.posts.find((p) => p.promoter === name && p.paid);
@@ -182,15 +226,17 @@ function secTip(c: Ctx): ClaimDoc {
     ...subjects,
     "",
     "3. YOUR COMPLAINT",
-    `Type: a crypto asset promoted for pay without disclosing the payment ("touting"), and my losses after buying it.`,
+    insider(c)
+      ? "Type: market manipulation and false or misleading statements by the people running a crypto asset, and my losses after buying it."
+      : `Type: a crypto asset promoted for pay without disclosing the payment ("touting"), and my losses after buying it.`,
     c.isCase
       ? `Security: ${c.k.token.name} (${c.k.token.symbol}), Ethereum token contract ${c.k.token.address}${c.k.token.pair ? `, traded on the ${c.k.token.pairDex ?? ""} pool ${c.k.token.pair}` : ""}.`
       : `Security: ${coinName(c)}. [Add the token's contract address or website if you know it.]`,
     `When: ${whenPhrase(c) ?? "[when you bought]"}`,
     "",
     "The law I believe applies (for context; I am not a lawyer):",
-    `${s17.label} makes it unlawful to promote a security in exchange for payment without fully disclosing that payment and its amount. ${s17.url}`,
-    ...(c.isCase
+    ...(insider(c) ? insiderLaw(c) : [`${s17.label} makes it unlawful to promote a security in exchange for payment without fully disclosing that payment and its amount. ${s17.url}`]),
+    ...(c.isCase && !insider(c)
       ? [
           "The SEC has already applied it to this token's promoters:",
           ...secLegal(c).map((l) => `- ${l.title}, ${longDate(l.date)}. ${l.outcome ?? ""} Law: ${l.statute ?? "n/a"}. ${l.sources.map((s) => s.url).join(" ")}`),
@@ -211,14 +257,22 @@ function secTip(c: Ctx): ClaimDoc {
     "",
     "I declare that the information in this tip is true and correct to the best of my knowledge.",
   ].join("\n");
-  return { kind: "sec", title: "Tip for the SEC", short: "The US securities regulator. Paid promotion without disclosure is its area.", destination: { label: "Open the SEC tip form", url: tcr.url }, body, filename: `canary-sec-tip-${c.input.id}.txt` };
+  return {
+    kind: "sec",
+    title: "Tip for the SEC",
+    short: insider(c) ? "The US securities regulator. Market manipulation and securities fraud are its area." : "The US securities regulator. Paid promotion without disclosure is its area.",
+    destination: { label: "Open the SEC tip form", url: tcr.url },
+    body,
+    filename: `canary-sec-tip-${c.input.id}.txt`,
+  };
 }
 
 const AGENCY: Partial<Record<DocKind, string>> = {
   sec: "the SEC",
   ftc: "the Federal Trade Commission",
   state: "my state securities regulator",
-  uk: "the FCA and Action Fraud",
+  uk: "the FCA and Report Fraud",
+  eu: "my national financial regulator",
   india: "India's National Cyber Crime Reporting Portal",
   generic: "my local police",
 };
@@ -232,7 +286,13 @@ function ftcReport(c: Ctx): ClaimDoc {
       "The FTC's site asks short questions first, then gives you a box for the details. Use the lines below.",
     ]),
     "WHAT HAPPENED (short)",
-    `I lost money after buying ${coinName(c)}, a crypto token${f.promoters?.matched.length ? ` that ${listing(f.promoters.matched)} promoted on social media` : " that I saw promoted"}.${c.isCase ? " The SEC later found that promoters of this token were paid and did not properly disclose it." : ""}`,
+    `I lost money after buying ${coinName(c)}, a crypto token${f.promoters?.matched.length ? ` that ${listing(f.promoters.matched)} promoted on social media` : " that I saw promoted"}.${
+      insider(c)
+        ? " The SEC later sued the people running this token for manipulating its market and misleading buyers; those are allegations, not findings."
+        : c.isCase
+          ? " The SEC later found that promoters of this token were paid and did not properly disclose it."
+          : ""
+    }`,
     "",
     "HOW I PAID",
     how,
@@ -250,7 +310,7 @@ function ftcReport(c: Ctx): ClaimDoc {
           return `- ${n}${p ? `, ${p.handle} on ${PLATFORM[p.platform]}` : ""}`;
         })
       : [`- ${f.promoters?.text ? `"${f.promoters.text}" (my words)` : "[names, accounts, websites]"}`]),
-    ...(c.isCase ? [`- ${c.k.token.name}, the token's issuer`] : []),
+    ...(insider(c) ? [`- The people running ${c.k.token.name}, whom the SEC has sued: ${listing(postAuthors(c).filter((n) => !/\(/.test(n)))}`] : c.isCase ? [`- ${c.k.token.name}, the token's issuer`] : []),
     "",
     ...(f.recoveryScam ? ["CONTACT AFTERWARDS", "Someone offered to recover my money for a fee. [Add who, when, and how they contacted you.]", ""] : []),
     "DETAILS (paste into the description box)",
@@ -292,38 +352,145 @@ function stateNote(c: Ctx): ClaimDoc {
   return { kind: "state", title: `Note for your state regulator${f.place?.stateName ? ` (${f.place.stateName})` : ""}`, short: "Your state's securities office. Find it through NASAA's directory.", destination: { label: "Find your regulator (NASAA)", url: nasaa.url }, body, filename: `canary-state-regulator-${c.input.id}.txt` };
 }
 
+// ---------- outside the US: every provision, date and link below comes from ./law.ts ----------
+
+const RULES_HEADING = "THE RULES I BELIEVE APPLY (for context; I am not a lawyer, and whether they cover these promotions is for the authority to decide)";
+
+/** One cited provision: its citation, what it says, and the official source. */
+function lawItem(l: LawRef, when?: string): string {
+  return [`- ${l.cite}${when ? ` (${when})` : ""}.`, `  ${l.says}`, ...l.sources.map((s) => `  Source: ${s.label}. ${s.url}`)].join("\n");
+}
+
+/** Did the caller buy before a given day? true / false, or null when we can't tell. */
+function boughtBefore(c: Ctx, iso: string): boolean | null {
+  const f = c.input.facts;
+  const day = f.purchases?.purchases[0]?.date ?? f.when?.date;
+  if (day) return day < iso;
+  if (f.when?.month) return f.when.month < iso.slice(0, 7) ? true : f.when.month > iso.slice(0, 7) ? false : null;
+  return null;
+}
+
+const usBackground = (c: Ctx) =>
+  c.isCase
+    ? [
+        insider(c)
+          ? "Background: in the US, the SEC has sued the people who ran this token for fraud and market manipulation (allegations, not findings):"
+          : "Background: in the US, the SEC fined promoters of this token for not disclosing they were paid:",
+        ...secLegal(c).map((l) => `- ${l.title}, ${longDate(l.date)}. ${l.sources[0]?.url ?? ""}`),
+        "",
+      ]
+    : [];
+
+const squeeze = (lines: string[]) => lines.filter((l, i, a) => !(l === "" && a[i - 1] === "")).join("\n");
+
 function ukReports(c: Ctx): ClaimDoc {
   const f = c.input.facts;
-  const fca = ref("fca");
-  const af = ref("action-fraud");
+  const fca = law("uk-fca-report");
+  const fcaUrl = fca.sources[0].url;
+  const warn = law("uk-fca-warning-list");
+  const rf = law("uk-report-fraud");
+  const ps = ref("police-scotland");
+  const regime = law("uk-crypto-promotions");
+  const fg = law("uk-fg24-1");
   const scotland = f.place?.ukNation === "Scotland";
-  const body = [
-    header("Reports for the United Kingdom", null, c),
+  const early = boughtBefore(c, regime.date!);
+  const body = squeeze([
+    header("Reports for the United Kingdom", { label: fca.cite, url: fcaUrl }, c, ["Two reports: one to the financial regulator, one to the police. You can use the same text for both."]),
     "1. FINANCIAL CONDUCT AUTHORITY (FCA)",
-    `${fca.label}: ${fca.url}`,
-    "The FCA regulates financial promotions in the UK and collects reports about scams.",
+    `${fca.cite}: ${fcaUrl}`,
+    fca.says,
+    `${warn.cite}: ${warn.sources[0].url}. ${warn.says}`,
     "",
     "2. FRAUD REPORT TO THE POLICE",
-    scotland ? "You live in Scotland: report fraud to Police Scotland by calling 101." : `${af.label}: ${af.url}`,
-    scotland ? "" : "Action Fraud takes reports for England, Wales and Northern Ireland and gives you a crime reference number.",
+    scotland ? `You live in Scotland: report fraud to Police Scotland by calling 101. ${ps.url}` : `${rf.cite}: ${rf.sources[0].url}`,
+    scotland ? "Report Fraud covers England, Wales and Northern Ireland; in Scotland, fraud goes to Police Scotland." : rf.says,
     "",
     "WHAT TO WRITE (both reports)",
     statement(c),
     "",
     ...(f.purchases?.purchases.length ? ["My purchases on the Ethereum blockchain", purchaseList(c), ""] : []),
-    ...(c.isCase ? ["Background: in the US, the SEC fined promoters of this token for not disclosing they were paid:", ...secLegal(c).map((l) => `- ${l.title}, ${longDate(l.date)}. ${l.sources[0]?.url ?? ""}`), ""] : []),
+    RULES_HEADING,
+    lawItem(law("uk-fsma-21")),
+    lawItem(law("uk-fsma-25")),
+    lawItem(regime, `the cryptoasset promotion rules, in force from ${longDate(regime.date!)}`),
+    lawItem(law("uk-cobs-risk-warning")),
+    lawItem(fg, `published ${longDate(fg.date!)}`),
+    ...(early === true ? [`Note: I bought before ${longDate(regime.date!)}. The cryptoasset promotion rules did not yet apply to promotions made before that day.`] : []),
+    ...(f.promoters?.matched.length || f.promoters?.text
+      ? [`If the promotion I saw carried no risk warning${insider(c) ? "" : " and did not say it was paid for"}, I ask the FCA to look at whether it was an unapproved financial promotion.`]
+      : []),
+    "",
+    ...usBackground(c),
     "Evidence",
     evidenceSection(c),
-  ]
-    .filter((l, i, a) => !(l === "" && a[i - 1] === ""))
-    .join("\n");
-  return { kind: "uk", title: "Reports for the FCA and Action Fraud", short: "The UK financial regulator and the national fraud reporting centre.", destination: { label: "Open the FCA's scam report", url: fca.url }, body, filename: `canary-uk-reports-${c.input.id}.txt` };
+  ]);
+  return {
+    kind: "uk",
+    title: "Reports for the FCA and Report Fraud",
+    short: "The UK financial regulator (crypto promotions are its area) and the police's national fraud reporting service.",
+    destination: { label: "Open the FCA's scam report", url: fcaUrl },
+    body,
+    filename: `canary-uk-reports-${c.input.id}.txt`,
+  };
+}
+
+function euReport(c: Ctx): ClaimDoc {
+  const f = c.input.facts;
+  const nca = euAuthority(f.place);
+  const country = f.place?.euState ? f.place.countryName : null;
+  const mica = law("eu-mica");
+  const esma = law("eu-esma-ncas");
+  const early = boughtBefore(c, mica.date!);
+  const title = `Complaint for ${nca.known ? nca.short : "your national financial regulator"}${country ? ` (${country})` : " (European Union)"}`;
+  const body = squeeze([
+    header(title, { label: nca.known ? nca.name : esma.cite, url: nca.url }, c, [
+      nca.known
+        ? `${/^the /i.test(nca.name) ? nca.name : `The ${nca.name}`} is the authority named in ESMA's list for crypto-asset market abuse in ${country}. Use its complaint or reporting page.`
+        : `Each EU country names its own authority for crypto-assets. ${esma.cite}: ${esma.sources[0].url}`,
+      "Report the fraud to your national police as well, and ask for a reference number.",
+    ]),
+    `To: ${nca.name}`,
+    `From: ${f.name ?? "[your name]"}${f.email ? `, ${f.email}` : ""}`,
+    "",
+    "What happened",
+    statement(c),
+    "",
+    ...(f.purchases?.purchases.length ? ["My purchases on the Ethereum blockchain", purchaseList(c), ""] : []),
+    RULES_HEADING,
+    lawItem(mica, `applies from ${longDate(mica.date!)}`),
+    lawItem(law("eu-mica-86")),
+    lawItem(law("eu-mica-91-2c")),
+    lawItem(law("eu-mica-91-3c")),
+    lawItem(law("eu-mica-88-89")),
+    lawItem(law("eu-mica-7")),
+    lawItem(law("eu-ucpd")),
+    ...(early === true
+      ? [`Note: I bought before ${longDate(mica.date!)}, when these MiCA rules began to apply, so they may not cover my purchase. The rule on paid promotion in the Unfair Commercial Practices Directive is older.`]
+      : []),
+    "",
+    ...usBackground(c),
+    "Evidence",
+    evidenceSection(c),
+  ]);
+  return {
+    kind: "eu",
+    title: `Complaint for ${nca.known ? nca.short : "your national regulator"}${country ? ` (${country})` : ""}`,
+    short: nca.known ? `${nca.name}: the authority for crypto-asset market abuse in ${country}.` : "Your country's financial regulator, found through ESMA's list.",
+    destination: { label: nca.known ? `Open ${nca.short}'s page` : "Find your regulator (ESMA list)", url: nca.url },
+    body,
+    filename: `canary-eu-complaint-${c.input.id}.txt`,
+  };
 }
 
 function indiaReport(c: Ctx): ClaimDoc {
   const f = c.input.facts;
   const portal = ref("india-cyber");
-  const body = [
+  const asci = law("in-asci-complaint");
+  const vda = law("in-asci-vda");
+  const infl = law("in-asci-influencer");
+  const pmla = law("in-pmla-vda");
+  const early = boughtBefore(c, vda.from!);
+  const body = squeeze([
     header("Complaint for India's National Cyber Crime Reporting Portal", { label: portal.label, url: portal.url }, c, ["For financial fraud you can also call the national helpline 1930. Call as soon as you can."]),
     "Category: online financial fraud (cryptocurrency).",
     "",
@@ -331,10 +498,23 @@ function indiaReport(c: Ctx): ClaimDoc {
     statement(c),
     "",
     ...(f.purchases?.purchases.length ? ["My purchases on the Ethereum blockchain", purchaseList(c), ""] : []),
+    "ALSO: A COMPLAINT ABOUT THE ADVERTISING",
+    `${asci.cite}: ${asci.sources.map((s) => s.url).join(" ")}`,
+    asci.says,
+    "Use the \"What happened\" text above, and attach screenshots of the promotion you saw.",
+    "",
+    RULES_HEADING,
+    lawItem(vda, `issued ${longDate(vda.date!)}; for ads released from ${longDate(vda.from!)}`),
+    lawItem(infl, `issued ${longDate(infl.date!)}; in effect from ${longDate(infl.from!)}`),
+    lawItem(pmla, `dated ${longDate(pmla.date!)}`),
+    ...(f.wallet?.exchange ? [`I bought through ${f.wallet.exchange}. [If it served you in India, you can ask whether it is registered with FIU-IND.]`] : []),
+    ...(early === true ? [`Note: I bought before ${longDate(vda.from!)}, so the crypto advertising guidelines may not cover the ads I saw.`] : []),
+    "",
+    ...usBackground(c),
     "Evidence",
     evidenceSection(c),
-  ].join("\n");
-  return { kind: "india", title: "Complaint for cybercrime.gov.in", short: "India's national portal for cyber fraud, with the 1930 helpline.", destination: { label: "Open cybercrime.gov.in", url: portal.url }, body, filename: `canary-india-cybercrime-${c.input.id}.txt` };
+  ]);
+  return { kind: "india", title: "Complaint for cybercrime.gov.in (and ASCI)", short: "India's national portal for cyber fraud, with the 1930 helpline; plus ASCI for the advertising.", destination: { label: "Open cybercrime.gov.in", url: portal.url }, body, filename: `canary-india-cybercrime-${c.input.id}.txt` };
 }
 
 function genericReport(c: Ctx): ClaimDoc {
@@ -349,7 +529,7 @@ function genericReport(c: Ctx): ClaimDoc {
     statement(c),
     "",
     ...(f.purchases?.purchases.length ? ["My purchases on the Ethereum blockchain", purchaseList(c), ""] : []),
-    ...(c.isCase ? ["Background: in the US, the SEC fined promoters of this token for not disclosing they were paid:", ...secLegal(c).map((l) => `- ${l.title}, ${longDate(l.date)}. ${l.sources[0]?.url ?? ""}`), ""] : []),
+    ...usBackground(c),
     "Evidence",
     evidenceSection(c),
   ].join("\n");
@@ -435,6 +615,7 @@ export function buildDocuments(input: ClaimInput, fingerprint: string): ClaimDoc
   if (want.has("ftc")) docs.push(ftcReport(c));
   if (want.has("state")) docs.push(stateNote(c));
   if (want.has("uk")) docs.push(ukReports(c));
+  if (want.has("eu")) docs.push(euReport(c));
   if (want.has("india")) docs.push(indiaReport(c));
   if (want.has("generic")) docs.push(genericReport(c));
   const ca = classActionNote(c);

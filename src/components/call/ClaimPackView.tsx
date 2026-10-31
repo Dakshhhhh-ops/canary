@@ -5,7 +5,9 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { EU_CHOICES, JURISDICTION_LABEL, buildClaimPack, jurisdictionOf, placeFor, withPlace, type Jurisdiction } from "@/lib/claims";
 import { claimantRef, evidenceHashHex, newSalt } from "@/lib/claims/claimant";
+import { buildClaimPdf, pdfSha256 } from "@/lib/claims/pdf";
 import { checkEvidenceFile } from "@/lib/claims/evidence";
 import type { ClaimDoc } from "@/lib/claims/types";
 import type { DocKind } from "@/lib/hotline/agent";
@@ -19,7 +21,8 @@ const INTRO: GuideStep = {
 };
 
 const STEPS: GuideStep[] = [
-  { id: "pack-head", mood: "point", text: "Everything here is saved only in this browser. Download or print it, so you don't lose it." },
+  { id: "pack-head", mood: "point", text: "Everything here is saved only in this browser. Download the PDF or print it, so you don't lose it." },
+  { id: "rules", mood: "talk", text: "Live outside the US? Pick your country's rules here, and I'll redraft for the right regulator." },
   { id: "doc-sec", mood: "talk", text: "Start with the SEC tip. Open the SEC's form, then copy each section into the matching box. Change anything that isn't right." },
   { id: "doc-ftc", mood: "talk", text: "The FTC collects fraud reports for law enforcement. Paste the short answers first, then the details." },
   { id: "doc-state", mood: "talk", text: "Your state has its own securities regulator. NASAA's directory takes you to the right office." },
@@ -100,14 +103,8 @@ export function ClaimPackView({ id }: { id: string }) {
               or print what you need. Canary is an information tool, not a law firm, and none of this is legal advice.
             </p>
           </div>
-          <div className="mt-5 flex flex-wrap gap-2">
-            <button className="btn btn-dark" onClick={() => window.print()}>
-              🖨️ Print everything
-            </button>
-            <button className="btn btn-ghost" onClick={() => download(`canary-claim-pack-${pack.id}.txt`, allText)}>
-              ⬇ Download all (.txt)
-            </button>
-          </div>
+          <RulesPicker claim={claim} onRebuilt={(next) => update(() => next)} />
+          <PackDownloads claim={claim} allText={allText} />
         </section>
 
         <ol className="mt-8 space-y-5" aria-label="Your checklist">
@@ -170,6 +167,117 @@ export function ClaimPackView({ id }: { id: string }) {
         <pre className="whitespace-pre-wrap break-words font-mono text-[11px]">{`EVIDENCE FILE ${pack.evidence.filename}\nSHA-256 fingerprint: ${pack.evidence.sha256}`}</pre>
       </div>
     </Guide>
+  );
+}
+
+const CHOICES: Jurisdiction[] = ["US", "UK", "EU", "IN", "other"];
+
+/** Whose rules the drafts follow. Changing it rebuilds the pack in this browser, from the same answers. */
+function RulesPicker({ claim, onRebuilt }: { claim: StoredClaim; onRebuilt: (c: StoredClaim) => void }) {
+  const [busy, setBusy] = useState(false);
+  const input = claim.input;
+  const place = input?.facts.place;
+  const current = jurisdictionOf(place);
+  const locked = Boolean(claim.anchor && claim.anchor.status !== "error" && claim.anchor.status !== "not-configured") || claim.verify?.status === "verified" || claim.verify?.status === "submitted";
+  if (!input) return null; // packs made before this feature: nothing to rebuild from
+  const rebuild = async (j: Jurisdiction, eu?: string) => {
+    const hasEdits = Object.values(claim.edits).some((t) => t != null);
+    if (hasEdits && !window.confirm("Redrafting for other rules replaces your edits to the drafts. Continue?")) return;
+    setBusy(true);
+    try {
+      const next = withPlace(input, placeFor(j, place, eu));
+      const pack = await buildClaimPack(next);
+      onRebuilt({ ...claim, pack, input: next, edits: {}, done: {}, anchor: undefined, verify: undefined });
+    } finally {
+      setBusy(false);
+    }
+  };
+  return (
+    <div data-guide="rules" className="mt-4 flex flex-wrap items-end gap-3 rounded-2xl border-[1.5px] border-[var(--line)] p-4 text-sm">
+      <label className="flex flex-col gap-1 font-semibold">
+        Draft for the rules of
+        <select
+          className="min-h-[44px] rounded-xl border-2 border-[var(--line-2)] bg-[var(--paper)] px-3 font-normal"
+          value={current ?? ""}
+          disabled={busy || locked}
+          onChange={(e) => rebuild(e.target.value as Jurisdiction)}
+        >
+          {!current && <option value="">Not given (general complaint)</option>}
+          {CHOICES.map((j) => (
+            <option key={j} value={j}>
+              {JURISDICTION_LABEL[j]}
+            </option>
+          ))}
+        </select>
+      </label>
+      {current === "EU" && (
+        <label className="flex flex-col gap-1 font-semibold">
+          Country
+          <select
+            className="min-h-[44px] rounded-xl border-2 border-[var(--line-2)] bg-[var(--paper)] px-3 font-normal"
+            value={place?.euState ?? ""}
+            disabled={busy || locked}
+            onChange={(e) => rebuild("EU", e.target.value)}
+          >
+            {!place?.euState && <option value="">Choose your country</option>}
+            {EU_CHOICES.map((c) => (
+              <option key={c.code} value={c.code}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
+      <p className="min-w-[12rem] flex-1 text-[var(--ink-2)]">
+        {locked
+          ? "The fingerprint is already on-chain, so this pack stays as it is. Start a new call to draft for other rules."
+          : "US, UK (FCA), EU (MiCA, your national regulator) or India (ASCI, cybercrime.gov.in). Changing this redrafts the documents and gives the evidence file a new fingerprint."}
+      </p>
+    </div>
+  );
+}
+
+/** Print, the plain-text bundle, and the PDF (built here, in the browser; same pack -> same PDF bytes). */
+function PackDownloads({ claim, allText }: { claim: StoredClaim; allText: string }) {
+  const { pack } = claim;
+  const [pdf, setPdf] = useState<{ pages: number; sha: string } | null>(null);
+  const [err, setErr] = useState<string | null>(null);
+  const makePdf = async () => {
+    setErr(null);
+    try {
+      const a = claim.anchor;
+      const anchor =
+        a?.status === "anchored" || a?.status === "submitted" ? { txHash: a.txHash, explorerUrl: a.explorerUrl, network: "Sepolia" } : a?.status === "already-anchored" ? { explorerUrl: a.registryUrl, network: "Sepolia" } : null;
+      const { bytes, pages } = buildClaimPdf({ pack, texts: claim.edits, anchor, origin: window.location.origin });
+      download(`canary-claim-pack-${pack.id}.pdf`, bytes, "application/pdf");
+      setPdf({ pages, sha: await pdfSha256(bytes) });
+    } catch {
+      setErr("Couldn't build the PDF in this browser. Use Print or the .txt download instead.");
+    }
+  };
+  return (
+    <>
+      <div className="mt-5 flex flex-wrap gap-2">
+        <button className="btn btn-primary" onClick={makePdf}>
+          📄 Download PDF
+        </button>
+        <button className="btn btn-dark" onClick={() => window.print()}>
+          🖨️ Print everything
+        </button>
+        <button className="btn btn-ghost" onClick={() => download(`canary-claim-pack-${pack.id}.txt`, allText)}>
+          ⬇ Download all (.txt)
+        </button>
+      </div>
+      <div role="status" aria-live="polite">
+        {pdf && (
+          <p className="mt-3 rounded-2xl bg-[var(--ok-soft)] p-3 text-sm">
+            ✓ PDF saved: {pdf.pages} pages, every one footed with your evidence fingerprint. The PDF&apos;s own SHA-256 is{" "}
+            <span className="break-all font-mono text-xs">{pdf.sha}</span>. The same pack always gives the same PDF.
+          </p>
+        )}
+        {err && <p className="mt-3 rounded-2xl bg-[var(--alarm-soft)] p-3 text-sm">{err}</p>}
+      </div>
+    </>
   );
 }
 

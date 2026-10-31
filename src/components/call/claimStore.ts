@@ -1,7 +1,7 @@
 // Claim packs live only in this browser (localStorage). Every access is wrapped: private windows,
 // blocked storage or a full quota must never break the page.
 
-import type { ClaimPack } from "@/lib/claims/types";
+import type { ClaimInput, ClaimPack } from "@/lib/claims/types";
 import type { DocKind } from "@/lib/hotline/agent";
 
 export type AnchorState =
@@ -12,6 +12,8 @@ export type AnchorState =
 
 export type StoredClaim = {
   pack: ClaimPack;
+  /** what the pack was built from (kept in this browser only), so it can be rebuilt for another jurisdiction */
+  input?: ClaimInput;
   edits: Partial<Record<DocKind, string>>;
   done: Partial<Record<string, boolean>>;
   salt?: string; // for claimantRef; never leaves this browser
@@ -64,8 +66,8 @@ const memory = new Map<string, StoredClaim>();
 export const rememberInTab = (c: StoredClaim) => memory.set(c.pack.id, c);
 export const recallFromTab = (id: string) => memory.get(id) ?? null;
 
-export function download(filename: string, text: string, type = "text/plain;charset=utf-8") {
-  const url = URL.createObjectURL(new Blob([text], { type }));
+export function download(filename: string, data: string | Uint8Array, type = "text/plain;charset=utf-8") {
+  const url = URL.createObjectURL(new Blob([data as BlobPart], { type }));
   const a = document.createElement("a");
   a.href = url;
   a.download = filename;

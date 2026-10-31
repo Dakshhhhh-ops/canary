@@ -1,15 +1,20 @@
 // Claim pack: evidence file first (its fingerprint is quoted by every document), then the documents.
 // Pure and browser-safe, so the pack can be built on the caller's own device.
 
+import { complaintsFor } from "../hotline/agent";
+import type { Place } from "../hotline/parse";
 import { formatAmount } from "../hotline/parse";
 import { buildDocuments } from "./documents";
 import { buildEvidence } from "./evidence";
+import { EU_NCA, JURISDICTION_LABEL, LAW, jurisdictionOf } from "./law";
 import type { ClaimInput, ClaimPack } from "./types";
 
 export * from "./types";
 export { buildEvidence, checkEvidenceFile, evidenceObject, postsCited } from "./evidence";
 export { buildDocuments, classAssessment } from "./documents";
 export { allowedFacts, extractFacts, factGuard } from "./guard";
+export { EU_CHOICES, EU_NCA, JURISDICTION_LABEL, LAW, euAuthority, jurisdictionOf, law, placeFor, type Jurisdiction, type LawRef } from "./law";
+export { buildClaimPdf, pdfSha256 } from "./pdf";
 
 export async function buildClaimPack(input: ClaimInput): Promise<ClaimPack> {
   const evidence = await buildEvidence(input);
@@ -27,9 +32,16 @@ export async function buildClaimPack(input: ClaimInput): Promise<ClaimPack> {
       where: f.place ? (f.place.stateName ?? f.place.ukNation ?? f.place.countryName) : null,
       purchases: f.purchases?.purchases.length ?? 0,
     },
+    jurisdiction: jurisdictionLabel(f.place),
     docs,
     evidence,
   };
+}
+
+export function jurisdictionLabel(place?: Place | null): string | null {
+  const j = jurisdictionOf(place);
+  if (!j || !place) return null;
+  return j === "EU" && place.euState ? `${JURISDICTION_LABEL.EU} (${place.countryName})` : JURISDICTION_LABEL[j];
 }
 
 /** A short random id for the claim (also the localStorage key). */
@@ -39,5 +51,16 @@ export function newClaimId(): string {
   return [...b].map((x) => x.toString(36).padStart(2, "0")).join("").slice(0, 12);
 }
 
-/** The allowed-fact inputs for a claim: everything the documents were built from. */
-export const guardInputs = (input: ClaimInput, fingerprint: string) => [input.kase, input.facts, input.consents, input.generatedAt, input.id, fingerprint, input.origin ?? ""];
+/** The allowed-fact inputs for a claim: everything the documents were built from, including the sourced law table. */
+export const guardInputs = (input: ClaimInput, fingerprint: string) => [input.kase, input.facts, input.consents, input.generatedAt, input.id, fingerprint, input.origin ?? "", LAW, EU_NCA];
+
+/**
+ * The same claim for a different place (picked in the claim pack). Documents the caller already agreed to stay in
+ * if they still apply; the new place's own documents are added, because choosing the place is asking for them.
+ */
+export function withPlace(input: ClaimInput, place: Place | undefined): ClaimInput {
+  const facts = { ...input.facts, place, placeHeard: undefined };
+  const declined = [...new Set([...(input.declined ?? []), ...complaintsFor(input.facts).filter((d) => !input.consents.includes(d))])];
+  const consents = complaintsFor(facts).filter((d) => !declined.includes(d));
+  return { ...input, facts, consents, declined };
+}

@@ -11,6 +11,14 @@ export type Reference = { id: string; label: string; url: string };
 
 export type HotlineCase = {
   slug: string;
+  /**
+   * What the SEC says went wrong, which decides the law the documents cite.
+   * paid-promotion: promoters were paid and didn't disclose it (Securities Act §17(b)), as in EMAX.
+   * insider-fraud: the coin's own officers manipulated its market and misled buyers, as in Saitama
+   * (the case file's dataNotes: "§17(b)'s duty to disclose a promoter's payment is not the theory here").
+   * Missing on claims saved before it existed: read as paid-promotion.
+   */
+  theory?: "paid-promotion" | "insider-fraud";
   token: CaseFile["token"];
   oneLiner: string;
   window: CaseFile["window"];
@@ -45,8 +53,9 @@ export const REFERENCES: Reference[] = [
   { id: "sec-tcr", label: "SEC Tips, Complaints and Referrals (TCR) portal", url: "https://www.sec.gov/tcr" },
   { id: "ftc", label: "FTC ReportFraud", url: "https://reportfraud.ftc.gov" },
   { id: "nasaa", label: "NASAA: Contact your state or provincial securities regulator", url: "https://www.nasaa.org/contact-your-regulator/" },
-  { id: "fca", label: "Financial Conduct Authority: Report a scam to us", url: "https://www.fca.org.uk/consumers/report-scam-us" },
-  { id: "action-fraud", label: "Action Fraud (UK national fraud and cyber crime reporting centre)", url: "https://www.actionfraud.police.uk" },
+  // the FCA moved this page from /report-scam-us; Report Fraud replaced Action Fraud on 2025-12-04 (src/lib/claims/law.ts)
+  { id: "fca", label: "Financial Conduct Authority: Report a scam", url: "https://www.fca.org.uk/consumers/report-scam" },
+  { id: "report-fraud", label: "Report Fraud (UK national fraud reporting service, formerly Action Fraud)", url: "https://www.reportfraud.police.uk" },
   { id: "india-cyber", label: "National Cyber Crime Reporting Portal (India)", url: "https://cybercrime.gov.in" },
   { id: "india-1930", label: "India's national cyber fraud helpline: call 1930", url: "https://cybercrime.gov.in" },
   { id: "police-scotland", label: "Police Scotland (non-emergency): call 101", url: "https://www.scotland.police.uk" },
@@ -72,6 +81,14 @@ const EMAX_CLASS = {
 
 const EMAX_PAIR_CREATED_BLOCK = 12503000; // dataNotes: "pair ... was created at 10:39 UTC that day (block 12503000)"
 
+// Saitama: the SEC sued the coin's own officers for fraud and market manipulation (legal "sec-saitama-2024");
+// every post's disclosedPayment is null and the dataNotes say §17(b) is not the theory.
+const THEORY: Record<string, HotlineCase["theory"]> = { emax: "paid-promotion", saitama: "insider-fraud" };
+
+// The demo wallet of each case: a real buyer from the case file's buyersInWindow sample.
+// EMAX: bought several times and never sold. Saitama: bought twice during the SaitaMask countdown (Nov 11 and 13, 2021), never sold.
+const DEMO_WALLET: Record<string, string> = { emax: "0xac85724be118b69a9aee3b03bd2af2ac0071f26a", saitama: "0x3dad8f9341255ceb7e129512ae790d90cec55105" };
+
 /** Builds the hotline's view of a case. Pure: same case file in, same object out. */
 export function toHotlineCase(c: CaseFile): HotlineCase {
   const priced = c.prices.filter((p) => p.priceUsd != null);
@@ -80,10 +97,10 @@ export function toHotlineCase(c: CaseFile): HotlineCase {
   const filed = c.legal.find((l) => l.id === "class-action-filed");
   const dismissed = c.legal.find((l) => l.id === "class-action-dismissed-2022");
   const sample = c.buyersInWindow?.sample ?? [];
-  // the demo wallet: a real buyer from the case file's sample, chosen because it bought several times and never sold
-  const demo = sample.find((s) => s.address.toLowerCase() === "0xac85724be118b69a9aee3b03bd2af2ac0071f26a") ?? sample[0];
+  const demo = sample.find((s) => s.address.toLowerCase() === DEMO_WALLET[c.slug]) ?? sample[0];
   return {
     slug: c.slug,
+    theory: THEORY[c.slug] ?? "paid-promotion",
     token: c.token,
     oneLiner: c.oneLiner,
     window: c.window,
@@ -91,7 +108,7 @@ export function toHotlineCase(c: CaseFile): HotlineCase {
     legal: c.legal,
     prices: c.prices.map((p) => ({ t: p.t, priceUsd: p.priceUsd })),
     priceRange: { from: priced[0]?.t ?? "", to: priced[priced.length - 1]?.t ?? "" },
-    pairCreatedBlock: isEmax ? EMAX_PAIR_CREATED_BLOCK : 0,
+    pairCreatedBlock: c.token.pairCreatedBlock ?? (isEmax ? EMAX_PAIR_CREATED_BLOCK : 0),
     classAction:
       isEmax && certified
         ? {
@@ -104,7 +121,9 @@ export function toHotlineCase(c: CaseFile): HotlineCase {
     demoWallet: demo
       ? {
           address: demo.address,
-          note: `A real EMAX buyer taken from the case file's sample of ${c.buyersInWindow?.count.toLocaleString("en-US")} addresses that bought from the pool in the 72 hours after the Kardashian post. It is used only to demonstrate the hotline; it is not a real caller.`,
+          note: isEmax
+            ? `A real EMAX buyer taken from the case file's sample of ${c.buyersInWindow?.count.toLocaleString("en-US")} addresses that bought from the pool in the 72 hours after the Kardashian post. It is used only to demonstrate the hotline; it is not a real caller.`
+            : `A real ${c.token.symbol} buyer taken from the case file's sample of ${c.buyersInWindow?.count.toLocaleString("en-US")} addresses that bought from the pool in the case's buyer window. It is used only to demonstrate the hotline; it is not a real caller.`,
         }
       : null,
     references: REFERENCES,
@@ -114,11 +133,12 @@ export function toHotlineCase(c: CaseFile): HotlineCase {
 
 // ---------- helpers shared by the engine and the documents ----------
 
-export type Documented = "SEC order" | "court summary of the class-action complaint (an allegation)" | "press report";
+export type Documented = "SEC order" | "SEC complaint (an allegation)" | "court summary of the class-action complaint (an allegation)" | "press report";
 
 /** How strong the record of a post is, from its sources. */
 export function documentedBy(p: PromoterPost): Documented {
   if (p.sources.some((s) => /sec\.gov\/litigation\/admin/.test(s.url))) return "SEC order";
+  if (p.sources.some((s) => /sec\.gov\/files\/litigation\/complaints/.test(s.url))) return "SEC complaint (an allegation)";
   if (p.sources.some((s) => /C\.D\. Cal\./.test(s.label))) return "court summary of the class-action complaint (an allegation)";
   return "press report";
 }

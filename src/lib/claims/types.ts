@@ -7,6 +7,8 @@ export type ClaimInput = {
   facts: Facts;
   /** complaints the caller said yes to */
   consents: DocKind[];
+  /** complaints the caller said no to (kept when the jurisdiction is changed in the claim pack) */
+  declined?: DocKind[];
   generatedAt: string; // ISO
   /** head hash of the hotline's own hash-chained trail, if one was kept */
   trailHead?: string | null;
@@ -37,6 +39,8 @@ export type ClaimPack = {
   caseSlug: string;
   isCase: boolean;
   headline: { coin: string; amount: string | null; where: string | null; purchases: number };
+  /** whose rules the documents follow, e.g. "United Kingdom" or "European Union (Germany)"; null when the caller didn't say */
+  jurisdiction?: string | null;
   docs: ClaimDoc[];
   evidence: EvidenceFile;
 };

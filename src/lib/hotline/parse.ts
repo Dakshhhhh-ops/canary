@@ -81,11 +81,23 @@ export const isCorrection = (t: string) => /^(no+[,.!]?\s+(?!idea\b|clue\b|thank
 // ---------- coin ----------
 
 export const EMAX_RE = /\b(e[- ]?max|ethereum[ -]?max|eth[ -]?max|ethereummax|ethereum maximum)\b/i;
+export const SAITAMA_RE = /\b(saitama(?:[ -]?inu)?|saitamainu)\b/i;
 
-export function parseCoin(text: string): { text: string; isCase: boolean } | null {
+/** The coins Canary has a case file on: how a caller may name them, and how the documents name them. */
+export const CASE_COINS: { slug: string; label: string; re: RegExp }[] = [
+  { slug: "emax", label: "EthereumMax (EMAX)", re: EMAX_RE },
+  { slug: "saitama", label: "Saitama Inu (SAITAMA)", re: SAITAMA_RE },
+];
+export const caseCoin = (t: string) => CASE_COINS.find((c) => c.re.test(t)) ?? null;
+
+/** isCase: Canary has a case file on the coin; slug says which one. */
+export type Coin = { text: string; isCase: boolean; slug?: string };
+
+export function parseCoin(text: string): Coin | null {
   const t = norm(text);
   if (!t) return null;
-  if (EMAX_RE.test(t)) return { text: "EthereumMax (EMAX)", isCase: true };
+  const known = caseCoin(t);
+  if (known) return { text: known.label, isCase: true, slug: known.slug };
   const called = /\b(?:called|named|coin|token|bought|buying|into)\s+\$?([A-Z][\w.-]{1,24}|[a-z][\w.-]{2,24})/i.exec(t);
   const ticker = /\$([A-Za-z]{2,10})\b/.exec(t);
   const caps = /\b([A-Z]{3,8})\b/.exec(t);
@@ -243,8 +255,56 @@ export const US_STATES: [string, string][] = [
   ["WV", "West Virginia"], ["WI", "Wisconsin"], ["WY", "Wyoming"], ["PR", "Puerto Rico"],
 ];
 
-export type Country = "US" | "UK" | "IN" | "other";
-export type Place = { text: string; country: Country; countryName: string; state?: string; stateName?: string; ukNation?: "England" | "Scotland" | "Wales" | "Northern Ireland" };
+export type Country = "US" | "UK" | "EU" | "IN" | "other";
+export type Place = {
+  text: string;
+  country: Country;
+  countryName: string;
+  state?: string;
+  stateName?: string;
+  ukNation?: "England" | "Scotland" | "Wales" | "Northern Ireland";
+  /** ISO 3166 code of the EU member state (country === "EU") */
+  euState?: string;
+};
+
+/**
+ * EU member states, with a few big cities, so "Berlin" or "from Paris" routes to the right national regulator.
+ * Checked after the UK, so "Northern Ireland" stays in the UK.
+ */
+export const EU_STATES: { code: string; name: string; re: RegExp }[] = [
+  { code: "DE", name: "Germany", re: /\b(germany|deutschland|berlin|munich|m(?:u|ü)nchen|frankfurt|hamburg|cologne|k(?:o|ö)ln)\b/i },
+  { code: "FR", name: "France", re: /\b(france|paris|lyon|marseille|toulouse)\b/i },
+  { code: "IE", name: "Ireland", re: /\b((?:republic of )?ireland|dublin|cork|galway)\b/i },
+  { code: "NL", name: "Netherlands", re: /\b(the netherlands|netherlands|holland|amsterdam|rotterdam|the hague|utrecht)\b/i },
+  { code: "ES", name: "Spain", re: /\b(spain|españa|madrid|barcelona|valencia|seville)\b/i },
+  { code: "IT", name: "Italy", re: /\b(italy|italia|rome|milan|naples|turin)\b/i },
+  { code: "AT", name: "Austria", re: /\b(austria|vienna)\b/i },
+  { code: "BE", name: "Belgium", re: /\b(belgium|brussels|antwerp)\b/i },
+  { code: "BG", name: "Bulgaria", re: /\b(bulgaria|sofia)\b/i },
+  { code: "HR", name: "Croatia", re: /\b(croatia|zagreb)\b/i },
+  { code: "CY", name: "Cyprus", re: /\b(cyprus|nicosia|limassol)\b/i },
+  { code: "CZ", name: "Czechia", re: /\b(czechia|czech republic|prague)\b/i },
+  { code: "DK", name: "Denmark", re: /\b(denmark|copenhagen)\b/i },
+  { code: "EE", name: "Estonia", re: /\b(estonia|tallinn)\b/i },
+  { code: "FI", name: "Finland", re: /\b(finland|helsinki)\b/i },
+  { code: "GR", name: "Greece", re: /\b(greece|athens)\b/i },
+  { code: "HU", name: "Hungary", re: /\b(hungary|budapest)\b/i },
+  { code: "LV", name: "Latvia", re: /\b(latvia|riga)\b/i },
+  { code: "LT", name: "Lithuania", re: /\b(lithuania|vilnius)\b/i },
+  { code: "LU", name: "Luxembourg", re: /\b(luxembourg)\b/i },
+  { code: "MT", name: "Malta", re: /\b(malta|valletta)\b/i },
+  { code: "PL", name: "Poland", re: /\b(poland|warsaw|krak(?:o|ó)w)\b/i },
+  { code: "PT", name: "Portugal", re: /\b(portugal|lisbon|porto)\b/i },
+  { code: "RO", name: "Romania", re: /\b(romania|bucharest)\b/i },
+  { code: "SK", name: "Slovakia", re: /\b(slovakia|bratislava)\b/i },
+  { code: "SI", name: "Slovenia", re: /\b(slovenia|ljubljana)\b/i },
+  { code: "SE", name: "Sweden", re: /\b(sweden|stockholm)\b/i },
+];
+
+export const euPlace = (code: string, text = ""): Place => {
+  const s = EU_STATES.find((x) => x.code === code);
+  return s ? { text, country: "EU", countryName: s.name, euState: s.code } : { text, country: "EU", countryName: "the European Union" };
+};
 
 const CITY_STATE: [RegExp, string][] = [
   [/\b(nyc|new york city|brooklyn|manhattan|queens|the bronx)\b/i, "NY"],
@@ -279,13 +339,30 @@ export function parsePlace(text: string): Place | null {
   if (/\b(england|london|manchester|birmingham|leeds|liverpool|bristol)\b/i.test(t)) return { text: t, country: "UK", countryName: "United Kingdom", ukNation: "England" };
   if (/\b(uk|u\.k\.|united kingdom|britain|great britain)\b/i.test(t)) return { text: t, country: "UK", countryName: "United Kingdom" };
   if (/\b(india|mumbai|delhi|bangalore|bengaluru|chennai|kolkata|hyderabad|pune)\b/i.test(t)) return { text: t, country: "IN", countryName: "India" };
+  for (const eu of EU_STATES) if (eu.re.test(t)) return { text: t, country: "EU", countryName: eu.name, euState: eu.code };
+  if (/\b(european union|the eu|eu)\b/i.test(t)) return { text: t, country: "EU", countryName: "the European Union" };
   if (/\b(us|u\.s\.|usa|u\.s\.a\.|united states|america|the states)\b/i.test(t)) return { text: t, country: "US", countryName: "United States" };
-  const other = /\b(canada|australia|ireland|germany|france|spain|italy|netherlands|nigeria|kenya|south africa|singapore|philippines|mexico|brazil|japan|new zealand|uae|dubai|pakistan|bangladesh)\b/i.exec(t);
+  const other = /\b(canada|australia|switzerland|norway|nigeria|kenya|south africa|singapore|philippines|mexico|brazil|japan|new zealand|uae|dubai|pakistan|bangladesh)\b/i.exec(t);
   if (other) return { text: t, country: "other", countryName: titleCase(other[1]) };
   return null;
 }
 
 const titleCase = (s: string) => s.replace(/\b\w/g, (c) => c.toUpperCase()).replace(/\bUae\b/, "UAE");
+
+/**
+ * A place mentioned in passing ("I'm in London", "I live in Berlin", "from Mumbai"), at any point in the call.
+ * Needs a clear "I live / I'm in / from" cue, so a promoter's name or a coin's name is never read as an address.
+ */
+export function mentionedPlace(text: string): Place | null {
+  const t = norm(text);
+  const cue = /\b(?:i'?m (?:in|from|based in|living in)|i am (?:in|from|based in|living in)|i live in|i'?m a resident of|i reside in|living in|based in|here in|calling from|writing from)\s+([^.?!;,]{2,40})/i.exec(t);
+  const lead = /^(?:from|in)\s+([^.?!;]{2,40})$/i.exec(t);
+  const where = cue?.[1] ?? lead?.[1];
+  if (!where) return null;
+  // only the words right after the cue: "I'm in London and I bought EMAX" -> "London"
+  const p = parsePlace(where.split(/\b(?:and|but|where|when|because|so|after|i)\b/i)[0]);
+  return p ? { ...p, text: t } : null;
+}
 
 // ---------- identity (stays in the browser) ----------
 

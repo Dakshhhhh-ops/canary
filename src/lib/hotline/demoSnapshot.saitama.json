@@ -1,0 +1,101 @@
+{
+  "status": "ok",
+  "address": "0x3DaD8f9341255Ceb7E129512aE790d90cEC55105",
+  "addressUrl": "https://etherscan.io/address/0x3DaD8f9341255Ceb7E129512aE790d90cEC55105",
+  "token": {
+    "symbol": "SAITAMA",
+    "address": "0x8B3192f5eEBD8579568A2Ed41E6FEB402f93f73F",
+    "pair": "0x9cbfb60a09A9a33a10312dA0f39977CbDb7fdE23",
+    "pairDex": "Uniswap V2 (SAITAMA/WETH)"
+  },
+  "checkedAt": "2026-10-30T10:56:20.990Z",
+  "source": {
+    "label": "Ethereum mainnet, eth_getLogs on a public archive node",
+    "url": "https://mainnet.gateway.tenderly.co",
+    "fromBlock": 12535727,
+    "toBlock": 26305112
+  },
+  "purchases": [
+    {
+      "txHash": "0xdcbbf5e6e7a3ccb9bb21106f9570bb520a14e932f4dc50fe389ebb80474e7496",
+      "txUrl": "https://etherscan.io/tx/0xdcbbf5e6e7a3ccb9bb21106f9570bb520a14e932f4dc50fe389ebb80474e7496",
+      "blockNumber": 13592089,
+      "at": "2021-11-11T01:49:48Z",
+      "date": "2021-11-11",
+      "amount": "6667764500.535304871",
+      "priceUsd": 9.859e-8,
+      "usdEstimate": 657.37,
+      "inClassPeriod": false,
+      "postsBefore": [
+        {
+          "postId": "armand-2021-11-09",
+          "promoter": "Russell Armand",
+          "postedAt": "2021-11-09",
+          "daysBefore": 2,
+          "platform": "youtube",
+          "documentedBy": "SEC complaint (an allegation)",
+          "sourceUrl": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        },
+        {
+          "postId": "kohli-2021-11-08",
+          "promoter": "Manpreet Singh Kohli",
+          "postedAt": "2021-11-08",
+          "daysBefore": 3,
+          "platform": "x",
+          "documentedBy": "SEC complaint (an allegation)",
+          "sourceUrl": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "txHash": "0x26c47d5de6045457859930cb6b8244921541c6b48d9c8cab52d2a58d87dee2a9",
+      "txUrl": "https://etherscan.io/tx/0x26c47d5de6045457859930cb6b8244921541c6b48d9c8cab52d2a58d87dee2a9",
+      "blockNumber": 13607939,
+      "at": "2021-11-13T13:28:48Z",
+      "date": "2021-11-13",
+      "amount": "5187892613.912461717",
+      "priceUsd": 1.466e-7,
+      "usdEstimate": 760.55,
+      "inClassPeriod": false,
+      "postsBefore": [
+        {
+          "postId": "armand-2021-11-13",
+          "promoter": "Russell Armand",
+          "postedAt": "2021-11-13",
+          "daysBefore": 0,
+          "platform": "x",
+          "documentedBy": "SEC complaint (an allegation)",
+          "sourceUrl": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        },
+        {
+          "postId": "kohli-2021-11-12",
+          "promoter": "Manpreet Singh Kohli",
+          "postedAt": "2021-11-12",
+          "daysBefore": 1,
+          "platform": "x",
+          "documentedBy": "SEC complaint (an allegation)",
+          "sourceUrl": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    }
+  ],
+  "sales": [],
+  "totals": {
+    "purchases": 2,
+    "sales": 0,
+    "boughtTokens": "11855657114.447766588",
+    "soldTokens": "0",
+    "boughtUsd": 1417.92,
+    "soldUsd": null,
+    "inClassPeriod": 0,
+    "afterAPost": 2
+  },
+  "truncated": false,
+  "method": "ERC-20 Transfer events of SAITAMA (0x8B3192f5eEBD8579568A2Ed41E6FEB402f93f73F) with from = the pool and to = the wallet (buys), and the reverse (sells), from block 12535727 (the pool's creation) to block 26305112.",
+  "notes": [
+    "Only buys straight from the Uniswap V2 (SAITAMA/WETH) pool 0x9cbfb60a09A9a33a10312dA0f39977CbDb7fdE23 are seen. Buys through another pool, an aggregator that forwards the tokens, or a centralized exchange are not.",
+    "Dollar figures are estimates: tokens multiplied by that day's closing price of the pool (from the case file, 2021-05-30 to 2022-05-31). They are not what was actually paid.",
+    "Promoter posts are matched by date only (posted on the day of the purchase or up to 3 days before), because no source gives the time of day of a post.",
+    "In mid-2022 the project replaced the token with a \"v2\" contract (per the SEC complaint); only the original 2021 contract is checked here (see the case file's data notes)."
+  ]
+}

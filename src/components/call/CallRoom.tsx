@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { buildClaimPack, newClaimId } from "@/lib/claims";
 import { Trail } from "@/lib/engine/trail";
-import { applyPurchaseResult, consentedDocs, PROGRESS, respond, startCall, type HotlineState, type Reply } from "@/lib/hotline/agent";
+import { applyPurchaseResult, caseOf, consentedDocs, PROGRESS, respond, startCall, type HotlineState, type Reply } from "@/lib/hotline/agent";
 import type { HotlineCase } from "@/lib/hotline/caseFacts";
 import { EXTRACTABLE, type RawExtract } from "@/lib/hotline/extract";
 import type { PurchaseReport } from "@/lib/hotline/purchases";
@@ -46,7 +46,11 @@ export function demoScript(k: HotlineCase): string[] {
   ];
 }
 
-export function CallRoom({ kase, demo }: { kase: HotlineCase; demo: boolean }) {
+/** cases: every case file the hotline knows; the first is where a call starts (the demo call is about it). */
+export function CallRoom({ cases, demo }: { cases: HotlineCase[]; demo: boolean }) {
+  // the case the call is about: it changes when the caller names (or the wallet shows) another coin with a case file
+  const [slug, setSlug] = useState(cases[0].slug);
+  const kase = cases.find((c) => c.slug === slug) ?? cases[0];
   const [started, setStarted] = useState(false);
   const [lines, setLines] = useState<Line[]>([]);
   const [reply, setReply] = useState<Reply | null>(null);
@@ -76,22 +80,30 @@ export function CallRoom({ kase, demo }: { kase: HotlineCase; demo: boolean }) {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight, behavior: "smooth" });
   }, [lines, report, claimId]);
 
+  const setState = useCallback((s: HotlineState) => {
+    stateRef.current = s;
+    setSlug(s.caseSlug);
+  }, []);
+
   const makeClaim = useCallback(async () => {
     const s = stateRef.current;
     if (!s) return;
+    const kase = caseOf(s, cases);
     try {
       const id = newClaimId();
       const trail = trailRef.current;
       await trail?.append({ agent: "claims", kind: "hotline.claim-prepared", summary: "The caller agreed to the documents; the claim pack was built in the browser.", evidenceIds: [], data: { consents: consentedDocs(s), purchases: s.facts.purchases?.purchases.length ?? 0 } });
-      const pack = await buildClaimPack({ id, kase, facts: s.facts, consents: consentedDocs(s), generatedAt: new Date().toISOString(), trailHead: trail?.head ?? null, origin: window.location.origin });
-      const stored = { pack, edits: {}, done: {} };
+      const input = { id, kase, facts: s.facts, consents: consentedDocs(s), generatedAt: new Date().toISOString(), trailHead: trail?.head ?? null, origin: window.location.origin };
+      const pack = await buildClaimPack(input);
+      // the input stays in this browser with the pack, so the pack can be rebuilt for another country's rules
+      const stored = { pack, input, edits: {}, done: {} };
       rememberInTab(stored);
       if (!saveClaim(stored)) setClaimError("This browser won't let me save the pack, so keep this tab open, or print it from the next page.");
       setClaimId(id);
     } catch {
       setClaimError("Something went wrong while building your documents. Please try again.");
     }
-  }, [kase]);
+  }, [cases]);
 
   /** Show and speak a reply, then carry out what it asks for (a blockchain check, the claim pack). */
   const play = useCallback(
@@ -101,12 +113,13 @@ export function CallRoom({ kase, demo }: { kase: HotlineCase; demo: boolean }) {
       await speak(r.say, "doki");
       if (r.action?.type === "check-wallet") {
         const address = r.action.address;
+        const which = r.action.cases ?? [stateRef.current?.caseSlug ?? cases[0].slug];
         busyRef.current = true;
         setBusy(true);
         let result: { ok: true; report: PurchaseReport } | { ok: false; error: string };
         let live = true;
         try {
-          const res = await fetch("/api/hotline/purchases", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ address, caseSlug: kase.slug }) });
+          const res = await fetch("/api/hotline/purchases", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(which.length > 1 ? { address, cases: which } : { address, caseSlug: which[0] }) });
           const j = (await res.json()) as { ok: boolean; live?: boolean; report?: PurchaseReport; error?: string };
           live = j.live !== false;
           result = j.ok && j.report ? { ok: true, report: j.report } : { ok: false, error: j.error ?? "failed" };
@@ -116,17 +129,17 @@ export function CallRoom({ kase, demo }: { kase: HotlineCase; demo: boolean }) {
         busyRef.current = false;
         setBusy(false);
         if (result.ok) {
-          setReport({ r: result.report, live });
-          await trailRef.current?.append({ agent: "claims", kind: "hotline.purchases-checked", summary: `Read ${result.report.purchases.length} purchases of ${kase.token.symbol} for the caller's public address from Ethereum.`, evidenceIds: result.report.purchases.map((p) => p.txHash), data: { address: result.report.address, live, toBlock: result.report.source.toBlock } });
+          if (result.report.purchases.length || !r.action.cases) setReport({ r: result.report, live });
+          await trailRef.current?.append({ agent: "claims", kind: "hotline.purchases-checked", summary: `Read ${result.report.purchases.length} purchases of ${result.report.token.symbol} for the caller's public address from Ethereum.`, evidenceIds: result.report.purchases.map((p) => p.txHash), data: { address: result.report.address, live, toBlock: result.report.source.toBlock } });
         }
-        const t = applyPurchaseResult(stateRef.current!, result, kase);
-        stateRef.current = t.state;
+        const t = applyPurchaseResult(stateRef.current!, result, cases);
+        setState(t.state);
         await play(t.reply);
       } else if (r.action?.type === "make-claim") {
         await makeClaim();
       }
     },
-    [kase, makeClaim, push, speak],
+    [cases, makeClaim, push, setState, speak],
   );
 
   const handleUser = useCallback(
@@ -136,38 +149,38 @@ export function CallRoom({ kase, demo }: { kase: HotlineCase; demo: boolean }) {
       cancelSpeech();
       setDraft("");
       const before = stateRef.current;
-      let t = respond(before, text, kase);
+      let t = respond(before, text, cases);
       // Optional LLM help, only for steps that never carry a name or email, and only when the rules didn't understand.
       if (t.reply.unclear && EXTRACTABLE.includes(before.step)) {
         try {
           const res = await fetch("/api/hotline/extract", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ step: before.step, text }), signal: AbortSignal.timeout(5000) });
           const j = (await res.json()) as { fields?: Partial<RawExtract> & Record<string, unknown> };
-          if (j.fields && Object.keys(j.fields).length) t = respond(before, text, kase, { extracted: j.fields as never });
+          if (j.fields && Object.keys(j.fields).length) t = respond(before, text, cases, { extracted: j.fields as never });
         } catch {}
       }
       push("you", t.reply.redactUser ? "" : text, { redacted: t.reply.redactUser });
-      stateRef.current = t.state;
+      setState(t.state);
       await play(t.reply);
     },
-    [cancelSpeech, kase, play, push],
+    [cancelSpeech, cases, play, push, setState],
   );
   handleUserRef.current = handleUser;
 
   const start = useCallback(async () => {
     setStarted(true);
     trailRef.current = new Trail();
-    await trailRef.current.append({ agent: "claims", kind: "hotline.call-started", summary: "A hotline call started.", evidenceIds: [], data: { case: kase.slug } });
-    const t = startCall(kase);
-    stateRef.current = t.state;
+    await trailRef.current.append({ agent: "claims", kind: "hotline.call-started", summary: "A hotline call started.", evidenceIds: [], data: { case: cases[0].slug } });
+    const t = startCall(cases);
+    setState(t.state);
     setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 50);
     await play(t.reply);
-  }, [kase, play]);
+  }, [cases, play, setState]);
 
   const runDemo = useCallback(async () => {
     demoRef.current = true;
     setDemoOn(true);
     await start();
-    for (const line of demoScript(kase)) {
+    for (const line of demoScript(cases[0])) {
       while (demoRef.current && (speech.speakingRef.current || busyRef.current)) await sleep(150);
       if (!demoRef.current) return;
       await sleep(650);
@@ -185,7 +198,7 @@ export function CallRoom({ kase, demo }: { kase: HotlineCase; demo: boolean }) {
     }
     demoRef.current = false;
     setDemoOn(false);
-  }, [handleUser, kase, speak, speech.speakingRef, start]);
+  }, [cases, handleUser, speak, speech.speakingRef, start]);
 
   const stopDemo = () => {
     demoRef.current = false;

@@ -314,6 +314,8 @@ export async function findPurchases(
   ];
   if (k.slug === "emax")
     notes.push("EMAX trading from May 14 to May 24, 2021 happened on an older token contract and is not checked here (see the case file's data notes).");
+  if (k.slug === "saitama")
+    notes.push('In mid-2022 the project replaced the token with a "v2" contract (per the SEC complaint); only the original 2021 contract is checked here (see the case file\'s data notes).');
   if (purchases.some((p) => !p.priceUsd)) notes.push("Some purchases fall outside the dates the case file has prices for, so they have no dollar estimate.");
   if (truncated) notes.push(`This wallet has more than ${max} transfers with the pool; only the first ${max} of each kind are listed.`);
 

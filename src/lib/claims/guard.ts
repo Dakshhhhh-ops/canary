@@ -16,6 +16,15 @@ export const FACT_PATTERNS: { kind: string; re: RegExp }[] = [
   { kind: "iso-date", re: /\b20\d\d-\d\d-\d\d\b/g },
   { kind: "docket", re: /\b\d:\d\d-cv-\d+\b/g },
   { kind: "statute", re: /\bSections? \d+\([a-z]\)(?:\(\d\))?/g },
+  // law outside the US (src/lib/claims/law.ts): articles, sections, instruments and rule numbers
+  { kind: "provision", re: /\bArticles? \d+(?:\(\d+\))?(?:\([a-z]\))?/g },
+  { kind: "provision", re: /\b[Ss]ections? \d+(?:\(\d+\))?(?![(\d])/g },
+  { kind: "provision", re: /\b(?:Regulation \(EU\)|Directive) \d{4}\/\d+(?:\/EC)?/g },
+  { kind: "provision", re: /\bSI \d{4}\/\d+/g },
+  { kind: "provision", re: /\bS\.O\. \d+\(E\)/g },
+  { kind: "provision", re: /\b(?:FG|PS)\d{2}\/\d+\b/g },
+  { kind: "provision", re: /\bCOBS \d+\.\d+[A-Z]?(?:\.\d+[RG])?/g },
+  { kind: "phone", re: /\b(0\d{3} \d{3} \d{4})\b/g },
   { kind: "phone", re: /\b(?:call(?:ing)?|helpline|on) (\d{3,4})\b/g },
 ];
 
