@@ -1,0 +1,1597 @@
+{
+  "format": "canary.notebook/1",
+  "slug": "saitama",
+  "headHash": "b652005d56370a99aa34090d177c607a1ae541cb9ffcae9a37a274e4c3453870",
+  "verdict": "pump-and-dump",
+  "collapsed": true,
+  "promoters": 5,
+  "frozenAt": "2026-10-30T05:11:43.614Z",
+  "engineCommit": "4968bea",
+  "note": "The agents' notebook exactly as recorded on-chain by the Chainlink workflow. Verify it at /verify.",
+  "trail": [
+    {
+      "seq": 0,
+      "at": "2026-10-30T00:00:02.000Z",
+      "agent": "collector",
+      "kind": "collector.loaded",
+      "summary": "Loaded the Saitama Inu (SAITAMA) case: 16 promoter posts, 367 daily prices, 4 legal actions.",
+      "evidenceIds": [
+        "armand-2021-07-16",
+        "kohli-2021-07-25",
+        "wearesaitama-2021-08-01",
+        "tran-2021-09-13",
+        "tran-2021-09-15-buying",
+        "tran-2021-09-15-trending",
+        "hernandez-2021-09-15",
+        "armand-2021-09-16",
+        "tran-2021-10-23",
+        "armand-2021-10-31",
+        "armand-2021-11-02",
+        "kohli-2021-11-08",
+        "armand-2021-11-09",
+        "kohli-2021-11-12",
+        "armand-2021-11-13",
+        "armand-2022-01-ama",
+        "price:2021-05-30",
+        "price:2021-05-31",
+        "price:2021-06-01",
+        "price:2021-06-02",
+        "price:2021-06-03",
+        "price:2021-06-04",
+        "price:2021-06-05",
+        "price:2021-06-06",
+        "price:2021-06-07",
+        "price:2021-06-08",
+        "price:2021-06-09",
+        "price:2021-06-10",
+        "price:2021-06-11",
+        "price:2021-06-12",
+        "price:2021-06-13",
+        "price:2021-06-14",
+        "price:2021-06-15",
+        "price:2021-06-16",
+        "price:2021-06-17",
+        "price:2021-06-18",
+        "price:2021-06-19",
+        "price:2021-06-20",
+        "price:2021-06-21",
+        "price:2021-06-22",
+        "price:2021-06-23",
+        "price:2021-06-24",
+        "price:2021-06-25",
+        "price:2021-06-26",
+        "price:2021-06-27",
+        "price:2021-06-28",
+        "price:2021-06-29",
+        "price:2021-06-30",
+        "price:2021-07-01",
+        "price:2021-07-02",
+        "price:2021-07-03",
+        "price:2021-07-04",
+        "price:2021-07-05",
+        "price:2021-07-06",
+        "price:2021-07-07",
+        "price:2021-07-08",
+        "price:2021-07-09",
+        "price:2021-07-10",
+        "price:2021-07-11",
+        "price:2021-07-12",
+        "price:2021-07-13",
+        "price:2021-07-14",
+        "price:2021-07-15",
+        "price:2021-07-16",
+        "price:2021-07-17",
+        "price:2021-07-18",
+        "price:2021-07-19",
+        "price:2021-07-20",
+        "price:2021-07-21",
+        "price:2021-07-22",
+        "price:2021-07-23",
+        "price:2021-07-24",
+        "price:2021-07-25",
+        "price:2021-07-26",
+        "price:2021-07-27",
+        "price:2021-07-28",
+        "price:2021-07-29",
+        "price:2021-07-30",
+        "price:2021-07-31",
+        "price:2021-08-01",
+        "price:2021-08-02",
+        "price:2021-08-03",
+        "price:2021-08-04",
+        "price:2021-08-05",
+        "price:2021-08-06",
+        "price:2021-08-07",
+        "price:2021-08-08",
+        "price:2021-08-09",
+        "price:2021-08-10",
+        "price:2021-08-11",
+        "price:2021-08-12",
+        "price:2021-08-13",
+        "price:2021-08-14",
+        "price:2021-08-15",
+        "price:2021-08-16",
+        "price:2021-08-17",
+        "price:2021-08-18",
+        "price:2021-08-19",
+        "price:2021-08-20",
+        "price:2021-08-21",
+        "price:2021-08-22",
+        "price:2021-08-23",
+        "price:2021-08-24",
+        "price:2021-08-25",
+        "price:2021-08-26",
+        "price:2021-08-27",
+        "price:2021-08-28",
+        "price:2021-08-29",
+        "price:2021-08-30",
+        "price:2021-08-31",
+        "price:2021-09-01",
+        "price:2021-09-02",
+        "price:2021-09-03",
+        "price:2021-09-04",
+        "price:2021-09-05",
+        "price:2021-09-06",
+        "price:2021-09-07",
+        "price:2021-09-08",
+        "price:2021-09-09",
+        "price:2021-09-10",
+        "price:2021-09-11",
+        "price:2021-09-12",
+        "price:2021-09-13",
+        "price:2021-09-14",
+        "price:2021-09-15",
+        "price:2021-09-16",
+        "price:2021-09-17",
+        "price:2021-09-18",
+        "price:2021-09-19",
+        "price:2021-09-20",
+        "price:2021-09-21",
+        "price:2021-09-22",
+        "price:2021-09-23",
+        "price:2021-09-24",
+        "price:2021-09-25",
+        "price:2021-09-26",
+        "price:2021-09-27",
+        "price:2021-09-28",
+        "price:2021-09-29",
+        "price:2021-09-30",
+        "price:2021-10-01",
+        "price:2021-10-02",
+        "price:2021-10-03",
+        "price:2021-10-04",
+        "price:2021-10-05",
+        "price:2021-10-06",
+        "price:2021-10-07",
+        "price:2021-10-08",
+        "price:2021-10-09",
+        "price:2021-10-10",
+        "price:2021-10-11",
+        "price:2021-10-12",
+        "price:2021-10-13",
+        "price:2021-10-14",
+        "price:2021-10-15",
+        "price:2021-10-16",
+        "price:2021-10-17",
+        "price:2021-10-18",
+        "price:2021-10-19",
+        "price:2021-10-20",
+        "price:2021-10-21",
+        "price:2021-10-22",
+        "price:2021-10-23",
+        "price:2021-10-24",
+        "price:2021-10-25",
+        "price:2021-10-26",
+        "price:2021-10-27",
+        "price:2021-10-28",
+        "price:2021-10-29",
+        "price:2021-10-30",
+        "price:2021-10-31",
+        "price:2021-11-01",
+        "price:2021-11-02",
+        "price:2021-11-03",
+        "price:2021-11-04",
+        "price:2021-11-05",
+        "price:2021-11-06",
+        "price:2021-11-07",
+        "price:2021-11-08",
+        "price:2021-11-09",
+        "price:2021-11-10",
+        "price:2021-11-11",
+        "price:2021-11-12",
+        "price:2021-11-13",
+        "price:2021-11-14",
+        "price:2021-11-15",
+        "price:2021-11-16",
+        "price:2021-11-17",
+        "price:2021-11-18",
+        "price:2021-11-19",
+        "price:2021-11-20",
+        "price:2021-11-21",
+        "price:2021-11-22",
+        "price:2021-11-23",
+        "price:2021-11-24",
+        "price:2021-11-25",
+        "price:2021-11-26",
+        "price:2021-11-27",
+        "price:2021-11-28",
+        "price:2021-11-29",
+        "price:2021-11-30",
+        "price:2021-12-01",
+        "price:2021-12-02",
+        "price:2021-12-03",
+        "price:2021-12-04",
+        "price:2021-12-05",
+        "price:2021-12-06",
+        "price:2021-12-07",
+        "price:2021-12-08",
+        "price:2021-12-09",
+        "price:2021-12-10",
+        "price:2021-12-11",
+        "price:2021-12-12",
+        "price:2021-12-13",
+        "price:2021-12-14",
+        "price:2021-12-15",
+        "price:2021-12-16",
+        "price:2021-12-17",
+        "price:2021-12-18",
+        "price:2021-12-19",
+        "price:2021-12-20",
+        "price:2021-12-21",
+        "price:2021-12-22",
+        "price:2021-12-23",
+        "price:2021-12-24",
+        "price:2021-12-25",
+        "price:2021-12-26",
+        "price:2021-12-27",
+        "price:2021-12-28",
+        "price:2021-12-29",
+        "price:2021-12-30",
+        "price:2021-12-31",
+        "price:2022-01-01",
+        "price:2022-01-02",
+        "price:2022-01-03",
+        "price:2022-01-04",
+        "price:2022-01-05",
+        "price:2022-01-06",
+        "price:2022-01-07",
+        "price:2022-01-08",
+        "price:2022-01-09",
+        "price:2022-01-10",
+        "price:2022-01-11",
+        "price:2022-01-12",
+        "price:2022-01-13",
+        "price:2022-01-14",
+        "price:2022-01-15",
+        "price:2022-01-16",
+        "price:2022-01-17",
+        "price:2022-01-18",
+        "price:2022-01-19",
+        "price:2022-01-20",
+        "price:2022-01-21",
+        "price:2022-01-22",
+        "price:2022-01-23",
+        "price:2022-01-24",
+        "price:2022-01-25",
+        "price:2022-01-26",
+        "price:2022-01-27",
+        "price:2022-01-28",
+        "price:2022-01-29",
+        "price:2022-01-30",
+        "price:2022-01-31",
+        "price:2022-02-01",
+        "price:2022-02-02",
+        "price:2022-02-03",
+        "price:2022-02-04",
+        "price:2022-02-05",
+        "price:2022-02-06",
+        "price:2022-02-07",
+        "price:2022-02-08",
+        "price:2022-02-09",
+        "price:2022-02-10",
+        "price:2022-02-11",
+        "price:2022-02-12",
+        "price:2022-02-13",
+        "price:2022-02-14",
+        "price:2022-02-15",
+        "price:2022-02-16",
+        "price:2022-02-17",
+        "price:2022-02-18",
+        "price:2022-02-19",
+        "price:2022-02-20",
+        "price:2022-02-21",
+        "price:2022-02-22",
+        "price:2022-02-23",
+        "price:2022-02-24",
+        "price:2022-02-25",
+        "price:2022-02-26",
+        "price:2022-02-27",
+        "price:2022-02-28",
+        "price:2022-03-01",
+        "price:2022-03-02",
+        "price:2022-03-03",
+        "price:2022-03-04",
+        "price:2022-03-05",
+        "price:2022-03-06",
+        "price:2022-03-07",
+        "price:2022-03-08",
+        "price:2022-03-09",
+        "price:2022-03-10",
+        "price:2022-03-11",
+        "price:2022-03-12",
+        "price:2022-03-13",
+        "price:2022-03-14",
+        "price:2022-03-15",
+        "price:2022-03-16",
+        "price:2022-03-17",
+        "price:2022-03-18",
+        "price:2022-03-19",
+        "price:2022-03-20",
+        "price:2022-03-21",
+        "price:2022-03-22",
+        "price:2022-03-23",
+        "price:2022-03-24",
+        "price:2022-03-25",
+        "price:2022-03-26",
+        "price:2022-03-27",
+        "price:2022-03-28",
+        "price:2022-03-29",
+        "price:2022-03-30",
+        "price:2022-03-31",
+        "price:2022-04-01",
+        "price:2022-04-02",
+        "price:2022-04-03",
+        "price:2022-04-04",
+        "price:2022-04-05",
+        "price:2022-04-06",
+        "price:2022-04-07",
+        "price:2022-04-08",
+        "price:2022-04-09",
+        "price:2022-04-10",
+        "price:2022-04-11",
+        "price:2022-04-12",
+        "price:2022-04-13",
+        "price:2022-04-14",
+        "price:2022-04-15",
+        "price:2022-04-16",
+        "price:2022-04-17",
+        "price:2022-04-18",
+        "price:2022-04-19",
+        "price:2022-04-20",
+        "price:2022-04-21",
+        "price:2022-04-22",
+        "price:2022-04-23",
+        "price:2022-04-24",
+        "price:2022-04-25",
+        "price:2022-04-26",
+        "price:2022-04-27",
+        "price:2022-04-28",
+        "price:2022-04-29",
+        "price:2022-04-30",
+        "price:2022-05-01",
+        "price:2022-05-02",
+        "price:2022-05-03",
+        "price:2022-05-04",
+        "price:2022-05-05",
+        "price:2022-05-06",
+        "price:2022-05-07",
+        "price:2022-05-08",
+        "price:2022-05-09",
+        "price:2022-05-10",
+        "price:2022-05-11",
+        "price:2022-05-12",
+        "price:2022-05-13",
+        "price:2022-05-14",
+        "price:2022-05-15",
+        "price:2022-05-16",
+        "price:2022-05-17",
+        "price:2022-05-18",
+        "price:2022-05-19",
+        "price:2022-05-20",
+        "price:2022-05-21",
+        "price:2022-05-22",
+        "price:2022-05-23",
+        "price:2022-05-24",
+        "price:2022-05-25",
+        "price:2022-05-26",
+        "price:2022-05-27",
+        "price:2022-05-28",
+        "price:2022-05-29",
+        "price:2022-05-30",
+        "price:2022-05-31",
+        "peak",
+        "collapse",
+        "buyers",
+        "sec-saitama-2024",
+        "sec-pham-2024",
+        "doj-token-mirrors-2024",
+        "kohli-extradition-2026"
+      ],
+      "data": {
+        "slug": "saitama",
+        "caseHash": "8c42cbd3c4c086f7a307c4961575b9a72b957aef31c1b37d83dbe0cdc7186f56",
+        "counts": {
+          "posts": 16,
+          "prices": 367,
+          "legal": 4,
+          "sources": 11
+        },
+        "gaps": [
+          {
+            "source": "case.holders",
+            "what": "top-10 holder concentration",
+            "reason": "not in the case file",
+            "at": "2026-10-30T00:00:00.000Z"
+          },
+          {
+            "source": "case.marketCap",
+            "what": "claimed market cap",
+            "reason": "no documented claim; liquidity-vs-market-cap rule left unchecked",
+            "at": "2026-10-30T00:00:01.000Z"
+          }
+        ],
+        "llm": "off (rules only)"
+      },
+      "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "hash": "f8086e2bacfdbd2186677825e7cb0952b76da38f5042de02fa86b08997e6ab60"
+    },
+    {
+      "seq": 1,
+      "at": "2026-10-30T00:00:03.000Z",
+      "agent": "convergence",
+      "kind": "convergence.coordinated",
+      "summary": "3 different promoters posted about SAITAMA within 14 days (Maxwell Hernandez, Nam Tran, Russell Armand). Their posts are linked by payer, wording or a documented shared team, so they are not independent.",
+      "evidenceIds": [
+        "tran-2021-09-13",
+        "hernandez-2021-09-15",
+        "tran-2021-09-15-buying",
+        "tran-2021-09-15-trending",
+        "armand-2021-09-16"
+      ],
+      "data": {
+        "params": {
+          "minPromoters": 3,
+          "windowHours": 336,
+          "copyThreshold": 0.6
+        },
+        "events": [
+          {
+            "token": "SAITAMA",
+            "windowStart": "2021-09-13T00:00:00.000Z",
+            "windowEnd": "2021-09-16T23:59:59.999Z",
+            "windowHours": 336,
+            "postIds": [
+              "tran-2021-09-13",
+              "hernandez-2021-09-15",
+              "tran-2021-09-15-buying",
+              "tran-2021-09-15-trending",
+              "armand-2021-09-16"
+            ],
+            "promoters": [
+              "Maxwell Hernandez",
+              "Nam Tran",
+              "Russell Armand"
+            ],
+            "independentGroups": [
+              [
+                "Maxwell Hernandez",
+                "Nam Tran",
+                "Russell Armand"
+              ]
+            ],
+            "independentVoices": 1,
+            "echoLinks": [
+              {
+                "a": "tran-2021-09-13",
+                "b": "hernandez-2021-09-15",
+                "reason": "same-team",
+                "detail": "Maxwell Hernandez and Nam Tran are both part of Saitama's leadership team, per the SEC complaint"
+              },
+              {
+                "a": "tran-2021-09-13",
+                "b": "armand-2021-09-16",
+                "reason": "same-team",
+                "detail": "Nam Tran and Russell Armand are both part of Saitama's leadership team, per the SEC complaint"
+              },
+              {
+                "a": "hernandez-2021-09-15",
+                "b": "tran-2021-09-15-buying",
+                "reason": "same-team",
+                "detail": "Maxwell Hernandez and Nam Tran are both part of Saitama's leadership team, per the SEC complaint"
+              },
+              {
+                "a": "hernandez-2021-09-15",
+                "b": "tran-2021-09-15-trending",
+                "reason": "same-team",
+                "detail": "Maxwell Hernandez and Nam Tran are both part of Saitama's leadership team, per the SEC complaint"
+              },
+              {
+                "a": "hernandez-2021-09-15",
+                "b": "armand-2021-09-16",
+                "reason": "same-team",
+                "detail": "Maxwell Hernandez and Russell Armand are both part of Saitama's leadership team, per the SEC complaint"
+              },
+              {
+                "a": "tran-2021-09-15-buying",
+                "b": "armand-2021-09-16",
+                "reason": "same-team",
+                "detail": "Nam Tran and Russell Armand are both part of Saitama's leadership team, per the SEC complaint"
+              },
+              {
+                "a": "tran-2021-09-15-trending",
+                "b": "armand-2021-09-16",
+                "reason": "same-team",
+                "detail": "Nam Tran and Russell Armand are both part of Saitama's leadership team, per the SEC complaint"
+              }
+            ],
+            "coordinated": true,
+            "disclosure": {
+              "disclosed": [],
+              "undisclosed": [],
+              "unknown": [
+                "tran-2021-09-13",
+                "hernandez-2021-09-15",
+                "tran-2021-09-15-buying",
+                "tran-2021-09-15-trending",
+                "armand-2021-09-16"
+              ],
+              "paidButUndisclosed": []
+            },
+            "reasoning": [
+              "3 different promoters posted about SAITAMA within 14 days (Maxwell Hernandez, Nam Tran, Russell Armand).",
+              "They are not all independent: Maxwell Hernandez and Nam Tran are both part of Saitama's leadership team, per the SEC complaint; Nam Tran and Russell Armand are both part of Saitama's leadership team, per the SEC complaint; Maxwell Hernandez and Russell Armand are both part of Saitama's leadership team, per the SEC complaint. That leaves 1 independent voice.",
+              "Many accounts but few independent voices: this looks organised, not organic.",
+              "No post is documented as paid-but-undisclosed."
+            ]
+          }
+        ],
+        "bestCluster": {
+          "token": "SAITAMA",
+          "windowStart": "2021-09-13T00:00:00.000Z",
+          "windowEnd": "2021-09-16T23:59:59.999Z",
+          "windowHours": 336,
+          "postIds": [
+            "tran-2021-09-13",
+            "hernandez-2021-09-15",
+            "tran-2021-09-15-buying",
+            "tran-2021-09-15-trending",
+            "armand-2021-09-16"
+          ],
+          "promoters": [
+            "Maxwell Hernandez",
+            "Nam Tran",
+            "Russell Armand"
+          ],
+          "independentGroups": [
+            [
+              "Maxwell Hernandez",
+              "Nam Tran",
+              "Russell Armand"
+            ]
+          ],
+          "independentVoices": 1,
+          "echoLinks": [
+            {
+              "a": "tran-2021-09-13",
+              "b": "hernandez-2021-09-15",
+              "reason": "same-team",
+              "detail": "Maxwell Hernandez and Nam Tran are both part of Saitama's leadership team, per the SEC complaint"
+            },
+            {
+              "a": "tran-2021-09-13",
+              "b": "armand-2021-09-16",
+              "reason": "same-team",
+              "detail": "Nam Tran and Russell Armand are both part of Saitama's leadership team, per the SEC complaint"
+            },
+            {
+              "a": "hernandez-2021-09-15",
+              "b": "tran-2021-09-15-buying",
+              "reason": "same-team",
+              "detail": "Maxwell Hernandez and Nam Tran are both part of Saitama's leadership team, per the SEC complaint"
+            },
+            {
+              "a": "hernandez-2021-09-15",
+              "b": "tran-2021-09-15-trending",
+              "reason": "same-team",
+              "detail": "Maxwell Hernandez and Nam Tran are both part of Saitama's leadership team, per the SEC complaint"
+            },
+            {
+              "a": "hernandez-2021-09-15",
+              "b": "armand-2021-09-16",
+              "reason": "same-team",
+              "detail": "Maxwell Hernandez and Russell Armand are both part of Saitama's leadership team, per the SEC complaint"
+            },
+            {
+              "a": "tran-2021-09-15-buying",
+              "b": "armand-2021-09-16",
+              "reason": "same-team",
+              "detail": "Nam Tran and Russell Armand are both part of Saitama's leadership team, per the SEC complaint"
+            },
+            {
+              "a": "tran-2021-09-15-trending",
+              "b": "armand-2021-09-16",
+              "reason": "same-team",
+              "detail": "Nam Tran and Russell Armand are both part of Saitama's leadership team, per the SEC complaint"
+            }
+          ],
+          "coordinated": true,
+          "disclosure": {
+            "disclosed": [],
+            "undisclosed": [],
+            "unknown": [
+              "tran-2021-09-13",
+              "hernandez-2021-09-15",
+              "tran-2021-09-15-buying",
+              "tran-2021-09-15-trending",
+              "armand-2021-09-16"
+            ],
+            "paidButUndisclosed": []
+          },
+          "reasoning": [
+            "3 different promoters posted about SAITAMA within 14 days (Maxwell Hernandez, Nam Tran, Russell Armand).",
+            "They are not all independent: Maxwell Hernandez and Nam Tran are both part of Saitama's leadership team, per the SEC complaint; Nam Tran and Russell Armand are both part of Saitama's leadership team, per the SEC complaint; Maxwell Hernandez and Russell Armand are both part of Saitama's leadership team, per the SEC complaint. That leaves 1 independent voice.",
+            "Many accounts but few independent voices: this looks organised, not organic.",
+            "No post is documented as paid-but-undisclosed."
+          ]
+        },
+        "detected": true,
+        "skipped": []
+      },
+      "prevHash": "f8086e2bacfdbd2186677825e7cb0952b76da38f5042de02fa86b08997e6ab60",
+      "hash": "a01a4ec822a0de6252f30f4ce0c1adecb83ba2a66c7353048807e3045d707048"
+    },
+    {
+      "seq": 2,
+      "at": "2026-10-30T00:00:04.000Z",
+      "agent": "news",
+      "kind": "news.checked",
+      "summary": "Checked 16 promoter claims against the price: 10 contradicted by what happened next.",
+      "evidenceIds": [
+        "armand-2021-07-16",
+        "price:2021-07-16",
+        "price:2021-07-19",
+        "price:2021-07-30",
+        "price:2021-08-15",
+        "kohli-2021-07-25",
+        "price:2021-07-25",
+        "price:2021-07-28",
+        "price:2021-08-24",
+        "wearesaitama-2021-08-01",
+        "price:2021-08-01",
+        "price:2021-08-04",
+        "price:2021-08-30",
+        "price:2021-08-31",
+        "tran-2021-09-13",
+        "price:2021-09-13",
+        "price:2021-09-16",
+        "price:2021-09-27",
+        "price:2021-10-06",
+        "price:2021-10-13",
+        "tran-2021-09-15-buying",
+        "price:2021-09-15",
+        "price:2021-09-18",
+        "price:2021-10-15",
+        "tran-2021-09-15-trending",
+        "hernandez-2021-09-15",
+        "armand-2021-09-16",
+        "price:2021-09-19",
+        "price:2021-10-16",
+        "tran-2021-10-23",
+        "price:2021-10-23",
+        "price:2021-10-26",
+        "price:2021-11-13",
+        "price:2021-11-22",
+        "armand-2021-10-31",
+        "price:2021-10-31",
+        "price:2021-11-03",
+        "price:2021-11-30",
+        "armand-2021-11-02",
+        "price:2021-11-02",
+        "price:2021-11-05",
+        "price:2021-12-02",
+        "kohli-2021-11-08",
+        "price:2021-11-08",
+        "price:2021-11-11",
+        "price:2021-12-04",
+        "price:2021-12-08",
+        "armand-2021-11-09",
+        "price:2021-11-09",
+        "price:2021-11-12",
+        "price:2021-12-09",
+        "kohli-2021-11-12",
+        "price:2021-11-15",
+        "price:2021-12-10",
+        "price:2021-12-12",
+        "armand-2021-11-13",
+        "price:2021-11-16",
+        "price:2021-12-13",
+        "armand-2022-01-ama",
+        "price:2022-01-01",
+        "price:2022-01-04",
+        "price:2022-01-27",
+        "price:2022-01-31"
+      ],
+      "data": [
+        {
+          "claimId": "armand-2021-07-16",
+          "direction": "up",
+          "cause": "Russell Armand said on 2021-07-16: \"RT @InuSaitama: Looks [sic] at this chart! We will have new [all time] high price soon!! 💥🔥🚀💵 and we are Top Trending Dextools 5 days in the roll now ❤️ #Sa\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 9.078e-11,
+            "shortPriceUsd": 8.579e-11,
+            "longPriceUsd": 7.813e-10,
+            "shortChangePct": -5.5,
+            "longChangePct": 760.7,
+            "maxRunUpPct": 4135.5,
+            "maxDrawdownPct": 79.7,
+            "liquidityChangePct": 362.6
+          },
+          "shortVerdict": "contradicted",
+          "verdict": "supported",
+          "explanation": "Russell Armand said on 2021-07-16: \"RT @InuSaitama: Looks [sic] at this chart! We will have new [all time] high price soon!! 💥🔥🚀💵 and we are Top Trending Dextools 5 days in the roll now ❤️ #Sa\" (read as: price will go up). In the next 3 days the price moved -5.5% ($0.0000000000908 → $0.0000000000858). Over 30 days it moved +760.7% (to $0.000000000781); at its best it was +4135.5%, then fell 79.7% from that high. Money available to sell into (liquidity) changed +362.6%. The market bore the claim out over 30 days. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "armand-2021-07-16",
+            "price:2021-07-16",
+            "price:2021-07-19",
+            "price:2021-07-30",
+            "price:2021-08-15"
+          ]
+        },
+        {
+          "claimId": "kohli-2021-07-25",
+          "direction": "up",
+          "cause": "Manpreet Singh Kohli said on 2021-07-25: \"RT @InuSaitama: 🐺Update on 07/25 🎉New ATH 1260! ... 💸Top 7 Dextools … 🟦105.2% 24h; 🟦1446.72 % WoW💰8286+ Holders\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 1.218e-9,
+            "shortPriceUsd": 1.247e-9,
+            "longPriceUsd": 8.93e-10,
+            "shortChangePct": 2.4,
+            "longChangePct": -26.7,
+            "maxRunUpPct": 215.7,
+            "maxDrawdownPct": 79.7,
+            "liquidityChangePct": 17.1
+          },
+          "shortVerdict": "supported",
+          "verdict": "contradicted",
+          "explanation": "Manpreet Singh Kohli said on 2021-07-25: \"RT @InuSaitama: 🐺Update on 07/25 🎉New ATH 1260! ... 💸Top 7 Dextools … 🟦105.2% 24h; 🟦1446.72 % WoW💰8286+ Holders\" (read as: price will go up). In the next 3 days the price moved +2.4% ($0.00000000122 → $0.00000000125). Over 30 days it moved -26.7% (to $0.000000000893); at its best it was +215.7%, then fell 79.7% from that high. Money available to sell into (liquidity) changed +17.1%. It looked right for a few days, then the opposite happened: someone who bought on the day of the claim would be down 26.7% a month later. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "kohli-2021-07-25",
+            "price:2021-07-25",
+            "price:2021-07-28",
+            "price:2021-07-30",
+            "price:2021-08-15",
+            "price:2021-08-24"
+          ]
+        },
+        {
+          "claimId": "wearesaitama-2021-08-01",
+          "direction": "up",
+          "cause": "Saitama (official X account) said on 2021-08-01: \"💸Top 3 Dextools.\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 1.538e-9,
+            "shortPriceUsd": 1.774e-9,
+            "longPriceUsd": 7.973e-10,
+            "shortChangePct": 15.3,
+            "longChangePct": -48.2,
+            "maxRunUpPct": 15.3,
+            "maxDrawdownPct": 56.6,
+            "liquidityChangePct": -12.2
+          },
+          "shortVerdict": "supported",
+          "verdict": "contradicted",
+          "explanation": "Saitama (official X account) said on 2021-08-01: \"💸Top 3 Dextools.\" (read as: price will go up). In the next 3 days the price moved +15.3% ($0.00000000154 → $0.00000000177). Over 30 days it moved -48.2% (to $0.000000000797); at its best it was +15.3%, then fell 56.6% from that high. Money available to sell into (liquidity) changed -12.2%. It looked right for a few days, then the opposite happened: someone who bought on the day of the claim would be down 48.2% a month later. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "wearesaitama-2021-08-01",
+            "price:2021-08-01",
+            "price:2021-08-04",
+            "price:2021-08-30",
+            "price:2021-08-31"
+          ]
+        },
+        {
+          "claimId": "tran-2021-09-13",
+          "direction": "up",
+          "cause": "Nam Tran said on 2021-09-13: \"We are #1 Dextools Trending 6 days straight and the 4 hour chart is so Bullish 🔥🚀.\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 2.993e-9,
+            "shortPriceUsd": 4.86e-9,
+            "longPriceUsd": 1.292e-8,
+            "shortChangePct": 62.4,
+            "longChangePct": 331.7,
+            "maxRunUpPct": 427.2,
+            "maxDrawdownPct": 42.7,
+            "liquidityChangePct": 136.6
+          },
+          "shortVerdict": "supported",
+          "verdict": "supported",
+          "explanation": "Nam Tran said on 2021-09-13: \"We are #1 Dextools Trending 6 days straight and the 4 hour chart is so Bullish 🔥🚀.\" (read as: price will go up). In the next 3 days the price moved +62.4% ($0.00000000299 → $0.00000000486). Over 30 days it moved +331.7% (to $0.0000000129); at its best it was +427.2%, then fell 42.7% from that high. Money available to sell into (liquidity) changed +136.6%. The market bore the claim out over 30 days. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "tran-2021-09-13",
+            "price:2021-09-13",
+            "price:2021-09-16",
+            "price:2021-09-27",
+            "price:2021-10-06",
+            "price:2021-10-13"
+          ]
+        },
+        {
+          "claimId": "tran-2021-09-15-buying",
+          "direction": "up",
+          "cause": "Nam Tran said on 2021-09-15: \"I am buying more\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 4.866e-9,
+            "shortPriceUsd": 6.854e-9,
+            "longPriceUsd": 1.526e-8,
+            "shortChangePct": 40.9,
+            "longChangePct": 213.6,
+            "maxRunUpPct": 224.3,
+            "maxDrawdownPct": 42.7,
+            "liquidityChangePct": 99.1
+          },
+          "shortVerdict": "supported",
+          "verdict": "supported",
+          "explanation": "Nam Tran said on 2021-09-15: \"I am buying more\" (read as: price will go up). In the next 3 days the price moved +40.9% ($0.00000000487 → $0.00000000685). Over 30 days it moved +213.6% (to $0.0000000153); at its best it was +224.3%, then fell 42.7% from that high. Money available to sell into (liquidity) changed +99.1%. The market bore the claim out over 30 days. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "tran-2021-09-15-buying",
+            "price:2021-09-15",
+            "price:2021-09-18",
+            "price:2021-09-27",
+            "price:2021-10-06",
+            "price:2021-10-15"
+          ]
+        },
+        {
+          "claimId": "tran-2021-09-15-trending",
+          "direction": "up",
+          "cause": "Nam Tran said on 2021-09-15: \"🔥Top 6 Trending Dextools.\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 4.866e-9,
+            "shortPriceUsd": 6.854e-9,
+            "longPriceUsd": 1.526e-8,
+            "shortChangePct": 40.9,
+            "longChangePct": 213.6,
+            "maxRunUpPct": 224.3,
+            "maxDrawdownPct": 42.7,
+            "liquidityChangePct": 99.1
+          },
+          "shortVerdict": "supported",
+          "verdict": "supported",
+          "explanation": "Nam Tran said on 2021-09-15: \"🔥Top 6 Trending Dextools.\" (read as: price will go up). In the next 3 days the price moved +40.9% ($0.00000000487 → $0.00000000685). Over 30 days it moved +213.6% (to $0.0000000153); at its best it was +224.3%, then fell 42.7% from that high. Money available to sell into (liquidity) changed +99.1%. The market bore the claim out over 30 days. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "tran-2021-09-15-trending",
+            "price:2021-09-15",
+            "price:2021-09-18",
+            "price:2021-09-27",
+            "price:2021-10-06",
+            "price:2021-10-15"
+          ]
+        },
+        {
+          "claimId": "hernandez-2021-09-15",
+          "direction": "up",
+          "cause": "Maxwell Hernandez said on 2021-09-15: \"I myself haven't really sold anything since the beginning . . . and if I have taken anything out of my wallet it's been, you know, to donate for like you know g\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 4.866e-9,
+            "shortPriceUsd": 6.854e-9,
+            "longPriceUsd": 1.526e-8,
+            "shortChangePct": 40.9,
+            "longChangePct": 213.6,
+            "maxRunUpPct": 224.3,
+            "maxDrawdownPct": 42.7,
+            "liquidityChangePct": 99.1
+          },
+          "shortVerdict": "supported",
+          "verdict": "supported",
+          "explanation": "Maxwell Hernandez said on 2021-09-15: \"I myself haven't really sold anything since the beginning . . . and if I have taken anything out of my wallet it's been, you know, to donate for like you know g\" (read as: price will go up). In the next 3 days the price moved +40.9% ($0.00000000487 → $0.00000000685). Over 30 days it moved +213.6% (to $0.0000000153); at its best it was +224.3%, then fell 42.7% from that high. Money available to sell into (liquidity) changed +99.1%. The market bore the claim out over 30 days. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "hernandez-2021-09-15",
+            "price:2021-09-15",
+            "price:2021-09-18",
+            "price:2021-09-27",
+            "price:2021-10-06",
+            "price:2021-10-15"
+          ]
+        },
+        {
+          "claimId": "armand-2021-09-16",
+          "direction": "up",
+          "cause": "Russell Armand said on 2021-09-16: \"November 13th will go down in history\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 4.86e-9,
+            "shortPriceUsd": 8.613e-9,
+            "longPriceUsd": 1.913e-8,
+            "shortChangePct": 77.2,
+            "longChangePct": 293.6,
+            "maxRunUpPct": 293.6,
+            "maxDrawdownPct": 0,
+            "liquidityChangePct": 123.2
+          },
+          "shortVerdict": "supported",
+          "verdict": "supported",
+          "explanation": "Russell Armand said on 2021-09-16: \"November 13th will go down in history\" (read as: price will go up). In the next 3 days the price moved +77.2% ($0.00000000486 → $0.00000000861). Over 30 days it moved +293.6% (to $0.0000000191); at its best it was +293.6%, then fell 0% from that high. Money available to sell into (liquidity) changed +123.2%. The market bore the claim out over 30 days. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "armand-2021-09-16",
+            "price:2021-09-16",
+            "price:2021-09-19",
+            "price:2021-10-16"
+          ]
+        },
+        {
+          "claimId": "tran-2021-10-23",
+          "direction": "up",
+          "cause": "Nam Tran said on 2021-10-23: \"I said HOLD! #SaitamaWolfPack #SaitamaInu #SaitamaToken #Saitama100k #SaitaMask\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 5.45e-8,
+            "shortPriceUsd": 6.338e-8,
+            "longPriceUsd": 4.479e-8,
+            "shortChangePct": 16.3,
+            "longChangePct": -17.8,
+            "maxRunUpPct": 169,
+            "maxDrawdownPct": 69.4,
+            "liquidityChangePct": 5.4
+          },
+          "shortVerdict": "supported",
+          "verdict": "contradicted",
+          "explanation": "Nam Tran said on 2021-10-23: \"I said HOLD! #SaitamaWolfPack #SaitamaInu #SaitamaToken #Saitama100k #SaitaMask\" (read as: price will go up). In the next 3 days the price moved +16.3% ($0.0000000545 → $0.0000000634). Over 30 days it moved -17.8% (to $0.0000000448); at its best it was +169%, then fell 69.4% from that high. Money available to sell into (liquidity) changed +5.4%. It looked right for a few days, then the opposite happened: someone who bought on the day of the claim would be down 17.8% a month later. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "tran-2021-10-23",
+            "price:2021-10-23",
+            "price:2021-10-26",
+            "price:2021-11-13",
+            "price:2021-11-22"
+          ]
+        },
+        {
+          "claimId": "armand-2021-10-31",
+          "direction": "up",
+          "cause": "Russell Armand said on 2021-10-31: \"zero 👌 saitama sold just to be clear lol.\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 7.535e-8,
+            "shortPriceUsd": 9.042e-8,
+            "longPriceUsd": 6.866e-8,
+            "shortChangePct": 20,
+            "longChangePct": -8.9,
+            "maxRunUpPct": 94.6,
+            "maxDrawdownPct": 69.4,
+            "liquidityChangePct": 12.6
+          },
+          "shortVerdict": "supported",
+          "verdict": "contradicted",
+          "explanation": "Russell Armand said on 2021-10-31: \"zero 👌 saitama sold just to be clear lol.\" (read as: price will go up). In the next 3 days the price moved +20% ($0.0000000753 → $0.0000000904). Over 30 days it moved -8.9% (to $0.0000000687); at its best it was +94.6%, then fell 69.4% from that high. Money available to sell into (liquidity) changed +12.6%. It looked right for a few days, then the opposite happened: someone who bought on the day of the claim would be down 8.9% a month later. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "armand-2021-10-31",
+            "price:2021-10-31",
+            "price:2021-11-03",
+            "price:2021-11-13",
+            "price:2021-11-22",
+            "price:2021-11-30"
+          ]
+        },
+        {
+          "claimId": "armand-2021-11-02",
+          "direction": "up",
+          "cause": "Russell Armand said on 2021-11-02: \"Russell Armand promoted the token (no exact quote documented)\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 9.453e-8,
+            "shortPriceUsd": 9.167e-8,
+            "longPriceUsd": 6.216e-8,
+            "shortChangePct": -3,
+            "longChangePct": -34.2,
+            "maxRunUpPct": 55.1,
+            "maxDrawdownPct": 69.4,
+            "liquidityChangePct": -9
+          },
+          "shortVerdict": "contradicted",
+          "verdict": "contradicted",
+          "explanation": "Russell Armand said on 2021-11-02: \"Russell Armand promoted the token (no exact quote documented)\" (read as: price will go up). In the next 3 days the price moved -3% ($0.0000000945 → $0.0000000917). Over 30 days it moved -34.2% (to $0.0000000622); at its best it was +55.1%, then fell 69.4% from that high. Money available to sell into (liquidity) changed -9%. The market went the other way. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "armand-2021-11-02",
+            "price:2021-11-02",
+            "price:2021-11-05",
+            "price:2021-11-13",
+            "price:2021-11-22",
+            "price:2021-12-02"
+          ]
+        },
+        {
+          "claimId": "kohli-2021-11-08",
+          "direction": "up",
+          "cause": "Manpreet Singh Kohli said on 2021-11-08: \"6 more days to go for SaitaMask Launch 🚀🚀🚀🚀🚀. Lot more coming this week and weekend,\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 7.987e-8,
+            "shortPriceUsd": 9.859e-8,
+            "longPriceUsd": 4.731e-8,
+            "shortChangePct": 23.4,
+            "longChangePct": -40.8,
+            "maxRunUpPct": 83.5,
+            "maxDrawdownPct": 69.9,
+            "liquidityChangePct": -16.8
+          },
+          "shortVerdict": "supported",
+          "verdict": "contradicted",
+          "explanation": "Manpreet Singh Kohli said on 2021-11-08: \"6 more days to go for SaitaMask Launch 🚀🚀🚀🚀🚀. Lot more coming this week and weekend,\" (read as: price will go up). In the next 3 days the price moved +23.4% ($0.0000000799 → $0.0000000986). Over 30 days it moved -40.8% (to $0.0000000473); at its best it was +83.5%, then fell 69.9% from that high. Money available to sell into (liquidity) changed -16.8%. It looked right for a few days, then the opposite happened: someone who bought on the day of the claim would be down 40.8% a month later. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "kohli-2021-11-08",
+            "price:2021-11-08",
+            "price:2021-11-11",
+            "price:2021-11-13",
+            "price:2021-12-04",
+            "price:2021-12-08"
+          ]
+        },
+        {
+          "claimId": "armand-2021-11-09",
+          "direction": "up",
+          "cause": "Russell Armand said on 2021-11-09: \"We've already put all the preliminary measures in place and the wallet itself is done like the swap function's done. Everything is done.\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 7.188e-8,
+            "shortPriceUsd": 1.391e-7,
+            "longPriceUsd": 4.235e-8,
+            "shortChangePct": 93.5,
+            "longChangePct": -41.1,
+            "maxRunUpPct": 104,
+            "maxDrawdownPct": 71.1,
+            "liquidityChangePct": -19.4
+          },
+          "shortVerdict": "supported",
+          "verdict": "contradicted",
+          "explanation": "Russell Armand said on 2021-11-09: \"We've already put all the preliminary measures in place and the wallet itself is done like the swap function's done. Everything is done.\" (read as: price will go up). In the next 3 days the price moved +93.5% ($0.0000000719 → $0.000000139). Over 30 days it moved -41.1% (to $0.0000000423); at its best it was +104%, then fell 71.1% from that high. Money available to sell into (liquidity) changed -19.4%. It looked right for a few days, then the opposite happened: someone who bought on the day of the claim would be down 41.1% a month later. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "armand-2021-11-09",
+            "price:2021-11-09",
+            "price:2021-11-12",
+            "price:2021-11-13",
+            "price:2021-12-09"
+          ]
+        },
+        {
+          "claimId": "kohli-2021-11-12",
+          "direction": "up",
+          "cause": "Manpreet Singh Kohli said on 2021-11-12: \"[One] Day left for our Launch and few great announcements\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 1.391e-7,
+            "shortPriceUsd": 7.765e-8,
+            "longPriceUsd": 4.491e-8,
+            "shortChangePct": -44.2,
+            "longChangePct": -67.7,
+            "maxRunUpPct": 5.4,
+            "maxDrawdownPct": 72,
+            "liquidityChangePct": -40.5
+          },
+          "shortVerdict": "contradicted",
+          "verdict": "contradicted",
+          "explanation": "Manpreet Singh Kohli said on 2021-11-12: \"[One] Day left for our Launch and few great announcements\" (read as: price will go up). In the next 3 days the price moved -44.2% ($0.000000139 → $0.0000000776). Over 30 days it moved -67.7% (to $0.0000000449); at its best it was +5.4%, then fell 72% from that high. Money available to sell into (liquidity) changed -40.5%. The market went the other way. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "kohli-2021-11-12",
+            "price:2021-11-12",
+            "price:2021-11-15",
+            "price:2021-11-13",
+            "price:2021-12-10",
+            "price:2021-12-12"
+          ]
+        },
+        {
+          "claimId": "armand-2021-11-13",
+          "direction": "up",
+          "cause": "Russell Armand said on 2021-11-13: \"Russell Armand promoted the token (no exact quote documented)\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 1.466e-7,
+            "shortPriceUsd": 8.807e-8,
+            "longPriceUsd": 3.93e-8,
+            "shortChangePct": -39.9,
+            "longChangePct": -73.2,
+            "maxRunUpPct": 0,
+            "maxDrawdownPct": 73.2,
+            "liquidityChangePct": -48.5
+          },
+          "shortVerdict": "contradicted",
+          "verdict": "contradicted",
+          "explanation": "Russell Armand said on 2021-11-13: \"Russell Armand promoted the token (no exact quote documented)\" (read as: price will go up). In the next 3 days the price moved -39.9% ($0.000000147 → $0.0000000881). Over 30 days it moved -73.2% (to $0.0000000393); at its best it was 0%, then fell 73.2% from that high. Money available to sell into (liquidity) changed -48.5%. The market went the other way. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "armand-2021-11-13",
+            "price:2021-11-13",
+            "price:2021-11-16",
+            "price:2021-12-13"
+          ]
+        },
+        {
+          "claimId": "armand-2022-01-ama",
+          "direction": "up",
+          "cause": "Russell Armand said on 2022-01-01: \"[A]ll the different things that we're doing, it's all geared with the same premise--and that's to make the token more valuable--to make Saitama more valuable, t\" (read as: price will go up).",
+          "effect": {
+            "startPriceUsd": 5.042e-8,
+            "shortPriceUsd": 8.29e-8,
+            "longPriceUsd": 3.047e-8,
+            "shortChangePct": 64.4,
+            "longChangePct": -39.6,
+            "maxRunUpPct": 64.4,
+            "maxDrawdownPct": 74.1,
+            "liquidityChangePct": -30.8
+          },
+          "shortVerdict": "supported",
+          "verdict": "contradicted",
+          "explanation": "Russell Armand said on 2022-01-01: \"[A]ll the different things that we're doing, it's all geared with the same premise--and that's to make the token more valuable--to make Saitama more valuable, t\" (read as: price will go up). In the next 3 days the price moved +64.4% ($0.0000000504 → $0.0000000829). Over 30 days it moved -39.6% (to $0.0000000305); at its best it was +64.4%, then fell 74.1% from that high. Money available to sell into (liquidity) changed -30.8%. It looked right for a few days, then the opposite happened: someone who bought on the day of the claim would be down 39.6% a month later. Timing is not proof that the post caused the move.",
+          "evidenceIds": [
+            "armand-2022-01-ama",
+            "price:2022-01-01",
+            "price:2022-01-04",
+            "price:2022-01-27",
+            "price:2022-01-31"
+          ]
+        }
+      ],
+      "prevHash": "a01a4ec822a0de6252f30f4ce0c1adecb83ba2a66c7353048807e3045d707048",
+      "hash": "41a191e99ca49e89ec68535eca14a8544138aaa79fe238e9697ca076f2833318"
+    },
+    {
+      "seq": 3,
+      "at": "2026-10-30T00:00:05.000Z",
+      "agent": "hunter",
+      "kind": "hunter.selected",
+      "summary": "SAITAMA: 5 of 12 points (selected; 4 needed). Red flags: liquidity drop from its peak; promoters pushing it in the same window; price run-up during the promotion. Not checked for lack of data: liquidity vs claimed market cap; top-10 holders' share of supply.",
+      "evidenceIds": [
+        "price:2021-11-13",
+        "price:2022-05-11",
+        "price:2021-07-03",
+        "convergence"
+      ],
+      "data": {
+        "selectThreshold": 4,
+        "selected": [
+          {
+            "symbol": "SAITAMA",
+            "score": 5,
+            "maxScore": 12,
+            "selected": true,
+            "rules": [
+              {
+                "id": "liquidity-depth",
+                "label": "Liquidity vs claimed market cap",
+                "value": null,
+                "threshold": 2,
+                "comparison": "< 2%",
+                "outcome": "unknown",
+                "points": 0,
+                "explanation": "Liquidity vs claimed market cap: no data, so this rule could not be checked (no points either way)."
+              },
+              {
+                "id": "holder-concentration",
+                "label": "Top-10 holders' share of supply",
+                "value": null,
+                "threshold": 50,
+                "comparison": "> 50%",
+                "outcome": "unknown",
+                "points": 0,
+                "explanation": "Top-10 holders' share of supply: no data, so this rule could not be checked (no points either way)."
+              },
+              {
+                "id": "liquidity-drop",
+                "label": "Liquidity drop from its peak",
+                "value": 87.3,
+                "threshold": 50,
+                "comparison": ">= 50%",
+                "outcome": "red-flag",
+                "points": 2,
+                "explanation": "Liquidity fell 87.3% from its peak ($42,884,476 → $5,442,006). At least 50%: money was pulled out of the pool."
+              },
+              {
+                "id": "promoter-convergence",
+                "label": "Promoters pushing it in the same window",
+                "value": 3,
+                "threshold": 3,
+                "comparison": ">= 3",
+                "outcome": "red-flag",
+                "points": 2,
+                "explanation": "3 promoters pushed it in the same window, 1 of them independent. At least 3: many voices pushing one token at once."
+              },
+              {
+                "id": "undisclosed-paid",
+                "label": "Paid posts that did not disclose payment",
+                "value": 0,
+                "threshold": 0,
+                "comparison": "> 0",
+                "outcome": "clear",
+                "points": 0,
+                "explanation": "0 posts were documented as paid without saying so. None found."
+              },
+              {
+                "id": "price-run-up",
+                "label": "Price run-up during the promotion",
+                "value": 493502.7,
+                "threshold": 100,
+                "comparison": ">= 100%",
+                "outcome": "red-flag",
+                "points": 1,
+                "explanation": "The price rose 493502.7% during the promotion. At least 100%: the classic \"pump\"."
+              }
+            ],
+            "unknownCount": 2,
+            "explanation": "SAITAMA: 5 of 12 points (selected; 4 needed). Red flags: liquidity drop from its peak; promoters pushing it in the same window; price run-up during the promotion. Not checked for lack of data: liquidity vs claimed market cap; top-10 holders' share of supply.",
+            "evidenceIds": [
+              "price:2021-11-13",
+              "price:2022-05-11",
+              "price:2021-07-03",
+              "convergence"
+            ]
+          }
+        ],
+        "rejected": []
+      },
+      "prevHash": "41a191e99ca49e89ec68535eca14a8544138aaa79fe238e9697ca076f2833318",
+      "hash": "c4527e83782d22b9ae8adb4fb395bcdcbdc26467bbeaaad7a21085ef6ea826c2"
+    },
+    {
+      "seq": 4,
+      "at": "2026-10-30T00:00:06.000Z",
+      "agent": "collapse",
+      "kind": "collapse.detected",
+      "summary": "The price peaked at $0.00000000384 on 2021-07-30 and by 2021-08-30 had fallen 80% to $0.000000000769, past the 80% collapse line. Liquidity fell 44.6% over the same days.",
+      "evidenceIds": [
+        "price:2021-07-30",
+        "price:2021-08-30"
+      ],
+      "data": {
+        "detected": true,
+        "thresholdPct": 80,
+        "peak": {
+          "t": "2021-07-30",
+          "priceUsd": 3.845e-9
+        },
+        "collapse": {
+          "t": "2021-08-30",
+          "priceUsd": 7.691e-10,
+          "dropPct": 80
+        },
+        "liquidityDropPct": 44.6,
+        "matchesCaseFile": true,
+        "explanation": "The price peaked at $0.00000000384 on 2021-07-30 and by 2021-08-30 had fallen 80% to $0.000000000769, past the 80% collapse line. Liquidity fell 44.6% over the same days.",
+        "evidenceIds": [
+          "price:2021-07-30",
+          "price:2021-08-30"
+        ]
+      },
+      "prevHash": "c4527e83782d22b9ae8adb4fb395bcdcbdc26467bbeaaad7a21085ef6ea826c2",
+      "hash": "e8d08fbe5811b475bb776deb3f827f93081733d25d4f9e1b3dc54d504002b4ba"
+    },
+    {
+      "seq": 5,
+      "at": "2026-10-30T00:00:07.000Z",
+      "agent": "bull",
+      "kind": "bull.rules",
+      "summary": "Bull: The rise could be organic and the promotion lawful. (3 claims that cite real evidence).",
+      "evidenceIds": [
+        "hunter:SAITAMA",
+        "armand-2021-07-16",
+        "collapse.detected"
+      ],
+      "data": {
+        "bundleHash": "ea3e2d2da54e806433587fec37f08685bcda51b6e66af9c9f4c2422eba1e3253",
+        "side": "bull",
+        "stance": "The rise could be organic and the promotion lawful.",
+        "claims": [
+          {
+            "text": "Not seen: paid posts that did not disclose payment. 0 posts were documented as paid without saying so. None found.",
+            "evidenceIds": [
+              "hunter:SAITAMA"
+            ]
+          },
+          {
+            "text": "Some warning signs could not be checked for lack of data (top-10 holders' share of supply); missing data is not proof of fraud.",
+            "evidenceIds": [
+              "hunter:SAITAMA",
+              "armand-2021-07-16"
+            ]
+          },
+          {
+            "text": "A price move right after a post shows timing, not that the post caused it.",
+            "evidenceIds": [
+              "hunter:SAITAMA",
+              "collapse.detected"
+            ]
+          }
+        ],
+        "mode": "rules",
+        "fallbackReason": "no model configured",
+        "rejected": []
+      },
+      "prevHash": "e8d08fbe5811b475bb776deb3f827f93081733d25d4f9e1b3dc54d504002b4ba",
+      "hash": "35caf9765cbd69754e8409bcbbbbb8851704b7a715d6aa2cedc40a7f15abd51f"
+    },
+    {
+      "seq": 6,
+      "at": "2026-10-30T00:00:08.000Z",
+      "agent": "bear",
+      "kind": "bear.rules",
+      "summary": "Bear: This was paid promotion that was not disclosed and/or a pump-and-dump. (5 claims that cite real evidence).",
+      "evidenceIds": [
+        "collapse.detected",
+        "price:2021-07-30",
+        "price:2021-08-30",
+        "hunter:SAITAMA",
+        "convergence"
+      ],
+      "data": {
+        "bundleHash": "ea3e2d2da54e806433587fec37f08685bcda51b6e66af9c9f4c2422eba1e3253",
+        "side": "bear",
+        "stance": "This was paid promotion that was not disclosed and/or a pump-and-dump.",
+        "claims": [
+          {
+            "text": "The price peaked at $0.00000000384 on 2021-07-30 and by 2021-08-30 had fallen 80% to $0.000000000769, past the 80% collapse line. Liquidity fell 44.6% over the same days.",
+            "evidenceIds": [
+              "collapse.detected",
+              "price:2021-07-30",
+              "price:2021-08-30"
+            ]
+          },
+          {
+            "text": "3 promoters pushed it in the same window, 1 of them independent. At least 3: many voices pushing one token at once.",
+            "evidenceIds": [
+              "hunter:SAITAMA",
+              "convergence"
+            ]
+          },
+          {
+            "text": "The price rose 493502.7% during the promotion. At least 100%: the classic \"pump\".",
+            "evidenceIds": [
+              "hunter:SAITAMA"
+            ]
+          },
+          {
+            "text": "Liquidity fell 87.3% from its peak ($42,884,476 → $5,442,006). At least 50%: money was pulled out of the pool.",
+            "evidenceIds": [
+              "hunter:SAITAMA"
+            ]
+          },
+          {
+            "text": "Even without data on top-10 holders' share of supply, the signs above are enough to look closer.",
+            "evidenceIds": [
+              "collapse.detected",
+              "price:2021-07-30",
+              "price:2021-08-30"
+            ]
+          }
+        ],
+        "mode": "rules",
+        "fallbackReason": "no model configured",
+        "rejected": []
+      },
+      "prevHash": "35caf9765cbd69754e8409bcbbbbb8851704b7a715d6aa2cedc40a7f15abd51f",
+      "hash": "980b1a02469c56b55d0eac4900a53254768a41aec4a4550c4abfd1869fbeccfd"
+    },
+    {
+      "seq": 7,
+      "at": "2026-10-30T00:00:09.000Z",
+      "agent": "judge",
+      "kind": "judge.pump-and-dump",
+      "summary": "Verdict: a pump-and-dump (score 0.6 of 1).",
+      "evidenceIds": [
+        "hunter:SAITAMA",
+        "collapse.detected",
+        "price:2021-07-30",
+        "price:2021-08-30",
+        "convergence"
+      ],
+      "data": {
+        "bundleHash": "ea3e2d2da54e806433587fec37f08685bcda51b6e66af9c9f4c2422eba1e3253",
+        "verdict": "pump-and-dump",
+        "score": 0.6,
+        "weights": {
+          "undisclosed-paid": 0.3,
+          "collapse": 0.25,
+          "promoter-convergence": 0.2,
+          "price-run-up": 0.1,
+          "holder-concentration": 0.1,
+          "liquidity-drop": 0.05
+        },
+        "factors": [
+          {
+            "id": "undisclosed-paid",
+            "label": "Paid posts that did not disclose payment",
+            "weight": 0.3,
+            "present": false,
+            "detail": "0 posts were documented as paid without saying so. None found.",
+            "evidenceIds": [
+              "hunter:SAITAMA"
+            ]
+          },
+          {
+            "id": "collapse",
+            "label": "Price collapse of 80% or more",
+            "weight": 0.25,
+            "present": true,
+            "detail": "The price peaked at $0.00000000384 on 2021-07-30 and by 2021-08-30 had fallen 80% to $0.000000000769, past the 80% collapse line. Liquidity fell 44.6% over the same days.",
+            "evidenceIds": [
+              "collapse.detected",
+              "price:2021-07-30",
+              "price:2021-08-30"
+            ]
+          },
+          {
+            "id": "promoter-convergence",
+            "label": "Promoters pushing it in the same window",
+            "weight": 0.2,
+            "present": true,
+            "detail": "3 promoters pushed it in the same window, 1 of them independent. At least 3: many voices pushing one token at once.",
+            "evidenceIds": [
+              "hunter:SAITAMA",
+              "convergence"
+            ]
+          },
+          {
+            "id": "price-run-up",
+            "label": "Price run-up during the promotion",
+            "weight": 0.1,
+            "present": true,
+            "detail": "The price rose 493502.7% during the promotion. At least 100%: the classic \"pump\".",
+            "evidenceIds": [
+              "hunter:SAITAMA"
+            ]
+          },
+          {
+            "id": "holder-concentration",
+            "label": "Top-10 holders' share of supply",
+            "weight": 0.1,
+            "present": null,
+            "detail": "Top-10 holders' share of supply: no data, so this rule could not be checked (no points either way).",
+            "evidenceIds": [
+              "hunter:SAITAMA"
+            ]
+          },
+          {
+            "id": "liquidity-drop",
+            "label": "Liquidity drop from its peak",
+            "weight": 0.05,
+            "present": true,
+            "detail": "Liquidity fell 87.3% from its peak ($42,884,476 → $5,442,006). At least 50%: money was pulled out of the pool.",
+            "evidenceIds": [
+              "hunter:SAITAMA"
+            ]
+          }
+        ],
+        "tally": {
+          "bullClaims": 3,
+          "bearClaims": 5
+        },
+        "reasoning": "Verdict: a pump-and-dump (score 0.6 of 1). Weighing against the token: price collapse of 80% or more (weight 0.25); promoters pushing it in the same window (weight 0.2); price run-up during the promotion (weight 0.1); liquidity drop from its peak (weight 0.05). In its favour: no paid posts that did not disclose payment. Could not be checked: top-10 holders' share of supply. The bull side made 3 supported claims and the bear side 5; only claims that cite real evidence were counted.",
+        "mode": "rules",
+        "rejected": []
+      },
+      "prevHash": "980b1a02469c56b55d0eac4900a53254768a41aec4a4550c4abfd1869fbeccfd",
+      "hash": "6655849ee73d5146c8d8d504005b2bff3a042005f69fba6073261158b25b8c29"
+    },
+    {
+      "seq": 8,
+      "at": "2026-10-30T00:00:10.000Z",
+      "agent": "risk",
+      "kind": "risk.accepted",
+      "summary": "Practice trade accepted by every limit (paper only).",
+      "evidenceIds": [
+        "price:2021-06-04",
+        "price:2021-06-05"
+      ],
+      "data": {
+        "symbol": "SAITAMA",
+        "side": "buy",
+        "sizeUsd": 500,
+        "decision": "accepted",
+        "reasons": [
+          "Every one of your limits passed. Practice trade only: no real order is placed."
+        ],
+        "limits": {
+          "maxPositionUsd": 1000,
+          "minLiquidityUsd": 250000,
+          "maxTop10HolderPct": 50,
+          "refuseUndisclosedPaidPromotion": "true",
+          "maxDrawdownPct": 25,
+          "dailyLossLimitUsd": 300,
+          "unknownHolders": "half-size"
+        },
+        "plan": {
+          "symbol": "SAITAMA",
+          "side": "buy",
+          "at": "2021-06-05",
+          "entryPriceUsd": 5.272e-11,
+          "sizeUsd": 500,
+          "stopPriceUsd": 4.2176e-11,
+          "exitPriceUsd": 7.3808e-11,
+          "rationale": "The price is 39.4% below its high of $0.0000000000870 (2021-06-04). Plan: buy $750.00 at $0.0000000000527, stop 20% lower at $0.0000000000422, take profit at $0.0000000000738. Size halved to $500.00 because who holds the supply is unknown.",
+          "evidenceIds": [
+            "price:2021-06-04",
+            "price:2021-06-05"
+          ]
+        },
+        "checks": [
+          {
+            "limit": "data",
+            "ok": true,
+            "value": "ok",
+            "threshold": "stop < entry < exit, size > 0",
+            "reason": "The plan has an entry, a stop below it and an exit above it."
+          },
+          {
+            "limit": "maxPositionUsd",
+            "ok": true,
+            "value": 500,
+            "threshold": 1000,
+            "reason": "Size $500.00 is within your $1.0k maximum."
+          },
+          {
+            "limit": "minLiquidityUsd",
+            "ok": true,
+            "value": 362495,
+            "threshold": 250000,
+            "reason": "Liquidity $362.5k meets your $250.0k minimum."
+          },
+          {
+            "limit": "maxTop10HolderPct",
+            "ok": true,
+            "value": null,
+            "threshold": 50,
+            "reason": "Who holds the supply is unknown, so your rule allows only half size ($500.00 at most)."
+          },
+          {
+            "limit": "refuseUndisclosedPaidPromotion",
+            "ok": true,
+            "value": "false",
+            "threshold": "no undisclosed paid promotion",
+            "reason": "No undisclosed paid promotion found."
+          },
+          {
+            "limit": "maxDrawdownPct",
+            "ok": true,
+            "value": 20,
+            "threshold": 25,
+            "reason": "The stop is 20% below the entry, within your 25% limit."
+          },
+          {
+            "limit": "dailyLossLimitUsd",
+            "ok": true,
+            "value": 100,
+            "threshold": 300,
+            "reason": "Worst case today $100.00 stays within your $300.00 daily loss limit."
+          }
+        ],
+        "worstCaseLossUsd": 100,
+        "hindsight": {
+          "priceUsd": 3.292e-11,
+          "at": "2021-06-06",
+          "pnlUsd": -281.68,
+          "note": "Had it been taken, it would have ended at the stop on 2021-06-06 at $0.0000000000329: -$281.68. The price gapped through the stop ($0.0000000000422), so the loss is bigger than planned."
+        }
+      },
+      "prevHash": "6655849ee73d5146c8d8d504005b2bff3a042005f69fba6073261158b25b8c29",
+      "hash": "b2c34f33a818fa96a2275511c7b5954952d7d8b2b4d4851f8fe82afaa1d6cf08"
+    },
+    {
+      "seq": 9,
+      "at": "2026-10-30T00:00:11.000Z",
+      "agent": "claims",
+      "kind": "case.summary",
+      "summary": "Verdict: pump-and-dump. 0 paid posts without disclosure; 4 related legal actions.",
+      "evidenceIds": [
+        "sec-saitama-2024",
+        "sec-pham-2024",
+        "doj-token-mirrors-2024",
+        "kohli-extradition-2026"
+      ],
+      "data": {
+        "verdict": "pump-and-dump",
+        "score": 0.6,
+        "paidButUndisclosed": [],
+        "legal": [
+          "sec-saitama-2024",
+          "sec-pham-2024",
+          "doj-token-mirrors-2024",
+          "kohli-extradition-2026"
+        ],
+        "bundleHash": "ea3e2d2da54e806433587fec37f08685bcda51b6e66af9c9f4c2422eba1e3253",
+        "gaps": [
+          "top-10 holder concentration: not in the case file",
+          "claimed market cap: no documented claim; liquidity-vs-market-cap rule left unchecked"
+        ]
+      },
+      "prevHash": "b2c34f33a818fa96a2275511c7b5954952d7d8b2b4d4851f8fe82afaa1d6cf08",
+      "hash": "b652005d56370a99aa34090d177c607a1ae541cb9ffcae9a37a274e4c3453870"
+    }
+  ]
+}

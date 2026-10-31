@@ -1,0 +1,2693 @@
+{
+  "slug": "saitama",
+  "token": {
+    "name": "Saitama Inu",
+    "symbol": "SAITAMA",
+    "chain": "ethereum",
+    "address": "0x8B3192f5eEBD8579568A2Ed41E6FEB402f93f73F",
+    "decimals": 9,
+    "pair": "0x9cbfb60a09A9a33a10312dA0f39977CbDb7fdE23",
+    "pairDex": "Uniswap V2 (SAITAMA/WETH)",
+    "pairCreatedBlock": 12535727
+  },
+  "oneLiner": "In 2021 the four people running a dog-themed coin called Saitama Inu hyped it on X, Telegram and YouTube. The SEC says they secretly staged buying to \"create an illusion\" of demand, paid traders to fake volume, and said they were holding or buying while they sold tens of millions of dollars' worth. In its main trading pool the price rose about 4,939-fold from July to its November peak, then fell 91% by March 2022. The SEC sued all four in 2024; criminal charges are pending in Boston.",
+  "window": {
+    "pumpStart": "2021-07-03",
+    "peak": "2021-11-13",
+    "collapse": "2022-03-05"
+  },
+  "posts": [
+    {
+      "promoter": "Russell Armand",
+      "id": "armand-2021-07-16",
+      "platform": "x",
+      "postedAt": "2021-07-16",
+      "datePrecision": "day",
+      "text": "RT @InuSaitama: Looks [sic] at this chart! We will have new [all time] high price soon!! 💥🔥🚀💵 and we are Top Trending Dextools 5 days in the roll now ❤️ #SaitamaIn…[sic]",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "promoter": "Manpreet Singh Kohli",
+      "id": "kohli-2021-07-25",
+      "platform": "x",
+      "postedAt": "2021-07-25",
+      "datePrecision": "day",
+      "text": "RT @InuSaitama: 🐺Update on 07/25 🎉New ATH 1260! ... 💸Top 7 Dextools … 🟦105.2% 24h; 🟦1446.72 % WoW💰8286+ Holders",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "promoter": "Saitama (official X account)",
+      "id": "wearesaitama-2021-08-01",
+      "handle": "@WeAreSaitama",
+      "platform": "x",
+      "postedAt": "2021-08-01",
+      "datePrecision": "day",
+      "text": "💸Top 3 Dextools.",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "promoter": "Nam Tran",
+      "id": "tran-2021-09-13",
+      "handle": "@Ntran1234",
+      "platform": "x",
+      "postedAt": "2021-09-13",
+      "datePrecision": "day",
+      "text": "We are #1 Dextools Trending 6 days straight and the 4 hour chart is so Bullish 🔥🚀.",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "promoter": "Nam Tran",
+      "id": "tran-2021-09-15-buying",
+      "handle": "@Ntran1234",
+      "platform": "x",
+      "postedAt": "2021-09-15",
+      "datePrecision": "day",
+      "text": "I am buying more",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "promoter": "Nam Tran",
+      "id": "tran-2021-09-15-trending",
+      "handle": "@Ntran1234",
+      "platform": "x",
+      "postedAt": "2021-09-15",
+      "datePrecision": "day",
+      "text": "🔥Top 6 Trending Dextools.",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "promoter": "Maxwell Hernandez",
+      "id": "hernandez-2021-09-15",
+      "platform": "youtube",
+      "postedAt": "2021-09-15",
+      "datePrecision": "day",
+      "text": "I myself haven't really sold anything since the beginning . . . and if I have taken anything out of my wallet it's been, you know, to donate for like you know giveaways and other stuff like that.",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "promoter": "Russell Armand",
+      "id": "armand-2021-09-16",
+      "platform": "x",
+      "postedAt": "2021-09-16",
+      "datePrecision": "day",
+      "text": "November 13th will go down in history",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "promoter": "Nam Tran",
+      "id": "tran-2021-10-23",
+      "handle": "@Ntran1234",
+      "platform": "x",
+      "postedAt": "2021-10-23",
+      "datePrecision": "day",
+      "text": "I said HOLD! #SaitamaWolfPack #SaitamaInu #SaitamaToken #Saitama100k #SaitaMask",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "promoter": "Russell Armand",
+      "id": "armand-2021-10-31",
+      "platform": "x",
+      "postedAt": "2021-10-31",
+      "datePrecision": "day",
+      "text": "zero 👌 saitama sold just to be clear lol.",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "promoter": "Russell Armand",
+      "id": "armand-2021-11-02",
+      "platform": "youtube",
+      "postedAt": "2021-11-02",
+      "datePrecision": "day",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "promoter": "Manpreet Singh Kohli",
+      "id": "kohli-2021-11-08",
+      "platform": "x",
+      "postedAt": "2021-11-08",
+      "datePrecision": "day",
+      "text": "6 more days to go for SaitaMask Launch 🚀🚀🚀🚀🚀. Lot more coming this week and weekend,",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "promoter": "Russell Armand",
+      "id": "armand-2021-11-09",
+      "platform": "youtube",
+      "postedAt": "2021-11-09",
+      "datePrecision": "day",
+      "text": "We've already put all the preliminary measures in place and the wallet itself is done like the swap function's done. Everything is done.",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "promoter": "Manpreet Singh Kohli",
+      "id": "kohli-2021-11-12",
+      "platform": "x",
+      "postedAt": "2021-11-12",
+      "datePrecision": "day",
+      "text": "[One] Day left for our Launch and few great announcements",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "promoter": "Russell Armand",
+      "id": "armand-2021-11-13",
+      "platform": "x",
+      "postedAt": "2021-11-13",
+      "datePrecision": "day",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    },
+    {
+      "promoter": "Russell Armand",
+      "id": "armand-2022-01-ama",
+      "platform": "youtube",
+      "postedAt": "2022-01-01",
+      "datePrecision": "month",
+      "text": "[A]ll the different things that we're doing, it's all geared with the same premise--and that's to make the token more valuable--to make Saitama more valuable, to make the price increase, to burn more of the circulating supply, to give it more of a use case.",
+      "disclosedPayment": null,
+      "affiliation": "part of Saitama's leadership team, per the SEC complaint",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        }
+      ]
+    }
+  ],
+  "prices": [
+    {
+      "t": "2021-05-30",
+      "priceUsd": 2.46e-12,
+      "liquidityUsd": 71633,
+      "volumeUsd": 204530
+    },
+    {
+      "t": "2021-05-31",
+      "priceUsd": 3.953e-12,
+      "liquidityUsd": 96095,
+      "volumeUsd": 62613
+    },
+    {
+      "t": "2021-06-01",
+      "priceUsd": 1.158e-11,
+      "liquidityUsd": 163202,
+      "volumeUsd": 154248
+    },
+    {
+      "t": "2021-06-02",
+      "priceUsd": 1.238e-11,
+      "liquidityUsd": 172257,
+      "volumeUsd": 286027
+    },
+    {
+      "t": "2021-06-03",
+      "priceUsd": 2.293e-11,
+      "liquidityUsd": 241605,
+      "volumeUsd": 253702
+    },
+    {
+      "t": "2021-06-04",
+      "priceUsd": 8.7e-11,
+      "liquidityUsd": 465313,
+      "volumeUsd": 2284134
+    },
+    {
+      "t": "2021-06-05",
+      "priceUsd": 5.272e-11,
+      "liquidityUsd": 362495,
+      "volumeUsd": 1523138
+    },
+    {
+      "t": "2021-06-06",
+      "priceUsd": 3.292e-11,
+      "liquidityUsd": 292254,
+      "volumeUsd": 423516
+    },
+    {
+      "t": "2021-06-07",
+      "priceUsd": 3.197e-11,
+      "liquidityUsd": 282228,
+      "volumeUsd": 198124
+    },
+    {
+      "t": "2021-06-08",
+      "priceUsd": 2.125e-11,
+      "liquidityUsd": 227723,
+      "volumeUsd": 266638
+    },
+    {
+      "t": "2021-06-09",
+      "priceUsd": 1.845e-11,
+      "liquidityUsd": 216437,
+      "volumeUsd": 64736
+    },
+    {
+      "t": "2021-06-10",
+      "priceUsd": 2.454e-11,
+      "liquidityUsd": 243860,
+      "volumeUsd": 213210
+    },
+    {
+      "t": "2021-06-11",
+      "priceUsd": 1.829e-11,
+      "liquidityUsd": 205614,
+      "volumeUsd": 103176
+    },
+    {
+      "t": "2021-06-12",
+      "priceUsd": 2.455e-11,
+      "liquidityUsd": 239743,
+      "volumeUsd": 81647
+    },
+    {
+      "t": "2021-06-13",
+      "priceUsd": 3.443e-11,
+      "liquidityUsd": 292715,
+      "volumeUsd": 269566
+    },
+    {
+      "t": "2021-06-14",
+      "priceUsd": 2.831e-11,
+      "liquidityUsd": 269223,
+      "volumeUsd": 68637
+    },
+    {
+      "t": "2021-06-15",
+      "priceUsd": 3.932e-11,
+      "liquidityUsd": 317222,
+      "volumeUsd": 428617
+    },
+    {
+      "t": "2021-06-16",
+      "priceUsd": 4.426e-11,
+      "liquidityUsd": 327860,
+      "volumeUsd": 239001
+    },
+    {
+      "t": "2021-06-17",
+      "priceUsd": 4.646e-11,
+      "liquidityUsd": 336805,
+      "volumeUsd": 117436
+    },
+    {
+      "t": "2021-06-18",
+      "priceUsd": 7.189e-11,
+      "liquidityUsd": 408744,
+      "volumeUsd": 430377
+    },
+    {
+      "t": "2021-06-19",
+      "priceUsd": 7.207e-11,
+      "liquidityUsd": 405883,
+      "volumeUsd": 847966
+    },
+    {
+      "t": "2021-06-20",
+      "priceUsd": 7.854e-11,
+      "liquidityUsd": 431102,
+      "volumeUsd": 286244
+    },
+    {
+      "t": "2021-06-21",
+      "priceUsd": 5.871e-11,
+      "liquidityUsd": 343518,
+      "volumeUsd": 516870
+    },
+    {
+      "t": "2021-06-22",
+      "priceUsd": 4.631e-11,
+      "liquidityUsd": 304714,
+      "volumeUsd": 185616
+    },
+    {
+      "t": "2021-06-23",
+      "priceUsd": 5.625e-11,
+      "liquidityUsd": 344924,
+      "volumeUsd": 124295
+    },
+    {
+      "t": "2021-06-24",
+      "priceUsd": 4.679e-11,
+      "liquidityUsd": 316256,
+      "volumeUsd": 80568
+    },
+    {
+      "t": "2021-06-25",
+      "priceUsd": 3.637e-11,
+      "liquidityUsd": 264322,
+      "volumeUsd": 115045
+    },
+    {
+      "t": "2021-06-26",
+      "priceUsd": 3.503e-11,
+      "liquidityUsd": 260337,
+      "volumeUsd": 67474
+    },
+    {
+      "t": "2021-06-27",
+      "priceUsd": 5.023e-11,
+      "liquidityUsd": 324948,
+      "volumeUsd": 129890
+    },
+    {
+      "t": "2021-06-28",
+      "priceUsd": 4.572e-11,
+      "liquidityUsd": 318233,
+      "volumeUsd": 100043
+    },
+    {
+      "t": "2021-06-29",
+      "priceUsd": 3.418e-11,
+      "liquidityUsd": 281074,
+      "volumeUsd": 125798
+    },
+    {
+      "t": "2021-06-30",
+      "priceUsd": 3.659e-11,
+      "liquidityUsd": 298629,
+      "volumeUsd": 172387
+    },
+    {
+      "t": "2021-07-01",
+      "priceUsd": 3.171e-11,
+      "liquidityUsd": 268343,
+      "volumeUsd": 132584
+    },
+    {
+      "t": "2021-07-02",
+      "priceUsd": 2.968e-11,
+      "liquidityUsd": 262295,
+      "volumeUsd": 110270
+    },
+    {
+      "t": "2021-07-03",
+      "priceUsd": 2.97e-11,
+      "liquidityUsd": 267249,
+      "volumeUsd": 78333
+    },
+    {
+      "t": "2021-07-04",
+      "priceUsd": 3.627e-11,
+      "liquidityUsd": 302458,
+      "volumeUsd": 119063
+    },
+    {
+      "t": "2021-07-05",
+      "priceUsd": 3.439e-11,
+      "liquidityUsd": 286702,
+      "volumeUsd": 69351
+    },
+    {
+      "t": "2021-07-06",
+      "priceUsd": 3.526e-11,
+      "liquidityUsd": 298344,
+      "volumeUsd": 114861
+    },
+    {
+      "t": "2021-07-07",
+      "priceUsd": 3.208e-11,
+      "liquidityUsd": 284569,
+      "volumeUsd": 95209
+    },
+    {
+      "t": "2021-07-08",
+      "priceUsd": 2.966e-11,
+      "liquidityUsd": 261991,
+      "volumeUsd": 48906
+    },
+    {
+      "t": "2021-07-09",
+      "priceUsd": 4.684e-11,
+      "liquidityUsd": 333542,
+      "volumeUsd": 492917
+    },
+    {
+      "t": "2021-07-10",
+      "priceUsd": 6.067e-11,
+      "liquidityUsd": 377602,
+      "volumeUsd": 364848
+    },
+    {
+      "t": "2021-07-11",
+      "priceUsd": 5.467e-11,
+      "liquidityUsd": 361229,
+      "volumeUsd": 173553
+    },
+    {
+      "t": "2021-07-12",
+      "priceUsd": 6.11e-11,
+      "liquidityUsd": 372672,
+      "volumeUsd": 117428
+    },
+    {
+      "t": "2021-07-13",
+      "priceUsd": 8.26e-11,
+      "liquidityUsd": 423779,
+      "volumeUsd": 221317
+    },
+    {
+      "t": "2021-07-14",
+      "priceUsd": 1.338e-10,
+      "liquidityUsd": 547845,
+      "volumeUsd": 300495
+    },
+    {
+      "t": "2021-07-15",
+      "priceUsd": 1.254e-10,
+      "liquidityUsd": 521750,
+      "volumeUsd": 515943
+    },
+    {
+      "t": "2021-07-16",
+      "priceUsd": 9.078e-11,
+      "liquidityUsd": 439846,
+      "volumeUsd": 239641
+    },
+    {
+      "t": "2021-07-17",
+      "priceUsd": 7.382e-11,
+      "liquidityUsd": 400403,
+      "volumeUsd": 280648
+    },
+    {
+      "t": "2021-07-18",
+      "priceUsd": 7.76e-11,
+      "liquidityUsd": 410942,
+      "volumeUsd": 68722
+    },
+    {
+      "t": "2021-07-19",
+      "priceUsd": 8.579e-11,
+      "liquidityUsd": 423565,
+      "volumeUsd": 110950
+    },
+    {
+      "t": "2021-07-20",
+      "priceUsd": 1.049e-10,
+      "liquidityUsd": 464785,
+      "volumeUsd": 205264
+    },
+    {
+      "t": "2021-07-21",
+      "priceUsd": 1.497e-10,
+      "liquidityUsd": 588306,
+      "volumeUsd": 678014
+    },
+    {
+      "t": "2021-07-22",
+      "priceUsd": 2.042e-10,
+      "liquidityUsd": 695599,
+      "volumeUsd": 627082
+    },
+    {
+      "t": "2021-07-23",
+      "priceUsd": 4.984e-10,
+      "liquidityUsd": 1130397,
+      "volumeUsd": 5102398
+    },
+    {
+      "t": "2021-07-24",
+      "priceUsd": 6.332e-10,
+      "liquidityUsd": 1302965,
+      "volumeUsd": 3000137
+    },
+    {
+      "t": "2021-07-25",
+      "priceUsd": 1.218e-9,
+      "liquidityUsd": 1841482,
+      "volumeUsd": 7071079
+    },
+    {
+      "t": "2021-07-26",
+      "priceUsd": 8.091e-10,
+      "liquidityUsd": 1539075,
+      "volumeUsd": 7211461
+    },
+    {
+      "t": "2021-07-27",
+      "priceUsd": 9.48e-10,
+      "liquidityUsd": 1698519,
+      "volumeUsd": 3040077
+    },
+    {
+      "t": "2021-07-28",
+      "priceUsd": 1.247e-9,
+      "liquidityUsd": 1953308,
+      "volumeUsd": 2337016
+    },
+    {
+      "t": "2021-07-29",
+      "priceUsd": 2.534e-9,
+      "liquidityUsd": 2874512,
+      "volumeUsd": 12289974
+    },
+    {
+      "t": "2021-07-30",
+      "priceUsd": 3.845e-9,
+      "liquidityUsd": 3661857,
+      "volumeUsd": 15232966
+    },
+    {
+      "t": "2021-07-31",
+      "priceUsd": 2.569e-9,
+      "liquidityUsd": 3092026,
+      "volumeUsd": 12301022
+    },
+    {
+      "t": "2021-08-01",
+      "priceUsd": 1.538e-9,
+      "liquidityUsd": 2428223,
+      "volumeUsd": 7267781
+    },
+    {
+      "t": "2021-08-02",
+      "priceUsd": 1.424e-9,
+      "liquidityUsd": 2353738,
+      "volumeUsd": 5346378
+    },
+    {
+      "t": "2021-08-03",
+      "priceUsd": 1.671e-9,
+      "liquidityUsd": 2506857,
+      "volumeUsd": 3505046
+    },
+    {
+      "t": "2021-08-04",
+      "priceUsd": 1.774e-9,
+      "liquidityUsd": 2697574,
+      "volumeUsd": 3792019
+    },
+    {
+      "t": "2021-08-05",
+      "priceUsd": 1.342e-9,
+      "liquidityUsd": 2397477,
+      "volumeUsd": 2883639
+    },
+    {
+      "t": "2021-08-06",
+      "priceUsd": 1.319e-9,
+      "liquidityUsd": 2409875,
+      "volumeUsd": 2483128
+    },
+    {
+      "t": "2021-08-07",
+      "priceUsd": 1.022e-9,
+      "liquidityUsd": 2228241,
+      "volumeUsd": 3181845
+    },
+    {
+      "t": "2021-08-08",
+      "priceUsd": 1.575e-9,
+      "liquidityUsd": 2707844,
+      "volumeUsd": 1948957
+    },
+    {
+      "t": "2021-08-09",
+      "priceUsd": 1.315e-9,
+      "liquidityUsd": 2541691,
+      "volumeUsd": 2516798
+    },
+    {
+      "t": "2021-08-10",
+      "priceUsd": 1.099e-9,
+      "liquidityUsd": 2320978,
+      "volumeUsd": 1608711
+    },
+    {
+      "t": "2021-08-11",
+      "priceUsd": 9.046e-10,
+      "liquidityUsd": 2125869,
+      "volumeUsd": 3108425
+    },
+    {
+      "t": "2021-08-12",
+      "priceUsd": 1.041e-9,
+      "liquidityUsd": 2232918,
+      "volumeUsd": 1062980
+    },
+    {
+      "t": "2021-08-13",
+      "priceUsd": 9.925e-10,
+      "liquidityUsd": 2282319,
+      "volumeUsd": 1315189
+    },
+    {
+      "t": "2021-08-14",
+      "priceUsd": 8.782e-10,
+      "liquidityUsd": 2136195,
+      "volumeUsd": 1567542
+    },
+    {
+      "t": "2021-08-15",
+      "priceUsd": 7.813e-10,
+      "liquidityUsd": 2034703,
+      "volumeUsd": 2921969
+    },
+    {
+      "t": "2021-08-16",
+      "priceUsd": 8.674e-10,
+      "liquidityUsd": 2096868,
+      "volumeUsd": 1145014
+    },
+    {
+      "t": "2021-08-17",
+      "priceUsd": 1.029e-9,
+      "liquidityUsd": 2235450,
+      "volumeUsd": 1104756
+    },
+    {
+      "t": "2021-08-18",
+      "priceUsd": 1.253e-9,
+      "liquidityUsd": 2477710,
+      "volumeUsd": 1649942
+    },
+    {
+      "t": "2021-08-19",
+      "priceUsd": 1.249e-9,
+      "liquidityUsd": 2537944,
+      "volumeUsd": 1289334
+    },
+    {
+      "t": "2021-08-20",
+      "priceUsd": 1.079e-9,
+      "liquidityUsd": 2398421,
+      "volumeUsd": 795356
+    },
+    {
+      "t": "2021-08-21",
+      "priceUsd": 1.087e-9,
+      "liquidityUsd": 2392086,
+      "volumeUsd": 464235
+    },
+    {
+      "t": "2021-08-22",
+      "priceUsd": 9.836e-10,
+      "liquidityUsd": 2282169,
+      "volumeUsd": 692302
+    },
+    {
+      "t": "2021-08-23",
+      "priceUsd": 8.251e-10,
+      "liquidityUsd": 2119413,
+      "volumeUsd": 1963696
+    },
+    {
+      "t": "2021-08-24",
+      "priceUsd": 8.93e-10,
+      "liquidityUsd": 2156432,
+      "volumeUsd": 673730
+    },
+    {
+      "t": "2021-08-25",
+      "priceUsd": 8.142e-10,
+      "liquidityUsd": 2075645,
+      "volumeUsd": 598463
+    },
+    {
+      "t": "2021-08-26",
+      "priceUsd": 8.864e-10,
+      "liquidityUsd": 2130501,
+      "volumeUsd": 698874
+    },
+    {
+      "t": "2021-08-27",
+      "priceUsd": 8.46e-10,
+      "liquidityUsd": 2138958,
+      "volumeUsd": 299449
+    },
+    {
+      "t": "2021-08-28",
+      "priceUsd": 8.468e-10,
+      "liquidityUsd": 2129539,
+      "volumeUsd": 476348
+    },
+    {
+      "t": "2021-08-29",
+      "priceUsd": 8.15e-10,
+      "liquidityUsd": 2089595,
+      "volumeUsd": 389354
+    },
+    {
+      "t": "2021-08-30",
+      "priceUsd": 7.691e-10,
+      "liquidityUsd": 2028551,
+      "volumeUsd": 429266
+    },
+    {
+      "t": "2021-08-31",
+      "priceUsd": 7.973e-10,
+      "liquidityUsd": 2132105,
+      "volumeUsd": 383895
+    },
+    {
+      "t": "2021-09-01",
+      "priceUsd": 1.157e-9,
+      "liquidityUsd": 2716911,
+      "volumeUsd": 2025974
+    },
+    {
+      "t": "2021-09-02",
+      "priceUsd": 1.305e-9,
+      "liquidityUsd": 2878548,
+      "volumeUsd": 1111907
+    },
+    {
+      "t": "2021-09-03",
+      "priceUsd": 1.568e-9,
+      "liquidityUsd": 3215718,
+      "volumeUsd": 1957227
+    },
+    {
+      "t": "2021-09-04",
+      "priceUsd": 1.432e-9,
+      "liquidityUsd": 3059692,
+      "volumeUsd": 1255970
+    },
+    {
+      "t": "2021-09-05",
+      "priceUsd": 1.616e-9,
+      "liquidityUsd": 3281049,
+      "volumeUsd": 865186
+    },
+    {
+      "t": "2021-09-06",
+      "priceUsd": 2.101e-9,
+      "liquidityUsd": 3739337,
+      "volumeUsd": 2383174
+    },
+    {
+      "t": "2021-09-07",
+      "priceUsd": 2.421e-9,
+      "liquidityUsd": 3765065,
+      "volumeUsd": 4584325
+    },
+    {
+      "t": "2021-09-08",
+      "priceUsd": 2.577e-9,
+      "liquidityUsd": 3930128,
+      "volumeUsd": 2947674
+    },
+    {
+      "t": "2021-09-09",
+      "priceUsd": 2.516e-9,
+      "liquidityUsd": 3850997,
+      "volumeUsd": 1631151
+    },
+    {
+      "t": "2021-09-10",
+      "priceUsd": 2.205e-9,
+      "liquidityUsd": 3494171,
+      "volumeUsd": 1395646
+    },
+    {
+      "t": "2021-09-11",
+      "priceUsd": 2.514e-9,
+      "liquidityUsd": 3758108,
+      "volumeUsd": 1160555
+    },
+    {
+      "t": "2021-09-12",
+      "priceUsd": 2.998e-9,
+      "liquidityUsd": 4201724,
+      "volumeUsd": 1471460
+    },
+    {
+      "t": "2021-09-13",
+      "priceUsd": 2.993e-9,
+      "liquidityUsd": 4125433,
+      "volumeUsd": 1102589
+    },
+    {
+      "t": "2021-09-14",
+      "priceUsd": 3.755e-9,
+      "liquidityUsd": 4727632,
+      "volumeUsd": 3017319
+    },
+    {
+      "t": "2021-09-15",
+      "priceUsd": 4.866e-9,
+      "liquidityUsd": 5535970,
+      "volumeUsd": 5670534
+    },
+    {
+      "t": "2021-09-16",
+      "priceUsd": 4.86e-9,
+      "liquidityUsd": 5534983,
+      "volumeUsd": 9482148
+    },
+    {
+      "t": "2021-09-17",
+      "priceUsd": 5.654e-9,
+      "liquidityUsd": 5836983,
+      "volumeUsd": 3750168
+    },
+    {
+      "t": "2021-09-18",
+      "priceUsd": 6.854e-9,
+      "liquidityUsd": 6486687,
+      "volumeUsd": 9394545
+    },
+    {
+      "t": "2021-09-19",
+      "priceUsd": 8.613e-9,
+      "liquidityUsd": 7194828,
+      "volumeUsd": 13049312
+    },
+    {
+      "t": "2021-09-20",
+      "priceUsd": 8.507e-9,
+      "liquidityUsd": 6796689,
+      "volumeUsd": 12164604
+    },
+    {
+      "t": "2021-09-21",
+      "priceUsd": 8.089e-9,
+      "liquidityUsd": 6480729,
+      "volumeUsd": 5904802
+    },
+    {
+      "t": "2021-09-22",
+      "priceUsd": 7.815e-9,
+      "liquidityUsd": 6773284,
+      "volumeUsd": 8364773
+    },
+    {
+      "t": "2021-09-23",
+      "priceUsd": 6.952e-9,
+      "liquidityUsd": 6377793,
+      "volumeUsd": 6613683
+    },
+    {
+      "t": "2021-09-24",
+      "priceUsd": 7.031e-9,
+      "liquidityUsd": 6190958,
+      "volumeUsd": 3007883
+    },
+    {
+      "t": "2021-09-25",
+      "priceUsd": 8.776e-9,
+      "liquidityUsd": 6932723,
+      "volumeUsd": 3990773
+    },
+    {
+      "t": "2021-09-26",
+      "priceUsd": 9.734e-9,
+      "liquidityUsd": 7548074,
+      "volumeUsd": 5612545
+    },
+    {
+      "t": "2021-09-27",
+      "priceUsd": 1.578e-8,
+      "liquidityUsd": 9515606,
+      "volumeUsd": 18855703
+    },
+    {
+      "t": "2021-09-28",
+      "priceUsd": 1.374e-8,
+      "liquidityUsd": 8728505,
+      "volumeUsd": 12712907
+    },
+    {
+      "t": "2021-09-29",
+      "priceUsd": 1.411e-8,
+      "liquidityUsd": 8933960,
+      "volumeUsd": 6246806
+    },
+    {
+      "t": "2021-09-30",
+      "priceUsd": 1.186e-8,
+      "liquidityUsd": 8448956,
+      "volumeUsd": 12162964
+    },
+    {
+      "t": "2021-10-01",
+      "priceUsd": 1.222e-8,
+      "liquidityUsd": 8892645,
+      "volumeUsd": 7402875
+    },
+    {
+      "t": "2021-10-02",
+      "priceUsd": 1.134e-8,
+      "liquidityUsd": 8688456,
+      "volumeUsd": 4040092
+    },
+    {
+      "t": "2021-10-03",
+      "priceUsd": 1.091e-8,
+      "liquidityUsd": 8564356,
+      "volumeUsd": 3338582
+    },
+    {
+      "t": "2021-10-04",
+      "priceUsd": 1.05e-8,
+      "liquidityUsd": 8392334,
+      "volumeUsd": 5336024
+    },
+    {
+      "t": "2021-10-05",
+      "priceUsd": 1e-8,
+      "liquidityUsd": 8368970,
+      "volumeUsd": 8329487
+    },
+    {
+      "t": "2021-10-06",
+      "priceUsd": 9.041e-9,
+      "liquidityUsd": 8050228,
+      "volumeUsd": 6720432
+    },
+    {
+      "t": "2021-10-07",
+      "priceUsd": 1.35e-8,
+      "liquidityUsd": 9867450,
+      "volumeUsd": 9058942
+    },
+    {
+      "t": "2021-10-08",
+      "priceUsd": 1.257e-8,
+      "liquidityUsd": 9500180,
+      "volumeUsd": 7696628
+    },
+    {
+      "t": "2021-10-09",
+      "priceUsd": 1.315e-8,
+      "liquidityUsd": 9767522,
+      "volumeUsd": 4033957
+    },
+    {
+      "t": "2021-10-10",
+      "priceUsd": 1.379e-8,
+      "liquidityUsd": 9786712,
+      "volumeUsd": 3386358
+    },
+    {
+      "t": "2021-10-11",
+      "priceUsd": 1.393e-8,
+      "liquidityUsd": 10008564,
+      "volumeUsd": 4726292
+    },
+    {
+      "t": "2021-10-12",
+      "priceUsd": 1.268e-8,
+      "liquidityUsd": 9517358,
+      "volumeUsd": 4591010
+    },
+    {
+      "t": "2021-10-13",
+      "priceUsd": 1.292e-8,
+      "liquidityUsd": 9759888,
+      "volumeUsd": 5538436
+    },
+    {
+      "t": "2021-10-14",
+      "priceUsd": 1.359e-8,
+      "liquidityUsd": 10283907,
+      "volumeUsd": 4875118
+    },
+    {
+      "t": "2021-10-15",
+      "priceUsd": 1.526e-8,
+      "liquidityUsd": 11019731,
+      "volumeUsd": 4884076
+    },
+    {
+      "t": "2021-10-16",
+      "priceUsd": 1.913e-8,
+      "liquidityUsd": 12353104,
+      "volumeUsd": 12040939
+    },
+    {
+      "t": "2021-10-17",
+      "priceUsd": 2.227e-8,
+      "liquidityUsd": 13382698,
+      "volumeUsd": 12708785
+    },
+    {
+      "t": "2021-10-18",
+      "priceUsd": 2.018e-8,
+      "liquidityUsd": 12582229,
+      "volumeUsd": 8774814
+    },
+    {
+      "t": "2021-10-19",
+      "priceUsd": 2.371e-8,
+      "liquidityUsd": 13909277,
+      "volumeUsd": 8950660
+    },
+    {
+      "t": "2021-10-20",
+      "priceUsd": 3.211e-8,
+      "liquidityUsd": 16863191,
+      "volumeUsd": 29457967
+    },
+    {
+      "t": "2021-10-21",
+      "priceUsd": 3.254e-8,
+      "liquidityUsd": 16831896,
+      "volumeUsd": 16596513
+    },
+    {
+      "t": "2021-10-22",
+      "priceUsd": 4.933e-8,
+      "liquidityUsd": 20633585,
+      "volumeUsd": 40356095
+    },
+    {
+      "t": "2021-10-23",
+      "priceUsd": 5.45e-8,
+      "liquidityUsd": 22360671,
+      "volumeUsd": 56242984
+    },
+    {
+      "t": "2021-10-24",
+      "priceUsd": 4.889e-8,
+      "liquidityUsd": 21107814,
+      "volumeUsd": 38647316
+    },
+    {
+      "t": "2021-10-25",
+      "priceUsd": 6.79e-8,
+      "liquidityUsd": 25383064,
+      "volumeUsd": 44409975
+    },
+    {
+      "t": "2021-10-26",
+      "priceUsd": 6.338e-8,
+      "liquidityUsd": 24573810,
+      "volumeUsd": 83993686
+    },
+    {
+      "t": "2021-10-27",
+      "priceUsd": 5.905e-8,
+      "liquidityUsd": 23280377,
+      "volumeUsd": 38831479
+    },
+    {
+      "t": "2021-10-28",
+      "priceUsd": 7.574e-8,
+      "liquidityUsd": 27616325,
+      "volumeUsd": 45546267
+    },
+    {
+      "t": "2021-10-29",
+      "priceUsd": 7.209e-8,
+      "liquidityUsd": 27485595,
+      "volumeUsd": 40146026
+    },
+    {
+      "t": "2021-10-30",
+      "priceUsd": 7.027e-8,
+      "liquidityUsd": 26919520,
+      "volumeUsd": 30166591
+    },
+    {
+      "t": "2021-10-31",
+      "priceUsd": 7.535e-8,
+      "liquidityUsd": 27942686,
+      "volumeUsd": 22578074
+    },
+    {
+      "t": "2021-11-01",
+      "priceUsd": 8.777e-8,
+      "liquidityUsd": 30292180,
+      "volumeUsd": 34866844
+    },
+    {
+      "t": "2021-11-02",
+      "priceUsd": 9.453e-8,
+      "liquidityUsd": 32545408,
+      "volumeUsd": 58086190
+    },
+    {
+      "t": "2021-11-03",
+      "priceUsd": 9.042e-8,
+      "liquidityUsd": 32046637,
+      "volumeUsd": 52379284
+    },
+    {
+      "t": "2021-11-04",
+      "priceUsd": 8.913e-8,
+      "liquidityUsd": 31688373,
+      "volumeUsd": 40421988
+    },
+    {
+      "t": "2021-11-05",
+      "priceUsd": 9.167e-8,
+      "liquidityUsd": 32060619,
+      "volumeUsd": 30391287
+    },
+    {
+      "t": "2021-11-06",
+      "priceUsd": 9.17e-8,
+      "liquidityUsd": 32273195,
+      "volumeUsd": 24729556
+    },
+    {
+      "t": "2021-11-07",
+      "priceUsd": 8.418e-8,
+      "liquidityUsd": 31368149,
+      "volumeUsd": 49382531
+    },
+    {
+      "t": "2021-11-08",
+      "priceUsd": 7.987e-8,
+      "liquidityUsd": 31293478,
+      "volumeUsd": 22778100
+    },
+    {
+      "t": "2021-11-09",
+      "priceUsd": 7.188e-8,
+      "liquidityUsd": 29516472,
+      "volumeUsd": 25395417
+    },
+    {
+      "t": "2021-11-10",
+      "priceUsd": 8.104e-8,
+      "liquidityUsd": 31071487,
+      "volumeUsd": 20806320
+    },
+    {
+      "t": "2021-11-11",
+      "priceUsd": 9.859e-8,
+      "liquidityUsd": 34759587,
+      "volumeUsd": 39765436
+    },
+    {
+      "t": "2021-11-12",
+      "priceUsd": 1.391e-7,
+      "liquidityUsd": 41435899,
+      "volumeUsd": 102453118
+    },
+    {
+      "t": "2021-11-13",
+      "priceUsd": 1.466e-7,
+      "liquidityUsd": 42884476,
+      "volumeUsd": 140156217
+    },
+    {
+      "t": "2021-11-14",
+      "priceUsd": 9.447e-8,
+      "liquidityUsd": 34739488,
+      "volumeUsd": 146507422
+    },
+    {
+      "t": "2021-11-15",
+      "priceUsd": 7.765e-8,
+      "liquidityUsd": 31532917,
+      "volumeUsd": 69310705
+    },
+    {
+      "t": "2021-11-16",
+      "priceUsd": 8.807e-8,
+      "liquidityUsd": 32433841,
+      "volumeUsd": 33145955
+    },
+    {
+      "t": "2021-11-17",
+      "priceUsd": 7.787e-8,
+      "liquidityUsd": 30781222,
+      "volumeUsd": 22149501
+    },
+    {
+      "t": "2021-11-18",
+      "priceUsd": 6.703e-8,
+      "liquidityUsd": 28000834,
+      "volumeUsd": 132271661
+    },
+    {
+      "t": "2021-11-19",
+      "priceUsd": 6.629e-8,
+      "liquidityUsd": 28950375,
+      "volumeUsd": 21359925
+    },
+    {
+      "t": "2021-11-20",
+      "priceUsd": 6.304e-8,
+      "liquidityUsd": 28670875,
+      "volumeUsd": 17958216
+    },
+    {
+      "t": "2021-11-21",
+      "priceUsd": 4.998e-8,
+      "liquidityUsd": 25256923,
+      "volumeUsd": 38082572
+    },
+    {
+      "t": "2021-11-22",
+      "priceUsd": 4.479e-8,
+      "liquidityUsd": 23557835,
+      "volumeUsd": 47008735
+    },
+    {
+      "t": "2021-11-23",
+      "priceUsd": 6.345e-8,
+      "liquidityUsd": 29023102,
+      "volumeUsd": 43248003
+    },
+    {
+      "t": "2021-11-24",
+      "priceUsd": 5.953e-8,
+      "liquidityUsd": 27880084,
+      "volumeUsd": 17917140
+    },
+    {
+      "t": "2021-11-25",
+      "priceUsd": 6.164e-8,
+      "liquidityUsd": 29262581,
+      "volumeUsd": 10467453
+    },
+    {
+      "t": "2021-11-26",
+      "priceUsd": 5.303e-8,
+      "liquidityUsd": 25677535,
+      "volumeUsd": 9405543
+    },
+    {
+      "t": "2021-11-27",
+      "priceUsd": 5.809e-8,
+      "liquidityUsd": 27052386,
+      "volumeUsd": 8441411
+    },
+    {
+      "t": "2021-11-28",
+      "priceUsd": 6.135e-8,
+      "liquidityUsd": 28518538,
+      "volumeUsd": 7860256
+    },
+    {
+      "t": "2021-11-29",
+      "priceUsd": 6.933e-8,
+      "liquidityUsd": 30902314,
+      "volumeUsd": 20193205
+    },
+    {
+      "t": "2021-11-30",
+      "priceUsd": 6.866e-8,
+      "liquidityUsd": 31472307,
+      "volumeUsd": 21359413
+    },
+    {
+      "t": "2021-12-01",
+      "priceUsd": 6.245e-8,
+      "liquidityUsd": 29854530,
+      "volumeUsd": 11652582
+    },
+    {
+      "t": "2021-12-02",
+      "priceUsd": 6.216e-8,
+      "liquidityUsd": 29627438,
+      "volumeUsd": 14103005
+    },
+    {
+      "t": "2021-12-03",
+      "priceUsd": 6.073e-8,
+      "liquidityUsd": 28391219,
+      "volumeUsd": 8113775
+    },
+    {
+      "t": "2021-12-04",
+      "priceUsd": 4.417e-8,
+      "liquidityUsd": 23982430,
+      "volumeUsd": 31727069
+    },
+    {
+      "t": "2021-12-05",
+      "priceUsd": 4.608e-8,
+      "liquidityUsd": 24900503,
+      "volumeUsd": 58548124
+    },
+    {
+      "t": "2021-12-06",
+      "priceUsd": 4.494e-8,
+      "liquidityUsd": 25126499,
+      "volumeUsd": 19693178
+    },
+    {
+      "t": "2021-12-07",
+      "priceUsd": 5.337e-8,
+      "liquidityUsd": 27256911,
+      "volumeUsd": 7533309
+    },
+    {
+      "t": "2021-12-08",
+      "priceUsd": 4.731e-8,
+      "liquidityUsd": 26051004,
+      "volumeUsd": 11057655
+    },
+    {
+      "t": "2021-12-09",
+      "priceUsd": 4.235e-8,
+      "liquidityUsd": 23800588,
+      "volumeUsd": 10403620
+    },
+    {
+      "t": "2021-12-10",
+      "priceUsd": 4.098e-8,
+      "liquidityUsd": 22828684,
+      "volumeUsd": 11445004
+    },
+    {
+      "t": "2021-12-11",
+      "priceUsd": 4.633e-8,
+      "liquidityUsd": 24836489,
+      "volumeUsd": 7426325
+    },
+    {
+      "t": "2021-12-12",
+      "priceUsd": 4.491e-8,
+      "liquidityUsd": 24646451,
+      "volumeUsd": 7088932
+    },
+    {
+      "t": "2021-12-13",
+      "priceUsd": 3.93e-8,
+      "liquidityUsd": 22064458,
+      "volumeUsd": 7105011
+    },
+    {
+      "t": "2021-12-14",
+      "priceUsd": 3.776e-8,
+      "liquidityUsd": 21873530,
+      "volumeUsd": 10514234
+    },
+    {
+      "t": "2021-12-15",
+      "priceUsd": 3.814e-8,
+      "liquidityUsd": 22481416,
+      "volumeUsd": 13974782
+    },
+    {
+      "t": "2021-12-16",
+      "priceUsd": 3.426e-8,
+      "liquidityUsd": 21205259,
+      "volumeUsd": 7779553
+    },
+    {
+      "t": "2021-12-17",
+      "priceUsd": 3.438e-8,
+      "liquidityUsd": 21051621,
+      "volumeUsd": 15270045
+    },
+    {
+      "t": "2021-12-18",
+      "priceUsd": 3.774e-8,
+      "liquidityUsd": 22334075,
+      "volumeUsd": 12528242
+    },
+    {
+      "t": "2021-12-19",
+      "priceUsd": 4.796e-8,
+      "liquidityUsd": 25200870,
+      "volumeUsd": 18323585
+    },
+    {
+      "t": "2021-12-20",
+      "priceUsd": 4.486e-8,
+      "liquidityUsd": 24423733,
+      "volumeUsd": 8105907
+    },
+    {
+      "t": "2021-12-21",
+      "priceUsd": 4.919e-8,
+      "liquidityUsd": 25903551,
+      "volumeUsd": 10093244
+    },
+    {
+      "t": "2021-12-22",
+      "priceUsd": 4.404e-8,
+      "liquidityUsd": 24421322,
+      "volumeUsd": 9673527
+    },
+    {
+      "t": "2021-12-23",
+      "priceUsd": 4.486e-8,
+      "liquidityUsd": 24989798,
+      "volumeUsd": 5642431
+    },
+    {
+      "t": "2021-12-24",
+      "priceUsd": 4.412e-8,
+      "liquidityUsd": 24645767,
+      "volumeUsd": 6441059
+    },
+    {
+      "t": "2021-12-25",
+      "priceUsd": 5.97e-8,
+      "liquidityUsd": 28909235,
+      "volumeUsd": 10556470
+    },
+    {
+      "t": "2021-12-26",
+      "priceUsd": 4.908e-8,
+      "liquidityUsd": 26116228,
+      "volumeUsd": 12562684
+    },
+    {
+      "t": "2021-12-27",
+      "priceUsd": 4.971e-8,
+      "liquidityUsd": 26228141,
+      "volumeUsd": 6191547
+    },
+    {
+      "t": "2021-12-28",
+      "priceUsd": 4.738e-8,
+      "liquidityUsd": 24868630,
+      "volumeUsd": 5749311
+    },
+    {
+      "t": "2021-12-29",
+      "priceUsd": 4.844e-8,
+      "liquidityUsd": 24548226,
+      "volumeUsd": 7500823
+    },
+    {
+      "t": "2021-12-30",
+      "priceUsd": 4.693e-8,
+      "liquidityUsd": 24476683,
+      "volumeUsd": 8174615
+    },
+    {
+      "t": "2021-12-31",
+      "priceUsd": 4.721e-8,
+      "liquidityUsd": 24480711,
+      "volumeUsd": 9513968
+    },
+    {
+      "t": "2022-01-01",
+      "priceUsd": 5.042e-8,
+      "liquidityUsd": 25614950,
+      "volumeUsd": 5778542
+    },
+    {
+      "t": "2022-01-02",
+      "priceUsd": 4.987e-8,
+      "liquidityUsd": 25729408,
+      "volumeUsd": 6275064
+    },
+    {
+      "t": "2022-01-03",
+      "priceUsd": 6.839e-8,
+      "liquidityUsd": 29909193,
+      "volumeUsd": 20182094
+    },
+    {
+      "t": "2022-01-04",
+      "priceUsd": 8.29e-8,
+      "liquidityUsd": 33184089,
+      "volumeUsd": 40554679
+    },
+    {
+      "t": "2022-01-05",
+      "priceUsd": 7.006e-8,
+      "liquidityUsd": 29556554,
+      "volumeUsd": 23287961
+    },
+    {
+      "t": "2022-01-06",
+      "priceUsd": 7.139e-8,
+      "liquidityUsd": 29336574,
+      "volumeUsd": 14708184
+    },
+    {
+      "t": "2022-01-07",
+      "priceUsd": 6.562e-8,
+      "liquidityUsd": 27225047,
+      "volumeUsd": 16868890
+    },
+    {
+      "t": "2022-01-08",
+      "priceUsd": 5.458e-8,
+      "liquidityUsd": 24531818,
+      "volumeUsd": 30116547
+    },
+    {
+      "t": "2022-01-09",
+      "priceUsd": 4.868e-8,
+      "liquidityUsd": 23395780,
+      "volumeUsd": 16128237
+    },
+    {
+      "t": "2022-01-10",
+      "priceUsd": 4.957e-8,
+      "liquidityUsd": 23418892,
+      "volumeUsd": 14448922
+    },
+    {
+      "t": "2022-01-11",
+      "priceUsd": 4.6e-8,
+      "liquidityUsd": 23147770,
+      "volumeUsd": 7990588
+    },
+    {
+      "t": "2022-01-12",
+      "priceUsd": 4.576e-8,
+      "liquidityUsd": 23644946,
+      "volumeUsd": 15911010
+    },
+    {
+      "t": "2022-01-13",
+      "priceUsd": 4.389e-8,
+      "liquidityUsd": 22706036,
+      "volumeUsd": 5128072
+    },
+    {
+      "t": "2022-01-14",
+      "priceUsd": 4.165e-8,
+      "liquidityUsd": 22379064,
+      "volumeUsd": 12234203
+    },
+    {
+      "t": "2022-01-15",
+      "priceUsd": 3.642e-8,
+      "liquidityUsd": 20983328,
+      "volumeUsd": 9924705
+    },
+    {
+      "t": "2022-01-16",
+      "priceUsd": 4.196e-8,
+      "liquidityUsd": 22594016,
+      "volumeUsd": 11011696
+    },
+    {
+      "t": "2022-01-17",
+      "priceUsd": 3.739e-8,
+      "liquidityUsd": 20882124,
+      "volumeUsd": 4956637
+    },
+    {
+      "t": "2022-01-18",
+      "priceUsd": 3.548e-8,
+      "liquidityUsd": 20226474,
+      "volumeUsd": 6557592
+    },
+    {
+      "t": "2022-01-19",
+      "priceUsd": 3.484e-8,
+      "liquidityUsd": 19844644,
+      "volumeUsd": 6070059
+    },
+    {
+      "t": "2022-01-20",
+      "priceUsd": 2.967e-8,
+      "liquidityUsd": 18030113,
+      "volumeUsd": 8223336
+    },
+    {
+      "t": "2022-01-21",
+      "priceUsd": 2.161e-8,
+      "liquidityUsd": 14326558,
+      "volumeUsd": 22641472
+    },
+    {
+      "t": "2022-01-22",
+      "priceUsd": 2.277e-8,
+      "liquidityUsd": 14254461,
+      "volumeUsd": 8179245
+    },
+    {
+      "t": "2022-01-23",
+      "priceUsd": 2.982e-8,
+      "liquidityUsd": 16772708,
+      "volumeUsd": 9385921
+    },
+    {
+      "t": "2022-01-24",
+      "priceUsd": 2.657e-8,
+      "liquidityUsd": 15551699,
+      "volumeUsd": 4878664
+    },
+    {
+      "t": "2022-01-25",
+      "priceUsd": 2.287e-8,
+      "liquidityUsd": 14517854,
+      "volumeUsd": 8792892
+    },
+    {
+      "t": "2022-01-26",
+      "priceUsd": 2.331e-8,
+      "liquidityUsd": 14685448,
+      "volumeUsd": 5285755
+    },
+    {
+      "t": "2022-01-27",
+      "priceUsd": 2.149e-8,
+      "liquidityUsd": 14001707,
+      "volumeUsd": 4796495
+    },
+    {
+      "t": "2022-01-28",
+      "priceUsd": 2.705e-8,
+      "liquidityUsd": 16153058,
+      "volumeUsd": 15772739
+    },
+    {
+      "t": "2022-01-29",
+      "priceUsd": 3.316e-8,
+      "liquidityUsd": 18094296,
+      "volumeUsd": 16821315
+    },
+    {
+      "t": "2022-01-30",
+      "priceUsd": 3.412e-8,
+      "liquidityUsd": 18443260,
+      "volumeUsd": 12033023
+    },
+    {
+      "t": "2022-01-31",
+      "priceUsd": 3.047e-8,
+      "liquidityUsd": 17721019,
+      "volumeUsd": 7933765
+    },
+    {
+      "t": "2022-02-01",
+      "priceUsd": 2.597e-8,
+      "liquidityUsd": 16707331,
+      "volumeUsd": 11899121
+    },
+    {
+      "t": "2022-02-02",
+      "priceUsd": 2.682e-8,
+      "liquidityUsd": 16649820,
+      "volumeUsd": 8608573
+    },
+    {
+      "t": "2022-02-03",
+      "priceUsd": 2.342e-8,
+      "liquidityUsd": 15621531,
+      "volumeUsd": 8158382
+    },
+    {
+      "t": "2022-02-04",
+      "priceUsd": 2.586e-8,
+      "liquidityUsd": 17319361,
+      "volumeUsd": 6994733
+    },
+    {
+      "t": "2022-02-05",
+      "priceUsd": 2.437e-8,
+      "liquidityUsd": 16912551,
+      "volumeUsd": 4630066
+    },
+    {
+      "t": "2022-02-06",
+      "priceUsd": 2.505e-8,
+      "liquidityUsd": 17291843,
+      "volumeUsd": 4725153
+    },
+    {
+      "t": "2022-02-07",
+      "priceUsd": 2.633e-8,
+      "liquidityUsd": 17986626,
+      "volumeUsd": 5284915
+    },
+    {
+      "t": "2022-02-08",
+      "priceUsd": 3.083e-8,
+      "liquidityUsd": 19433992,
+      "volumeUsd": 11321566
+    },
+    {
+      "t": "2022-02-09",
+      "priceUsd": 2.807e-8,
+      "liquidityUsd": 18897161,
+      "volumeUsd": 6432687
+    },
+    {
+      "t": "2022-02-10",
+      "priceUsd": 2.039e-8,
+      "liquidityUsd": 15744817,
+      "volumeUsd": 25920854
+    },
+    {
+      "t": "2022-02-11",
+      "priceUsd": 1.627e-8,
+      "liquidityUsd": 13772299,
+      "volumeUsd": 15095388
+    },
+    {
+      "t": "2022-02-12",
+      "priceUsd": 1.997e-8,
+      "liquidityUsd": 15268377,
+      "volumeUsd": 12007369
+    },
+    {
+      "t": "2022-02-13",
+      "priceUsd": 1.758e-8,
+      "liquidityUsd": 14244359,
+      "volumeUsd": 6173393
+    },
+    {
+      "t": "2022-02-14",
+      "priceUsd": 1.934e-8,
+      "liquidityUsd": 15096470,
+      "volumeUsd": 5115302
+    },
+    {
+      "t": "2022-02-15",
+      "priceUsd": 1.971e-8,
+      "liquidityUsd": 15920071,
+      "volumeUsd": 6057898
+    },
+    {
+      "t": "2022-02-16",
+      "priceUsd": 1.819e-8,
+      "liquidityUsd": 15162955,
+      "volumeUsd": 4180578
+    },
+    {
+      "t": "2022-02-17",
+      "priceUsd": 1.909e-8,
+      "liquidityUsd": 14939521,
+      "volumeUsd": 5034178
+    },
+    {
+      "t": "2022-02-18",
+      "priceUsd": 1.742e-8,
+      "liquidityUsd": 14031555,
+      "volumeUsd": 6676408
+    },
+    {
+      "t": "2022-02-19",
+      "priceUsd": 1.811e-8,
+      "liquidityUsd": 14250821,
+      "volumeUsd": 1872713
+    },
+    {
+      "t": "2022-02-20",
+      "priceUsd": 1.723e-8,
+      "liquidityUsd": 13584421,
+      "volumeUsd": 2914052
+    },
+    {
+      "t": "2022-02-21",
+      "priceUsd": 1.686e-8,
+      "liquidityUsd": 13291927,
+      "volumeUsd": 2578492
+    },
+    {
+      "t": "2022-02-22",
+      "priceUsd": 1.76e-8,
+      "liquidityUsd": 13779543,
+      "volumeUsd": 4720721
+    },
+    {
+      "t": "2022-02-23",
+      "priceUsd": 1.794e-8,
+      "liquidityUsd": 13777509,
+      "volumeUsd": 2976520
+    },
+    {
+      "t": "2022-02-24",
+      "priceUsd": 1.596e-8,
+      "liquidityUsd": 13043967,
+      "volumeUsd": 12442575
+    },
+    {
+      "t": "2022-02-25",
+      "priceUsd": 1.822e-8,
+      "liquidityUsd": 14394585,
+      "volumeUsd": 4027112
+    },
+    {
+      "t": "2022-02-26",
+      "priceUsd": 1.73e-8,
+      "liquidityUsd": 14075748,
+      "volumeUsd": 4641612
+    },
+    {
+      "t": "2022-02-27",
+      "priceUsd": 1.532e-8,
+      "liquidityUsd": 12877666,
+      "volumeUsd": 2984600
+    },
+    {
+      "t": "2022-02-28",
+      "priceUsd": 1.705e-8,
+      "liquidityUsd": 14363849,
+      "volumeUsd": 5362670
+    },
+    {
+      "t": "2022-03-01",
+      "priceUsd": 1.585e-8,
+      "liquidityUsd": 13985337,
+      "volumeUsd": 3844924
+    },
+    {
+      "t": "2022-03-02",
+      "priceUsd": 1.661e-8,
+      "liquidityUsd": 14296472,
+      "volumeUsd": 7836787
+    },
+    {
+      "t": "2022-03-03",
+      "priceUsd": 1.834e-8,
+      "liquidityUsd": 14734789,
+      "volumeUsd": 2828098
+    },
+    {
+      "t": "2022-03-04",
+      "priceUsd": 1.613e-8,
+      "liquidityUsd": 13294514,
+      "volumeUsd": 8110355
+    },
+    {
+      "t": "2022-03-05",
+      "priceUsd": 1.359e-8,
+      "liquidityUsd": 12398557,
+      "volumeUsd": 6911392
+    },
+    {
+      "t": "2022-03-06",
+      "priceUsd": 1.257e-8,
+      "liquidityUsd": 11685609,
+      "volumeUsd": 6464030
+    },
+    {
+      "t": "2022-03-07",
+      "priceUsd": 1.442e-8,
+      "liquidityUsd": 12388149,
+      "volumeUsd": 4531588
+    },
+    {
+      "t": "2022-03-08",
+      "priceUsd": 1.144e-8,
+      "liquidityUsd": 11238453,
+      "volumeUsd": 4260919
+    },
+    {
+      "t": "2022-03-09",
+      "priceUsd": 1.25e-8,
+      "liquidityUsd": 12090337,
+      "volumeUsd": 2942175
+    },
+    {
+      "t": "2022-03-10",
+      "priceUsd": 1.159e-8,
+      "liquidityUsd": 11400387,
+      "volumeUsd": 2036849
+    },
+    {
+      "t": "2022-03-11",
+      "priceUsd": 1.282e-8,
+      "liquidityUsd": 11888699,
+      "volumeUsd": 3512909
+    },
+    {
+      "t": "2022-03-12",
+      "priceUsd": 1.257e-8,
+      "liquidityUsd": 11794492,
+      "volumeUsd": 2287876
+    },
+    {
+      "t": "2022-03-13",
+      "priceUsd": 1.198e-8,
+      "liquidityUsd": 11390407,
+      "volumeUsd": 1142473
+    },
+    {
+      "t": "2022-03-14",
+      "priceUsd": 1.281e-8,
+      "liquidityUsd": 11964557,
+      "volumeUsd": 2546893
+    },
+    {
+      "t": "2022-03-15",
+      "priceUsd": 1.252e-8,
+      "liquidityUsd": 11904444,
+      "volumeUsd": 1669180
+    },
+    {
+      "t": "2022-03-16",
+      "priceUsd": 1.239e-8,
+      "liquidityUsd": 12181311,
+      "volumeUsd": 2139908
+    },
+    {
+      "t": "2022-03-17",
+      "priceUsd": 1.161e-8,
+      "liquidityUsd": 11899724,
+      "volumeUsd": 2308922
+    },
+    {
+      "t": "2022-03-18",
+      "priceUsd": 1.1e-8,
+      "liquidityUsd": 12334131,
+      "volumeUsd": 3230115
+    },
+    {
+      "t": "2022-03-19",
+      "priceUsd": 1.157e-8,
+      "liquidityUsd": 12649659,
+      "volumeUsd": 1983352
+    },
+    {
+      "t": "2022-03-20",
+      "priceUsd": 1.112e-8,
+      "liquidityUsd": 12218231,
+      "volumeUsd": 1450449
+    },
+    {
+      "t": "2022-03-21",
+      "priceUsd": 1.091e-8,
+      "liquidityUsd": 12186344,
+      "volumeUsd": 2114508
+    },
+    {
+      "t": "2022-03-22",
+      "priceUsd": 1.076e-8,
+      "liquidityUsd": 12364784,
+      "volumeUsd": 3320995
+    },
+    {
+      "t": "2022-03-23",
+      "priceUsd": 1.147e-8,
+      "liquidityUsd": 12914539,
+      "volumeUsd": 1907110
+    },
+    {
+      "t": "2022-03-24",
+      "priceUsd": 1.189e-8,
+      "liquidityUsd": 13505042,
+      "volumeUsd": 1621833
+    },
+    {
+      "t": "2022-03-25",
+      "priceUsd": 1.259e-8,
+      "liquidityUsd": 13905947,
+      "volumeUsd": 10670248
+    },
+    {
+      "t": "2022-03-26",
+      "priceUsd": 1.063e-8,
+      "liquidityUsd": 12935602,
+      "volumeUsd": 21650458
+    },
+    {
+      "t": "2022-03-27",
+      "priceUsd": 1.138e-8,
+      "liquidityUsd": 13715101,
+      "volumeUsd": 6537903
+    },
+    {
+      "t": "2022-03-28",
+      "priceUsd": 1.615e-8,
+      "liquidityUsd": 16393067,
+      "volumeUsd": 11807368
+    },
+    {
+      "t": "2022-03-29",
+      "priceUsd": 1.373e-8,
+      "liquidityUsd": 15462201,
+      "volumeUsd": 7468013
+    },
+    {
+      "t": "2022-03-30",
+      "priceUsd": 1.274e-8,
+      "liquidityUsd": 14949791,
+      "volumeUsd": 4193547
+    },
+    {
+      "t": "2022-03-31",
+      "priceUsd": 1.26e-8,
+      "liquidityUsd": 14627533,
+      "volumeUsd": 3051517
+    },
+    {
+      "t": "2022-04-01",
+      "priceUsd": 1.275e-8,
+      "liquidityUsd": 15112888,
+      "volumeUsd": 3265883
+    },
+    {
+      "t": "2022-04-02",
+      "priceUsd": 1.153e-8,
+      "liquidityUsd": 14382527,
+      "volumeUsd": 4981078
+    },
+    {
+      "t": "2022-04-03",
+      "priceUsd": 1.154e-8,
+      "liquidityUsd": 14550906,
+      "volumeUsd": 4097759
+    },
+    {
+      "t": "2022-04-04",
+      "priceUsd": 1.093e-8,
+      "liquidityUsd": 14763070,
+      "volumeUsd": 3947115
+    },
+    {
+      "t": "2022-04-05",
+      "priceUsd": 1.055e-8,
+      "liquidityUsd": 14644175,
+      "volumeUsd": 3443641
+    },
+    {
+      "t": "2022-04-06",
+      "priceUsd": 9.704e-9,
+      "liquidityUsd": 13550553,
+      "volumeUsd": 2865459
+    },
+    {
+      "t": "2022-04-07",
+      "priceUsd": 1.007e-8,
+      "liquidityUsd": 13951813,
+      "volumeUsd": 2285147
+    },
+    {
+      "t": "2022-04-08",
+      "priceUsd": 9.212e-9,
+      "liquidityUsd": 13248093,
+      "volumeUsd": 3004712
+    },
+    {
+      "t": "2022-04-09",
+      "priceUsd": 9.907e-9,
+      "liquidityUsd": 13910074,
+      "volumeUsd": 3185497
+    },
+    {
+      "t": "2022-04-10",
+      "priceUsd": 7.92e-9,
+      "liquidityUsd": 12356898,
+      "volumeUsd": 6602234
+    },
+    {
+      "t": "2022-04-11",
+      "priceUsd": 7.399e-9,
+      "liquidityUsd": 11541661,
+      "volumeUsd": 7696889
+    },
+    {
+      "t": "2022-04-12",
+      "priceUsd": 7.772e-9,
+      "liquidityUsd": 11928886,
+      "volumeUsd": 3444764
+    },
+    {
+      "t": "2022-04-13",
+      "priceUsd": 7.92e-9,
+      "liquidityUsd": 12226410,
+      "volumeUsd": 1460496
+    },
+    {
+      "t": "2022-04-14",
+      "priceUsd": 7.268e-9,
+      "liquidityUsd": 11534756,
+      "volumeUsd": 1196255
+    },
+    {
+      "t": "2022-04-15",
+      "priceUsd": 7.152e-9,
+      "liquidityUsd": 11477480,
+      "volumeUsd": 2876867
+    },
+    {
+      "t": "2022-04-16",
+      "priceUsd": 7.196e-9,
+      "liquidityUsd": 11574884,
+      "volumeUsd": 1015038
+    },
+    {
+      "t": "2022-04-17",
+      "priceUsd": 6.716e-9,
+      "liquidityUsd": 11037810,
+      "volumeUsd": 2095590
+    },
+    {
+      "t": "2022-04-18",
+      "priceUsd": 6.758e-9,
+      "liquidityUsd": 11222903,
+      "volumeUsd": 2414031
+    },
+    {
+      "t": "2022-04-19",
+      "priceUsd": 6.644e-9,
+      "liquidityUsd": 11205205,
+      "volumeUsd": 1137253
+    },
+    {
+      "t": "2022-04-20",
+      "priceUsd": 6.086e-9,
+      "liquidityUsd": 10678686,
+      "volumeUsd": 1257786
+    },
+    {
+      "t": "2022-04-21",
+      "priceUsd": 6.11e-9,
+      "liquidityUsd": 10544918,
+      "volumeUsd": 2069003
+    },
+    {
+      "t": "2022-04-22",
+      "priceUsd": 5.993e-9,
+      "liquidityUsd": 10408626,
+      "volumeUsd": 1230916
+    },
+    {
+      "t": "2022-04-23",
+      "priceUsd": 6.335e-9,
+      "liquidityUsd": 10615189,
+      "volumeUsd": 942767
+    },
+    {
+      "t": "2022-04-24",
+      "priceUsd": 6.148e-9,
+      "liquidityUsd": 10449941,
+      "volumeUsd": 987656
+    },
+    {
+      "t": "2022-04-25",
+      "priceUsd": 6.017e-9,
+      "liquidityUsd": 10487816,
+      "volumeUsd": 2400949
+    },
+    {
+      "t": "2022-04-26",
+      "priceUsd": 5.361e-9,
+      "liquidityUsd": 9563962,
+      "volumeUsd": 1052172
+    },
+    {
+      "t": "2022-04-27",
+      "priceUsd": 5.793e-9,
+      "liquidityUsd": 10090750,
+      "volumeUsd": 969361
+    },
+    {
+      "t": "2022-04-28",
+      "priceUsd": 6.029e-9,
+      "liquidityUsd": 10373834,
+      "volumeUsd": 1254504
+    },
+    {
+      "t": "2022-04-29",
+      "priceUsd": 6.132e-9,
+      "liquidityUsd": 10252363,
+      "volumeUsd": 1941059
+    },
+    {
+      "t": "2022-04-30",
+      "priceUsd": 5.7e-9,
+      "liquidityUsd": 9733472,
+      "volumeUsd": 757199
+    },
+    {
+      "t": "2022-05-01",
+      "priceUsd": 5.945e-9,
+      "liquidityUsd": 10123285,
+      "volumeUsd": 842225
+    },
+    {
+      "t": "2022-05-02",
+      "priceUsd": 5.854e-9,
+      "liquidityUsd": 10111317,
+      "volumeUsd": 569535
+    },
+    {
+      "t": "2022-05-03",
+      "priceUsd": 6.04e-9,
+      "liquidityUsd": 10130062,
+      "volumeUsd": 1832179
+    },
+    {
+      "t": "2022-05-04",
+      "priceUsd": 6.516e-9,
+      "liquidityUsd": 10815092,
+      "volumeUsd": 1912755
+    },
+    {
+      "t": "2022-05-05",
+      "priceUsd": 6.083e-9,
+      "liquidityUsd": 10106368,
+      "volumeUsd": 857858
+    },
+    {
+      "t": "2022-05-06",
+      "priceUsd": 5.923e-9,
+      "liquidityUsd": 9886937,
+      "volumeUsd": 573329
+    },
+    {
+      "t": "2022-05-07",
+      "priceUsd": 5.694e-9,
+      "liquidityUsd": 9590396,
+      "volumeUsd": 650976
+    },
+    {
+      "t": "2022-05-08",
+      "priceUsd": 5.47e-9,
+      "liquidityUsd": 9183949,
+      "volumeUsd": 745763
+    },
+    {
+      "t": "2022-05-09",
+      "priceUsd": 4.236e-9,
+      "liquidityUsd": 7620825,
+      "volumeUsd": 2019223
+    },
+    {
+      "t": "2022-05-10",
+      "priceUsd": 3.564e-9,
+      "liquidityUsd": 7170116,
+      "volumeUsd": 3591161
+    },
+    {
+      "t": "2022-05-11",
+      "priceUsd": 2.299e-9,
+      "liquidityUsd": 5442006,
+      "volumeUsd": 6236249
+    },
+    {
+      "t": "2022-05-12",
+      "priceUsd": 2.477e-9,
+      "liquidityUsd": 5494538,
+      "volumeUsd": 2018583
+    },
+    {
+      "t": "2022-05-13",
+      "priceUsd": 5.038e-9,
+      "liquidityUsd": 7951886,
+      "volumeUsd": 4870454
+    },
+    {
+      "t": "2022-05-14",
+      "priceUsd": 3.708e-9,
+      "liquidityUsd": 6928355,
+      "volumeUsd": 4647335
+    },
+    {
+      "t": "2022-05-15",
+      "priceUsd": 4.165e-9,
+      "liquidityUsd": 7495890,
+      "volumeUsd": 1046441
+    },
+    {
+      "t": "2022-05-16",
+      "priceUsd": 3.616e-9,
+      "liquidityUsd": 6785361,
+      "volumeUsd": 945403
+    },
+    {
+      "t": "2022-05-17",
+      "priceUsd": 3.439e-9,
+      "liquidityUsd": 6740074,
+      "volumeUsd": 1856706
+    },
+    {
+      "t": "2022-05-18",
+      "priceUsd": 2.938e-9,
+      "liquidityUsd": 5961846,
+      "volumeUsd": 2101253
+    },
+    {
+      "t": "2022-05-19",
+      "priceUsd": 3.18e-9,
+      "liquidityUsd": 6388973,
+      "volumeUsd": 4393391
+    },
+    {
+      "t": "2022-05-20",
+      "priceUsd": 3.392e-9,
+      "liquidityUsd": 6507751,
+      "volumeUsd": 1657164
+    },
+    {
+      "t": "2022-05-21",
+      "priceUsd": 3.538e-9,
+      "liquidityUsd": 6672380,
+      "volumeUsd": 484562
+    },
+    {
+      "t": "2022-05-22",
+      "priceUsd": 3.829e-9,
+      "liquidityUsd": 7065982,
+      "volumeUsd": 623198
+    },
+    {
+      "t": "2022-05-23",
+      "priceUsd": 3.458e-9,
+      "liquidityUsd": 6587520,
+      "volumeUsd": 727174
+    },
+    {
+      "t": "2022-05-24",
+      "priceUsd": 3.569e-9,
+      "liquidityUsd": 6711602,
+      "volumeUsd": 589517
+    },
+    {
+      "t": "2022-05-25",
+      "priceUsd": 3.652e-9,
+      "liquidityUsd": 6730282,
+      "volumeUsd": 436310
+    },
+    {
+      "t": "2022-05-26",
+      "priceUsd": 3.613e-9,
+      "liquidityUsd": 6432618,
+      "volumeUsd": 590060
+    },
+    {
+      "t": "2022-05-27",
+      "priceUsd": 4.428e-9,
+      "liquidityUsd": 6979298,
+      "volumeUsd": 3128875
+    },
+    {
+      "t": "2022-05-28",
+      "priceUsd": 5.502e-9,
+      "liquidityUsd": 7961509,
+      "volumeUsd": 2604140
+    },
+    {
+      "t": "2022-05-29",
+      "priceUsd": 5.096e-9,
+      "liquidityUsd": 7705495,
+      "volumeUsd": 1699956
+    },
+    {
+      "t": "2022-05-30",
+      "priceUsd": 4.73e-9,
+      "liquidityUsd": 7795462,
+      "volumeUsd": 3106801
+    },
+    {
+      "t": "2022-05-31",
+      "priceUsd": 4.753e-9,
+      "liquidityUsd": 7385470,
+      "volumeUsd": 696290
+    }
+  ],
+  "peak": {
+    "t": "2021-11-13",
+    "priceUsd": 1.466e-7
+  },
+  "collapse": {
+    "t": "2022-03-05",
+    "priceUsd": 1.359e-8,
+    "dropPct": 90.7
+  },
+  "buyersInWindow": {
+    "count": 38264,
+    "method": "Distinct addresses that received SAITAMA directly from the Uniswap V2 SAITAMA/WETH pair (ERC-20 Transfer events on the SAITAMA contract with from = pair, i.e. buys from the pool) during the SaitaMask launch countdown: from Kohli's \"6 more days to go\" post (2021-11-08, counted from 00:00 UTC) to the end of launch day 2021-11-13 (2021-11-08T00:00:00Z to 2021-11-13T23:59:59Z; blocks 13572494–13610713; 63,863 transfers out of the pair). The SEC says the four defendants sold large amounts in the weeks up to the launch, knowing the app was not ready (complaint ¶¶135–136). The router, the pair, the SushiSwap SAITAMA/WETH pair, the token contract itself, the zero and burn addresses are excluded; everything else is counted, including bots and aggregator contracts, and buys through other pools or the centralized exchanges Saitama later traded on are not seen. Sample: 12 buyers evenly spaced through the window in order of first purchase. Same method: 308 addresses bought from the pool during the July 3–4 coordinated buying (a count that may include the insiders' own wallets, which the SEC says they spread their buys across), and 185,970 from 2021-07-03 to 2021-11-16 (peak + 3 days).",
+    "sample": [
+      {
+        "address": "0x7bf382963b4bec516e886d0a35c8fdad6ea36894",
+        "firstBuy": "2021-11-08T00:01:55Z",
+        "txHash": "0x60312b675abf621bc9c31065efe49898aac890d6cab914e42f53f531d0fb2823"
+      },
+      {
+        "address": "0x2882a44d33f721a56d44d01520d29789ce850ccd",
+        "firstBuy": "2021-11-08T20:45:58Z",
+        "txHash": "0xf72f99d686ff2185a557000fab195a7b95f072464c5da6887398233d36a9ab78"
+      },
+      {
+        "address": "0x4a09f7e61a353aa0e9f60306167e4a10ca3435f4",
+        "firstBuy": "2021-11-09T23:58:59Z",
+        "txHash": "0xcee897179f3f97d59b390da4d3eaafe2ed6a9143a5fd4b1b99bd6629b4756538"
+      },
+      {
+        "address": "0x3dad8f9341255ceb7e129512ae790d90cec55105",
+        "firstBuy": "2021-11-11T01:49:48Z",
+        "txHash": "0xdcbbf5e6e7a3ccb9bb21106f9570bb520a14e932f4dc50fe389ebb80474e7496"
+      },
+      {
+        "address": "0x0430dcedd10edbce67d304ccbeea5fb157854cc7",
+        "firstBuy": "2021-11-11T20:11:37Z",
+        "txHash": "0xb3906cd6faeed3d518eb97148022b13c983fe854a48ca4884167d20d4dfcb641"
+      },
+      {
+        "address": "0x710366f2b2e981a7297f252117bf198b61bc8892",
+        "firstBuy": "2021-11-12T05:04:29Z",
+        "txHash": "0x6fd2c0bb117443214dc57c8159c239a506513c895a6663fe70520e9fb5b0924c"
+      },
+      {
+        "address": "0x0497746fc55244871abf39504f49230545596800",
+        "firstBuy": "2021-11-12T15:40:14Z",
+        "txHash": "0x4625e0fe3e27837a4e244343a01d954d7de36e178a1e2d98b3bdc3864835601a"
+      },
+      {
+        "address": "0x3a333b6f22cfc3ac46ab0cdb0b983c3cf7bada7a",
+        "firstBuy": "2021-11-12T22:14:28Z",
+        "txHash": "0xf7f4807f7697c7fbdc8fa0dfc9b6c70da53dcac69a53b9fa173266fc7f3250c6"
+      },
+      {
+        "address": "0x295d30ff0ca7d5b2d56a68b29438be3a2c9d11e7",
+        "firstBuy": "2021-11-13T04:31:50Z",
+        "txHash": "0x48faa829e8e7d1ba2a31a6dfa1ca989394d4f9e6ebfdbafd26e7283df1be5409"
+      },
+      {
+        "address": "0x49323cc2bd52cfda86a2fd067a9b06f464dc7570",
+        "firstBuy": "2021-11-13T09:04:34Z",
+        "txHash": "0x7092181d291488a2db18c3550be4491ef548477dae204cf7f8eddb480948d55c"
+      },
+      {
+        "address": "0x111ba5aa9782c4259effcaf464ce0e98a3944632",
+        "firstBuy": "2021-11-13T16:23:15Z",
+        "txHash": "0x4ba2aadcacecb60289b9512e41084d87db0261bb7b4dbaeed2a1b823fd3951d3"
+      },
+      {
+        "address": "0xabf9ef521cf42b60a540b9ffc6feebda04299b26",
+        "firstBuy": "2021-11-13T23:59:40Z",
+        "txHash": "0x5ffa3836c69cf2455064585f2a9dca07468f61f5abd5c06c9718754134cb486a"
+      }
+    ]
+  },
+  "legal": [
+    {
+      "id": "sec-saitama-2024",
+      "kind": "sec",
+      "title": "SEC v. Armand, Hernandez, Kohli and Tran (civil fraud and market-manipulation complaint), D. Mass. No. 1:24-cv-12586",
+      "date": "2024-10-09",
+      "summary": "The SEC sued Saitama's chief executive Russell Armand, technology chief Maxwell Hernandez, finance chief Manpreet Singh Kohli and business chief Nam Tran. It alleges they staged coordinated small buys on July 3–4, 2021 to \"create an illusion of massive buys and new holders\", paid so-called market makers (ZM Quant, at least $27,000; Gotbit) to wash trade, gamed the DEXTools trending list and then advertised the rankings, falsely claimed an \"anti-whale\" feature and regulator review, promoted a SaitaMask launch they knew was not ready, and told the public they were holding or buying while they sold. Per the complaint, from June 2021 through May 2022 they sold about $2.13 million (Armand), $10.97 million (Hernandez), $22.09 million (Kohli) and $14.56 million (Tran) of Saitama.",
+      "outcome": "Allegations, not findings. Armand and Hernandez consented to bifurcated settlements (injunctions and officer-and-director bars, with money to be decided by the court later), subject to court approval; Kohli and Tran did not settle at filing. Later docket events were not verified for this file.",
+      "statute": "Securities Act of 1933, Sections 5(a), 5(c) and 17(a); Securities Exchange Act of 1934, Sections 9(a)(2) (market manipulation) and 10(b), and Rule 10b-5",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+        },
+        {
+          "label": "SEC press release 2024-166 (Oct. 9, 2024): SEC Charges Three So-Called Market Makers and Nine Individuals in Crackdown on Manipulation of Crypto Assets",
+          "url": "https://www.sec.gov/newsroom/press-releases/2024-166"
+        },
+        {
+          "label": "SEC Litigation Release No. 26155 (Oct. 15, 2024): SEC v. Armand et al., No. 1:24-cv-12586-AK",
+          "url": "https://www.sec.gov/enforcement-litigation/litigation-releases/lr-26155"
+        }
+      ]
+    },
+    {
+      "id": "sec-pham-2024",
+      "kind": "sec",
+      "title": "SEC v. Vy Pham (civil complaint), D. Mass.",
+      "date": "2024-10-09",
+      "summary": "A separate SEC complaint against Vy Pham, who the SEC says took part in Saitama's launch in spring 2021 and in the July 2021 coordinated buying (\"How much are we gonna pump now?\"), then sold and left the project that summer; it also covers another token, Robo Inu.",
+      "outcome": "Pham consented to a bifurcated settlement, subject to court approval (per the SEC press release).",
+      "sources": [
+        {
+          "label": "SEC complaint, SEC v. Vy Pham (D. Mass., filed Oct. 9, 2024)",
+          "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-pham.pdf"
+        },
+        {
+          "label": "SEC press release 2024-166 (Oct. 9, 2024): SEC Charges Three So-Called Market Makers and Nine Individuals in Crackdown on Manipulation of Crypto Assets",
+          "url": "https://www.sec.gov/newsroom/press-releases/2024-166"
+        }
+      ]
+    },
+    {
+      "id": "doj-token-mirrors-2024",
+      "kind": "doj",
+      "title": "Parallel criminal case (\"Operation Token Mirrors\"), US Attorney for the District of Massachusetts",
+      "date": "2024-10-09",
+      "summary": "Unsealed the same day: criminal charges against 18 people and companies, including the market makers and Saitama executives, who prosecutors allege secretly sold their tokens for tens of millions of dollars while the token was manipulated to a market value of $7.5 billion. The FBI created its own token, NexFundAI, to catch market makers offering wash trading.",
+      "outcome": "Per the press report, five defendants had pleaded guilty or agreed to plead guilty when the case was announced (not specified which). Taken from a press report; the US Attorney's release itself could not be fetched for this file.",
+      "sources": [
+        {
+          "label": "Fortune (Oct. 9, 2024): FBI and DOJ charge crypto market makers and Saitama executives (\"Operation Token Mirrors\")",
+          "url": "https://fortune.com/crypto/2024/10/09/fbi-doj-crypto-market-manipulation-fraud-charges"
+        }
+      ]
+    },
+    {
+      "id": "kohli-extradition-2026",
+      "kind": "doj",
+      "title": "US v. Kohli: motion to dismiss denied in Boston; UK extradition challenge rejected",
+      "date": "2026-08-19",
+      "summary": "Kohli, arrested in London in 2024, is charged in Boston with wire fraud and market manipulation; prosecutors say he personally made about $20 million. Earlier in August 2026 a federal judge in Boston refused to dismiss the indictment (Kohli had argued Saitama is not a security). On August 19, 2026 a UK judge rejected his challenge to extradition and sent the case to British ministers.",
+      "outcome": "Pending; Kohli has not been convicted and can still appeal (per the press report).",
+      "sources": [
+        {
+          "label": "Crypto Briefing (Aug. 26, 2026): Crypto executive loses bid to block extradition to US on fraud charges",
+          "url": "https://cryptobriefing.com/crypto-ceo-extradition-uk-us-fraud/"
+        }
+      ]
+    }
+  ],
+  "dataNotes": [
+    "Contract: Saitama Inu (SAITAMA) 0x8b3192f5eebd8579568a2ed41e6feb402f93f73f, an ERC-20 token with 9 decimals and a total supply of 100 quadrillion (read on-chain; the complaint says \"approximately 100 quadrillion\"). The Uniswap V2 SAITAMA/WETH pair 0x9cbfb60a09a9a33a10312da0f39977cbdb7fde23 was created at 2021-05-30 12:24:31 UTC (block 12535727; PairCreated event on the Uniswap V2 factory). The complaint says Saitama \"initially traded on Uniswap, and later on numerous other platforms, including at various times Bybit, OKX, Gate, LBank, Bitmart, MEXC, and XT\" (¶67); only this pool is measured here. In mid-2022 the project replaced the token with a \"v2\" contract (complaint, footnote 5), so the series stops at 2022-05-31.",
+    "Prices: for each UTC day, the pair's reserves after its last Sync event that day; price in ETH = (WETH reserve / 10^18) / (SAITAMA reserve / 10^9). ETH/USD is the same end-of-day reading of the Uniswap V2 USDC/WETH pair 0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc; USDC is treated as $1. Liquidity = 2 x the pool's WETH reserve x ETH/USD. Volume = the WETH side of every Swap that day x that day's closing ETH/USD. 997,149 swaps were processed from 2021-05-30 to 2022-05-31 (blocks 12535727–14881676). The same code reproduces the published EMAX price series exactly (npx tsx scripts/build-case.mts emax --compare).",
+    "Window: pumpStart = 2021-07-03, the first day of the coordinated buying the SEC documents from the insiders' private Telegram chat (¶¶71–89). From the 2021-07-02 close ($2.968e-11) to the peak close on 2021-11-13 ($1.466e-7) the price rose 493,835%; 519,475 swaps and about $1,548,986,171 of volume went through this pool in that time. The complaint gives \"an increase of over 477,000 percent from July 2021\" to its all-time high (¶134). The pair opened at $2.46e-12 on 2021-05-30. Pool liquidity peaked at $42,884,476 on 2021-11-13.",
+    "July 3–4, 2021 (the SEC's coordinated-buying days): measured in ETH from every Sync of the pool, the price went from 1.381e-14 ETH just before 00:00 UTC July 3 to a high of 1.940e-14 ETH at 2021-07-04T20:40:47Z (+40.5%) and ended July 4 (UTC) at 1.558e-14 ETH (+12.8%). The complaint says the price \"increased by approximately 60 percent\" during the \"approximately two-day buying spree\" (¶73); its exact start and end times are not given, so this is a check of order of magnitude, not of the exact figure. 655 pool updates happened in those two days.",
+    "All-time high: the complaint gives $0.0000001394 on November 12, 2021 (¶134; the data source for that figure is not stated, likely an intraday aggregator price). In this pool the highest November 12 (UTC) reading was 3.0884e-11 ETH at 2021-11-12T20:01:09Z, about $1.441e-7 at that day's closing ETH price ($4,665); the November 12 close was $1.391e-7. The highest daily close in the series is $1.466e-7 on 2021-11-13.",
+    "After the peak: the complaint says that after the SaitaMask launch was delayed the price fell \"27 percent over two days, and 72 percent over the course of the following month\" (¶137, no dates given). In this pool's daily closes, two days after the peak close (2021-11-15) the price was 47% lower and thirty days after (2021-12-13) 73.2% lower.",
+    "Collapse: the first daily close at or below 10% of the peak close (a fall of 90% or more), the same mechanical rule as the EMAX case: 2022-03-05, $1.359e-8, 90.7% below the peak. Lowest close after the peak in the series: $2.299e-9 on 2022-05-11 (98.4% below peak); last point: $4.753e-9 on 2022-05-31. There was also an earlier crash inside the run-up: the close fell from $3.845e-9 (2021-07-30) to $7.691e-10 (2021-08-30), 80% down, before the climb to the November peak. Canary's collapse watcher looks for the first fall of 80% or more from the highest close so far, so it reports that earlier crash, not the fall after the peak.",
+    "SaitaMask countdown, daily view: the close went from $8.418e-8 on 2021-11-07 to $1.466e-7 on 2021-11-13 (+74.2%), with about $351,354,608 of volume through this pool from 2021-11-08 to 2021-11-13. Over roughly the same weeks (October 1 – November 12, 2021) the complaint says Armand, Hernandez, Tran and Kohli sold Saitama for about $369,000, $6,593,000, $8,337,000 and $6,520,000 (¶136).",
+    "Quotes: every post text is exactly what the SEC complaint puts inside quotation marks, including its [brackets], [sic], ellipses and any punctuation inside the quotes; the complaint may quote only part of a post. Emoji were transcribed from the complaint's printed images. Tran's October 23, 2021 post is reproduced in the complaint as a screenshot (handle @Ntran1234, \"1:26 AM · Oct 23, 2021\", time zone not shown), so its text is complete; the @Ntran1234 handle is taken from that screenshot and applied to his other posts. No source gives follower counts.",
+    "Posts without a quote: on November 2, 2021 Armand said in a YouTube interview that he had not used Saitama as a \"revenue stream\" or for \"personal gain\" (the complaint quotes only those words; by then, it says, he had sold about 32 trillion Saitama for more than $1 million); on November 13, 2021, launch day, he tweeted that the platform was ready and \"out of beta\". The January 2022 quote is from an \"ask me anything\" YouTube interview the complaint dates only to the month; Hernandez, Kohli and three others were on it.",
+    "disclosedPayment is null (\"unknown\") for every post: these promoters were not paid by someone else to post, so §17(b)'s duty to disclose a promoter's payment is not the theory here. What the SEC says they hid was their own selling (\"zero 👌 saitama sold\" on the day Armand sold 490 billion; \"I am buying more\" on a day Tran sold nearly 1.2 trillion net). The payments the SEC documents went the other way: at least $27,000 from the defendants to ZM Quant for \"creating artificial trading volume\" (¶94).",
+    "affiliation: every post carries the same affiliation (\"part of Saitama's leadership team, per the SEC complaint\") because the SEC says the four were Saitama LLC's officers and collectively controlled the official accounts (¶¶13–16, 49). Canary's convergence agent therefore counts them as ONE voice, not four independent promoters.",
+    "Holder concentration is left out: the 2021 token was replaced by a v2 contract in 2022, so today's holder list of this contract says nothing about who held it in 2021.",
+    "Criminal case: the details come from press reports (Fortune, Oct. 9, 2024; Crypto Briefing, Aug. 26, 2026). The US Attorney's own release (justice.gov) returned a bot challenge to our read-only fetch and was not read. No court document from the criminal case was read.",
+    "Rebuild: npx tsx scripts/build-case.mts saitama (add --fresh to bypass the local cache; set RPC_URL to use another archive node that returns blockTimestamp on logs)."
+  ],
+  "sources": [
+    {
+      "label": "SEC complaint, SEC v. Armand, Hernandez, Kohli and Tran, No. 1:24-cv-12586 (D. Mass., filed Oct. 9, 2024)",
+      "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-saitama.pdf"
+    },
+    {
+      "label": "SEC press release 2024-166 (Oct. 9, 2024): SEC Charges Three So-Called Market Makers and Nine Individuals in Crackdown on Manipulation of Crypto Assets",
+      "url": "https://www.sec.gov/newsroom/press-releases/2024-166"
+    },
+    {
+      "label": "SEC Litigation Release No. 26155 (Oct. 15, 2024): SEC v. Armand et al., No. 1:24-cv-12586-AK",
+      "url": "https://www.sec.gov/enforcement-litigation/litigation-releases/lr-26155"
+    },
+    {
+      "label": "SEC complaint, SEC v. Vy Pham (D. Mass., filed Oct. 9, 2024)",
+      "url": "https://www.sec.gov/files/litigation/complaints/2024/comp-pr2024-166-pham.pdf"
+    },
+    {
+      "label": "Fortune (Oct. 9, 2024): FBI and DOJ charge crypto market makers and Saitama executives (\"Operation Token Mirrors\")",
+      "url": "https://fortune.com/crypto/2024/10/09/fbi-doj-crypto-market-manipulation-fraud-charges"
+    },
+    {
+      "label": "Crypto Briefing (Aug. 26, 2026): Crypto executive loses bid to block extradition to US on fraud charges",
+      "url": "https://cryptobriefing.com/crypto-ceo-extradition-uk-us-fraud/"
+    },
+    {
+      "label": "Blockscout: Saitama Inu (SAITAMA) token contract",
+      "url": "https://eth.blockscout.com/token/0x8B3192f5eEBD8579568A2Ed41E6FEB402f93f73F"
+    },
+    {
+      "label": "Blockscout: Uniswap V2 SAITAMA/WETH pair",
+      "url": "https://eth.blockscout.com/address/0x9cbfb60a09A9a33a10312dA0f39977CbDb7fdE23"
+    },
+    {
+      "label": "Blockscout: Uniswap V2 USDC/WETH pair (ETH/USD reference)",
+      "url": "https://eth.blockscout.com/address/0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc"
+    },
+    {
+      "label": "Ethereum mainnet event logs via Tenderly public RPC gateway (eth_getLogs)",
+      "url": "https://mainnet.gateway.tenderly.co"
+    },
+    {
+      "label": "Build script that recomputes every on-chain number in this file",
+      "url": "scripts/build-case.mts"
+    }
+  ]
+}

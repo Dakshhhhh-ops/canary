@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any -- raw JSON-RPC and Blockscout replies are untyped; each field is checked where it is used. */
 /**
  * Rebuilds data/cases/emax.json — the EthereumMax (EMAX) case file — from public sources.
  *

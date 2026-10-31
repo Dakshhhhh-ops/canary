@@ -14,6 +14,7 @@ import { appendFileSync } from "node:fs";
 import { runLive } from "../../src/lib/engine/pipeline";
 import { RyoClient } from "../../src/lib/engine/ryo";
 import { parseLimits } from "../../src/lib/radar/limits";
+import { SocialCollector } from "../../src/lib/social/collect";
 import { ledgerLossToday, openSymbols, reachedRyo, readLedger, saveRun } from "../../src/lib/radar/store";
 
 // liquid majors, plus a couple of memecoins so the desk has something to refuse
@@ -52,6 +53,8 @@ async function main() {
     return 3;
   }
 
+  const social = new SocialCollector();
+  console.log(`Social sources: ${social.enabled ? social.config.sources.join(", ") : "off"}`);
   const lossTodayUsd = await ledgerLossToday();
   console.log(`Looking at ${symbols.join(", ")}${held.length ? ` (open positions: ${held.join(", ")})` : ""}; realised loss today ${lossTodayUsd}`);
   const run = await runLive(symbols, {
@@ -61,6 +64,7 @@ async function main() {
     limits: parsed.limits,
     dip: { stopPct: parsed.stopPct },
     lossTodayUsd,
+    social,
     onStep: (e) => console.log(`  [${e.entry.seq}] ${e.step.padEnd(9)} ${e.entry.summary}`),
   });
 
@@ -69,7 +73,7 @@ async function main() {
     return 3;
   }
 
-  const saved = await saveRun({ run, rawRyo: ryo.log, trigger });
+  const saved = await saveRun({ run, rawRyo: ryo.log, rawSocial: social.log, trigger });
   const ledger = await readLedger();
   const accepted = run.perSymbol.filter((p) => p.trade.decision === "accepted").map((p) => p.symbol);
   summary(
@@ -78,6 +82,9 @@ async function main() {
       `- saved: data/radar/runs/${saved.file}`,
       `- RYO: ${run.ryo.calls.filter((c) => c.ok).length}/${run.ryo.calls.length} calls answered · catalog: ${run.catalog.source} (${run.catalog.tools.length} tools)`,
       `- practice trades accepted: ${accepted.join(", ") || "none"} · refused: ${run.perSymbol.length - accepted.length}`,
+      run.social
+        ? `- live posts: ${run.social.posts.length} about the coins from ${run.social.sources.filter((x) => x.answered > 0).map((x) => x.label).join(", ") || "no source"} · ${run.social.perSymbol.filter((p) => p.convergence).map((p) => `${p.symbol}: ${p.convergence!.promoters} promoters, ${p.convergence!.independentVoices} independent`).join("; ") || "no convergence"}`
+        : "- live posts: not collected",
       `- gaps recorded: ${run.gaps.length} · trail head ${run.headHash.slice(0, 16)}… (${run.trail.length} steps, ${run.trailOk ? "verified" : "BROKEN"})`,
       ledger
         ? `- ledger: ${ledger.state.positions.length} open, ${ledger.state.closed.length} closed, realised ${ledger.state.totals.realisedUsd} USD, unrealised ${ledger.state.totals.unrealisedUsd} USD (+${saved.ledger?.added ?? 0} entries)`

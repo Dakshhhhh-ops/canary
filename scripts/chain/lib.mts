@@ -249,17 +249,22 @@ export function writeJson(path: string, value: unknown) {
 /** Pulls the canary-watch log lines (and any reported tx hashes) out of `cre workflow simulate` output. */
 export function parseSimOutput(out: string) {
   const g = (re: RegExp) => out.match(re);
-  const snap = g(/Snapshot case=(0x[0-9a-fA-F]{64}) (\S+) level=(\d) promoters=(\d+) liquidityBefore=\$([\d.e+]+) liquidityNow\(app\)=\$([\d.e+]+)/);
+  // The CRE simulator drops a `level=N` pair from user log lines (it reads it as the log level), so the workflows
+  // now log `caseLevel=N`; older output has neither. The level group is optional and falls back to the result JSON.
+  const LVL = String.raw`(?:(?:caseLevel|level)=(\d+) )?`;
+  const snap = g(new RegExp(String.raw`Snapshot case=(0x[0-9a-fA-F]{64}) (\S+) ${LVL}promoters=(\d+) liquidityBefore=\$([\d.e+]+) liquidityNow\(app\)=\$([\d.e+]+)`));
   const pool = g(/On-chain (\S+) pair (0x[0-9a-fA-F]{40}): (\S+) reserve=(\d+) price=(\d+) => liquidity=\$([\d.e+]+)/);
   const decision = g(/Decision: alert=(true|false) collapse=(true|false)(?: \(drop ([\d.]+)% vs threshold ([\d.]+)%\))?/);
-  const known = g(/Registry already has: level=(\d+) trail=(0x[0-9a-fA-F]+) collapsed=(true|false)/);
+  const known = g(new RegExp(String.raw`Registry already has: ${LVL}trail=(0x[0-9a-fA-F]+) collapsed=(true|false)`));
   const writes: OnchainTx[] = [];
-  // canary-watch logs "Alert|Collapse written to CanaryRegistry, tx 0x…"; canary-claims "Claim verification written to …"
-  for (const m of out.matchAll(/\b(Claim verification|[A-Za-z][\w-]*) written to \w+, tx (0x[0-9a-fA-F]{64})/g)) {
+  // canary-watch logs "Alert|Collapse written to CanaryRegistry, tx 0x…"; canary-claims "Claim verification written to …";
+  // canary-anchor "Claim custody written to …"
+  for (const m of out.matchAll(/\b(Claim verification|Claim custody|[A-Za-z][\w-]*) written to \w+, tx (0x[0-9a-fA-F]{64})/g)) {
     writes.push({ kind: m[1].toLowerCase().replace(/\s+/g, "-"), hash: m[2].toLowerCase() });
   }
   let result: Record<string, unknown> | null = null;
-  const rj = out.match(/\{\\?"caseId\\?"[^\n]*\}/);
+  // one case ({"caseId":…}), or canary-watch's list mode ({"mode":"list",…})
+  const rj = out.match(/\{\\?"(?:caseId|mode)\\?"[^\n]*\}/);
   if (rj) {
     try {
       result = JSON.parse(rj[0].includes('\\"') ? rj[0].replace(/\\"/g, '"') : rj[0]);
@@ -270,12 +275,35 @@ export function parseSimOutput(out: string) {
   // fallback: tx hashes listed in the workflow's result JSON but not logged with a kind
   const txs = Array.isArray(result?.txs) ? (result!.txs as string[]) : [];
   for (const h of txs) if (/^0x[0-9a-fA-F]{64}$/.test(h) && !writes.some((w) => w.hash === h.toLowerCase())) writes.push({ kind: "report", hash: h.toLowerCase() });
+  const firstCase = Array.isArray(result?.cases) ? (result!.cases as { level?: unknown }[])[0] : result;
+  const resultLevel = typeof firstCase?.level === "number" ? firstCase.level : null;
   return {
-    fixture: /Using fixtureSnapshot from config/.test(out),
-    snap: snap && { caseId: snap[1], symbol: snap[2], level: Number(snap[3]), promoters: Number(snap[4]), beforeUsd: Number(snap[5]), nowAppUsd: Number(snap[6]) },
+    fixture: /Using fixtureSnapshots? from config/.test(out),
+    list: (() => {
+      const m = out.match(/Watch list: (\d+) case\(s\) \[([^\]]*)\]; this run \(turn (\d+)\) takes (\d+)/);
+      return m && { listed: Number(m[1]), symbols: m[2] ? m[2].split(", ") : [], turn: Number(m[3]), taken: Number(m[4]) };
+    })(),
+    custody: (() => {
+      const m = out.match(/ClaimAnchored case=(0x[0-9a-fA-F]{64}) evidence=(0x[0-9a-fA-F]{64}) tx=(0x[0-9a-fA-F]{64}) block=(\d+)/);
+      const k = out.match(new RegExp(String.raw`Case at filing: (.+?) ${LVL}trail=(0x[0-9a-fA-F]{64}) collapsed=(true|false) verifiedPurchases=(\d+)`));
+      const pool = out.match(/Pool at filing: (\S+) block (\d+) pair (0x[0-9a-fA-F]{40}): (\S+) reserve=(\d+) price=(\d+) => liquidity=\$([\d.e+]+)/);
+      return (
+        m && {
+          caseId: m[1],
+          evidenceHash: m[2],
+          anchorTx: m[3],
+          anchorBlock: m[4],
+          atFiling: k && { symbol: k[1], level: k[2] ? Number(k[2]) : resultLevel, trail: k[3], collapsed: k[4] === "true", verifiedPurchases: Number(k[5]) },
+          pool: pool && { chain: pool[1], block: pool[2], pair: pool[3], quote: pool[4], liquidityUsd: Number(pool[7]) },
+          observeOnly: /deployed before report kind 4/.test(out),
+          alreadyRecorded: /Custody already recorded/.test(out),
+        }
+      );
+    })(),
+    snap: snap && { caseId: snap[1], symbol: snap[2], level: snap[3] ? Number(snap[3]) : resultLevel, promoters: Number(snap[4]), beforeUsd: Number(snap[5]), nowAppUsd: Number(snap[6]) },
     pool: pool && { chain: pool[1], pair: pool[2], quote: pool[3], reserve: BigInt(pool[4]), price: BigInt(pool[5]), liquidityUsd: Number(pool[6]) },
     decision: decision && { alert: decision[1] === "true", collapse: decision[2] === "true", drop: decision[3] ? Number(decision[3]) : null, threshold: decision[4] ? Number(decision[4]) : null },
-    known: known && { level: Number(known[1]), trail: known[2], collapsed: known[3] === "true" },
+    known: known && { level: known[1] ? Number(known[1]) : null, trail: known[2], collapsed: known[3] === "true" },
     observeOnly: /observe-only mode/.test(out),
     writes: writes.filter((w) => !/^0x0+$/.test(w.hash)),
     result,

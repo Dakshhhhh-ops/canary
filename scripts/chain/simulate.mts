@@ -10,10 +10,14 @@
 //   4. writes cre/SIMULATION.md (redacted full output + what each step did, in plain words) and appends
 //      the run and its transaction hashes to data/onchain.json, then refreshes README.md
 //
-// --target local-settings reads the snapshot from the app running locally (config.local.json snapshotUrl,
-// default http://localhost:3100/api/watch/snapshot?case=emax; --url http://localhost:3000 changes it).
-// --target production-settings --url https://your-app sets config.production.json snapshotUrl to
-// <url>/api/watch/snapshot?case=emax first.
+// --target local-settings reads the watch list from the app running locally (config.local.json snapshotListUrl,
+// default http://localhost:3100/api/watch/snapshot?list=1; --url http://localhost:3000 changes it).
+// --target production-settings --url https://your-app sets config.production.json snapshotUrl/snapshotListUrl to
+// <url>/api/watch/snapshot?case=emax and ?list=1 first. If the app has WATCH_TOKEN set, put the same value in
+// CANARY_WATCH_TOKEN (cre/.env or .env.local): it is the WATCH_TOKEN secret the workflow sends as a bearer token.
+//
+// --workflow canary-anchor runs the EVM log-trigger workflow on a real ClaimAnchored transaction:
+// [-- --evm-tx-hash 0x…] [-- --evm-event-index 0] (default: the demo claim's anchor on Sepolia, log 0).
 import { spawn, spawnSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -55,10 +59,16 @@ console.log(`\nCanary · Chainlink CRE simulation (${workflow}, ${target}${broad
 
 if (!existsSync(join(wfDir, "workflow.yaml"))) fail(`No CRE workflow at cre/${workflow} (workflow.yaml missing).`);
 const cre = creExe();
+// The demo claim's ClaimAnchored log on Sepolia (written by canary-claims --broadcast; first log of the tx).
+const DEMO_ANCHOR_TX = "0x85473c9811d3e7a70d1e25187faa3298291aa61a9b12e3dc98d92a278905ae6c";
+const watchToken = () => envValue("CANARY_WATCH_TOKEN") ?? readEnvFile(P.creEnv).CANARY_WATCH_TOKEN ?? envValue("WATCH_TOKEN") ?? "";
 const creEnv = () => {
   const extra: Record<string, string> = { NO_COLOR: "1", TERM: "dumb" };
   const apiKey = envValue("CRE_API_KEY");
   if (apiKey) extra.CRE_API_KEY = apiKey;
+  // cre/secrets.yaml maps the WATCH_TOKEN secret to CANARY_WATCH_TOKEN; the simulator refuses to start when a
+  // secret's variable is undefined, so define it (empty = public fetch) unless cre/.env already does.
+  if (readEnvFile(P.creEnv).CANARY_WATCH_TOKEN === undefined) extra.CANARY_WATCH_TOKEN = watchToken();
   return toolEnv(extra);
 };
 
@@ -87,29 +97,39 @@ const cfgFile = TARGET_CONFIG[target];
 if (!cfgFile) fail(`Unknown target "${target}". Use staging-settings, local-settings or production-settings.`);
 const cfgPath = join(wfDir, cfgFile);
 if (!existsSync(cfgPath)) fail(`cre/${workflow}/${cfgFile} doesn't exist.`);
-const cfg = readJson<{ snapshotUrl?: string; registry?: { address?: string; chainName?: string }; liquidity?: { quoteTokens?: { symbol: string; decimals: number; feedDecimals: number; usdFeed: string }[] } }>(cfgPath);
+const cfg = readJson<{ snapshotUrl?: string; snapshotListUrl?: string; registry?: { address?: string; chainName?: string }; liquidity?: { quoteTokens?: { symbol: string; decimals: number; feedDecimals: number; usdFeed: string }[] } }>(cfgPath);
 
 const url = opt("url");
 if (url) {
   if (target === "staging-settings") fail("--url only applies to local-settings and production-settings (staging uses the inline EMAX fixture).");
+  if (cfg.snapshotUrl === undefined && cfg.snapshotListUrl === undefined) fail(`--url doesn't apply to ${workflow} (it reads no snapshot).`);
   if (!/^https?:\/\/[^\s]+$/.test(url)) fail(`--url must be an http(s) URL, got "${url}".`);
   const base = url.replace(/\/+$/, "").replace(/\/api\/watch\/snapshot.*$/, "");
   cfg.snapshotUrl = `${base}/api/watch/snapshot?case=${EMAX_SLUG}`;
+  if (cfg.snapshotListUrl !== undefined) cfg.snapshotListUrl = `${base}/api/watch/snapshot?list=1`;
   writeJson(cfgPath, cfg);
-  ok(`cre/${workflow}/${cfgFile} snapshotUrl → ${cfg.snapshotUrl}`);
+  ok(`cre/${workflow}/${cfgFile} snapshotUrl → ${cfg.snapshotUrl}${cfg.snapshotListUrl ? `, snapshotListUrl → ${cfg.snapshotListUrl}` : ""}`);
 }
-if (cfg.snapshotUrl?.includes("YOUR-CANARY-APP")) fail(`cre/${workflow}/${cfgFile} still has the placeholder URL. Pass --url https://<your deployed Canary app>.`);
-if (target === "production-settings" && cfg.snapshotUrl && !cfg.snapshotUrl.startsWith("https://")) fail("production-settings needs an https:// URL (--url https://…).");
+// list mode (snapshotListUrl) wins over the single case, as in the workflow
+const readUrl = cfg.snapshotListUrl || cfg.snapshotUrl;
+if (readUrl?.includes("YOUR-CANARY-APP")) fail(`cre/${workflow}/${cfgFile} still has the placeholder URL. Pass --url https://<your deployed Canary app>.`);
+if (target === "production-settings" && readUrl && !readUrl.startsWith("https://")) fail("production-settings needs an https:// URL (--url https://…).");
 
-if (cfg.snapshotUrl) {
-  // fail early and clearly if the app isn't serving the snapshot
+if (readUrl) {
+  // fail early and clearly if the app isn't serving the snapshot (or the list)
   try {
-    const r = await fetch(cfg.snapshotUrl, { signal: AbortSignal.timeout(20_000) });
-    const j = (await r.json()) as { caseId?: string; symbol?: string; level?: number };
-    if (!r.ok || !j.caseId) throw new Error(`HTTP ${r.status}`);
-    ok(`Snapshot reachable: ${j.symbol} level ${j.level} (${cfg.snapshotUrl})`);
+    const token = watchToken();
+    const r = await fetch(readUrl, { signal: AbortSignal.timeout(20_000), headers: token ? { authorization: `Bearer ${token}` } : {} });
+    if (r.status === 401) throw new Error("HTTP 401: the app has WATCH_TOKEN set; put the same value in CANARY_WATCH_TOKEN (cre/.env)");
+    const j = (await r.json()) as { caseId?: string; symbol?: string; level?: number; cases?: { symbol: string; level: number }[] };
+    if (!r.ok || (cfg.snapshotListUrl ? !Array.isArray(j.cases) : !j.caseId)) throw new Error(`HTTP ${r.status}`);
+    ok(
+      j.cases
+        ? `Watch list reachable: ${j.cases.length} case(s) ${j.cases.map((c) => `${c.symbol} (level ${c.level})`).join(", ")} (${readUrl})${token ? " · with the WATCH_TOKEN bearer token" : ""}`
+        : `Snapshot reachable: ${j.symbol} level ${j.level} (${readUrl})`,
+    );
   } catch (e) {
-    fail(`The workflow reads ${cfg.snapshotUrl}, but it isn't answering (${(e as Error).message}).${target === "local-settings" ? "\n  Start the app (npm run dev) or pass --url http://localhost:<port>." : ""}`);
+    fail(`The workflow reads ${readUrl}, but it isn't answering (${(e as Error).message}).${target === "local-settings" ? "\n  Start the app (npm run dev) or pass --url http://localhost:<port>." : ""}`);
   }
 } else if (cfg.snapshotUrl === "") {
   ok("Snapshot: inline fixtureSnapshot (the app's real EMAX verdict, saved in the config)");
@@ -168,6 +188,9 @@ function simulate(withBroadcast: boolean): Promise<Captured> {
   if (useWasm) a.push("--wasm", `./${workflow}/binary.wasm`);
   const payload = opt("http-payload"); // HTTP-triggered workflows (canary-claims): JSON string or path to a JSON file
   if (payload) a.push("--http-payload", payload);
+  // EVM log-triggered workflows (canary-anchor): the transaction and log index that fire the trigger
+  const txHash = opt("evm-tx-hash") ?? (workflow === "canary-anchor" ? DEMO_ANCHOR_TX : undefined);
+  if (txHash) a.push("--evm-tx-hash", txHash, "--evm-event-index", opt("evm-event-index") ?? "0");
   if (withBroadcast) a.push("--broadcast");
   const command = `cre ${a.join(" ")}`;
   console.log(`\n$ ${command}\n`);
@@ -208,7 +231,7 @@ if (failed(dry) && useWasm) {
 }
 runs.push(dry);
 if (failed(dry)) fail(`The dry-run simulation failed (exit ${dry.code}). Nothing was recorded; cre/SIMULATION.md is unchanged.`);
-if (workflow === "canary-watch" && !/Decision: alert=/.test(dry.output)) fail("The simulation finished but the workflow's decision line is missing from the output, so it wasn't recorded. Check the output above.");
+if (workflow === "canary-watch" && !/Decision: alert=|Watch list: 0 case/.test(dry.output)) fail("The simulation finished but the workflow's decision line is missing from the output, so it wasn't recorded. Check the output above.");
 let bc: Captured | null = null;
 if (broadcast) {
   bc = await simulate(true);
@@ -244,6 +267,30 @@ if (pb) {
 const usd = (n: number) => `$${n.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
 const LEVEL = ["no signal", "suspicious", "pump-and-dump", "collapsed"];
 function explain(p: Parsed, wasBroadcast: boolean): string[] {
+  if (workflow === "canary-anchor" && p.custody) {
+    const c = p.custody;
+    const s: string[] = [];
+    s.push(
+      `1. **Trigger (EVM log).** The log trigger on CanaryRegistry \`${registry}\` fired on \`ClaimAnchored\` for case \`${c.caseId}\`, evidence \`${c.evidenceHash}\`, from Sepolia transaction [\`${c.anchorTx}\`](https://sepolia.etherscan.io/tx/${c.anchorTx}) in block ${c.anchorBlock}.`,
+    );
+    if (c.alreadyRecorded) s.push("2. **EVM read, Sepolia.** `getClaimCustody` showed a custody record already exists for this claim, so nothing more was read or written.");
+    else if (c.atFiling)
+      s.push(
+        `2. **EVM read, Sepolia.** \`claimAnchoredAt\`, \`getCase\` and \`getClaimVerification\`: when the claim was filed the case stood at ${c.atFiling.symbol}, level ${c.atFiling.level} (${LEVEL[c.atFiling.level ?? -1] ?? "?"}), reasoning trail \`${c.atFiling.trail}\`, collapse ${c.atFiling.collapsed ? "recorded" : "not recorded"}, ${c.atFiling.verifiedPurchases} purchase(s) confirmed by canary-claims.`,
+      );
+    if (c.pool)
+      s.push(
+        `3. **EVM read, Ethereum mainnet (finalized block ${c.pool.block}, pinned by number).** The Uniswap V2 factory's \`getPair\` found pool \`${c.pool.pair}\`; \`token0\`, \`getReserves\` and the Chainlink ${c.pool.quote === "WETH" ? "ETH" : c.pool.quote}/USD feed put **${usd(c.pool.liquidityUsd)}** in it when the claim was filed.`,
+      );
+    s.push(
+      c.observeOnly
+        ? "4. **Registry.** This registry was deployed before report kind 4 (it has no `getClaimCustody`), so the run was observe-only: it built the custody report and logged it, but wrote nothing. `npm run chain:setup` deploys the current contract."
+        : wasBroadcast
+          ? `4. **EVM write, Sepolia.** A DON-signed claim-custody report (kind 4) → \`writeReport\` → forwarder → \`CanaryRegistry.onReport\`: ${p.writes.map((w) => `[\`${w.hash}\`](https://sepolia.etherscan.io/tx/${w.hash})${w.status ? ` (${w.status})` : ""}`).join(", ") || "nothing new to write"}.`
+          : "4. **EVM write.** Dry run: the custody report was built and signed by the simulated DON; the write was simulated, not sent.",
+    );
+    return s;
+  }
   if (workflow !== "canary-watch") {
     return [
       `This is the \`${workflow}\` workflow; see its README for what each step does.`,
@@ -252,12 +299,16 @@ function explain(p: Parsed, wasBroadcast: boolean): string[] {
   }
   const s: string[] = [];
   s.push("1. **Trigger.** The cron trigger (index 0, every 10 minutes in production) fired once.");
+  if (p.list)
+    s.push(
+      `   **Watch list (HTTP + consensus).** Every node fetched \`${cfg.snapshotListUrl || "fixtureSnapshots"}\`; the canonical list had to be identical on every node. It holds ${p.list.listed} case(s) (${p.list.symbols.join(", ") || "none"}); this run (turn ${p.list.turn}) took ${p.list.taken}. The steps below show the first case; the full output has every case.`,
+    );
   if (p.snap) {
     const how = p.fixture
       ? "came from the inline `fixtureSnapshot` in `config.staging.json`: a byte-for-byte copy of what the Canary app serves at `/api/watch/snapshot?case=emax` (staging runs without the app). Run with `--target local-settings` or `production-settings` to exercise the HTTP fetch on every node."
       : `was fetched over HTTP from \`${cfg.snapshotUrl}\` by the HTTP capability on every node, and reduced with \`ConsensusAggregationByFields\`: case id, symbol, token, level, promoters, pair and trail hash had to be identical, the dollar figures took the median. In the simulator the same consensus code runs locally.`;
     s.push(
-      `2. **Snapshot (HTTP + consensus).** The verdict ${how} Agreed value: ${p.snap.symbol}, level ${p.snap.level} (${LEVEL[p.snap.level] ?? "?"}), ${p.snap.promoters} promoters, peak pool liquidity ${usd(p.snap.beforeUsd)}, case id \`${p.snap.caseId}\`.`,
+      `2. **Snapshot (HTTP + consensus).** The verdict ${how} Agreed value: ${p.snap.symbol}, level ${p.snap.level} (${LEVEL[p.snap.level ?? -1] ?? "?"}), ${p.snap.promoters} promoters, peak pool liquidity ${usd(p.snap.beforeUsd)}, case id \`${p.snap.caseId}\`.`,
     );
   }
   if (p.pool) {
@@ -280,7 +331,7 @@ function explain(p: Parsed, wasBroadcast: boolean): string[] {
   }
   if (p.observeOnly) s.push("5. **Registry.** `registry.address` was the zero address, so this run was observe-only: it decided and logged, and wrote nothing.");
   else {
-    if (p.known) s.push(`5. **EVM read, Sepolia.** \`statusOf(caseId)\` on CanaryRegistry \`${registry}\` returned level ${p.known.level}, collapsed=${p.known.collapsed}, so the workflow only sends what isn't recorded yet.`);
+    if (p.known) s.push(`5. **EVM read, Sepolia.** \`statusOf(caseId)\` on CanaryRegistry \`${registry}\` returned level ${p.known.level ?? "(not shown in the log)"}, collapsed=${p.known.collapsed}, so the workflow only sends what isn't recorded yet.`);
     if (wasBroadcast) {
       s.push(
         p.writes.length
